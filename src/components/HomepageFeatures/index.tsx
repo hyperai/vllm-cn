@@ -11,7 +11,7 @@ type FeatureItem = {
 const FeatureList: FeatureItem[] = [
   {
     title: "高效编程",
-    Svg: require("@site/static/img/1-High-efficiency.png").default,
+    Svg: require("@site/static/img/1-High-efficiency.svg").default,
     description: (
       <>
         vLLM 采用独特的 PagedAttention 技术和动态批处理机制，且支持并行采样、波束搜索等多种解码算法，极大提升了服务吞吐量和响应速度
@@ -20,7 +20,7 @@ const FeatureList: FeatureItem[] = [
   },
   {
     title: "实时编译",
-    Svg: require("@site/static/img/2Memory-Management.png").default,
+    Svg: require("@site/static/img/2Memory-Management.svg").default,
     description: (
       <>创新的内存管理与执行架构，通过将 kv 缓存分割为若干块进行精细管理，把内存浪费控制在序列的最后一块，能实现接近最优的内存使用且支持内存共享，浪费比例低至不到 4%
       </>
@@ -28,7 +28,7 @@ const FeatureList: FeatureItem[] = [
   },
   {
     title: "灵活的迭代空间结构",
-    Svg: require("@site/static/img/3-Flexible-user-friendly.png").default,
+    Svg: require("@site/static/img/3-Flexible-user-friendly.svg").default,
     description: (
       <>
         vLLM 可无缝集成各类模型，兼容 NVIDIA、AMD、Intel 等多种硬件平台 GPU 和 CPU，并提供简洁的接口和文档，易于上手
