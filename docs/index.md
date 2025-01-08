@@ -1,9 +1,10 @@
 ---
-title: 索引
+title: 欢迎来到 vLLM！
+sidebar_position: 0
 ---
 
 
-# 欢迎来到 vLLM!
+# 欢迎来到 vLLM！
 
 
 vLLM 是一个快速且易于使用的库，专为大型语言模型 (LLM) 的推理和部署而设计。
@@ -233,4 +234,3 @@ vLLM 的灵活性和易用性体现在以下方面：
 * [索引](https://vllm.hyper.ai/docs/indices-and-tables/index)
 
 * [模块索引](https://vllm.hyper.ai/docs/indices-and-tables/python-module-index)
-
