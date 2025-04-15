@@ -50,6 +50,12 @@ const config: Config = {
           // Remove this to remove the "edit this page" links.
           editUrl:
             "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/",
+          lastVersion: "current",
+          // versions: {
+          //   current: {
+          //     label: "0.8.x",
+          //   },
+          // },
           remarkPlugins: [remarkMath],
           rehypePlugins: [rehypeKatex],
         },
@@ -116,6 +122,11 @@ const config: Config = {
         //   label: 'GitHub',
         //   position: 'right',
         // },
+        {
+          type: 'docsVersionDropdown',
+          position: 'right',
+          dropdownActiveClassDisabled: true,
+        },
       ],
     },
     footer: {
