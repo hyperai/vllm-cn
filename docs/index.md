@@ -1,236 +1,338 @@
 ---
 title: 欢迎来到 vLLM！
+
 sidebar_position: 0
 ---
 
-
 # 欢迎来到 vLLM！
 
+![图片](/img/vllm-logo.png)
 
-vLLM 是一个快速且易于使用的库，专为大型语言模型 (LLM) 的推理和部署而设计。
+---
 
+vLLM 是一个快速、易于使用的 LLM 推理和服务库。
 
-vLLM 的核心特性包括：
+最初 vLLM 是在加州大学伯克利分校的[天空计算实验室 (Sky Computing Lab) ](https://sky.cs.berkeley.edu/)开发的，如今已发展成为一个由学术界和工业界共同贡献的社区驱动项目。
 
-* 最先进的服务吞吐量
+vLLM 具有以下功能：
 
-* 使用 **PagedAttention** 高效管理注意力键和值的内存
+- 最先进的服务吞吐量
 
-* 连续批处理传入请求
+- 使用 [PagedAttention](https://blog.vllm.ai/2023/06/20/vllm.html) 高效管理注意力键和值的内存
 
-* 使用 CUDA/HIP 图实现快速执行模型
+- 连续批处理传入请求
 
-* 量化： [GPTQ](https://arxiv.org/abs/2210.17323), [AWQ](https://arxiv.org/abs/2306.00978), INT4, INT8, 和 FP8
+- 使用 CUDA/HIP 图实现快速执行模型
 
-* 优化的 CUDA 内核，包括与 FlashAttention 和 FlashInfer 的集成
+- 量化：[GPTQ](https://arxiv.org/abs/2210.17323)、[AWQ](https://arxiv.org/abs/2306.00978)、INT4、INT8 和 FP8
 
-* 推测性解码
+- 优化 CUDA 内核，包括与 FlashAttention 和 FlashInfer 的集成
 
-* 分块预填充
+- 推测性解码
 
+- 分块预填充
 
-vLLM 的灵活性和易用性体现在以下方面：
+vLLM 在以下方面非常灵活且易于使用：
 
-* 无缝集成流行的 HuggingFace 模型
+- 无缝集成流行的 HuggingFace 模型
 
-* 具有高吞吐量服务以及各种解码算法，包括*并行采样*、*束搜索*等
+- 使用各种解码算法实现高吞吐量服务，包括*并行采样*、*束搜索*等
 
-* 支持张量并行和流水线并行的分布式推理
+- 支持张量并行和流水线并行的分布式推理
 
-* 流式输出
+- 流式输出
 
-* 提供与 OpenAI 兼容的 API 服务器
+- OpenAI 兼容 API 服务器
 
-* 支持 NVIDIA GPU、AMD CPU 和 GPU、Intel CPU 和 GPU、PowerPC CPU、TPU 以及 AWS Neuron
+- 支持 NVIDIA GPU、AMD CPU 和 GPU、Intel CPU 和 GPU、PowerPC CPU、TPU 以及 AWS Neuron
 
-* 前缀缓存支持
+- 前缀缓存支持
 
-* 支持多 LoRA
-
+- 多 LoRA 支持
 
 欲了解更多信息，请参阅以下内容：
 
-* [vLLM announcing blog post](https://vllm.ai) (PagedAttention 教程)
+- [vLLM announcing blog post](https://vllm.ai) (PagedAttention 教程)
 
-* [vLLM paper](https://arxiv.org/abs/2309.06180) (SOSP 2023)
+- [vLLM paper](https://arxiv.org/abs/2309.06180) (SOSP 2023)
 
-* [How continuous batching enables 23x throughput in LLM inference
-](https://www.anyscale.com/blog/continuous-batching-llm-inference) [while reducing p50
-](https://www.anyscale.com/blog/continuous-batching-llm-inference)[ ](https://www.anyscale.com/blog/continuous-batching-llm-inference)[latency](https://www.anyscale.com/blog/continuous-batching-llm-inference)
- by Cade Daniel et al.
+- [How continuous batching enables 23x throughput in LLM inference
+  ](https://www.anyscale.com/blog/continuous-batching-llm-inference) [while reducing p50
+  ](https://www.anyscale.com/blog/continuous-batching-llm-inference)[ ](https://www.anyscale.com/blog/continuous-batching-llm-inference)[latency](https://www.anyscale.com/blog/continuous-batching-llm-inference)
+  by Cade Daniel et al.
 
-* [vLLM 聚会](https://vllm.hyper.ai/docs/community/vllm-meetups)
-
+- [vLLM 会议](https://docs.vllm.ai/en/latest/community/meetups.html#meetups)
 
 ## 文档
 
 ### 入门
 
-[安装](https://vllm.hyper.ai/docs/getting-started/installation)
+安装
 
-[使用 ROCm 进行安装](https://vllm.hyper.ai/docs/getting-started/installation-with-rocm)
+快速开始
 
-[使用 OpenVINO 进行安装](https://vllm.hyper.ai/docs/getting-started/installation-with-openvino)
+示例
 
-[使用 CPU 进行安装](https://vllm.hyper.ai/docs/getting-started/installation-with-cpu)
+故障排除
 
-[使用 Neuron 进行安装](https://vllm.hyper.ai/docs/getting-started/installation-with-neuron)
-
-[使用 TPU 进行安装](https://vllm.hyper.ai/docs/getting-started/installation-with-tpu)
-
-[使用 XPU 进行安装](https://vllm.hyper.ai/docs/getting-started/installation-with-xpu)
-
-[快速入门](https://vllm.hyper.ai/docs/getting-started/quickstart)
-
-[调试提示](https://vllm.hyper.ai/docs/getting-started/debugging-tips)
-
-[示例](https://vllm.hyper.ai/docs/getting-started/examples/)
-
-
-### 部署
-
-[OpenAI 兼容服务器](https://vllm.hyper.ai/docs/serving/openai-compatible-server)
-
-[使用 Docker 部署](https://vllm.hyper.ai/docs/serving/deploying-with-docker)
-
-[分布式推理和服务](https://vllm.hyper.ai/docs/serving/distributed-inference-and-serving)
-
-[生产指标](https://vllm.hyper.ai/docs/serving/production-metrics)
-
-[环境变量](https://vllm.hyper.ai/docs/serving/environment-variables)
-
-[使用统计数据收集](https://vllm.hyper.ai/docs/serving/usage-stats-collection)
-
-[整合](https://vllm.hyper.ai/docs/serving/integrations/)
-
-[使用 CoreWeave 的 Tensorizer 加载模型](https://vllm.hyper.ai/docs/serving/tensorizer)
-
-[兼容性矩阵](https://vllm.hyper.ai/docs/serving/compatibility%20matrix)
-
-[常见问题解答](https://vllm.hyper.ai/docs/serving/frequently-asked-questions)
-
+常见问题
 
 ### 模型
 
-[支持的模型](https://vllm.hyper.ai/docs/models/supported-models)
+生成模型
 
-[添加新模型](https://vllm.hyper.ai/docs/models/adding-a-new-model)
+池化模型
 
-[启用多模态输入](https://vllm.hyper.ai/docs/models/enabling-multimodal-inputs)
+支持的模型清单
 
-[引擎参数](https://vllm.hyper.ai/docs/models/engine-arguments)
+内置扩展
 
-[使用 LoRA 适配器](https://vllm.hyper.ai/docs/models/using-lora-adapters)
+### 功能
 
-[使用 VLMs](https://vllm.hyper.ai/docs/models/using-vlms)
+量化
 
-[在 vLLM 中使用推测性解码](https://vllm.hyper.ai/docs/models/speculative-decoding-in-vllm)
+LoRA 适配器
 
-[性能和调优](https://vllm.hyper.ai/docs/models/performance-and-tuning)
+工具调用
 
+推理输出
 
-### 量化
+结构化输出
 
-[量化内核支持的硬件](https://vllm.hyper.ai/docs/quantization/supported_hardware)
+自动前缀缓存
 
-[AutoAWQ](https://vllm.hyper.ai/docs/quantization/autoawq)
+解耦 (Disaggregated) 预填充（实验性）
 
-[BitsAndBytes](https://vllm.hyper.ai/docs/quantization/bitsandbytes)
+推测解码
 
-[GGUF](https://vllm.hyper.ai/docs/quantization/gguf)
+兼容性矩阵
 
-[INT8 W8A8](https://vllm.hyper.ai/docs/quantization/int8-w8a8)
+### 推理与服务
 
-[FP8 W8A8](https://vllm.hyper.ai/docs/quantization/fp8-w8a8)
+离线推理
 
-[FP8 E5M2 KV 缓存](https://vllm.hyper.ai/docs/quantization/fp8-e5m2-kv-cache)
+兼容 OpenAI 的服务器
 
-[FP8 E4M3 KV 缓存](https://vllm.hyper.ai/docs/quantization/fp8-e4m3-kv-cache)
+多模态输入
 
+分布式推理与服务
 
-### 自动前缀缓存
+生产指标
 
-[简介](https://vllm.hyper.ai/docs/automatic-prefix-caching/introduction-apc)
+引擎参数
 
-[实现](https://vllm.hyper.ai/docs/automatic-prefix-caching/implementation)
+环境变量
 
-[广义缓存策略](https://vllm.hyper.ai/docs/automatic-prefix-caching/implementation)
+使用统计收集
 
-### 性能基准测试
+外部集成
 
-[vLLM 的基准套件](https://vllm.hyper.ai/docs/performance-benchmarks/benchmark-suites-of-vllm)
+### 部署
 
+使用 Docker
 
-### 开发者文档
+使用 Kubernetes
 
-[采样参数](https://vllm.hyper.ai/docs/developer-documentation/sampling-parameters)
+使用 Nginx
 
-[离线推理](https://vllm.hyper.ai/docs/developer-documentation/offline-inference/)
+使用其他框架
 
-- [LLM 类](https://vllm.hyper.ai/docs/developer-documentation/offline-inference/llm-class)
+外部集成
 
-- [LLM 输入](https://vllm.hyper.ai/docs/developer-documentation/offline-inference/llm-inputs)
+### 性能
 
-[vLLM 引擎](https://vllm.hyper.ai/docs/developer-documentation/vllm-engine/)
+优化与调优
 
-[LLM 引擎](https://vllm.hyper.ai/docs/developer-documentation/vllm-engine/)
+基准测试套件
 
-- [LLMEngine](https://vllm.hyper.ai/docs/developer-documentation/vllm-engine/llmengine)
+### 设计文档
 
-- [AsyncLLMEngine](https://vllm.hyper.ai/docs/developer-documentation/vllm-engine/asyncllmengine)
+架构概览
 
-[vLLM 分页注意力](https://vllm.hyper.ai/docs/developer-documentation/vllm-paged-attention)
+- 入口点
 
-- [输入处理](https://vllm.hyper.ai/docs/developer-documentation/vllm-paged-attention#%E8%BE%93%E5%85%A5)
+- LLM 引擎
 
-- [概念](https://vllm.hyper.ai/docs/developer-documentation/vllm-paged-attention#%E6%A6%82%E5%BF%B5)
+- 工作进程 (Worker)
 
-- [查询](https://vllm.hyper.ai/docs/developer-documentation/vllm-paged-attention#%E8%AF%A2%E9%97%AE-query)
+- 模型运行 (Model Runner)
 
-- [键](https://vllm.hyper.ai/docs/developer-documentation/vllm-paged-attention#%E9%94%AE-key)
+- 模型
 
-- [QK](https://vllm.hyper.ai/docs/developer-documentation/vllm-paged-attention#qk)
+- 类层次结构
 
-- [Softmax](https://vllm.hyper.ai/docs/developer-documentation/vllm-paged-attention#softmax)
+与 HuggingFace 集成
 
-- [值](https://vllm.hyper.ai/docs/developer-documentation/vllm-paged-attention#%E5%80%BC)
+vLLM 插件系统
 
-- [LV](https://vllm.hyper.ai/docs/developer-documentation/vllm-paged-attention#lv)
+- 插件在 vLLM 中的工作原理
 
-- [输出](https://vllm.hyper.ai/docs/developer-documentation/vllm-paged-attention#%E8%BE%93%E5%87%BA)
+- vLLM 如何发现插件
 
-[输入处理](https://vllm.hyper.ai/docs/developer-documentation/input-processing/model_inputs_index)
+- 支持的插件类型
 
-- [指南](https://vllm.hyper.ai/docs/developer-documentation/input-processing/model_inputs_index#%E6%8C%87%E5%8D%97)
+- 插件编写指南
 
-- [模块内容](https://vllm.hyper.ai/docs/developer-documentation/input-processing/model_inputs_index#%E6%A8%A1%E5%9D%97%E5%86%85%E5%AE%B9)
+- 兼容性保证
 
-[多模态](https://vllm.hyper.ai/docs/developer-documentation/multi-modality/)
+vLLM 分页注意力
 
-- [指南](https://vllm.hyper.ai/docs/developer-documentation/multi-modality/#%E6%8C%87%E5%8D%97)
+- 输入
 
-- [模块内容](https://vllm.hyper.ai/docs/developer-documentation/multi-modality/#%E6%A8%A1%E5%9D%97%E5%86%85%E5%AE%B9)
+- 概念
 
-[Docker 文件](https://vllm.hyper.ai/docs/developer-documentation/dockerfile)
+- 查询
 
-[vLLM 性能分析](https://vllm.hyper.ai/docs/developer-documentation/profiling-vllm)
+- 键
 
-- [示例命令和用法](https://vllm.hyper.ai/docs/developer-documentation/profiling-vllm#%E5%91%BD%E4%BB%A4%E5%92%8C%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B)
+- QK
 
-- [离线推理](https://vllm.hyper.ai/docs/developer-documentation/profiling-vllm#%E7%A6%BB%E7%BA%BF%E6%8E%A8%E7%90%86)
+- Softmax
 
-- [OpenAI 服务器](https://vllm.hyper.ai/docs/developer-documentation/profiling-vllm#openai-%E6%9C%8D%E5%8A%A1%E5%99%A8)
+- 值
 
+- LV
 
-## 社区
+- 输出
 
-[vLLM 聚会](https://vllm.hyper.ai/docs/community/vllm-meetups)
+多模态数据处理
 
-[赞助商](https://vllm.hyper.ai/docs/community/sponsors)
+- 提示替换检测
 
+- 标记化提示输入
 
-# [索引和表格](https://vllm.hyper.ai/docs/indices-and-tables/index)
+- 处理器输出缓存
 
-* [索引](https://vllm.hyper.ai/docs/indices-and-tables/index)
+自动前缀缓存
 
-* [模块索引](https://vllm.hyper.ai/docs/indices-and-tables/python-module-index)
+- 通用缓存策略
+
+Python 多进程
+
+- 调试
+
+- 介绍
+
+- 多进程方法
+
+- 依赖项兼容性
+
+- 当前状态 (v0)
+
+- v1 之前的状态
+
+- 考虑的替代方案
+
+- 未来工作
+
+### V1 设计文档
+
+自动前缀缓存
+
+- 数据结构
+
+- 操作
+
+- 示例
+
+指标
+
+- 目标
+
+- 背景
+
+- v1 设计
+
+- 已弃用的量度
+
+- 未来的工作
+
+- 跟踪 OpenTelemetry
+
+### 开发者指南
+
+为 vLLM 做出贡献
+
+- 许可证
+
+- 开发
+
+- 测试
+
+- 问题
+
+- 拉取请求与代码审查
+
+- 感谢
+
+vLLM 性能分析
+
+- 使用 PyTorch Profiler 进行分析
+
+- 使用 NVIDIA Nsight Systems 进行配置文件
+
+Dockerfile
+
+添加新模型
+
+- 基本模型实现
+
+- 在 vLLM 中注册模型
+
+- 编写单元测试
+
+- 多模态支持
+
+漏洞管理
+
+- 报告漏洞
+
+- 漏洞管理团队
+
+- Slack 讨论
+
+- 漏洞披露
+
+### API 参考
+
+离线推理
+
+- LLM 类
+
+- LLM 输入
+
+vLLM 引擎
+
+- LLMEngine
+
+- AsyncLLMEngine
+
+推理参数
+
+- 采样参数
+
+- 池化参数
+
+多模态
+
+- 模块内容
+
+- 子模块
+
+模型开发
+
+- 子模块
+
+### 社区
+
+vLLM 博客
+
+vLLM 见面会
+
+赞助商
+
+# 索引和表格
+
+- 索引
+
+- 模块索引
