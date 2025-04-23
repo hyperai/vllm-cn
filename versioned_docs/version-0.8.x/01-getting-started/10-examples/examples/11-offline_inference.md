@@ -2,7 +2,6 @@
 title: API Client
 ---
 
-
 源代码: [vllm-project/vllm](https://raw.githubusercontent.com/vllm-project/vllm/main/examples/offline_inference.py)
 
 ```python
@@ -35,5 +34,3 @@ for output in outputs:
     generated_text = output.outputs[0].text
     print(f"Prompt: {prompt!r}, Generated text: {generated_text!r}")
 ```
-
-

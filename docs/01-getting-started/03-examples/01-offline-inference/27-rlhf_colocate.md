@@ -2,7 +2,7 @@
 title: Rlhf Colocate
 ---
 
-[*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
+[\*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
 
 源码 [examples/offline_inference/rlhf_colocate.py](https://github.com/vllm-project/vllm/blob/main/examples/offline_inference/rlhf_colocate.py)
 
@@ -31,11 +31,11 @@ from vllm import LLM
 class MyLLM(LLM):
 
     def __init__(self, *args, bundle_indices: list, **kwargs):
-        
+
         # 临时方案使脚本能运行
         # 阻止Ray在顶层操作CUDA_VISIBLE_DEVICES
         os.environ.pop("CUDA_VISIBLE_DEVICES", None)
-        
+
         # 每个工作进程将使用 0.4 个 GPU，这样我们可以在同一 GPU 上调度 2 个实例
         os.environ["VLLM_RAY_PER_WORKER_GPUS"] = "0.4"
         os.environ["VLLM_RAY_BUNDLE_INDICES"] = ",".join(
@@ -47,7 +47,7 @@ class MyLLM(LLM):
 class RayTrainingActor:
 
     def __init__(self):
-       
+
         # ray 将 CUDA_VISIBLE_DEVICES 设置为分配的 GPU
         from transformers import AutoModelForCausalLM
         self.model = AutoModelForCausalLM.from_pretrained("facebook/opt-125m")
@@ -67,7 +67,7 @@ class RayTrainingActor:
         from torch.multiprocessing.reductions import reduce_tensor
         data = {}
         for name, p in self.model.named_parameters():
-            
+
             # 训练执行器（training actor）可能只拥有部分权重，
             # 需要从所有执行器进行 all-gather 操作获取完整权重。
             # 出于演示目的，此处我们假设所有训练执行器都拥有完整权重。
@@ -111,7 +111,7 @@ for bundle_index, training_actor in enumerate(training_actors):
     training_actor_device_ids.append(device_id)
 
 for (i, bundle_indices) in enumerate([[0, 1], [2, 3]]):
-    
+
     # and cause unexpected behaviors.
     # 重要:创建 vLLM 实例时，我们需要
     # 确保目标 GPU 上没有 GPU 活动，
@@ -144,8 +144,8 @@ for i, llm in enumerate(inference_engines):
         ray.get(llm.collective_rpc.remote("report_device_id", args=tuple())))
     print(f"inference engine {i} is on {inference_engine_device_ids[-1]}")
 
-# 检查部署情况  
-# 前两个训练执行器(training actors)应当  
+# 检查部署情况
+# 前两个训练执行器(training actors)应当
 # 与第一个推理引擎(inference engine)部署在同一GPU上
 assert training_actor_device_ids[:2] == inference_engine_device_ids[0]
 

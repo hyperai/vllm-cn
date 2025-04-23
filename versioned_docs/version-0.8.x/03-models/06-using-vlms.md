@@ -2,7 +2,6 @@
 title: 使用 VLM
 ---
 
-
 vLLM 为视觉语言模型 (VLM) 提供实验性支持，可以参阅「支持的 VLM 列表」。本文档将向您展示如何使用 vLLM 运行并提供这些模型的服务。
 
 **注意：**
@@ -11,25 +10,22 @@ vLLM 为视觉语言模型 (VLM) 提供实验性支持，可以参阅「支持�
 
 We are continuously improving user & developer experience for VLMs. Please [open an issue on GitHub](https://github.com/vllm-project/vllm/issues/new/choose) if you have any feedback or feature requests.
 
-我们不断改善 VLMs 的用户和开发人员体验。如果您有任何反馈或功能请求，请[访问  GitHub 并提出 issue](https://github.com/vllm-project/vllm/issues/new/choose)。
-
+我们不断改善 VLMs 的用户和开发人员体验。如果您有任何反馈或功能请求，请[访问 GitHub 并提出 issue](https://github.com/vllm-project/vllm/issues/new/choose)。
 
 ## 离线推理
 
 ### 单图像输入
 
- `LLM` 类的实例化过程与语言模型的实例化方式大致相同。
+`LLM` 类的实例化过程与语言模型的实例化方式大致相同。
 
 ```python
 llm = LLM(model="llava-hf/llava-1.5-7b-hf")
 ```
 
+要将图像传递给模型，请注意 `vllm.inputs.PromptInputs` 中的以下内容:
 
-要将图像传递给模型，请注意 `vllm.inputs.PromptInputs` 中的以下内容: 
-
-
-* `prompt`: 提示应遵循 HuggingFace 中记录的格式。
-* `multi_modal_data`: 这是一个字典，它遵循 `vllm.multimodal.MultiModalDataDict` 中定义的模式。
+- `prompt`: 提示应遵循 HuggingFace 中记录的格式。
+- `multi_modal_data`: 这是一个字典，它遵循 `vllm.multimodal.MultiModalDataDict` 中定义的模式。
 
 ```python
 # Refer to the HuggingFace repo for the correct format to use
@@ -106,13 +102,12 @@ for o in outputs:
     generated_text = o.outputs[0].text
     print(generated_text)
 ```
-代码示例可以在 [examples/offline_inference_vision_language.py](https://github.com/vllm-project/vllm/blob/main/examples/offline_inference_vision_language.py) 中找到。
 
+代码示例可以在 [examples/offline_inference_vision_language.py](https://github.com/vllm-project/vllm/blob/main/examples/offline_inference_vision_language.py) 中找到。
 
 ### 多图像输入
 
 多图像输入仅被一部分视觉语言模型 (VLMs) 支持，如[此处](https://docs.vllm.ai/en/latest/models/supported_models.html#supported-vlms)所示。
-
 
 若要在单个文本提示中启用多个多模态项目，您需要为 `LLM`类设置 `limit_mm_per_prompt` 参数。
 
@@ -128,7 +123,6 @@ llm = LLM(
     limit_mm_per_prompt={"image": 2},  # The maximum number to accept 每个文本提示允许的最大多模态项数量
 )
 ```
-
 
 您可以传入一个图像列表，而不是传入一张单独的图像。
 
@@ -158,10 +152,10 @@ for o in outputs:
     generated_text = o.outputs[0].text
     print(generated_text)
 ```
+
 代码示例可以在 [examples/offline_inference_vision_language_multi_image.py](https://github.com/vllm-project/vllm/blob/main/examples/offline_inference_vision_language_multi_image.py) 中找到。
 
 多图像输入功能可以扩展应用于视频描述任务。以下展示了如何使用 Qwen2-VL 模型来实现这一点，因为该模型支持视频处理：
-
 
 ```python
 # Specify the maximum number of frames per video to be 4. This can be changed.
@@ -194,25 +188,21 @@ for o in outputs:
     print(generated_text)
 ```
 
-
 ## 在线推理
 
 您可以使用兼容 [OpenAI Vision API](https://platform.openai.com/docs/guides/vision) 的 vLLM HTTP 服务器提供视觉语言模型。
 
-
 以下是一个关于如何使用 vLLM 的 OpenAI 兼容 API 服务器启动同一个 `microsoft/Phi-3.5-vision-instruct` 的示例。
-
 
 ```bash
 vllm serve microsoft/Phi-3.5-vision-instruct --task generate \
   --trust-remote-code --max-model-len 4096 --limit-mm-per-prompt image=2
 ```
+
 **重要**
 由于 OpenAI Vision API 基于 [Chat](https://platform.openai.com/docs/api-reference/chat) API，因此需要聊天模板来启动 API 服务器。
 
-
 虽然 Phi-3.5-Vision 自带了聊天模板，但如果您使用的模型的分词器没有包含聊天模板，您可能需要自行提供。聊天模板通常可以根据 HuggingFace 存储库中模型文档的说明来推断。例如，LLaVA-1.5（`llava-hf/llava-1.5-7b-hf`) 模型就需要一个聊天模板，您可以[在这里](https://github.com/vllm-project/vllm/blob/main/examples/template_llava.jinja)找到该模板。
-
 
 要使用服务器，您可以使用 OpenAI 客户端，如下例所示:
 
@@ -271,6 +261,7 @@ print("Chat completion output:", chat_response.choices[0].message.content)
 
 
 ```
+
 完整的代码示例可以在 [examples/openai_api_client_for_multimodal.py](https://github.com/vllm-project/vllm/blob/main/examples/openai_api_client_for_multimodal.py) 中找到。
 
 **注意：**
@@ -280,6 +271,6 @@ print("Chat completion output:", chat_response.choices[0].message.content)
 ```plain
 export VLLM_IMAGE_FETCH_TIMEOUT=<timeout>
 ```
+
 **注意：**
 在 API 请求中无需格式化提示词，因为它将由服务器进行处理。
-

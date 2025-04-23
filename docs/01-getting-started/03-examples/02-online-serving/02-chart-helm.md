@@ -2,7 +2,7 @@
 title: Helm 图表
 ---
 
-[*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
+[\*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
 
 源码 [examples/online_serving/chart-helm](https://github.com/vllm-project/vllm/blob/main/examples/online_serving/chart-helm)
 
@@ -10,26 +10,25 @@ title: Helm 图表
 
 ## Files
 
-* Chart.yaml：定义图表元数据，包括名称、版本和维护者信息
-* ct.yaml：图表测试配置文件
-* lintconf.yaml：YAML 文件的语法检查规则
-* values.schema.json：用于验证 values.yaml 的 JSON 模式
-* values.yaml：Helm 图表的默认配置值
-* templates/_helpers.tpl：用于定义通用配置的辅助模板
-* templates/configmap.yaml：创建 ConfigMap 的模板
-* templates/custom-objects.yaml：自定义 Kubernetes 对象的模板
-* templates/deployment.yaml：创建 Deployment 的模板
-* templates/hpa.yaml：水平 Pod 自动扩缩容模板
-* templates/job.yaml：Kubernetes Job 模板
-* templates/poddisruptionbudget.yaml：Pod 中断预算模板
-* templates/pvc.yaml：持久卷声明模板
-* templates/secrets.yaml：Kubernetes Secret 模板
-* templates/service.yaml：创建 Service 的模板
+- Chart.yaml：定义图表元数据，包括名称、版本和维护者信息
+- ct.yaml：图表测试配置文件
+- lintconf.yaml：YAML 文件的语法检查规则
+- values.schema.json：用于验证 values.yaml 的 JSON 模式
+- values.yaml：Helm 图表的默认配置值
+- templates/\_helpers.tpl：用于定义通用配置的辅助模板
+- templates/configmap.yaml：创建 ConfigMap 的模板
+- templates/custom-objects.yaml：自定义 Kubernetes 对象的模板
+- templates/deployment.yaml：创建 Deployment 的模板
+- templates/hpa.yaml：水平 Pod 自动扩缩容模板
+- templates/job.yaml：Kubernetes Job 模板
+- templates/poddisruptionbudget.yaml：Pod 中断预算模板
+- templates/pvc.yaml：持久卷声明模板
+- templates/secrets.yaml：Kubernetes Secret 模板
+- templates/service.yaml：创建 Service 的模板
 
 # Example materials
 
 ## .helmignore
-
 
 ```plain
 *.png
@@ -40,9 +39,7 @@ values.schema.json
 /workflows
 ```
 
-
 ## Chart.yaml
-
 
 ```plain
 apiVersion: v2
@@ -51,10 +48,10 @@ description: Chart vllm
 
 
 # 图表类型可分为"应用型"或"库型"
-# 
+#
 # 应用型图表是一组可打包成版本化归档文件
 # 以供部署的模板集合
-# 
+#
 # 库型图表为开发者提供实用工具函数，
 # 它们作为应用图表的依赖项被引入，
 # 将功能注入渲染流程。
@@ -74,9 +71,7 @@ maintainers:
   - name: mfournioux
 ```
 
-
 ## ct.yaml
-
 
 ```plain
 chart-dirs:
@@ -84,9 +79,7 @@ chart-dirs:
 validate-maintainers: false
 ```
 
-
 ## lintconf.yaml
-
 
 ```plain
 ---
@@ -134,9 +127,7 @@ rules:
     level: warning
 ```
 
-
-## templates/_helpers.tpl
-
+## templates/\_helpers.tpl
 
 ```plain
 {{/*
@@ -280,7 +271,7 @@ Define User used for the main container
 */}}
 {{- define "chart.user" }}
 {{-   if .Values.image.runAsUser  }}
-runAsUser: 
+runAsUser:
 {{-     with .Values.runAsUser }}
 {{-       toYaml . | nindent 2 }}
 {{-     end }}
@@ -332,9 +323,7 @@ runAsUser:
 {{- end }}
 ```
 
-
 ## templates/configmap.yaml
-
 
 ```plain
 {{- if .Values.configs -}}
@@ -350,9 +339,7 @@ data:
 {{- end -}}
 ```
 
-
 ## templates/custom-objects.yaml
-
 
 ```plain
 {{- if .Values.customObjects }}
@@ -363,9 +350,7 @@ data:
 {{- end }}
 ```
 
-
 ## templates/deployment.yaml
-
 
 ```plain
 apiVersion: apps/v1
@@ -378,7 +363,7 @@ metadata:
 spec:
   replicas: {{ .Values.replicaCount }}
   {{- include "chart.strategy" . | nindent 2 }}
-  selector:                                                                                                                                  
+  selector:
     matchLabels:
       environment: "test"
       release: "test"
@@ -427,7 +412,7 @@ spec:
                 name: "{{ .Release.Name }}-secrets"
             {{- end }}
             {{- include "chart.externalConfigs" . | nindent 12 }}
-          {{- end }}          
+          {{- end }}
           ports:
             - name: {{ include "chart.container-port-name" . }}
               containerPort: {{ include "chart.container-port" . }}
@@ -448,7 +433,7 @@ spec:
       initContainers:
       - name: wait-download-model
         image: {{ include "chart.extraInitImage" . }}
-        command: 
+        command:
           - /bin/bash
         args:
           - -eucx
@@ -468,7 +453,7 @@ spec:
       volumes:
         - name: {{ .Release.Name }}-storage
           persistentVolumeClaim:
-            claimName: {{ .Release.Name }}-storage-claim     
+            claimName: {{ .Release.Name }}-storage-claim
 
 
       {{- with .Values.nodeSelector }}
@@ -492,12 +477,10 @@ spec:
                   values:
                     {{- toYaml . | nindent 20 }}
                   {{- end }}
-      {{- end }} 
+      {{- end }}
 ```
 
-
 ## templates/hpa.yaml
-
 
 ```plain
 {{- if .Values.autoscaling.enabled }}
@@ -533,9 +516,7 @@ spec:
 {{- end }}
 ```
 
-
 ## templates/job.yaml
-
 
 ```plain
 {{-   if .Values.extraInit  }}
@@ -553,7 +534,7 @@ spec:
     containers:
     - name: job-download-model
       image: {{ include "chart.extraInitImage" . }}
-      command: 
+      command:
         - /bin/bash
       args:
         - -eucx
@@ -577,9 +558,7 @@ spec:
 {{- end }}
 ```
 
-
 ## templates/poddisruptionbudget.yaml
-
 
 ```plain
 apiVersion: policy/v1
@@ -591,9 +570,7 @@ spec:
   maxUnavailable: {{ default 1 .Values.maxUnavailablePodDisruptionBudget }}
 ```
 
-
 ## templates/pvc.yaml
-
 
 ```plain
 {{-   if .Values.extraInit  }}
@@ -611,9 +588,7 @@ spec:
 {{- end }}
 ```
 
-
 ## templates/secrets.yaml
-
 
 ```plain
 apiVersion: v1
@@ -628,9 +603,7 @@ data:
   {{- end }}
 ```
 
-
 ## templates/service.yaml
-
 
 ```plain
 apiVersion: v1
@@ -649,9 +622,7 @@ spec:
   {{- include "chart.labels" . | nindent 4 }}
 ```
 
-
 ## values.schema.json
-
 
 ```plain
 {
@@ -921,9 +892,7 @@ spec:
 }
 ```
 
-
 ## values.yaml
-
 
 ```plain
 # -- Default values for chart vllm
@@ -1114,5 +1083,3 @@ labels:
   environment: "test"
   release: "test"
 ```
-
-

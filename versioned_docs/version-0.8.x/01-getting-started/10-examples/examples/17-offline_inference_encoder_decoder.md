@@ -2,7 +2,6 @@
 title: 离线推理编码器-解码器
 ---
 
-
 源代码: [vllm-project/vllm](https://raw.githubusercontent.com/vllm-project/vllm/main/examples/offline_inference_encoder_decoder.py)
 
 ```python
@@ -131,5 +130,3 @@ for output in outputs:
           f"Decoder prompt: {prompt!r}, "
           f"Generated text: {generated_text!r}")
 ```
-
-

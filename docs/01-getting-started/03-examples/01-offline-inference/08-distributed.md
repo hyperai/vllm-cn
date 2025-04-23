@@ -2,8 +2,7 @@
 title: Distributed
 ---
 
-
-[*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
+[\*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
 
 源码 [examples/offline_inference/distributed.py](https://github.com/vllm-project/vllm/blob/main/examples/offline_inference/distributed.py)
 
@@ -147,7 +146,7 @@ for output in outputs:
 # 将推理输出数据作为 parquet 文件输出到 S3。
 # 多个文件将写入输出目标，
 # 每个任务将分别编写一个或多个文件。
-# 
-# ds.write_parquet ( "s3:// <your-out-output-bucket>") 
+#
+# ds.write_parquet ( "s3:// <your-out-output-bucket>")
 
 ```

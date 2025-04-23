@@ -1,22 +1,19 @@
 ---
-
 title: 生产指标
-
 ---
 
-
-[*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
-
+[\*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
 
 vLLM 公布了许多可用于监控系统运行状况的指标。这些指标通过 vLLM OpenAI 兼容 API 服务器上的 `/metrics` 端点公开。
-
 
 您可以使用　Python　或　[Docker](https://docs.vllm.ai/en/latest/deployment/docker.html#deployment-docker)　启动服务：
 
 ```go
 vllm serve unsloth/Llama-3.2-1B-Instruct
 ```
+
 然后查询终端节点以从服务器获取最新指标：
+
 ```plain
 $ curl http://0.0.0.0:8000/metrics
 
@@ -40,7 +37,6 @@ vllm:iteration_tokens_total_bucket{le="256.0",model_name="unsloth/Llama-3.2-1B-I
 vllm:iteration_tokens_total_bucket{le="512.0",model_name="unsloth/Llama-3.2-1B-Instruct"} 3.0
 ...
 ```
-
 
 以下指标已公布：
 
@@ -344,12 +340,12 @@ class Metrics:
 
 
 ```
-以下指标已弃用，并将在未来版本中删除：
-* `vllm:num_requests_swapped`, `vllm:cpu_cache_usage_perc`,  和 `vllm:cpu_prefix_cache_hit_rate` 因为 V1 中没有使用 KV 缓存卸载。
-* `vllm:gpu_prefix_cache_hit_rate` 在 V1 中替换为 queries+hits 计数器。
-* `vllm:time_in_queue_requests` 与 `vllm:request_queue_time_seconds`重复
-* `vllm:model_forward_time_milliseconds` 和 `vllm:model_execute_time_milliseconds` ：因为应该改用预填充/解码/推理时间指标。
 
+以下指标已弃用，并将在未来版本中删除：
+
+- `vllm:num_requests_swapped`, `vllm:cpu_cache_usage_perc`, 和 `vllm:cpu_prefix_cache_hit_rate` 因为 V1 中没有使用 KV 缓存卸载。
+- `vllm:gpu_prefix_cache_hit_rate` 在 V1 中替换为 queries+hits 计数器。
+- `vllm:time_in_queue_requests` 与 `vllm:request_queue_time_seconds`重复
+- `vllm:model_forward_time_milliseconds` 和 `vllm:model_execute_time_milliseconds` ：因为应该改用预填充/解码/推理时间指标。
 
 注意：当指标在版本 `X.Y` 中被弃用时，它们将在版本 `X.Y+1` 中隐藏 但可以使用 `--show-hidden-metrics-for-version=X.Y` 转义舱口重新启用，然后在版本 `X.Y+2` 中删除。
-

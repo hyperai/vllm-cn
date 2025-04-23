@@ -2,11 +2,11 @@
 title: Profiling
 ---
 
-[*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
+[\*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
 
 源码 [examples/offline_inference/profiling.py](https://github.com/vllm-project/vllm/blob/main/examples/offline_inference/profiling.py)
 
-```python
+````python
 # SPDX-License-Identifier: Apache-2.0
 
 import inspect
@@ -63,7 +63,7 @@ def compute_request_output_lengths(batch_size: int, step_requests: list[int]) \
     that each engine-step should process, step_requests, determine the
     output lengths of the requests such that step_request is honoured.
 
-    Example: 
+    Example:
     if batch size = 128 and step_request = [128, 128, 96, 64, 32, 1]
     then return,
     {2 : 32, 3 : 32, 4 : 32, 5 : 31, 6 : 1}, meaning,
@@ -172,7 +172,7 @@ def determine_requests_per_step(context: ProfileContext) -> list[int]:
         context: ProfileContext object.
 
     Returns:
-        list[int]: Number of requests to process for all engine-steps. 
+        list[int]: Number of requests to process for all engine-steps.
          output[i], contains the number of requests that the ith step
          should process.
     """
@@ -521,4 +521,4 @@ if k in inspect.signature(ProfileContext).parameters
 })
 run_profile(context, csv_output=args.csv, json_output=args.json)
 
-```
+````

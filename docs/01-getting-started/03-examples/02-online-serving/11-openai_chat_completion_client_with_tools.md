@@ -2,30 +2,30 @@
 title: Openai Chat Completion Client With Tools
 ---
 
-[*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
+[\*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
 
 源码 [examples/online_serving/openai_chat_completion_client_with_tools.py](https://github.com/vllm-project/vllm/blob/main/examples/online_serving/openai_chat_completion_client_with_tools.py)
 
 ```python
 # SPDX-License-Identifier: Apache-2.0
 
-"""  
-通过启动启用工具调用选项的 vLLM OpenAI 兼容服务器来设置此示例。 例如：  
+"""
+通过启动启用工具调用选项的 vLLM OpenAI 兼容服务器来设置此示例。 例如：
 
-重要提示：对于 mistral，必须使用提供的 mistral 工具调用模板之一，或者自定义模板 ——  
-模型默认模板无法在 vLLM 中用于工具调用。  
-请参阅 vLLM 文档中的 OpenAI 服务器和工具调用部分以获取更多详情。  
+重要提示：对于 mistral，必须使用提供的 mistral 工具调用模板之一，或者自定义模板 ——
+模型默认模板无法在 vLLM 中用于工具调用。
+请参阅 vLLM 文档中的 OpenAI 服务器和工具调用部分以获取更多详情。
 
-vllm serve --model mistralai/Mistral-7B-Instruct-v0.3 \  
---chat-template examples/tool_chat_template_mistral.jinja \  
---enable-auto-tool-choice --tool-call-parser mistral  
+vllm serve --model mistralai/Mistral-7B-Instruct-v0.3 \
+--chat-template examples/tool_chat_template_mistral.jinja \
+--enable-auto-tool-choice --tool-call-parser mistral
 
-或者  
+或者
 
-vllm serve --model NousResearch/Hermes-2-Pro-Llama-3-8B \  
---chat-template examples/tool_chat_template_hermes.jinja \  
---enable-auto-tool-choice --tool-call-parser hermes  
-"""  
+vllm serve --model NousResearch/Hermes-2-Pro-Llama-3-8B \
+--chat-template examples/tool_chat_template_hermes.jinja \
+--enable-auto-tool-choice --tool-call-parser hermes
+"""
 
 import json
 

@@ -1,21 +1,14 @@
 ---
-
 title: 生成模型
-
 ---
 
-
-[*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
-
+[\*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
 
 vLLM能够很好地支持生成模型，它兼容并能够有效运行大多数的大型语言模型。 (LLMs)。
 
-
 在 vLLM 中，生成模型实现了 VllmModelForTextGeneration 接口。这些模型基于输入的最终隐藏状态，输出生成 token 的对数概率，然后通过 Sampler 处理获取最终文本。
 
-
 对于生成模型，唯一支持的 --task 选项是 "generate"。通常，这会自动推断，因此您无需手动指定。
-
 
 ## 离线推理
 
@@ -35,7 +28,6 @@ for output in outputs:
     print(f"Prompt: {prompt!r}, Generated text: {generated_text!r}")
 ```
 
-
 您可以通过传递 vllm.SamplingParams 来选择性地控制语言生成。例如，您可以通过设置 temperature=0 来使用贪婪采样：
 
 ```python
@@ -49,9 +41,7 @@ for output in outputs:
     print(f"Prompt: {prompt!r}, Generated text: {generated_text!r}")
 ```
 
-
 代码示例可以在这里找到：[examples/offline_inference/basic/basic.py](https://github.com/vllm-project/vllm/blob/main/examples/offline_inference/basic/basic.py)
-
 
 ### LLM.beam_search
 
@@ -68,14 +58,13 @@ for output in outputs:
     print(f"Prompt: {prompt!r}, Generated text: {generated_text!r}")
 ```
 
-
 ### LLM.chat
 
 chat 方法在 generate 的基础上实现了聊天功能。具体来讲，它接受类似于 [OpenAI Chat Completions API](https://platform.openai.com/docs/api-reference/chat) 的输入，并自动应用模型的[聊天模板](https://huggingface.co/docs/transformers/en/chat_templating)来格式化提示。
 
->**注意：**
->一般情况下，只有经过指令调优的模型才有聊天模板。基础模型没有经过训练来响应聊天对话，可能表现不佳。
->
+> **注意：**
+> 一般情况下，只有经过指令调优的模型才有聊天模板。基础模型没有经过训练来响应聊天对话，可能表现不佳。
+
 ```python
 llm = LLM(model="meta-llama/Meta-Llama-3-8B-Instruct")
 conversation = [
@@ -104,9 +93,7 @@ for output in outputs:
     print(f"Prompt: {prompt!r}, Generated text: {generated_text!r}")
 ```
 
-
 代码示例可以在这里找到：[examples/offline_inference/basic/chat.py](https://github.com/vllm-project/vllm/blob/main/examples/offline_inference/basic/chat.py)
-
 
 如果模型没有聊天模板，或者您想指定另一个模板，您可以显式传递一个聊天模板：
 
@@ -121,12 +108,9 @@ print("Loaded chat template:", custom_template)
 outputs = llm.chat(conversation, chat_template=custom_template)
 ```
 
-
 ## 在线服务
 
 我们的 [OpenAI 兼容服务器](#openai-compatible-server)提供了与离线 API 对应的端点：
 
-* [Completions API](#completions-api) 类似于 LLM.generate，但只接受文本。
-* [Chat API](#chat-api) 类似于 LLM.chat，它接受文本和[多模态输入](#multimodal-inputs)，适用于具有聊天模板的模型。
-
-
+- [Completions API](#completions-api) 类似于 LLM.generate，但只接受文本。
+- [Chat API](#chat-api) 类似于 LLM.chat，它接受文本和[多模态输入](#multimodal-inputs)，适用于具有聊天模板的模型。

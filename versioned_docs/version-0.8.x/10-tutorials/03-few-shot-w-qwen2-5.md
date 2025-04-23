@@ -7,15 +7,17 @@ title: 使用 vLLM 加载 AWQ 量化 Qwen2.5-3B-Instruct 进行少样本学习 (
 该教程为在 RTX4090 上该教程为使用 vLLM 加载 Qwen2.5-3B-Instruct-AWQ 模型进行少样本学习。
 
 - 对于每个测试问题，我们使用训练数据检索一组「支持」它的类似问题。
-    - 考虑「construct」和「subject」等内容
+  - 考虑「construct」和「subject」等内容
 - 使用一组类似的问题，我们创建了一个可以馈送到我们的模型的对话
-    - 在对话中使用最近支持的 chat（） 功能
-    - 生成温度略高的 n 个响应，以创建不同的输出
+
+  - 在对话中使用最近支持的 chat（） 功能
+  - 生成温度略高的 n 个响应，以创建不同的输出
 
 - 对于每个问题/答案对，我们现在有 n 个推断的误解，对于每个误解，我们使用 BGE 嵌入检索前 25 个误解。
 - 对于每个问题/答案对的 n 个推断错误中的每一个的 25 个最接近的误解，现在可以使用 Borda Ranking 进行组合，这有点像最简单的集成形式。
 
 ## 目录
+
 - [1. 导入相关的库](#1.导入相关的库)
 - [2. 加载数据](#2.加载数据)
 - [3. 使用 vLLM 启动 Qwen2.5-3B-Instruct-AWQ](#3.使用vLLM启动Qwen2.5-3B-Instruct-AWQ)
@@ -44,7 +46,6 @@ import torch
 from vllm import LLM, SamplingParams
 from transformers import AutoTokenizer, AutoModel
 ```
-
 
 ```
 os.environ["CUDA_VISIBLE_DEVICES"]   = "0"
@@ -99,7 +100,7 @@ llm = LLM(
     llm_model_pth,
     trust_remote_code=True,
     dtype="half", max_model_len=4096,
-    tensor_parallel_size=1, gpu_memory_utilization=0.95, 
+    tensor_parallel_size=1, gpu_memory_utilization=0.95,
 )
 
 tokenizer = llm.get_tokenizer()
@@ -114,7 +115,7 @@ misconception_cols  = ["MisconceptionAId", "MisconceptionBId", "MisconceptionCId
 keep_cols           = ["QuestionId", "CorrectAnswer", "ConstructName", "SubjectName", "QuestionText" ]
 
 def wide_to_long(df: pd.DataFrame) -> pd.DataFrame:
-    
+
     # Melt the answer columns
     answers_df = pd.melt(
         id_vars=keep_cols,
@@ -123,7 +124,7 @@ def wide_to_long(df: pd.DataFrame) -> pd.DataFrame:
     ).sort_values(["QuestionId", "Answer"]).reset_index(drop=True)
     if misconception_cols[0] not in df.columns:  # If test set
         return answers_df
-        
+
     # Melt the misconception columns
     misconceptions_df = pd.melt(
         id_vars=keep_cols,
@@ -132,7 +133,7 @@ def wide_to_long(df: pd.DataFrame) -> pd.DataFrame:
     ).sort_values(["QuestionId", "Misconception"]).reset_index(drop=True)
 
     answers_df[['Misconception', 'MisconceptionId']] = misconceptions_df[['Misconception', 'MisconceptionId']]
-    
+
     return answers_df
 test  = wide_to_long(test)
 train = wide_to_long(train)
@@ -145,7 +146,6 @@ if train_eval:
     test = pd.merge(test, misconceptions, on='MisconceptionId', how='left')
 ```
 
-
 ```
 train.head(3)
 ```
@@ -154,26 +154,25 @@ train.head(3)
 test.head(3)
 ```
 
-
 ## 5. 辅助函数
+
 ### 在给定 subject 和 construct 的情况下获取最相似的 question_ids'
 
 以下函数首先通过检查结构top_k subject 相似的问题来返回问题 ID 的数量。
 
 如果这没有达到top_k，则选择具有相似主题或结构的问题。如果我们仍然缺少问题 ID'，我们会为剩余的 top_k 选择随机问题。
 
-
 ```
 def get_topk_similar_rows(question_id: int, construct: str, subject: str, top_k: int) -> list[int]:
     """ Gets the top n ids of questions that most similar to the given construct and subject """
-    
+
     # Rows with similar construct and subject
     similar_cs_rows = train[(train.ConstructName == construct) & (train.SubjectName == subject)]
     similar_cs_qids = list(set(similar_cs_rows.QuestionId.values.tolist()))
-    
+
     if train_eval and question_id in similar_cs_qids:
         similar_cs_qids.remove(question_id)
-        
+
     if len(similar_cs_qids) >= top_k:
         k_similar_cs_qids = sample(similar_cs_qids, top_k)
         return k_similar_cs_qids
@@ -181,26 +180,25 @@ def get_topk_similar_rows(question_id: int, construct: str, subject: str, top_k:
     similar_s_rows = train[(train.ConstructName != construct) & (train.SubjectName == subject)]
     similar_c_rows = train[(train.ConstructName == construct) & (train.SubjectName != subject)]
     similar_c_or_s_qids = list(set(similar_s_rows.QuestionId.values.tolist() + similar_c_rows.QuestionId.values.tolist()))
-    
+
     if train_eval and question_id in similar_c_or_s_qids:
         similar_c_or_s_qids.remove(question_id)
-    
+
     if len(similar_c_or_s_qids) >= top_k - len(similar_cs_qids):
         n_similar_c_or_s_qids = sample(similar_c_or_s_qids, top_k - len(similar_cs_qids))
         return similar_cs_qids + n_similar_c_or_s_qids
         # Random rows for remainder of top_k
     not_so_similar_rows = train[(train.ConstructName != construct) & (train.SubjectName != subject)]
     not_so_similar_rows_qids = list(set(not_so_similar_rows.QuestionId.values.tolist()))
-    
+
     if train_eval and question_id in not_so_similar_rows_qids:
         not_so_similar_rows_qids.remove(question_id)
-    
+
     n_not_so_similar_rows_qids = sample(not_so_similar_rows_qids, top_k - len(similar_c_or_s_qids))
     return similar_c_or_s_qids + n_not_so_similar_rows_qids
 ```
 
 ### 获取每个问题的聊天对话
-
 
 ```
 def get_conversation_msgs(question, correct_ans, incorrect_ans, misconception):
@@ -211,14 +209,15 @@ def get_conversation_msgs(question, correct_ans, incorrect_ans, misconception):
         {'role': 'assistant', 'content': 'Now provide the incorrect answer and I will anaylze the difference to infer the misconception.'},
         {'role': 'user',      'content': 'Incorrect Answer: ' + incorrect_ans.strip()},
     ]
-    
+
     if misconception is not None:
         msgs += [{'role': 'assistant', 'content': 'Misconception for incorrect answer: ' + misconception}]
-        
+
     return msgs
 ```
 
 ## 6. 使用 llm.chat
+
 注意：llm（） 是最近才推出的，仅在后续版本中可用
 
 我们生成 n 个输出，使用更高的温度来创建输出的多样化表示，然后可以稍后用于对结果进行排名。
@@ -228,7 +227,7 @@ sampling_params = SamplingParams(
     n=10,                     # 对于每个提示，返回的输出序列数量。Number of output sequences to return for each prompt.
     # top_p=0.5,               # 控制考虑的顶部标记的累积概率的浮点数。Float that controls the cumulative probability of the top tokens to consider.
     temperature=0.7,          # 采样的随机性。randomness of the sampling
-    seed=1,                   # 
+    seed=1,                   #
 用于可重复性的种子。Seed for reprodicibility
     skip_special_tokens=True, # 是否在输出中跳过特殊标记。Whether to skip special tokens in the output.
     max_tokens=64,            # 每个输出序列生成的最大标记数。Maximum number of tokens to generate per output sequence.
@@ -239,17 +238,17 @@ sampling_params = SamplingParams(
 ```
 submission = []
 for idx, row in tqdm(test.iterrows(), total=len(test)):
-    
+
     if idx % 50:
         clean_memory()
         clean_memory()
-    
+
     if row['CorrectAnswer'] == row['AnswerId']: continue
     if train_eval and not row['MisconceptionId'] >= 0: continue
-        
+
     context_qids   = get_topk_similar_rows(row['QuestionId'], row['ConstructName'], row['SubjectName'], k)
     correct_answer = test[(test.QuestionId == row['QuestionId']) & (test.CorrectAnswer == test.AnswerId)].Value.tolist()[0]
-    
+
     messages = []
     for qid in context_qids:
         correct_option = train[(train.QuestionId == qid) & (train.CorrectAnswer == train.AnswerId)]
@@ -262,7 +261,7 @@ for idx, row in tqdm(test.iterrows(), total=len(test)):
                     incorrect_ans = incorrect_option['Value'],
                     misconception = incorrect_option['MisconceptionName'],
                 )
-                
+
     # 对话对于错误答案以获取误解的原因。Coversation for Incorrect answer to get misconception for
     messages += get_conversation_msgs(
         question = row['QuestionText'],
@@ -270,20 +269,20 @@ for idx, row in tqdm(test.iterrows(), total=len(test)):
         incorrect_ans = row['Value'],
         misconception = None,
     )
-    
+
     output = llm.chat(messages, sampling_params, use_tqdm=False)
     inferred_misconceptions = [imc.text.split(':')[-1].strip() for imc in output[0].outputs]
     if not train_eval:
         submission.append([f"{row['QuestionId']}_{row['AnswerId']}", inferred_misconceptions])
     else:
         submission.append([
-            f"{row['QuestionId']}_{row['AnswerId']}", 
-            inferred_misconceptions, 
+            f"{row['QuestionId']}_{row['AnswerId']}",
+            inferred_misconceptions,
             context_qids,
             [int(row['MisconceptionId'])],
             row['MisconceptionName']
         ])
-submission = pd.DataFrame(submission, columns=['QuestionId_Answer', 'InferredMisconception', 'TopKQuestionIDs', 
+submission = pd.DataFrame(submission, columns=['QuestionId_Answer', 'InferredMisconception', 'TopKQuestionIDs',
                                                'MisconceptionIdGT', 'MisconceptionNameGT'][:len(submission[0])])
 
 len(submission)
@@ -296,6 +295,7 @@ submission.head()
 ## 7. 找到最相似的误解
 
 删除模型并清理内存以加载嵌入模型
+
 ```
 del llm
 
@@ -319,7 +319,7 @@ def generate_embeddings(texts, batch_size=8):
         embeddings = outputs.last_hidden_state[:, 0, :]  # CLS token
         embeddings = torch.nn.functional.normalize(embeddings, p=2, dim=1)
         all_embeddings.append(embeddings.cpu().numpy())
-        
+
     return np.concatenate(all_embeddings, axis=0)
 ```
 
@@ -348,17 +348,19 @@ n_results.shape
 ```
 
 ### 合并每个问题的每个生成输出的排名
+
 Borda count 是一种非常简单的排名机制
+
 ```
 def borda_count(rankings):
     scores = {}
     num_elements = len(next(iter(rankings)))
-    
+
     for model_ranking in rankings:
         for idx, item in enumerate(model_ranking):
             points = num_elements - idx
             scores[item] = scores.get(item, 0) + points
-            
+
     # 根据总分排序误解。Sort the misconceptions based on total points
     final_ranking = sorted(scores.items(), key=lambda x: x[1], reverse=True)
     ranked_results = [r for r, score in final_ranking]
@@ -374,13 +376,13 @@ final_rankings.shape
 submission['MisconceptionId'] = final_rankings[:, :25].tolist()
 ```
 
-
 ## 8. 提交
+
 ```
 if train_eval:
     submission['apk@25'] = submission.apply(lambda row: apk(row['MisconceptionIdGT'], row['MisconceptionId']), axis=1)
     submission.to_csv('submission_debug.csv', index=False)
-    
+
     print(submission['apk@25'].mean())
 ```
 

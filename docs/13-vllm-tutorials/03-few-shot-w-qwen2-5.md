@@ -7,15 +7,17 @@ title: 使用 vLLM 加载 AWQ 量化 Qwen2.5-3B-Instruct 进行少样本学习 (
 该教程为在 RTX4090 上使用 vLLM 加载 AWQ 量化 Qwen2.5-3B-Instruct。
 
 - 对于每个测试问题，我们使用训练数据检索一组「支持」它的类似问题。
-    - 考虑「construct」和「subject」等内容
+  - 考虑「construct」和「subject」等内容
 - 使用一组类似的问题，我们创建了一个可以馈送到我们的模型的对话
-    - 在对话中使用最近支持的 chat（） 功能
-    - 生成温度略高的 n 个响应，以创建不同的输出
+
+  - 在对话中使用最近支持的 chat（） 功能
+  - 生成温度略高的 n 个响应，以创建不同的输出
 
 - 对于每个问题/答案对，我们现在有 n 个推断的误解，对于每个误解，我们使用 BGE 嵌入检索前 25 个误解。
 - 对于每个问题/答案对的 n 个推断错误中的每一个的 25 个最接近的误解，现在可以使用 Borda Ranking 进行组合，这有点像最简单的集成形式。
 
 ## 目录
+
 - [1. 导入相关的库](#1.导入相关的库)
 - [2. 加载数据](#2.加载数据)
 - [3. 使用 vLLM 启动 Qwen2.5-3B-Instruct-AWQ](#3.使用vLLM启动Qwen2.5-3B-Instruct-AWQ)
@@ -44,7 +46,6 @@ import torch
 from vllm import LLM, SamplingParams
 from transformers import AutoTokenizer, AutoModel
 ```
-
 
 ```
 os.environ["CUDA_VISIBLE_DEVICES"]   = "0"
@@ -145,7 +146,6 @@ if train_eval:
     test = pd.merge(test, misconceptions, on='MisconceptionId', how='left')
 ```
 
-
 ```
 train.head(3)
 ```
@@ -154,14 +154,13 @@ train.head(3)
 test.head(3)
 ```
 
-
 ## 5. 辅助函数
+
 ### 在给定 subject 和 construct 的情况下获取最相似的 question_ids'
 
 以下函数首先通过检查结构top_k subject 相似的问题来返回问题 ID 的数量。
 
 如果这没有达到top_k，则选择具有相似主题或结构的问题。如果我们仍然缺少问题 ID'，我们会为剩余的 top_k 选择随机问题。
-
 
 ```
 def get_topk_similar_rows(question_id: int, construct: str, subject: str, top_k: int) -> list[int]:
@@ -201,7 +200,6 @@ def get_topk_similar_rows(question_id: int, construct: str, subject: str, top_k:
 
 ### 获取每个问题的聊天对话
 
-
 ```
 def get_conversation_msgs(question, correct_ans, incorrect_ans, misconception):
     msgs = [
@@ -219,6 +217,7 @@ def get_conversation_msgs(question, correct_ans, incorrect_ans, misconception):
 ```
 
 ## 6. 使用 llm.chat
+
 注意：llm（） 是最近才推出的，仅在后续版本中可用
 
 我们生成 n 个输出，使用更高的温度来创建输出的多样化表示，然后可以稍后用于对结果进行排名。
@@ -296,6 +295,7 @@ submission.head()
 ## 7. 找到最相似的误解
 
 删除模型并清理内存以加载嵌入模型
+
 ```
 del llm
 
@@ -348,7 +348,9 @@ n_results.shape
 ```
 
 ### 合并每个问题的每个生成输出的排名
+
 Borda count 是一种非常简单的排名机制
+
 ```
 def borda_count(rankings):
     scores = {}
@@ -374,8 +376,8 @@ final_rankings.shape
 submission['MisconceptionId'] = final_rankings[:, :25].tolist()
 ```
 
-
 ## 8. 提交
+
 ```
 if train_eval:
     submission['apk@25'] = submission.apply(lambda row: apk(row['MisconceptionIdGT'], row['MisconceptionId']), axis=1)

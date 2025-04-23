@@ -1,12 +1,8 @@
 ---
-
 title: GPTQModel
-
 ---
 
-
-[*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
-
+[\*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
 
 要创建新的 4 位或 8 位 GPTQ 量化模型，您可以利用 ModelCloud.AI 的 [GPTQModel](https://github.com/ModelCloud/GPTQModel)。
 
@@ -16,7 +12,7 @@ title: GPTQModel
 
 GPTQModel 是世界上为数不多的允许动态每模块量化的量化工具包之一，其中 llm 模型中的不同层和/或模块可以使用自定义量化参数进一步优化。 动态量化完全集成到 vLLM 中，并由 ModelCloud.AI 团队提供支持。请参阅 [GPTQModel 自述文件](https://github.com/ModelCloud/GPTQModel?tab=readme-ov-file#dynamic-quantization-per-module-quantizeconfig-override)了解有关此功能和其他高级功能的更多详细信息。
 
-您可以通过安装 [GPTQModel](https://github.com/ModelCloud/GPTQModel) 或从 [Huggingface 上的 5000+ 模型中](https://huggingface.co/models?sort=trending&amp;search=gptq)选择一个来量化自己的模型。
+您可以通过安装 [GPTQModel](https://github.com/ModelCloud/GPTQModel) 或从 [Huggingface 上的 5000+ 模型中](https://huggingface.co/models?sort=trending&search=gptq)选择一个来量化自己的模型。
 
 ```
 pip install -U gptqmodel --no-build-isolation -v
@@ -25,6 +21,7 @@ pip install -U gptqmodel --no-build-isolation -v
 安装 GPTQModel 后，您就可以量化模型了。有关更多详细信息，请参阅 [GPTQModel 自述文件](https://github.com/ModelCloud/GPTQModel/?tab=readme-ov-file#quantization)。
 
 以下是如何量化的示例 meta-llama/Llama-3.2-1B-Instruct：
+
 ```
 from datasets import load_dataset
 from gptqmodel import GPTQModel, QuantizeConfig
@@ -56,7 +53,7 @@ python examples/offline_inference/llm_engine_example.py --model DeepSeek-R1-Dist
 
 GPTQModel 量化模型也直接通过 LLM 入口点支持：
 
-```
+````
 from vllm import LLM, SamplingParams
 
 # Sample prompts.
@@ -80,3 +77,4 @@ for output in outputs:
     generated_text = output.outputs[0].text
     print(f"Prompt: {prompt!r}, Generated text: {generated_text!r}")
     ```
+````

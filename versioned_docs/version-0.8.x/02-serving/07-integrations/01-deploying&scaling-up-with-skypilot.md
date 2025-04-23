@@ -2,23 +2,20 @@
 title: 使用 SkyPilot 进行部署和扩充
 ---
 
-
 ![图片](/img/docs/02-07/01-Deploying&scaling-up-with-SkyPilot.png)
 
-vLLM 可以通过 [SkyPilot](https://github.com/skypilot-org/skypilot) （一个用于在任何云端运行 LLM 的开源框架）**在云****端****和 Kubernetes 上运行并扩充为多个服务副本**。关于更多各种开放模型的示例，例如 Llama-3、Mixtral 等，可以在 [SkyPilot AI gallery](https://skypilot.readthedocs.io/en/latest/gallery/index.html) 中找到。
-
+vLLM 可以通过 [SkyPilot](https://github.com/skypilot-org/skypilot) （一个用于在任何云端运行 LLM 的开源框架）**在云\*\***端\***\*和 Kubernetes 上运行并扩充为多个服务副本**。关于更多各种开放模型的示例，例如 Llama-3、Mixtral 等，可以在 [SkyPilot AI gallery](https://skypilot.readthedocs.io/en/latest/gallery/index.html) 中找到。
 
 ## 依赖
 
-* 前往 [HuggingFace 模型页面](https://huggingface.co/meta-llama/Meta-Llama-3-8B-Instruct) ， 请求获取模型 `meta-llama/Meta-Llama-3-8B-Instruct`。
-* 检查您是否已安装 SkyPilot（[文档](https://skypilot.readthedocs.io/en/latest/getting-started/installation.html)）。
-* 检查 `sky check`命令的结果以确认云服务或 Kubernetes 是否已启用。
+- 前往 [HuggingFace 模型页面](https://huggingface.co/meta-llama/Meta-Llama-3-8B-Instruct) ， 请求获取模型 `meta-llama/Meta-Llama-3-8B-Instruct`。
+- 检查您是否已安装 SkyPilot（[文档](https://skypilot.readthedocs.io/en/latest/getting-started/installation.html)）。
+- 检查 `sky check`命令的结果以确认云服务或 Kubernetes 是否已启用。
 
 ```plain
 pip install skypilot-nightly
 sky check
 ```
-
 
 ## 在单个实例上运行
 
@@ -98,27 +95,23 @@ run: |
     --stop-token-ids 128009,128001
 ```
 
-
 在列表中的任何一个候选 GPU (L4、A10g 等) 上启动服务以运行 Llama-3 8B 模型：
 
 ```plain
 HF_TOKEN="your-huggingface-token" sky launch serving.yaml --env HF_TOKEN
 ```
 
-
-检查命令的输出结果。将会有一个可分享的 gradio  链接（如下面的最后一行），在浏览器中打开此链接，便可使用 LLaMA 模型进行文本补全任务。
+检查命令的输出结果。将会有一个可分享的 gradio 链接（如下面的最后一行），在浏览器中打开此链接，便可使用 LLaMA 模型进行文本补全任务。
 
 ```plain
 (task, pid=7431) Running on public URL: https://<gradio-hash>.gradio.live
 ```
 
-
-**可选****操作****：**使用 70B 模型代替默认的 8B 模型，并使用更多的 GPU：
+**可选\*\***操作\***\*：**使用 70B 模型代替默认的 8B 模型，并使用更多的 GPU：
 
 ```plain
 HF_TOKEN="your-huggingface-token" sky launch serving.yaml --gpus A100:8 --env HF_TOKEN --env MODEL_NAME=meta-llama/Meta-Llama-3-70B-Instruct
 ```
-
 
 ## 扩充到多个副本
 
@@ -129,9 +122,7 @@ service:
   replicas: 2
   # An actual request for readiness probe.
 
-
   # 准备就绪探针的实际请求。
-
 
   readiness_probe:
     path: /v1/chat/completions
@@ -143,14 +134,9 @@ service:
   max_tokens: 1
 ```
 
-
-
  <details>
 
 <summary>点击查看完整的 YAML 配置</summary>
-
-
-
 
 ```yaml
 service:
@@ -230,6 +216,7 @@ run: |
     --tensor-parallel-size $SKYPILOT_NUM_GPUS_PER_NODE \
     2>&1 | tee api_server.log
 ```
+
  </details>
 
 在多个副本上启动服务以运行 Llama-3 8B 模型：
@@ -238,14 +225,11 @@ run: |
 HF_TOKEN="your-huggingface-token" sky serve up -n vllm serving.yaml --env HF_TOKEN
 ```
 
-
 等待服务准备就绪：
 
 ```plain
 watch -n10 sky serve status vllm
 ```
-
-
 
  <details>
 
@@ -262,6 +246,7 @@ SERVICE_NAME  ID  VERSION  IP            LAUNCHED     RESOURCES                S
 vllm          1   1        xx.yy.zz.121  18 mins ago  1x GCP([Spot]{'L4': 1})  READY   us-east4
 vllm          2   1        xx.yy.zz.245  18 mins ago  1x GCP([Spot]{'L4': 1})  READY   us-east4
 ```
+
  </details>
 
 在服务变为「READY」状态后，您可以找到该服务的单个端点，并使用该端点访问该服务：
@@ -285,7 +270,8 @@ curl -L http://$ENDPOINT/v1/chat/completions \
     "stop_token_ids": [128009,  128001]
   }'
 ```
-To enable autoscaling, you could replace the [replicas] with the following configs in *service*:
+
+To enable autoscaling, you could replace the [replicas] with the following configs in _service_:
 要启用自动缩放功能，您可以在「service」中用以下配置替换“[replicas]”
 
 ```yaml
@@ -295,15 +281,12 @@ service:
     max_replicas: 4
     target_qps_per_replica: 2
 ```
+
 当 QPS 超过 2 时，会将服务扩充到每个副本。
-
-
-
 
 <details>
 
 <summary>点击查看完整的 YAML 配置</summary>
-
 
 ```yaml
 service:
@@ -386,6 +369,7 @@ run: |
     --tensor-parallel-size $SKYPILOT_NUM_GPUS_PER_NODE \
     2>&1 | tee api_server.log
 ```
+
  </details>
 
 使用新配置更新服务的操作：
@@ -394,19 +378,15 @@ run: |
 HF_TOKEN="your-huggingface-token" sky serve update vllm serving.yaml --env HF_TOKEN
 ```
 
-
 停止服务的操作：
 
 ```plain
 sky serve down vllm
 ```
 
-
 ### **可选**: 将 GUI 连接到端点
 
 也可以使用单独的 GUI 前端访问 Llama-3 服务，这样发送到 GUI 的用户请求将在副本之间进行负载平衡。
-
-
 
 <details>
 
@@ -454,6 +434,7 @@ run: |
     --model-url http://$ENDPOINT/v1 \
     --stop-token-ids 128009,128001 | tee ~/gradio.log
 ```
+
  </details>
 
 1.启动聊天 Web UI：
@@ -461,7 +442,6 @@ run: |
 ```plain
 sky launch -c gui ./gui.yaml --env ENDPOINT=$(sky serve status --endpoint vllm)
 ```
-
 
 2.然后，我们可以通过返回的 gradio 链接访问 GUI：
 

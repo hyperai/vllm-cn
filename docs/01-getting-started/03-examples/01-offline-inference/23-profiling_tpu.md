@@ -2,7 +2,7 @@
 title: vLLM TPU 分析
 ---
 
-[*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
+[\*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
 
 源码 [examples/offline_inference/profiling_tpu](https://github.com/vllm-project/vllm/blob/main/examples/offline_inference/profiling_tpu)
 
@@ -12,7 +12,7 @@ title: vLLM TPU 分析
 
 假设您已在使用 TPU 环境(本测试基于 TPU v6e)并已按照[安装指南](https://docs.vllm.ai/en/latest/getting_started/installation/ai_accelerator/index.html)完成 vLLM 安装。
 
->以下所有示例中，我们都先进行若干次预热运行(因此使用--enforce-eager参数是可行的)
+> 以下所有示例中，我们都先进行若干次预热运行(因此使用--enforce-eager参数是可行的)
 
 ## 性能分析示例
 
@@ -67,12 +67,14 @@ python3 profiling.py \
 ```bash
 pip install tensorflow-cpu tensorboard-plugin-profile etils importlib_resources
 ```
+
 Then you just need to point TensorBoard to the directory where you saved the profiles and visit `http://localhost:6006/` in your browser:
 然后只需将TensorBoard指向保存分析数据的目录，并在浏览器中访问`http://localhost:6006/`：
 
 ```bash
 tensorboard --logdir profiles/ --port 6006
 ```
+
 # 示例材料
 
 ## profiling.py
@@ -203,5 +205,3 @@ if __name__ == '__main__':
 
 
 ```
-
-

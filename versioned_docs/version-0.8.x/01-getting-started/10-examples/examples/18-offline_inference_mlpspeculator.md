@@ -2,7 +2,6 @@
 title: 离线推理 MlpSpeculator
 ---
 
-
 源代码: [vllm-project/vllm](https://raw.githubusercontent.com/vllm-project/vllm/main/examples/offline_inference_mlpspeculator.py)
 
 ```python
@@ -76,5 +75,3 @@ if __name__ == "__main__":
     print("With speculation")
     time_generation(llm, prompts, sampling_params)
 ```
-
-

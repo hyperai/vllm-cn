@@ -2,7 +2,6 @@
 title: OpenAI 嵌入客户端
 ---
 
-
 源代码: [vllm-project/vllm](https://raw.githubusercontent.com/vllm-project/vllm/main/examples/openai_embedding_client.py)
 
 ```python
@@ -34,5 +33,3 @@ responses = client.embeddings.create(
 for data in responses.data:
     print(data.embedding)  # list of float of len 4096
 ```
-
-

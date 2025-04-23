@@ -2,21 +2,20 @@
 title: Audio Language
 ---
 
-
-[*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
+[\*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
 
 源码 [examples/offline_inference/audio_language.py](https://github.com/vllm-project/vllm/blob/main/examples/offline_inference/audio_language.py)
 
 ```python
 # SPDX-License-Identifier: Apache-2.0
 """
-This example shows how to use vLLM for running offline inference 
+This example shows how to use vLLM for running offline inference
 with the correct prompt format on audio language models.
 For most models, the prompt format should follow corresponding examples
 on HuggingFace model repository.
 """
 """
-此示例显示了如何使用 vLLM 进行离线推理运行 
+此示例显示了如何使用 vLLM 进行离线推理运行
 使用音频语言模型的正确及时格式。
 对于大多数型号，及时格式应遵循相应的示例
 在 HuggingFace 模型存储库上。
@@ -225,7 +224,7 @@ def main(args):
     # llm.generate(prompts, lora_request=lora_request,...)
     # 要维护此脚本中的代码兼容性，我们在此处添加 Lora。
     # 您还可以使用:
-    # llm.generate (提示，lora_request = lora_request，...) 
+    # llm.generate (提示，lora_request = lora_request，...)
     if req_data.lora_requests:
         for lora_request in req_data.lora_requests:
             llm.llm_engine.add_lora(lora_request=lora_request)

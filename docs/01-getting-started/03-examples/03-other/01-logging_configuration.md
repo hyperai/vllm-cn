@@ -2,8 +2,7 @@
 title: 日志配置说明
 ---
 
-
-[*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
+[\*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
 
 源码 [examples/other/logging_configuration.md](https://github.com/vllm-project/vllm/blob/main/examples/other/logging_configuration.md).
 
@@ -11,16 +10,17 @@ vLLM 利用 Python 的 `logging.config.dictConfig` 功能，实现对 vLLM 所
 
 vLLM 提供两个环境变量，可支持从简单不灵活到复杂灵活的各种日志配置方案：
 
-* 禁用 vLLM 日志（简单不灵活）
+- 禁用 vLLM 日志（简单不灵活）
 
-   * 设置 `VLLM_CONFIGURE_LOGGING=0`（保持 `VLLM_LOGGING_CONFIG_PATH` 未设置）
-* vLLM 默认日志配置（简单不灵活）
+  - 设置 `VLLM_CONFIGURE_LOGGING=0`（保持 `VLLM_LOGGING_CONFIG_PATH` 未设置）
 
-   * 保持 `VLLM_CONFIGURE_LOGGING` 未设置或设为 `VLLM_CONFIGURE_LOGGING=1`
-* 细粒度自定义日志配置（更复杂，更灵活）
+- vLLM 默认日志配置（简单不灵活）
 
-   * 保持 `VLLM_CONFIGURE_LOGGING` 未设置或设为 `VLLM_CONFIGURE_LOGGING=1`，同时设置 `VLLM_LOGGING_CONFIG_PATH=<日志配置文件路径.json>`
+  - 保持 `VLLM_CONFIGURE_LOGGING` 未设置或设为 `VLLM_CONFIGURE_LOGGING=1`
 
+- 细粒度自定义日志配置（更复杂，更灵活）
+
+  - 保持 `VLLM_CONFIGURE_LOGGING` 未设置或设为 `VLLM_CONFIGURE_LOGGING=1`，同时设置 `VLLM_LOGGING_CONFIG_PATH=<日志配置文件路径.json>`
 
 ## 环境变量详解
 
@@ -57,7 +57,7 @@ vLLM 提供两个环境变量，可支持从简单不灵活到复杂灵活的各
   },
   "handlers": {
     "console": {
-      "class" : "logging.StreamHandler",
+      "class": "logging.StreamHandler",
       "formatter": "json",
       "level": "INFO",
       "stream": "ext://sys.stdout"
@@ -102,7 +102,7 @@ VLLM_LOGGING_CONFIG_PATH=/path/to/logging_config.json \
   },
   "handlers": {
     "vllm": {
-      "class" : "logging.StreamHandler",
+      "class": "logging.StreamHandler",
       "formatter": "vllm",
       "level": "INFO",
       "stream": "ext://sys.stdout"
@@ -138,9 +138,6 @@ VLLM_CONFIGURE_LOGGING=0 \
     vllm serve mistralai/Mistral-7B-v0.1 --max-model-len 2048
 ```
 
-
 ## 附加资源
 
-* `logging.config`[ 字典模式详情](https://docs.python.org/3/library/logging.config.html#dictionary-schema-details)
-
-
+- `logging.config`[ 字典模式详情](https://docs.python.org/3/library/logging.config.html#dictionary-schema-details)

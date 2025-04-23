@@ -2,7 +2,7 @@
 title: Rlhf
 ---
 
-[*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
+[\*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
 
 源码 [examples/offline_inference/rlhf.py](https://github.com/vllm-project/vllm/blob/main/examples/offline_inference/rlhf.py)
 
@@ -12,7 +12,7 @@ title: Rlhf
 """
 一个基于 vLLM 的 RLHF 简单实现演示，灵感来源于
 OpenRLHF 框架 https://github.com/OpenRLHF/OpenRLHF 。
-该设计采用训练进程 (training processes) 与推理进程 (inference processes) 
+该设计采用训练进程 (training processes) 与推理进程 (inference processes)
 分离的方案，它们运行在不同的 GPU 上。
 训练进程向推理进程发送提示 (prompts) 以生成数据，
 同时通过将模型权重从训练进程广播 (broadcast) 到推理进程
@@ -48,7 +48,7 @@ class MyLLM(LLM):
 
 
 """
-开始训练过程，在这里我们使用 HuggingFace Transformer 
+开始训练过程，在这里我们使用 HuggingFace Transformer
 作为在 GPU 0 上保存模型的示例。
 """
 

@@ -2,8 +2,7 @@
 title: 生产指标
 ---
 
-
-vLLM 公布了许多指标，可用于监控系统运行状况。这些指标通过 vLLM 与 OpenAI 兼容的 API 服务器上的 */metrics* 端点公开。
+vLLM 公布了许多指标，可用于监控系统运行状况。这些指标通过 vLLM 与 OpenAI 兼容的 API 服务器上的 _/metrics_ 端点公开。
 
 The following metrics are exposed:
 
@@ -188,5 +187,3 @@ class Metrics:
             multiprocess_mode="sum",
         )
 ```
-
-

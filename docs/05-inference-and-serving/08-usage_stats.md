@@ -1,20 +1,14 @@
 ---
-
 title: 使用统计数据收集
-
 ---
 
-
-[*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
-
+[\*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
 
 默认情况下，vLLM 会收集匿名使用数据，以帮助工程团队更好地了解哪些硬件和模型配置被广泛使用。这些数据使他们能够优先考虑对最常见的工作负载的努力。收集的数据是透明的，不包含任何敏感信息，并将公开发布，以便社区受益。
-
 
 ## 收集了哪些数据？
 
 你可以在 [usage_lib.py](https://github.com/vllm-project/vllm/blob/main/vllm/usage/usage_lib.py) 中查看最新的数据列表。
-
 
 以下是 v0.4.0 版本的示例：
 
@@ -49,13 +43,11 @@ title: 使用统计数据收集
 }
 ```
 
-
 你可以通过运行以下命令预览收集的数据：
 
 ```plain
 tail ~/.config/vllm/usage_stats.json
 ```
-
 
 ## 退出使用统计数据收集
 
@@ -68,5 +60,3 @@ export VLLM_NO_USAGE_STATS=1
 export DO_NOT_TRACK=1
 mkdir -p ~/.config/vllm && touch ~/.config/vllm/do_not_track
 ```
-
-

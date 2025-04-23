@@ -2,9 +2,7 @@
 title: 基础指南
 ---
 
-
-
-[*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
+[\*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
 
 源码 [examples/offline_inference/basic](https://github.com/vllm-project/vllm/blob/main/examples/offline_inference/basic)
 
@@ -45,6 +43,7 @@ python examples/offline_inference/basic/generate.py
 ```
 
 ## 功能
+
 在支持参数传递的脚本中，你可以尝试以下功能。
 
 ### 默认生成配置
@@ -60,6 +59,7 @@ python examples/offline_inference/basic/generate.py
 ```
 
 ### 量化
+
 #### AQLM
 
 vLLM 支持使用 AQLM 量化的模型。
@@ -71,7 +71,7 @@ vLLM 支持使用 AQLM 量化的模型。
 - `ISTA-DASLab/Llama-2-13b-AQLM-2Bit-1x16-hf`
 - `ISTA-DASLab/Mixtral-8x7b-AQLM-2Bit-1x16-hf`
 - `BlackSamorez/TinyLlama-1_1B-Chat-v1_0-AQLM-2Bit-1x16-hf`
- 
+
 > 部分模型可能过大，无法在单块 GPU 上运行。你可以通过设置 `--tensor-parallel-size` 来将其拆分到多块 GPU 上运行。
 
 #### GGUF
@@ -102,7 +102,9 @@ print(hf_hub_download(repo_id, filename=filename))
 ```
 
 # 示例材料
+
 ## basic.py
+
 ```python
 # SPDX-License-Identifier: Apache-2.0
 
@@ -139,6 +141,7 @@ for output in outputs:
 ```
 
 ## chat.py
+
 ```python
 # SPDX-License-Identifier: Apache-2.0
 
@@ -254,6 +257,7 @@ if __name__ == "__main__":
 ```
 
 ## classify.py
+
 ```python
 # SPDX-License-Identifier: Apache-2.0
 
@@ -309,6 +313,7 @@ if __name__ == "__main__":
 ```
 
 ## embed.py
+
 ```python
 # SPDX-License-Identifier: Apache-2.0
 
@@ -364,6 +369,7 @@ if __name__ == "__main__":
 ```
 
 ## generate.py
+
 ```python
 # SPDX-License-Identifier: Apache-2.0
 
@@ -433,6 +439,7 @@ if __name__ == "__main__":
 ```
 
 ## score.py
+
 ```python
 # SPDX-License-Identifier: Apache-2.0
 

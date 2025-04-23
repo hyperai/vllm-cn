@@ -2,7 +2,6 @@
 title: OpenAI 聊天补全客户端
 ---
 
-
 源代码: [vllm-project/vllm](https://raw.githubusercontent.com/vllm-project/vllm/main/examples/openai_chat_completion_client.py)
 
 ```python
@@ -47,5 +46,3 @@ chat_completion = client.chat.completions.create(
 print("Chat completion results:")
 print(chat_completion)
 ```
-
-

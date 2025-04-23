@@ -8,8 +8,7 @@ vLLM 使用以下环境变量来配置系统：
 
 请注意， `VLLM_PORT` 和 `VLLM_HOST_IP` 是用于设置 vLLM **内部使用**的端口和 IP，它们并非 API 服务器的端口和 IP。如果您使用 `--host $VLLM_HOST_IP` 和 `--port $VLLM_PORT` 来启动 API 服务器，将无法正常运行。
 
-
-vLLM 所使用的所有环境变量都以 `VLLM_` 为前缀。 **Kubernetes 用户****需要****特别注意**：请不要将服务命名为 `vllm`，否则 Kubernetes 设置的环境变量可能会与 vLLM 的环境变量冲突，因为 [Kubernetes 会以大写的服务名称作为前缀为每个服务设置环境变量](https://kubernetes.io/docs/concepts/services-networking/service/#environment-variables)。 
+vLLM 所使用的所有环境变量都以 `VLLM_` 为前缀。 **Kubernetes 用户\*\***需要\***\*特别注意**：请不要将服务命名为 `vllm`，否则 Kubernetes 设置的环境变量可能会与 vLLM 的环境变量冲突，因为 [Kubernetes 会以大写的服务名称作为前缀为每个服务设置环境变量](https://kubernetes.io/docs/concepts/services-networking/service/#environment-variables)。
 
 ```python
 environment_variables: Dict[str, Callable[[], Any]] = {
@@ -167,7 +166,7 @@ environment_variables: Dict[str, Callable[[], Any]] = {
 
     # when `VLLM_NCCL_SO_PATH` is not set, vllm will try to find the nccl
     # library file in the locations specified by `LD_LIBRARY_PATH`
-    # 当未设置 `VLLM_NCCL_SO_PATH` 时，vllm 将尝试在 `LD_LIBRARY_PATH` 
+    # 当未设置 `VLLM_NCCL_SO_PATH` 时，vllm 将尝试在 `LD_LIBRARY_PATH`
     # 指定的位置查找 NCCL 库文件
     "LD_LIBRARY_PATH":
     lambda: os.environ.get("LD_LIBRARY_PATH", None),
@@ -513,5 +512,3 @@ environment_variables: Dict[str, Callable[[], Any]] = {
      ("1", "true")),
 }
 ```
-
-

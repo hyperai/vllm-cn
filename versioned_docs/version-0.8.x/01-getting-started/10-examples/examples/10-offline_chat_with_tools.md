@@ -2,10 +2,9 @@
 title: 离线聊天工具
 ---
 
-
 源代码: [vllm-project/vllm](https://github.com/vllm-project/vllm/blob/main/examples/offline_chat_with_tools.py)
 
-```python
+````python
 # ruff: noqa
 import json
 import random
@@ -18,7 +17,7 @@ from vllm.sampling_params import SamplingParams
 
 # This script is an offline demo for function calling
 # 该脚本是函数调用的离线 demo
-# 
+#
 # If you want to run a server/client setup, please follow this code:
 # 如果你想运行一个服务器/客户端设置，请运行以下代码：
 #
@@ -173,6 +172,4 @@ print(outputs[0].outputs[0].text.strip())
 # 输出
 #   'The weather in Dallas, TX is 85 degrees fahrenheit. '
 #   'It is partly cloudly, with highs in the 90's.'
-```
-
-
+````

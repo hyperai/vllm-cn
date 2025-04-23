@@ -2,7 +2,6 @@
 title: Gradio Web 服务器
 ---
 
-
 源代码: [vllm-project/vllm](https://raw.githubusercontent.com/vllm-project/vllm/main/examples/gradio_webserver.py)
 
 ```python
@@ -59,5 +58,3 @@ if __name__ == "__main__":
                         server_port=args.port,
                         share=True)
 ```
-
-

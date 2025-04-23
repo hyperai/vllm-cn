@@ -2,7 +2,6 @@
 title: Gradio OpenAI 聊天机器人 Web 服务器
 ---
 
-
 源代码: [vllm-project/vllm](https://raw.githubusercontent.com/vllm-project/vllm/main/examples/gradio_openai_chatbot_webserver.py)
 
 ```python
@@ -101,5 +100,3 @@ gr.ChatInterface(predict).queue().launch(server_name=args.host,
                                          server_port=args.port,
                                          share=True)
 ```
-
-

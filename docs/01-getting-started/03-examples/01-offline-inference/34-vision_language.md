@@ -2,7 +2,7 @@
 title: Vision Language
 ---
 
-[*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
+[\*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
 
 源码 [examples/offline_inference/vision_language.py](https://github.com/vllm-project/vllm/blob/main/examples/offline_inference/vision_language.py)
 
@@ -45,7 +45,7 @@ def run_aria(questions: list[str], modality: str) -> ModelRequestData:
     assert modality == "image"
     model_name = "rhymes-ai/Aria"
 
-   
+
     # 注意:需要 L40 (或同等) 以避免 OOM
     engine_args = EngineArgs(
         model=model_name,
@@ -247,7 +247,7 @@ def run_h2ovl(questions: list[str], modality: str) -> ModelRequestData:
 
     # Stop tokens for H2OVL-Mississippi
     # https://huggingface.co/h2oai/h2ovl-mississippi-800m
-    # 停止 h2ovl-mississippi 的 token 
+    # 停止 h2ovl-mississippi 的 token
     # https://huggingface.co/h2oai/h2ovl-mississippi-800m
     stop_token_ids = [tokenizer.eos_token_id]
 
@@ -317,7 +317,7 @@ def run_internvl(questions: list[str], modality: str) -> ModelRequestData:
     # please refer to the model card for the correct "stop words":
     # https://huggingface.co/OpenGVLab/InternVL2-2B/blob/main/conversation.py
     # 停止 token 进行 Internvl
-    # 型号变体可能具有不同的停止 token 
+    # 型号变体可能具有不同的停止 token
     # 请参考正确的"停止词"的模型卡:
     # https://huggingface.co/opengvlab/internvl2-2b/blob/main/conversation.py
     stop_tokens = ["<|endoftext|>", "<|im_start|>", "<|im_end|>", "<|end|>"]
@@ -929,7 +929,7 @@ def get_multi_modal_input(args):
 
 def apply_image_repeat(image_repeat_prob, num_prompts, data,
                        prompts: list[str], modality):
-    """Repeats images with provided probability of "image_repeat_prob". 
+    """Repeats images with provided probability of "image_repeat_prob".
     Used to simulate hit/miss for the MM preprocessor cache.
     """
     assert (image_repeat_prob <= 1.0 and image_repeat_prob >= 0)

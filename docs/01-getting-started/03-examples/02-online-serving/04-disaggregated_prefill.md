@@ -2,7 +2,7 @@
 title: Disaggregated Prefill
 ---
 
-[*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
+[\*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
 
 源码 [examples/online_serving/disaggregated_prefill.sh](https://github.com/vllm-project/vllm/blob/main/examples/online_serving/disaggregated_prefill.sh)
 
@@ -42,7 +42,7 @@ if python3 -c "import quart" &> /dev/null; then
 else
     echo "Quart is not installed. Installing..."
     python3 -m pip install quart
-fi 
+fi
 
 
 # 等待 vLLM 服务器启动的函数

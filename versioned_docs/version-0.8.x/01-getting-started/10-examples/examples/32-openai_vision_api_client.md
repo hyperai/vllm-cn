@@ -2,7 +2,6 @@
 title: OpenAI 视觉 API 客户端
 ---
 
-
 源代码: [vllm-project/vllm](https://raw.githubusercontent.com/vllm-project/vllm/main/examples/openai_vision_api_client.py)
 
 ```python
@@ -160,5 +159,3 @@ chat_completion_from_url = client.chat.completions.create(
 result = chat_completion_from_url.choices[0].message.content
 print("Chat completion output:", result)
 ```
-
-

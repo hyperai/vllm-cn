@@ -2,7 +2,6 @@
 title: 离线推理 Arctic
 ---
 
-
 源代码: [vllm-project/vllm](https://raw.githubusercontent.com/vllm-project/vllm/main/examples/offline_inference_arctic.py)
 
 ```python
@@ -40,5 +39,3 @@ for output in outputs:
     generated_text = output.outputs[0].text
     print(f"Prompt: {prompt!r}, Generated text: {generated_text!r}")
 ```
-
-

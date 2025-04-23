@@ -2,12 +2,12 @@
 title: 使用 OpenAI 批处理文件格式进行离线推理
 ---
 
-[*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
+[\*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
 
 源码 [examples/offline_inference/openai](https://github.com/vllm-project/vllm/blob/main/examples/offline_inference/openai)
 
 > 重要信息
-> 
+>
 > 本指南介绍如何使用 OpenAI 批处理文件格式执行批量推理，**而非**完整的 Batch (REST) API。  
 
 ## 文件格式
@@ -24,13 +24,13 @@ We currently support `/v1/chat/completions`, `/v1/embeddings`, and `/v1/score` e
 
 ## 准备工作
 
-* 本文示例使用 `meta-llama/Meta-Llama-3-8B-Instruct` 模型。
+- 本文示例使用 `meta-llama/Meta-Llama-3-8B-Instruct` 模型。
 
-   * 创建 [用户访问令牌](https://huggingface.co/docs/hub/en/security-tokens)
+  - 创建 [用户访问令牌](https://huggingface.co/docs/hub/en/security-tokens)
 
-   * 在本地安装令牌（运行 `huggingface-cli login`）。
+  - 在本地安装令牌（运行 `huggingface-cli login`）。
 
-   * 访问 [模型卡片](https://huggingface.co/meta-llama/Meta-Llama-3-8B-Instruct) 并同意条款以获取受限模型访问权限。
+  - 访问 [模型卡片](https://huggingface.co/meta-llama/Meta-Llama-3-8B-Instruct) 并同意条款以获取受限模型访问权限。
 
 ## 示例 1：使用本地文件运行
 
@@ -88,11 +88,12 @@ python -m vllm.entrypoints.openai.run_batch -i https://raw.githubusercontent.com
 
 ### 额外准备工作
 
-* [创建 S3 存储桶](https://docs.aws.amazon.com/AmazonS3/latest/userguide/creating-bucket.html)。
-* 安装 `awscli` 包（运行 `pip install awscli`）以配置凭证并交互式使用 S3。
+- [创建 S3 存储桶](https://docs.aws.amazon.com/AmazonS3/latest/userguide/creating-bucket.html)。
+- 安装 `awscli` 包（运行 `pip install awscli`）以配置凭证并交互式使用 S3。
 
-   * [配置凭证](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-quickstart.html)。
-* 安装 `boto3` Python 包（运行 `pip install boto3`）以生成预签名 URL。
+  - [配置凭证](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-quickstart.html)。
+
+- 安装 `boto3` Python 包（运行 `pip install boto3`）以生成预签名 URL。
 
 ### 步骤 1：上传输入脚本
 
@@ -138,16 +139,16 @@ def generate_presigned_url(s3_client, client_method, method_parameters, expires_
     :param expires_in: The number of seconds the presigned URL is valid for.
     :return: The presigned URL.
     """
-    """  
-    生成可用于执行操作的预签名 Amazon S3 URL。  
+    """
+    生成可用于执行操作的预签名 Amazon S3 URL。
 
 
-    :param s3_client: Boto3 Amazon S3 客户端。  
-    :param client_method: URL 执行的客户端方法名称。  
-    :param method_parameters: 指定客户端方法的参数。  
-    :param expires_in: 预签名 URL 的有效秒数。  
-    :return: 预签名 URL。  
-    """  
+    :param s3_client: Boto3 Amazon S3 客户端。
+    :param client_method: URL 执行的客户端方法名称。
+    :param method_parameters: 指定客户端方法的参数。
+    :param expires_in: 预签名 URL 的有效秒数。
+    :return: 预签名 URL。
+    """
 
 
     try:
@@ -190,7 +191,6 @@ python -m vllm.entrypoints.openai.run_batch \
     --model --model meta-llama/Meta-Llama-3-8B-Instruct
 ```
 
-
 ### 步骤 4：查看结果
 
 结果现已保存在 S3 上。可通过以下命令在终端查看：
@@ -203,7 +203,7 @@ aws s3 cp s3://MY_BUCKET/MY_OUTPUT_FILE.jsonl -
 
 ### 额外准备工作
 
-* 确保使用 `vllm >= 0.5.5` 版本。
+- 确保使用 `vllm >= 0.5.5` 版本。
 
 ### 步骤 1：创建批处理文件
 
@@ -234,7 +234,7 @@ $ cat results.jsonl
 
 ### 额外准备工作
 
-* 确保使用 `vllm >= 0.7.0` 版本。
+- 确保使用 `vllm >= 0.7.0` 版本。
 
 ### 步骤 1：创建批处理文件
 
@@ -265,10 +265,7 @@ $ cat results.jsonl
 
 ## openai_example_batch.jsonl
 
-
 ```json
 {"custom_id": "request-1", "method": "POST", "url": "/v1/chat/completions", "body": {"model": "meta-llama/Meta-Llama-3-8B-Instruct", "messages": [{"role": "system", "content": "You are a helpful assistant."},{"role": "user", "content": "Hello world!"}],"max_completion_tokens": 1000}}
 {"custom_id": "request-2", "method": "POST", "url": "/v1/chat/completions", "body": {"model": "meta-llama/Meta-Llama-3
 ```
-
-

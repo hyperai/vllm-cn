@@ -2,7 +2,6 @@
 title: 带量化的 LoRA 推理
 ---
 
-
 源代码: [vllm-project/vllm](https://raw.githubusercontent.com/vllm-project/vllm/main/examples/lora_with_quantization_inference.py)
 
 ```python
@@ -11,7 +10,7 @@ This example shows how to use LoRA with different quantization techniques
 for offline inference.
 
 Requires HuggingFace credentials for access.
-该示例展示了如何在离线推理中使用不同的量化技术进行 LoRA（低秩适配）。    
+该示例展示了如何在离线推理中使用不同的量化技术进行 LoRA（低秩适配）。
 访问需要 HuggingFace 凭据。
 
 """
@@ -164,5 +163,3 @@ def main():
 if __name__ == '__main__':
     main()
 ```
-
-

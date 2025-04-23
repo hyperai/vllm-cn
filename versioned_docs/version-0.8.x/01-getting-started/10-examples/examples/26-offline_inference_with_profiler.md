@@ -2,7 +2,6 @@
 title: 启用分析器的离线推理
 ---
 
-
 [源代码](https://github.com/vllm-project/vllm/blob/main/examples/offline_inference_with_profiler.py)
 
 ```python
@@ -54,5 +53,3 @@ for output in outputs:
     generated_text = output.outputs[0].text
     print(f"Prompt: {prompt!r}, Generated text: {generated_text!r}")
 ```
-
-

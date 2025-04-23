@@ -2,7 +2,6 @@
 title: MultiLoRA 推理
 ---
 
-
 源代码: [vllm-project/vllm](https://raw.githubusercontent.com/vllm-project/vllm/main/examples/multilora_inference.py)
 
 ```python
@@ -38,7 +37,7 @@ def create_test_prompts(
     first adapter have finished.
     创建一个测试提示列表及其采样参数。
     2 个请求用于基础模型，4 个请求用于 LoRA。我们定义了 2 个不同的 LoRA 适配器
-    （为了演示，使用相同的模型）。     
+    （为了演示，使用相同的模型）。
     由于我们还设置了 `max_loras=1`，因此预期的是，第二个 LoRA 适配器的请求将在
     所有使用第一个适配器的请求完成后运行。
     """
@@ -153,5 +152,3 @@ def main():
 if __name__ == '__main__':
     main()
 ```
-
-

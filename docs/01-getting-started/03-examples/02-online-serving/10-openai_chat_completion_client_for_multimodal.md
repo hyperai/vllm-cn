@@ -2,28 +2,28 @@
 title: Openai Chat Completion Client For Multimodal
 ---
 
-[*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
+[\*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
 
 源码 [examples/online_serving/openai_chat_completion_client_for_multimodal.py](https://github.com/vllm-project/vllm/blob/main/examples/online_serving/openai_chat_completion_client_for_multimodal.py)
 
 ```python
 # SPDX-License-Identifier: Apache-2.0
 
-""" 一个示例，展示如何使用 vLLM 部署多模态模型  
-并通过 OpenAI 客户端进行在线推理服务。  
+""" 一个示例，展示如何使用 vLLM 部署多模态模型
+并通过 OpenAI 客户端进行在线推理服务。
 
-使用以下命令启动 vLLM 服务器：  
+使用以下命令启动 vLLM 服务器：
 
-（使用 Llava 进行单图像推理）  
-vllm serve llava-hf/llava-1.5-7b-hf --chat-template template_llava.jinja  
+（使用 Llava 进行单图像推理）
+vllm serve llava-hf/llava-1.5-7b-hf --chat-template template_llava.jinja
 
-（使用 Phi-3.5-vision-instruct 进行多图像推理）  
-vllm serve microsoft/Phi-3.5-vision-instruct --task generate \  
---trust-remote-code --max-model-len 4096 --limit-mm-per-prompt image=2  
+（使用 Phi-3.5-vision-instruct 进行多图像推理）
+vllm serve microsoft/Phi-3.5-vision-instruct --task generate \
+--trust-remote-code --max-model-len 4096 --limit-mm-per-prompt image=2
 
-（使用 Ultravox 进行音频推理）  
-vllm serve fixie-ai/ultravox-v0_5-llama-3_2-1b --max-model-len 4096  
-"""  
+（使用 Ultravox 进行音频推理）
+vllm serve fixie-ai/ultravox-v0_5-llama-3_2-1b --max-model-len 4096
+"""
 
 import base64
 
@@ -227,7 +227,7 @@ def run_audio() -> None:
     audio_base64 = encode_base64_content_from_url(audio_url)
 
     # OpenAI-compatible schema (`input_audio`)
-    # openai 兼容架构 (`input_audio`) 
+    # openai 兼容架构 (`input_audio`)
     chat_completion_from_base64 = client.chat.completions.create(
         messages=[{
             "role":

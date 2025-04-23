@@ -1,7 +1,6 @@
 ---
-title: API 客户端  
+title: API 客户端
 ---
-
 
 源代码：[vllm-project/vllm](https://raw.githubusercontent.com/vllm-project/vllm/main/examples/api_client.py)
 
@@ -98,5 +97,3 @@ if __name__ == "__main__":
         for i, line in enumerate(output):
             print(f"Beam candidate {i}: {line!r}", flush=True)
 ```
-
-

@@ -2,13 +2,13 @@
 title: Prometheus 与 Grafana 监控方案
 ---
 
-[*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
+[\*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
 
 源码 [examples/online_serving/prometheus_grafana](https://github.com/vllm-project/vllm/blob/main/examples/online_serving/prometheus_grafana)
 
 本示例演示如何将 vLLM 的指标数据接入 Prometheus/Grafana 监控栈。本例使用 Docker 启动 Prometheus 和 Grafana 服务，更多部署方式请参考 [Prometheus](https://prometheus.io/) 和 [Grafana](https://grafana.com/) 官方文档。
 
-安装: 
+安装:
 
 - [`docker`](https://docs.docker.com/engine/install/)
 - [`docker compose`](https://docs.docker.com/compose/install/linux/#install-using-the-repository)
@@ -58,6 +58,7 @@ python3 ../../../benchmarks/benchmark_serving.py \
 点击保存并测试 `Save & Test`。您将看到绿色的成功提示，显示 "Successfully queried the Prometheus API."。
 
 ### 导入仪表板
+
 Navigate to [`http://localhost:3000/dashboard/import`](http://localhost:3000/dashboard/import), upload `grafana.json`, and select the `prometheus` datasource. You should see a screen that looks like the following:
 
 访问 [`http://localhost:3000/dashboard/import`](http://localhost:3000/dashboard/import)，上传 `grafana.json` 文件，并选择 `prometheus` 数据源。您将看到如下所示的界面：
@@ -65,7 +66,9 @@ Navigate to [`http://localhost:3000/dashboard/import`](http://localhost:3000/das
 ![Grafana Dashboard Image](./img/prometheus_grafana_1.png)
 
 # 示例材料
+
 ## docker-compose.yaml
+
 ```yaml
 # docker-compose.yaml
 version: "3"
@@ -74,9 +77,9 @@ services:
   prometheus:
     image: prom/prometheus:latest
     extra_hosts:
-      - "host.docker.internal:host-gateway"     # allow a direct connection from container to the local machine   # 允许容器直接连接宿主机
+      - "host.docker.internal:host-gateway" # allow a direct connection from container to the local machine   # 允许容器直接连接宿主机
     ports:
-      - "9090:9090"   # the default port used by Prometheus  # Prometheus 默认服务端口
+      - "9090:9090" # the default port used by Prometheus  # Prometheus 默认服务端口
     volumes:
       - ${PWD}/prometheus.yaml:/etc/prometheus/prometheus.yml # mount Prometheus config file # 挂载 Prometheus 配置文件
 
@@ -87,7 +90,9 @@ services:
     ports:
       - "3000:3000" # the default port used by Grafana # Grafana 默认服务端口
 ```
+
 ## grafana.json
+
 ```json
 {
   "annotations": {
@@ -1647,7 +1652,9 @@ services:
   "weekStart": ""
 }
 ```
+
 ## prometheus.yaml
+
 ```yaml
 # prometheus.yaml
 global:
@@ -1658,5 +1665,5 @@ scrape_configs:
   - job_name: vllm
     static_configs:
       - targets:
-          - 'host.docker.internal:8000'
+          - "host.docker.internal:8000"
 ```

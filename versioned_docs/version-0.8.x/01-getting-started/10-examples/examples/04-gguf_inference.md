@@ -2,7 +2,6 @@
 title: GGUF 推理
 ---
 
-
 源代码: [vllm-project/vllm](https://raw.githubusercontent.com/vllm-project/vllm/main/examples/gguf_inference.py)
 
 ```python
@@ -49,5 +48,3 @@ if __name__ == "__main__":
     model = hf_hub_download(repo_id, filename=filename)
     run_gguf_inference(model)
 ```
-
-

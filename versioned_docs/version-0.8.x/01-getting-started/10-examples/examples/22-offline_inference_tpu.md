@@ -2,7 +2,6 @@
 title: 离线推理 TPU
 ---
 
-
 源代码: [vllm-project/vllm](https://raw.githubusercontent.com/vllm-project/vllm/main/examples/offline_inference_tpu.py)
 
 ```python
@@ -40,5 +39,3 @@ for output, answer in zip(outputs, answers):
     print(f"Prompt: {prompt!r}, Generated text: {generated_text!r}")
     assert generated_text.startswith(answer)
 ```
-
-

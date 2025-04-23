@@ -2,10 +2,9 @@
 title: 使用 Pixtral 进行离线推理
 ---
 
-
 [源代码](https://github.com/vllm-project/vllm/blob/main/examples/offline_inference_pixtral.py)
 
-```python
+````python
 # ruff: noqa
 import argparse
 
@@ -197,6 +196,4 @@ def main():
 
 if __name__ == "__main__":
     main()
-```
-
-
+````

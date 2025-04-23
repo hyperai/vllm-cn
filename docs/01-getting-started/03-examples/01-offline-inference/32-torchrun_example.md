@@ -2,11 +2,11 @@
 title: Torchrun Example
 ---
 
-[*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
+[\*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
 
 源码 [examples/offline_inference/torchrun_example.py](https://github.com/vllm-project/vllm/blob/main/examples/offline_inference/torchrun_example.py)
 
-```python
+````python
 # SPDX-License-Identifier: Apache-2.0
 
 """
@@ -61,23 +61,30 @@ cpu_group = get_world_group().cpu_group
 torch_rank = dist.get_rank(group=cpu_group)
 if torch_rank == 0:
 # do something for rank 0, e.g. saving the results to disk.
-```
+````
+
 2. to communicate data across all ranks, use the model's device group,
-a PyTorch ProcessGroup with NCCL backend.
+   a PyTorch ProcessGroup with NCCL backend.
+
 ```python
 from vllm.distributed.parallel_state import get_world_group
 device_group = get_world_group().device_group
 ```
+
 3. to access the model directly in every rank, use the following code:
+
 ```python
 llm.llm_engine.model_executor.driver_worker.worker.model_runner.model
 ```
+
 """
 
 """
 更多使用技巧：
+
 1. 跨所有进程(rank)传递控制消息时，使用 CPU 组：
    基于 GLOO 后端的 PyTorch 进程组(ProcessGroup)
+
 ```python
 from vllm.distributed.parallel_state import get_world_group
 cpu_group = get_world_group().cpu_group
@@ -85,15 +92,23 @@ torch_rank = dist.get_rank(group=cpu_group)
 if torch_rank == 0:
     # 为 rank 0 执行特定操作，例如将结果保存到磁盘
 ```
+
 2.跨所有进程传输数据时，使用模型的设备组：
 基于 NCCL 后端的 PyTorch 进程组
+
 ```python
 from vllm.distributed.parallel_state import get_world_group
 device_group = get_world_group().device_group
 ```
+
 3.在每个进程中直接访问模型，使用以下代码：
+
 ```python
 llm.llm_engine.model_executor.driver_worker.worker.model_runner.model
 ```
+
 """
+
+```
+
 ```

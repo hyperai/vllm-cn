@@ -1,22 +1,16 @@
 ---
-
 title: OpenAI 兼容服务器
-
 ---
 
-
-[*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
-
+[\*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
 
 vLLM 提供实现了 OpenAI  [Completions API](https://platform.openai.com/docs/api-reference/completions), [Chat API](https://platform.openai.com/docs/api-reference/chat) 等接口的 HTTP 服务器。
-
 
 您可以通过`vllm serve`命令或 [Docker](https://docs.vllm.ai/en/latest/deployment/docker.html#deployment-docker) 容器启动服务：
 
 ```plain
 vllm serve NousResearch/Meta-Llama-3-8B-Instruct --dtype auto --api-key token-abc123
 ```
-
 
 调用服务时，可使用官方 [OpenAI Python 客户端](https://github.com/openai/openai-python)或任意 HTTP 客户端：
 
@@ -39,76 +33,73 @@ completion = client.chat.completions.create(
 print(completion.choices[0].message)
 ```
 
-
 **提示**
 
 vLLM支持部分OpenAI未包含的参数（如`top_k`），可通过在请求的`extra_body`参数中传递，例如：`extra_body={"top_k": 50}`。
 
-
-**重要****信息**
+**重要\*\***信息\*\*
 
 默认情况下，服务器会加载Hugging Face模型仓库中的`generation_config.json`文件（若存在）。这意味着某些采样参数的默认值可能被模型创建者推荐的配置覆盖。如需禁用此行为，请在启动服务时添加`--generation-config vllm`参数。
-
-## 
 
 ## 支持的 API
 
 我们目前支持以下 OpenAI API：
 
-* [Completions API](https://docs.vllm.ai/en/latest/serving/openai_compatible_server.html#completions-api) (`/v1/completions`)
+- [Completions API](https://docs.vllm.ai/en/latest/serving/openai_compatible_server.html#completions-api) (`/v1/completions`)
 
-   * 仅适用于[文本生成模型](https://docs.vllm.ai/en/latest/models/generative_models.html) (`--task generate`)。
+  - 仅适用于[文本生成模型](https://docs.vllm.ai/en/latest/models/generative_models.html) (`--task generate`)。
 
-   * *注意：不支持*`suffix`*参数。*
-* [Chat Completions API](https://docs.vllm.ai/en/latest/serving/openai_compatible_server.html#chat-api) (`/v1/chat/completions`)
+  - _注意：不支持_`suffix`_参数。_
 
-   * 仅适用于带有[聊天模板](https://docs.vllm.ai/en/latest/serving/openai_compatible_server.html#chat-template)的[文本生成模型](https://docs.vllm.ai/en/latest/models/generative_models.html) (`--task generate`)。
+- [Chat Completions API](https://docs.vllm.ai/en/latest/serving/openai_compatible_server.html#chat-api) (`/v1/chat/completions`)
 
-   * *注意：忽略*`parallel_tool_calls`*和*`user`*参数。*
-* [Embeddings API](https://docs.vllm.ai/en/latest/serving/openai_compatible_server.html#embeddings-api) (`/v1/embeddings`)
+  - 仅适用于带有[聊天模板](https://docs.vllm.ai/en/latest/serving/openai_compatible_server.html#chat-template)的[文本生成模型](https://docs.vllm.ai/en/latest/models/generative_models.html) (`--task generate`)。
 
-   * 仅适用于[嵌入模型](https://docs.vllm.ai/en/latest/models/pooling_models.html) (`--task embed`)。
-* [Transcriptions API](https://docs.vllm.ai/en/latest/serving/openai_compatible_server.html#transcriptions-api) (`/v1/audio/transcriptions`)
+  - _注意：忽略_`parallel_tool_calls`_和_`user`_参数。_
 
-   * 仅适用于自动语音识别 (ASR) 模型 (OpenAI Whisper) (`--task generate`)。
+- [Embeddings API](https://docs.vllm.ai/en/latest/serving/openai_compatible_server.html#embeddings-api) (`/v1/embeddings`)
 
+  - 仅适用于[嵌入模型](https://docs.vllm.ai/en/latest/models/pooling_models.html) (`--task embed`)。
+
+- [Transcriptions API](https://docs.vllm.ai/en/latest/serving/openai_compatible_server.html#transcriptions-api) (`/v1/audio/transcriptions`)
+
+  - 仅适用于自动语音识别 (ASR) 模型 (OpenAI Whisper) (`--task generate`)。
 
 此外，我们还提供以下自定义 API：
 
-* [Tokenizer API](https://docs.vllm.ai/en/latest/serving/openai_compatible_server.html#tokenizer-api) (`/tokenize`, `/detokenize`)
+- [Tokenizer API](https://docs.vllm.ai/en/latest/serving/openai_compatible_server.html#tokenizer-api) (`/tokenize`, `/detokenize`)
 
-   * 适用于任何带有分词器的模型。
-* [Pooling API](https://docs.vllm.ai/en/latest/serving/openai_compatible_server.html#pooling-api) (`/pooling`)
+  - 适用于任何带有分词器的模型。
 
-   * 适用于所有[池化模型](https://docs.vllm.ai/en/latest/models/pooling_models.html)。
-* [Score API](https://docs.vllm.ai/en/latest/serving/openai_compatible_server.html#score-api) (`/score`)
+- [Pooling API](https://docs.vllm.ai/en/latest/serving/openai_compatible_server.html#pooling-api) (`/pooling`)
 
-   * 适用于嵌入模型和[交叉编码器模型](https://docs.vllm.ai/en/latest/models/pooling_models.html) (`--task score`)。
-* [Re-rank API](https://docs.vllm.ai/en/latest/serving/openai_compatible_server.html#rerank-api) (`/rerank`, `/v1/rerank`, `/v2/rerank`)
+  - 适用于所有[池化模型](https://docs.vllm.ai/en/latest/models/pooling_models.html)。
 
-   * 实现 [Jina AI 的 v1 re-rank API](https://jina.ai/reranker/)
+- [Score API](https://docs.vllm.ai/en/latest/serving/openai_compatible_server.html#score-api) (`/score`)
 
-   * 同时兼容 [Cohere 的 v1 & v2 re-rank APIs](https://docs.cohere.com/v2/reference/rerank)
+  - 适用于嵌入模型和[交叉编码器模型](https://docs.vllm.ai/en/latest/models/pooling_models.html) (`--task score`)。
 
-   * Jina 和 Cohere 的 API 非常相似；Jina 的 API 在 rerank 端点响应中包含额外信息。
+- [Re-rank API](https://docs.vllm.ai/en/latest/serving/openai_compatible_server.html#rerank-api) (`/rerank`, `/v1/rerank`, `/v2/rerank`)
 
-   * 仅适用于[交叉编码器模型](https://docs.vllm.ai/en/latest/models/pooling_models.html) (`--task score`)。
+  - 实现 [Jina AI 的 v1 re-rank API](https://jina.ai/reranker/)
 
+  - 同时兼容 [Cohere 的 v1 & v2 re-rank APIs](https://docs.cohere.com/v2/reference/rerank)
+
+  - Jina 和 Cohere 的 API 非常相似；Jina 的 API 在 rerank 端点响应中包含额外信息。
+
+  - 仅适用于[交叉编码器模型](https://docs.vllm.ai/en/latest/models/pooling_models.html) (`--task score`)。
 
 ## 聊天模板
 
 为了使语言模型支持聊天协议，vLLM 要求模型在其分词器配置中包含聊天模板。聊天模板是一个 Jinja2 模板，指定了角色、消息和其他聊天特定 token 在输入中的编码方式。
 
-
 `NousResearch/Meta-Llama-3-8B-Instruct` 的示例聊天模板可以在[这里](https://github.com/meta-llama/llama3?tab=readme-ov-file#instruction-tuned-models)找到。
-
 
 有些模型即使经过指令/聊天微调也没有提供聊天模板。对于这些模型，您可以在 `--chat-template` 参数中手动指定聊天模板，参数可以是模板文件的路径，也可以是模板字符串形式。没有聊天模板，服务器将无法处理聊天请求，所有聊天请求都会出错。
 
 ```plain
 vllm serve <model> --chat-template ./path-to-chat-template.jinja
 ```
-
 
 vLLM 社区为热门模型提供了一组聊天模板。您可以在[示例](https://github.com/vllm-project/vllm/tree/main/examples)目录下找到它们。
 
@@ -123,20 +114,17 @@ completion = client.chat.completions.create(
 )
 ```
 
+大多数 LLM 的聊天模板期望 `content` 字段是字符串，但一些较新的模型如 `meta-llama/Llama-Guard-3-1B` 期望内容按照请求中的 OpenAI 模式格式化。vLLM 提供尽力而为的自动检测支持，这会记录为类似「*Detected the chat template content format to be...\*\*」*的字符串，并在内部转换传入请求以匹配检测到的格式，可能是以下之一：
 
-大多数 LLM 的聊天模板期望 `content` 字段是字符串，但一些较新的模型如 `meta-llama/Llama-Guard-3-1B` 期望内容按照请求中的 OpenAI 模式格式化。vLLM 提供尽力而为的自动检测支持，这会记录为类似「*Detected the chat template content format to be...**」*的字符串，并在内部转换传入请求以匹配检测到的格式，可能是以下之一：
+- `"string"`：字符串。
 
+  - 示例：`"Hello world"`
 
-* `"string"`：字符串。
+- `"openai"`：字典列表，类似于 OpenAI 模式。
 
-   * 示例：`"Hello world"`
-* `"openai"`：字典列表，类似于 OpenAI 模式。
-
-   * 示例：`[{"type": "text", "text": "Hello world!"}]`
-
+  - 示例：`[{"type": "text", "text": "Hello world!"}]`
 
 如果结果不符合您的预期，您可以设置 `--chat-template-content-format` CLI 参数来覆盖使用的格式。
-
 
 ## 额外参数
 
@@ -154,13 +142,12 @@ completion = client.chat.completions.create(
 )
 ```
 
-
 ## 额外 HTTP 头
 
 目前仅支持 `X-Request-Id` HTTP 请求头。可以通过 `--enable-request-id-headers` 启用。
 
+> 注意，在高 QPS 率下，启用头可能会显著影响性能。出于这个原因，我们建议在路由器级别（例如通过 Istio）而不是在 vLLM 层实现 HTTP 头。更多详情请参阅此 PR。
 
->注意，在高 QPS 率下，启用头可能会显著影响性能。出于这个原因，我们建议在路由器级别（例如通过 Istio）而不是在 vLLM 层实现 HTTP 头。更多详情请参阅此 PR。
 ```plain
 completion = client.chat.completions.create(
   model="NousResearch/Meta-Llama-3-8B-Instruct",
@@ -183,7 +170,6 @@ completion = client.completions.create(
 )
 print(completion._request_id)
 ```
-
 
 ## CLI 参数参考
 
@@ -315,7 +301,6 @@ usage: vllm serve [-h] [--host HOST] [--port PORT]
                   [--enable-prompt-tokens-details]
                   [--enable-server-load-tracking]
 ```
-
 
 #### 命名参数
 
@@ -1135,8 +1120,6 @@ Neuron 设备配置覆盖（JSON 格式）。
 
 默认值：False
 
-#### 
-
 #### 配置文件
 
 您可以通过 [YAML](https://yaml.org/) 配置文件加载 CLI 参数。参数名称必须使用[前文](https://docs.vllm.ai/en/latest/serving/openai_compatible_server.html#vllm-serve)所述的长格式。
@@ -1152,17 +1135,14 @@ port: 6379
 uvicorn-log-level: "info"
 ```
 
-
 使用上述配置文件：
 
 ```plain
 vllm serve SOME_MODEL --config config.yaml
 ```
 
-
->**注意**
->如果同时通过命令行和配置文件提供参数，命令行参数值将优先。优先级顺序为：`命令行 > 配置文件值 > 默认值`。
-## 
+> **注意**
+> 如果同时通过命令行和配置文件提供参数，命令行参数值将优先。优先级顺序为：`命令行 > 配置文件值 > 默认值`。
 
 ## API 参考
 
@@ -1171,8 +1151,6 @@ vllm serve SOME_MODEL --config config.yaml
 我们的 Completions API 兼容 [OpenAI 的 Completions API](https://platform.openai.com/docs/api-reference/completions)，您可以使用 [官方 OpenAI Python 客户端](https://github.com/openai/openai-python) 与其交互。
 
 代码示例：[examples/online_serving/openai_completion_client.py](https://github.com/vllm-project/vllm/blob/main/examples/online_serving/openai_completion_client.py)
-
-#### 
 
 #### 额外参数
 
@@ -1194,8 +1172,6 @@ vllm serve SOME_MODEL --config config.yaml
     allowed_token_ids: Optional[list[int]] = None
     prompt_logprobs: Optional[int] = None
 ```
-
-
 
 支持以下额外参数：
 
@@ -1270,18 +1246,15 @@ vllm serve SOME_MODEL --config config.yaml
 
 ```
 
-
 ### Chat API
 
 我们的 Chat API 兼容 [OpenAI 的 Chat Completions API](https://platform.openai.com/docs/api-reference/chat)，您可以使用 [官方 OpenAI Python 客户端](https://github.com/openai/openai-python) 与其交互。
 
 我们同时支持 [视觉](https://platform.openai.com/docs/guides/vision) 和 [音频](https://platform.openai.com/docs/guides/audio?audio-generation-quickstart-example=audio-in) 相关参数，详见 [多模态输入](https://docs.vllm.ai/en/latest/serving/multimodal_inputs.html#multimodal-inputs) 指南。
 
-* *注意：不支持*`image_url.detail`*参数。*
+- _注意：不支持_`image_url.detail`_参数。_
 
 代码示例：[examples/online_serving/openai_chat_completion_client.py](https://github.com/vllm-project/vllm/blob/main/examples/online_serving/openai_chat_completion_client.py)
-
-#### 
 
 #### 额外参数
 
@@ -1303,7 +1276,6 @@ vllm serve SOME_MODEL --config config.yaml
     truncate_prompt_tokens: Optional[Annotated[int, Field(ge=1)]] = None
     prompt_logprobs: Optional[int] = None
 ```
-
 
 支持以下额外参数：
 
@@ -1428,7 +1400,6 @@ vllm serve SOME_MODEL --config config.yaml
 
 ```
 
-
 ### Embeddings API
 
 我们的 Embeddings API 兼容 [OpenAI 的 Embeddings API](https://platform.openai.com/docs/api-reference/embeddings)，您可以使用 [官方 OpenAI Python 客户端](https://github.com/openai/openai-python) 与其交互。
@@ -1437,12 +1408,9 @@ vllm serve SOME_MODEL --config config.yaml
 
 代码示例：[examples/online_serving/openai_embedding_client.py](https://github.com/vllm-project/vllm/blob/main/examples/online_serving/openai_embedding_client.py)
 
-#### 
-
 #### 多模态输入
 
 您可以通过为服务器定义自定义聊天模板并在请求中传递 `messages` 列表，向嵌入模型传递多模态输入。参考以下示例：
-
 
 **VLM2Vec**
 
@@ -1453,11 +1421,10 @@ vllm serve TIGER-Lab/VLM2Vec-Full --task embed \
   --trust-remote-code --max-model-len 4096 --chat-template examples/template_vlm2vec.jinja
 ```
 
-
->**重要****信息**
->由于 VLM2Vec 与 Phi-3.5-Vision 具有相同的模型架构，我们必须显式传递 `--task embed` 以在嵌入模式下运行此模型而非文本生成模式。
+> **重要\*\***信息\*\*
+> 由于 VLM2Vec 与 Phi-3.5-Vision 具有相同的模型架构，我们必须显式传递 `--task embed` 以在嵌入模式下运行此模型而非文本生成模式。
 >
->自定义聊天模板与此模型的原始模板完全不同，可在此处找到：[examples/template_vlm2vec.jinja](https://github.com/vllm-project/vllm/blob/main/examples/template_vlm2vec.jinja)
+> 自定义聊天模板与此模型的原始模板完全不同，可在此处找到：[examples/template_vlm2vec.jinja](https://github.com/vllm-project/vllm/blob/main/examples/template_vlm2vec.jinja)
 
 由于 OpenAI 客户端未定义请求模式，我们使用底层 `requests` 库向服务器发送请求：
 
@@ -1487,7 +1454,6 @@ response_json = response.json()
 print("Embedding output:", response_json["data"][0]["embedding"])
 ```
 
-
 **DSE-Qwen2-MRL**
 
 要为模型提供服务，请执行以下操作：
@@ -1497,14 +1463,12 @@ vllm serve MrLight/dse-qwen2-2b-mrl-v1 --task embed \
   --trust-remote-code --max-model-len 8192 --chat-template examples/template_dse_qwen2_vl.jinja
 ```
 
-
->**重要信息**
->与 VLM2Vec 一样，我们必须显式地传递 `--task embed`。
+> **重要信息**
+> 与 VLM2Vec 一样，我们必须显式地传递 `--task embed`。
 >
->此外，`MrLight/dse-qwen2-2b-mrl-v1` 需要一个 EOS 令牌进行嵌入，这由自定义聊天模板处理：[examples/template_dse_qwen2_vl.jinja](https://github.com/vllm-project/vllm/blob/main/examples/template_dse_qwen2_vl.jinja)。
+> 此外，`MrLight/dse-qwen2-2b-mrl-v1` 需要一个 EOS 令牌进行嵌入，这由自定义聊天模板处理：[examples/template_dse_qwen2_vl.jinja](https://github.com/vllm-project/vllm/blob/main/examples/template_dse_qwen2_vl.jinja)。
 
->**重要信息**
->`MrLight/dse-qwen2-2b-mrl-v1` 需要文本查询嵌入的最小图像大小的占位符图像。有关详细信息，请参阅下面的完整代码示例。
+> **重要信息** >`MrLight/dse-qwen2-2b-mrl-v1` 需要文本查询嵌入的最小图像大小的占位符图像。有关详细信息，请参阅下面的完整代码示例。
 
 #### 额外参数
 
@@ -1513,7 +1477,6 @@ vllm serve MrLight/dse-qwen2-2b-mrl-v1 --task embed \
 ```plain
     additional_data: Optional[Any] = None
 ```
-
 
 默认支持以下额外参数：
 
@@ -1533,7 +1496,6 @@ vllm serve MrLight/dse-qwen2-2b-mrl-v1 --task embed \
 
 
 ```
-
 
 对于类聊天输入（即传递 `messages` 时），改为支持以下额外参数：
 
@@ -1572,27 +1534,21 @@ vllm serve MrLight/dse-qwen2-2b-mrl-v1 --task embed \
             "if the served model does not use priority scheduling."))
 ```
 
-
 ### Transcriptions API
 
 我们的 Transcriptions API 兼容 [OpenAI 的 Transcriptions API](https://platform.openai.com/docs/api-reference/audio/createTranscription)，您可以使用 [官方 OpenAI Python 客户端](https://github.com/openai/openai-python) 与其交互。
 
-
->**注意**
->要使用 Transcriptions API，请通过 `pip install vllm[audio]` 安装额外的音频依赖。
+> **注意**
+> 要使用 Transcriptions API，请通过 `pip install vllm[audio]` 安装额外的音频依赖。
 
 代码示例：[examples/online_serving/openai_transcription_client.py](https://github.com/vllm-project/vllm/blob/main/examples/online_serving/openai_transcription_client.py)
-
-### 
 
 ### Tokenizer API
 
 我们的 Tokenizer API 是 [HuggingFace 风格分词器](https://huggingface.co/docs/transformers/en/main_classes/tokenizer) 的简单封装，包含两个端点：
 
-* `/tokenize` 对应调用 `tokenizer.encode()`
-* `/detokenize` 对应调用 `tokenizer.decode()`
-
-### 
+- `/tokenize` 对应调用 `tokenizer.encode()`
+- `/detokenize` 对应调用 `tokenizer.decode()`
 
 ### Pooling API
 
@@ -1602,8 +1558,6 @@ vllm serve MrLight/dse-qwen2-2b-mrl-v1 --task embed \
 
 代码示例：[examples/online_serving/openai_pooling_client.py](https://github.com/vllm-project/vllm/blob/main/examples/online_serving/openai_pooling_client.py)
 
-### 
-
 ### Score API
 
 我们的 Score API 可以应用交叉编码器模型或嵌入模型来预测句子对的分数。使用嵌入模型时，分数对应于每对嵌入之间的余弦相似度。通常，句子对的分数表示两个句子之间的相似度，范围在 0 到 1 之间。
@@ -1612,12 +1566,9 @@ vllm serve MrLight/dse-qwen2-2b-mrl-v1 --task embed \
 
 代码示例：[examples/online_serving/openai_cross_encoder_score.py](https://github.com/vllm-project/vllm/blob/main/examples/online_serving/openai_cross_encoder_score.py)
 
-#### 
-
 #### 单次推理 (Single inference)
 
 您可以向 `text_1` 和 `text_2` 传递字符串，形成一个句子对。
-
 
 请求：
 
@@ -1633,7 +1584,6 @@ curl -X 'POST' \
   "text_2": "The capital of France is Paris."
 }'
 ```
-
 
 响应：
 
@@ -1653,7 +1603,6 @@ curl -X 'POST' \
   "usage": {}
 }
 ```
-
 
 #### 批量推理
 
@@ -1675,7 +1624,6 @@ curl -X 'POST' \
   ]
 }'
 ```
-
 
 响应：
 
@@ -1701,7 +1649,6 @@ curl -X 'POST' \
 }
 ```
 
-
 您可以向 `text_1` 和 `text_2` 都传递列表，形成多个句子对，每对由 `text_1` 中的一个字符串和 `text_2` 中对应的字符串组成（类似 `zip()`）。总对数等于 `len(text_2)`。
 
 请求：
@@ -1724,7 +1671,6 @@ curl -X 'POST' \
   ]
 }'
 ```
-
 
 响应：
 
@@ -1750,7 +1696,6 @@ curl -X 'POST' \
 }
 ```
 
-
 #### 额外参数
 
 支持以下 [池化参数](https://docs.vllm.ai/en/latest/api/inference_params.html#pooling-params)。
@@ -1758,7 +1703,6 @@ curl -X 'POST' \
 ```plain
     additional_data: Optional[Any] = None
 ```
-
 
 支持以下额外参数：
 
@@ -1773,7 +1717,6 @@ curl -X 'POST' \
 
 ```
 
-
 ### Re-rank API
 
 我们的 Re-rank API 可以应用嵌入模型或交叉编码器模型来预测单个查询与文档列表中每个文档之间的相关分数。通常，句子对的分数表示两个句子之间的相似度，范围在0到1之间。
@@ -1784,12 +1727,9 @@ rerank端点支持流行的重排序模型如 `BAAI/bge-reranker-base` 和其�
 
 代码示例：[examples/online_serving/jinaai_rerank_client.py](https://github.com/vllm-project/vllm/blob/main/examples/online_serving/jinaai_rerank_client.py)
 
-#### 
-
 #### 示例请求
 
 注意 `top_n` 请求参数是可选的，默认为 `documents` 字段的长度。结果文档将按相关性排序，`index` 属性可用于确定原始顺序。
-
 
 请求：
 
@@ -1808,7 +1748,6 @@ curl -X 'POST' \
   ]
 }'
 ```
-
 
 响应：
 
@@ -1838,7 +1777,6 @@ curl -X 'POST' \
 }
 ```
 
-
 #### 额外参数
 
 支持以下[池化参数](https://docs.vllm.ai/en/latest/api/inference_params.html#pooling-params)。
@@ -1846,7 +1784,6 @@ curl -X 'POST' \
 ```plain
     additional_data: Optional[Any] = None
 ```
-
 
 支持以下额外参数：
 
@@ -1858,6 +1795,3 @@ curl -X 'POST' \
             "default: 0). Any priority other than 0 will raise an error "
             "if the served model does not use priority scheduling."))
 ```
-
-
-

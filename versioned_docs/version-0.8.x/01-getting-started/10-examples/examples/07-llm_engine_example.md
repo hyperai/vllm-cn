@@ -2,7 +2,6 @@
 title: LLM 引擎示例
 ---
 
-
 源代码: [vllm-project/vllm](https://raw.githubusercontent.com/vllm-project/vllm/main/examples/llm_engine_example.py)
 
 ```python
@@ -74,5 +73,3 @@ if __name__ == '__main__':
     args = parser.parse_args()
     main(args)
 ```
-
-

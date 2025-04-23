@@ -4,8 +4,7 @@ title: 示例
 
 ## 脚本
 
-
-API 客户端  
+API 客户端
 
 Aqlm 示例
 
@@ -72,4 +71,3 @@ OpenAI 视觉 API 客户端
 保存分片状态
 
 Tensorize vLLM 模型
-

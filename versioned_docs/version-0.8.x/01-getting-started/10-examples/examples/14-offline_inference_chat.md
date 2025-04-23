@@ -2,7 +2,6 @@
 title: 离线推理聊天
 ---
 
-
 源代码: [vllm-project/vllm](https://raw.githubusercontent.com/vllm-project/vllm/main/examples/offline_inference_chat.py)
 
 ```python
@@ -65,5 +64,3 @@ print_outputs(outputs)
 #     chat_template=chat_template,
 # )
 ```
-
-

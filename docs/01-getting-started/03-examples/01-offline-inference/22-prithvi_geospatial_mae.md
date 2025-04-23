@@ -1,7 +1,9 @@
 ---
 title: Prithvi Geospatial Mae
 ---
+
 源码 [examples/offline_inference/prithvi_geospatial_mae.py](https://github.com/vllm-project/vllm/blob/main/examples/offline_inference/prithvi_geospatial_mae.py)
+
 ```python
 # SPDX-License-Identifier: Apache-2.0
 """
@@ -30,9 +32,9 @@ python prithvi_geospatial_mae.py
 运行此脚本的要求是:
  - 在 Python 环境中安装 [terratorch, albumentations, rasterio]
  - 在脚本 model 文件夹中下载模型权重
- (直到将正确的 config.json 文件上传到 HF 前都将临时度量) 
+ (直到将正确的 config.json 文件上传到 HF 前都将临时度量)
  - 下载输入示例图像 (India_900498_S2Hand.tif) 并将其放入
-带有脚本的同一文件夹 (或用 -data_file 参数指定) 
+带有脚本的同一文件夹 (或用 -data_file 参数指定)
 运行以下示例:
 python prithvi_geospatial_mae.py
 """# noqa: E501
@@ -282,7 +284,7 @@ def save_geotiff(image, output_path: str, meta: dict):
 
     参数：
         image: 形状为 (bands, height, width) 的 np.ndarray 数组
-        output_path: 图像保存路径  
+        output_path: 图像保存路径
         meta: 包含元信息的字典
     """
 
@@ -366,7 +368,7 @@ def load_example(
         except Exception as e:
             print(f'Could not extract timestamp for {file} ({e})')
 
-    imgs = np.stack(imgs, axis=0)  # num_frames, H, W, C 
+    imgs = np.stack(imgs, axis=0)  # num_frames, H, W, C
     imgs = np.moveaxis(imgs, -1, 0).astype("float32")
     imgs = np.expand_dims(imgs, axis=0)  # add batch di # 添加批 di
 

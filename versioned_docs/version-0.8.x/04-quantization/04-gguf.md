@@ -2,17 +2,15 @@
 title: GGUF
 ---
 
+**警告：**
+
+请注意，vLLM 对 GGUF 的支持仍处于高度实验阶段，尚未进行充分优化，因此可能与其他功能不兼容。目前，您可以使用 GGUF 来减少内存占用。如果在使用过程中遇到任何问题，请向 vLLM 团队反馈。
 
 **警告：**
 
-请注意，vLLM 对 GGUF 的支持仍处于高度实验阶段，尚未进行充分优化，因此可能与其他功能不兼容。目前，您可以使用 GGUF 来减少内存占用。如果在使用过程中遇到任何问题，请向 vLLM 团队反馈。  
+目前，vLLM 仅支持加载单文件 GGUF 模型。如果您有多文件的 GGUF 模型，可以使用 [gguf-split](https://github.com/ggerganov/llama.cpp/pull/6135) 工具将其合并为一个单文件模型。
 
-
-**警告：**
-
-目前，vLLM 仅支持加载单文件 GGUF 模型。如果您有多文件的 GGUF 模型，可以使用 [gguf-split](https://github.com/ggerganov/llama.cpp/pull/6135) 工具将其合并为一个单文件模型。  
-
- :::
+:::
 
 To run a GGUF model with vLLM, you can download and use the local GGUF model from [TheBloke/TinyLlama-1.1B-Chat-v1.0-GGUF](https://huggingface.co/TheBloke/TinyLlama-1.1B-Chat-v1.0-GGUF) with the following command:
 
@@ -25,7 +23,6 @@ wget https://huggingface.co/TheBloke/TinyLlama-1.1B-Chat-v1.0-GGUF/resolve/main/
 vllm serve ./tinyllama-1.1b-chat-v1.0.Q4_K_M.gguf --tokenizer TinyLlama/TinyLlama-1.1B-Chat-v1.0
 ```
 
-
 您还可以添加 `--tensor-parallel-size 2` 启用两块 GPU 进行张量并行推理：
 
 ```python
@@ -34,11 +31,9 @@ vllm serve ./tinyllama-1.1b-chat-v1.0.Q4_K_M.gguf --tokenizer TinyLlama/TinyLlam
 vllm serve ./tinyllama-1.1b-chat-v1.0.Q4_K_M.gguf --tokenizer TinyLlama/TinyLlama-1.1B-Chat-v1.0 --tensor-parallel-size 2
 ```
 
-
 **警告：**
 
-我们建议您使用基础模型的 tokenizer 而不是 GGUF 模型的 tokenizer。因为从 GGUF 转换 tokenizer 既耗时又不稳定，尤其是对于一些词汇量较大的模型。  
-
+我们建议您使用基础模型的 tokenizer 而不是 GGUF 模型的 tokenizer。因为从 GGUF 转换 tokenizer 既耗时又不稳定，尤其是对于一些词汇量较大的模型。
 
 您也可以通过 LLM 入口直接使用 GGUF 模型：
 
@@ -91,5 +86,3 @@ for output in outputs:
    generated_text = output.outputs[0].text
    print(f"Prompt: {prompt!r}, Generated text: {generated_text!r}")
 ```
-
-

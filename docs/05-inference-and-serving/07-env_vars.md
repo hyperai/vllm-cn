@@ -1,18 +1,13 @@
 ---
-
 title: 环境
-
 ---
 
-
-[*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
-
+[\*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
 
 vLLM 使用以下环境变量来配置系统：
 
-
->**警告**
->请注意，`VLLM_PORT` 和 `VLLM_HOST_IP` 仅用于 vLLM **内部使用**，它们并不是 API 服务器的端口和 IP。如果你使用 `--host $VLLM_HOST_IP` 和 `--port $VLLM_PORT` 来启动 API 服务器，它将无法正常工作。
+> **警告**
+> 请注意，`VLLM_PORT` 和 `VLLM_HOST_IP` 仅用于 vLLM **内部使用**，它们并不是 API 服务器的端口和 IP。如果你使用 `--host $VLLM_HOST_IP` 和 `--port $VLLM_PORT` 来启动 API 服务器，它将无法正常工作。
 
 所有 vLLM 使用的环境变量都以 `VLLM_` 作为前缀。**Kubernetes 用户需要特别注意**：请不要将服务命名为 `vllm`，否则 Kubernetes 设置的环境变量可能会与 vLLM 的环境变量发生冲突。因为 [Kubernetes 会为每个服务设置环境变量，并使用大写的服务名称作为前缀](https://kubernetes.io/docs/concepts/services-networking/service/#environment-variables)。
 
@@ -896,5 +891,3 @@ environment_variables: dict[str, Callable[[], Any]] = {
 
 
 ```
-
-

@@ -2,7 +2,6 @@
 title: OpenAI 音频 API 客户端
 ---
 
-
 源代码: [vllm-project/vllm](https://raw.githubusercontent.com/vllm-project/vllm/main/examples/openai_audio_api_client.py)
 
 ```python
@@ -10,7 +9,7 @@ title: OpenAI 音频 API 客户端
 
 Launch the vLLM server with the following command:
 vllm serve fixie-ai/ultravox-v0_3
-示例展示如何使用 vLLM 来服务 VLMs 
+示例展示如何使用 vLLM 来服务 VLMs
 
 
 启动 vLLM 服务器的命令如下：
@@ -111,5 +110,3 @@ chat_completion_from_base64 = client.chat.completions.create(
 result = chat_completion_from_base64.choices[0].message.content
 print(f"Chat completion output:{result}")
 ```
-
-

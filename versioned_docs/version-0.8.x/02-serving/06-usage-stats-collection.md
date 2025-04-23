@@ -8,7 +8,6 @@ title: 使用统计数据收集
 
 你可以在 [usage_lib.py](https://github.com/vllm-project/vllm/blob/main/vllm/usage/usage_lib.py) 中查看最新的数据列表。
 
-
 以下是 v0.4.0 版本的示例：
 
 ```json
@@ -42,13 +41,11 @@ title: 使用统计数据收集
 }
 ```
 
-
 你可以通过运行以下命令预览收集的数据：
 
 ```bash
 tail ~/.config/vllm/usage_stats.json
 ```
-
 
 ## 退出使用统计数据收集
 
@@ -61,5 +58,3 @@ export VLLM_NO_USAGE_STATS=1
 export DO_NOT_TRACK=1
 mkdir -p ~/.config/vllm && touch ~/.config/vllm/do_not_track
 ```
-
-

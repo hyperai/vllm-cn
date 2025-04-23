@@ -2,24 +2,19 @@
 title: 使用 TPU 安装
 ---
 
-
 vLLM 使用 PyTorch XLA 支持 Google Cloud TPU。
-
 
 ## 依赖环境
 
-* Google Cloud TPU VM（单主机和多主机）
-* TPU 版本: v5e、v5p、v4
-* Python: 3.10
-
+- Google Cloud TPU VM（单主机和多主机）
+- TPU 版本: v5e、v5p、v4
+- Python: 3.10
 
 安装选项：
-
 
 1. [使用`Dockerfile.tpu`构建 Docker 镜像](#使用-dockerfiletpu-构建-docker-镜像)
 
 2. [从源代码构建](#从源代码构建)
-
 
 ## 使用`Dockerfile.tpu` 构建 Docker 镜像
 
@@ -28,7 +23,6 @@ vLLM 使用 PyTorch XLA 支持 Google Cloud TPU。
 ```plain
 docker build -f Dockerfile.tpu -t vllm-tpu .
 ```
-
 
 您可以使用以下命令运行 docker 镜像：
 
@@ -40,11 +34,9 @@ docker build -f Dockerfile.tpu -t vllm-tpu .
 docker run --privileged --net host --shm-size=16G -it vllm-tpu
 ```
 
-
 ## 从源代码构建
 
 您还可以从源代码构建并安装 TPU 后端。
-
 
 首先，安装依赖：
 
@@ -80,22 +72,17 @@ pip install torch_xla[pallas] -f https://storage.googleapis.com/jax-releases/jax
 pip install -r requirements-tpu.txt
 ```
 
-
 下一步，从源代码构建 vLLM。这只需要几秒钟：
 
 ```plain
 VLLM_TARGET_DEVICE="tpu" python setup.py develop
 ```
 
-
 **注意**
-
 
 由于 TPU 依赖于需要静态形状的 XLA，因此 vLLM 会将可能的输入形状进行分桶处理，并为每个不同的形状编译 XLA 图。第一次运行的编译时间可能需要 20~30 分钟。不过由于 XLA 图会缓存在磁盘中（默认在`VLLM_XLA_CACHE_PATH` 或 `~/.cache/vllm/xla_cache` 中），之后的编译时间会减少到大约 5 分钟。
 
-
 **提示**
-
 
 如果您遇到以下错误：
 
@@ -105,11 +92,8 @@ from torch._C import *  # noqa: F403
 ImportError: libopenblas.so.0: cannot open shared object file: No such file or directory
 ```
 
-
 请使用以下命令安装 OpenBLAS：
 
 ```plain
 sudo apt-get install libopenblas-base libopenmpi-dev libomp-dev
 ```
-
-

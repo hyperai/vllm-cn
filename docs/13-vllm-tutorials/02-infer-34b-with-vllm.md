@@ -7,6 +7,7 @@ title: 使用 vLLM 对 Qwen2.5 推理
 本教程演示了如何在短短 5 小时内推理 LLM 3B 模型。
 
 ## 目录
+
 - [1.安装 vllm](#1.安装vllm)
 - [2.使用vLLM加载Qwen量化模型](#2.使用vLLM加载Qwen量化模型)
 - [3.加载测试数据](#3.加载测试数据)
@@ -33,6 +34,7 @@ pip install vllm
 ```
 
 ## 2. 使用 vLLM 加载 Qwen 量化模型
+
 ```
 import os, math, numpy as np
 os.environ["CUDA_VISIBLE_DEVICES"]="0"
@@ -74,6 +76,7 @@ test.head(1)
 ```
 
 ## 4. 提示工程
+
 如果我们想提交零次 LLM，我们需要尝试不同的系统提示来提高 CV 分数。如果我们对模型进行微调，那么系统就不那么重要了，因为无论我们使用哪个系统提示，模型都会从目标中学习该做什么。
 
 我们使用 logits 处理器强制模型输出我们感兴趣的 3 个标记。
@@ -125,6 +128,7 @@ for index,row in test.iterrows():
 ```
 
 ## 5. Infer 测试
+
 现在使用 vLLM 推断测试。我们要求 vLLM 输出第一个 Token 中被认为预测的前 5 个 Token 的概率。并将预测限制为 1 个 token，以提高推理速度。
 
 根据推断 128 个训练样本所需的速度，可以推断出 25000 个测试样本需要多长时间。
@@ -160,6 +164,7 @@ print(f"Submit will take {submit} hours")
 ```
 
 ## 6. 提取推理概率
+
 ```
 results = []
 errors = 0
@@ -187,6 +192,7 @@ results = np.vstack(results)
 ```
 
 ## 7. 创建提交 CSV
+
 ```
 sub = pd.read_csv("./lmsys-chatbot-arena/sample_submission.csv")
 
@@ -198,6 +204,7 @@ sub.head()
 ```
 
 ## 8. 计算 CV 分数
+
 ```
 if len(test)==VALIDATE:
     true = test[['winner_model_a','winner_model_b','winner_tie']].values

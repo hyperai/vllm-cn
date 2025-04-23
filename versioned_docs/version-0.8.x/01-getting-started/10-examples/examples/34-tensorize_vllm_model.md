@@ -23,11 +23,11 @@ from vllm.utils import FlexibleArgumentParser
 
 # yapf: disable
 """
-tensorize_vllm_model.py is a script that can be used to serialize and 
-deserialize vLLM models. These models can be loaded using tensorizer 
+tensorize_vllm_model.py is a script that can be used to serialize and
+deserialize vLLM models. These models can be loaded using tensorizer
 to the GPU extremely quickly over an HTTP/HTTPS endpoint, an S3 endpoint,
-or locally. Tensor encryption and decryption is also supported, although 
-libsodium must be installed to use it. Install vllm with tensorizer support 
+or locally. Tensor encryption and decryption is also supported, although
+libsodium must be installed to use it. Install vllm with tensorizer support
 using `pip install vllm[tensorizer]`. To learn more about tensorizer, visit
 https://github.com/coreweave/tensorizer
 tensorize_vllm_model.py 是一个用于序列化和反序列化 vLLM 模型的脚本。
@@ -40,7 +40,7 @@ tensorize_vllm_model.py 是一个用于序列化和反序列化 vLLM 模型的�
 
 
 
-To serialize a model, install vLLM from source, then run something 
+To serialize a model, install vLLM from source, then run something
 like this from the root level of this repository:
 要序列化模型，先从源码安装 vLLM，然后在本项目的根目录运行类似以下命令：
 
@@ -50,13 +50,13 @@ python -m examples.tensorize_vllm_model \
    serialize \
    --serialized-directory s3://my-bucket \
    --suffix v1
-   
+
 Which downloads the model from HuggingFace, loads it into vLLM, serializes it,
 and saves it to your S3 bucket. A local directory can also be used. This
 assumes your S3 credentials are specified as environment variables
-in the form of `S3_ACCESS_KEY_ID`, `S3_SECRET_ACCESS_KEY`, and 
-`S3_ENDPOINT_URL`. To provide S3 credentials directly, you can provide 
-`--s3-access-key-id` and `--s3-secret-access-key`, as well as `--s3-endpoint` 
+in the form of `S3_ACCESS_KEY_ID`, `S3_SECRET_ACCESS_KEY`, and
+`S3_ENDPOINT_URL`. To provide S3 credentials directly, you can provide
+`--s3-access-key-id` and `--s3-secret-access-key`, as well as `--s3-endpoint`
 as CLI args to this script.
 这会从 HuggingFace 下载模型，将其加载到 vLLM 中，进行序列化，并将其保存到你
 的 S3 存储桶中。也可以使用本地目录保存。此操作假设你的 S3 凭证已经作为环境变量指定，
@@ -67,14 +67,14 @@ as CLI args to this script.
 
 
 
-You can also encrypt the model weights with a randomly-generated key by 
+You can also encrypt the model weights with a randomly-generated key by
 providing a `--keyfile` argument.
 你还可以通过提供 `--keyfile` 参数使用随机生成的密钥来加密模型权重。
 
 
 
 
-To deserialize a model, you can run something like this from the root 
+To deserialize a model, you can run something like this from the root
 level of this repository:
 要反序列化模型，你可以在本项目根目录运行类似以下命令：
 
@@ -93,7 +93,7 @@ Which downloads the model tensors from your S3 bucket and deserializes them.
 
 
 
-You can also provide a `--keyfile` argument to decrypt the model weights if 
+You can also provide a `--keyfile` argument to decrypt the model weights if
 they were serialized with encryption.
 如果模型权重在序列化时进行了加密，你还可以通过提供 `--keyfile` 参数来解密权重。
 
@@ -112,7 +112,7 @@ model-rank-%03d.tensors
 
 
 
-For more information on the available arguments for serializing, run 
+For more information on the available arguments for serializing, run
 `python -m examples.tensorize_vllm_model serialize --help`.
 要查看序列化时可用的所有参数，请运行：`python -m examples.tensorize_vllm_model serialize --help`
 
@@ -126,7 +126,7 @@ Or for deserializing:
 
 
 
-Once a model is serialized, tensorizer can be invoked with the `LLM` class 
+Once a model is serialized, tensorizer can be invoked with the `LLM` class
 directly to load models:
 一旦模型被序列化，可以直接使用 `LLM` 类通过 tensorizer 加载模型：
 
@@ -138,7 +138,7 @@ directly to load models:
                     num_readers=3,
                     )
               )
-            
+
 A serialized model can be used during model loading for the vLLM OpenAI
 inference server. `model_loader_extra_config` is exposed as the CLI arg
 `--model-loader-extra-config`, and accepts a JSON string literal of the
@@ -150,7 +150,7 @@ TensorizerConfig arguments desired.
 
 
 
-In order to see all of the available arguments usable to configure 
+In order to see all of the available arguments usable to configure
 loading with tensorizer that are given to `TensorizerConfig`, run:
 要查看可用于配置 tensorizer 加载的所有参数，这些参数会传递给 `TensorizerConfig`
 ，请运行：
@@ -312,5 +312,3 @@ if __name__ == '__main__':
     else:
         raise ValueError("Either serialize or deserialize must be specified.")
 ```
-
-

@@ -9,6 +9,7 @@ LangChain 是提供构建复杂操作链的工具，而 vLLM 专注于高效的�
 在本教程中，我们将介绍如何将 LangChain 与 vLLM 结合使用；从设置到分布式推理和量化的所有内容。
 
 ## 目录
+
 - [1. 安装和设置 vLLM](#1.安装和设置vLLM)
 - [2. 配置 vLLM 以与 LangChain 配合使用](#2.配置vLLM以与LangChain配合使用)
 - [3. 使用 LangChain 和 vLLM 创建链](#3.使用LangChain和vLLM创建链)
@@ -36,6 +37,7 @@ CUDA 版本： vLLM 使用 CUDA 12.1 编译。请确保您的系统正在运行�
 # Ensure torch is working with CUDA, this should print: True
 python -c 'import torch; print(torch.cuda.is_available())'
 ```
+
 vLLM 是一个 Python 库，还包含预编译的 C++ 和 CUDA (12.1) 二进制文件。但是，如果您需要 CUDA 11.8，则可以使用以下命令安装兼容版本：
 
 ```python
@@ -46,21 +48,24 @@ pip install https://github.com/vllm-project/vllm/releases/download/v${VLLM_VERSI
 ```
 
 ### Docker 安装
+
 对于那些在构建 vLLM 或处理 CUDA 兼容性时遇到问题的人，建议使用 NVIDIA PyTorch Docker 映像。它提供了一个预配置的环境，其中包含正确版本的 CUDA 和其他依赖项：
 
 ```python
 # Use `--ipc=host` to ensure the shared memory is sufficient
 docker run --gpus all -it --rm --ipc=host nvcr.io/nvidia/pytorch:23.10-py3
 ```
+
 集成过程最终从安装所需的软件包开始。我们建议将 vLLM 升级到最新版本，以避免兼容性问题并受益于最新的改进和功能。
 
 ```python
 pip install --upgrade --quiet vllm -q
 pip install langchain langchain_community -q
 ```
+
 本教程已经安装 vllm==0.6.4，只需将 langchain 相关包安装完毕。
 
-```
+````
 !pip install -U langchain langchain_community -q```
 
 
@@ -68,32 +73,38 @@ pip install langchain langchain_community -q
 现在依赖项已安装完毕，我们可以设置 vLLM 并将其连接到 LangChain。为此，我们将从 LangChain 社区集成中导入 VLLM。下面的示例演示了如何使用 vLLM 库初始化模型并将其与 LangChain 集成。
 
 
-```
+````
+
 import gc
 import ctypes
 import torch
 def clean_memory(deep=False):
-    gc.collect()
-    if deep:
-        ctypes.CDLL("libc.so.6").malloc_trim(0)
-    torch.cuda.empty_cache()
+gc.collect()
+if deep:
+ctypes.CDLL("libc.so.6").malloc_trim(0)
+torch.cuda.empty_cache()
+
 ```
 
 ```
+
 from langchain_community.llms import VLLM
 
 # Initializing the vLLM model
+
 llm = VLLM(
-    model="/input0/Qwen2.5-1.5B-Instruct",
-    trust_remote_code=True,  # mandatory for Hugging Face models
-    max_new_tokens=128,
-    top_k=10,
-    top_p=0.95,
-    temperature=0.8,
+model="/input0/Qwen2.5-1.5B-Instruct",
+trust_remote_code=True, # mandatory for Hugging Face models
+max_new_tokens=128,
+top_k=10,
+top_p=0.95,
+temperature=0.8,
 )
 
 # Running a simple query
+
 print(llm.invoke("What are the most popular Halloween Costumes?"))
+
 ```
 
 以下是使用 vLLM 与 LangChain 时需要考虑的参数列表：
@@ -120,21 +131,26 @@ LangChain 的核心功能之一是能够创建操作链，从而实现更复杂�
 
 
 ```
+
 from langchain.chains import LLMChain
 from langchain_core.prompts import PromptTemplate
 
 # Defining a prompt template for our LLMChain
+
 template = """Question: {question}
 
 Answer: Let's think step by step."""
 prompt = PromptTemplate.from_template(template)
 
 # Creating an LLMChain with vLLM
+
 llm_chain = LLMChain(prompt=prompt, llm=llm)
 
 # Testing the LLMChain
+
 question = "Who was the US president in the year the first Pokemon game was released?"
 print(llm_chain.invoke(question))
+
 ```
 
 ## 4. 利用多 GPU 推理进行扩展
@@ -143,22 +159,27 @@ print(llm_chain.invoke(question))
 要运行多 GPU 推理，请 tensor_parallel_size 在初始化 VLLM 类时使用该参数。
 
 ```
+
 del llm
 
 clean_memory(deep=True)
+
 ```
 
 ```
+
 from langchain_community.llms import VLLM
 
 # Running inference on multiple GPUs
+
 llm = VLLM(
-    model="/input0/Qwen2.5-1.5B-Instruct",
-    tensor_parallel_size=1,  # using 1 GPUs
-    trust_remote_code=True,
+model="/input0/Qwen2.5-1.5B-Instruct",
+tensor_parallel_size=1, # using 1 GPUs
+trust_remote_code=True,
 )
 
 print(llm.invoke("What is the future of AI?"))
+
 ```
 
 对于较大的模型，强烈建议使用此方法，因为它的计算量很大，而且在单个 GPU 上运行速度太慢。
@@ -169,20 +190,26 @@ print(llm.invoke("What is the future of AI?"))
 vLLM 支持 AWQ 量化格式。要启用它，请通过参数传递量化选项 vllm_kwargs。量化允许在资源受限的环境（例如边缘设备或较旧的 GPU）中部署 LLM，而不会牺牲太多准确性。
 
 ```
+
 del llm
 
 clean_memory(deep=True)
+
 ```
 
 ```
+
 llm_q = VLLM(
-    model="/input0/Qwen2.5-3B-Instruct-AWQ",
-    trust_remote_code=True,
-    max_new_tokens=512,
-    vllm_kwargs={"quantization": "awq"},
+model="/input0/Qwen2.5-3B-Instruct-AWQ",
+trust_remote_code=True,
+max_new_tokens=512,
+vllm_kwargs={"quantization": "awq"},
 )
+
 # Running a simple query
+
 print(llm_q.invoke("What are the most popular Halloween Costumes?"))
+
 ```
 
 在此示例中，Qwen2.5-3B-Instruct-AWQ模型已量化以实现最佳性能。在将应用程序部署到生产环境（成本和资源效率至关重要）时，此功能尤其有用。
@@ -195,3 +222,4 @@ print(llm_q.invoke("What are the most popular Halloween Costumes?"))
 例如，vLLM 的 CUDA 优化内核和连续批处理策略可以显著减少响应时间。
 
 然而，在生产系统中，特别是面向用户的系统（如聊天机器人）中，监控实时推理延迟至关重要。
+```

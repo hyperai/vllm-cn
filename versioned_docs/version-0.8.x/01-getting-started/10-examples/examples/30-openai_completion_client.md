@@ -2,7 +2,6 @@
 title: OpenAI 补全客户端
 ---
 
-
 源代码: [vllm-project/vllm](https://raw.githubusercontent.com/vllm-project/vllm/main/examples/openai_completion_client.py)
 
 ```python
@@ -42,5 +41,3 @@ if stream:
 else:
     print(completion)
 ```
-
-

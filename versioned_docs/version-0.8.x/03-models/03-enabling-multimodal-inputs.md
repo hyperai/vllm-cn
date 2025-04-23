@@ -2,20 +2,17 @@
 title: 启用多模态输入
 ---
 
-
 本文档将引导您完成扩展 vLLM 模型的步骤，以便它接受「[多模态](https://docs.vllm.ai/en/latest/dev/multimodal/multimodal_index.html#multi-modality) 」 输入。
-
 
 **另见**
 
 `添加新模型`
 
-
 ## 1. 更新基础 vLLM 模型
 
 假设您已经按照「这些步骤（添加新模型）」在 vLLM 中实现了模型。进一步更新模型的步骤如下：
 
-* 实现 `SupportsMultiModal` 接口。
+- 实现 `SupportsMultiModal` 接口。
 
 ```diff
     + from vllm.model_executor.models.interfaces import SupportsMultiModal
@@ -25,13 +22,11 @@ title: 启用多模态输入
     + class YourModelForImage2Seq(nn.Module, SupportsMultiModal):
 ```
 
-
 **注意：**
 
 模型类不必命名为 `*ForCausalLM`。可查看 [HuggingFace Transformers 文档](https://huggingface.co/docs/transformers/model_doc/auto#multimodal) 获取一些示例。
 
-
-* 如果您还没有这样做，请为对应于多模态输入的每个输入张量在 `forward()` 中保留一个关键字参数，如下例所示: 
+- 如果您还没有这样做，请为对应于多模态输入的每个输入张量在 `forward()` 中保留一个关键字参数，如下例所示:
 
 ```diff
     def forward(
@@ -43,7 +38,6 @@ title: 启用多模态输入
     +     pixel_values: torch.Tensor,
     ) -> SamplerOutput:
 ```
-
 
 ## 2. 注册输入映射器
 
@@ -57,13 +51,12 @@ from vllm.model_executor.models.interfaces import SupportsMultiModal
 + @MULTIMODAL_REGISTRY.register_image_input_mapper()
 class YourModelForImage2Seq(nn.Module, SupportsMultiModal):
 ```
+
 核心 vLLM 库中的每种模式都有一个默认映射器。如果您没有提供自己的函数，将使用此输入映射器。
- 
 
 **另见**
 
 `输入处理管道`
-
 
 ## 3. 注册多模态 token 最大数量
 
@@ -80,15 +73,15 @@ from vllm.multimodal import MULTIMODAL_REGISTRY
 @INPUT_REGISTRY.register_dummy_data(<your_dummy_data_factory>)
 class YourModelForImage2Seq(nn.Module, SupportsMultiModal):
 ```
-以下是一些示例：
-* 图像输入（静态特征尺寸）: [LLaVA-1.5 模型](https://github.com/vllm-project/vllm/blob/main/vllm/model_executor/models/llava.py)
-* 图像输入（动态特征尺寸）: [LLaVA-NeXT 模型](https://github.com/vllm-project/vllm/blob/main/vllm/model_executor/models/llava_next.py)
 
+以下是一些示例：
+
+- 图像输入（静态特征尺寸）: [LLaVA-1.5 模型](https://github.com/vllm-project/vllm/blob/main/vllm/model_executor/models/llava.py)
+- 图像输入（动态特征尺寸）: [LLaVA-NeXT 模型](https://github.com/vllm-project/vllm/blob/main/vllm/model_executor/models/llava_next.py)
 
 **另见**
 
 `输入处理管道`
-
 
 ## 4.（可选）注册虚拟数据
 
@@ -105,20 +98,18 @@ from vllm.multimodal import MULTIMODAL_REGISTRY
 + @INPUT_REGISTRY.register_dummy_data(<your_dummy_data_factory>)
 class YourModelForImage2Seq(nn.Module, SupportsMultiModal):
 ```
+
 **注意：**
 虚拟数据应具有尽可能多的多模态标记，如上一步所述。
 
-
 以下是一些示例：
 
-* 图像输入（静态特征尺寸）: [LLaVA-1.5 模型](https://github.com/vllm-project/vllm/blob/main/vllm/model_executor/models/llava.py)
-* 图像输入（动态特征尺寸）: [LLaVA-NeXT 模型](https://github.com/vllm-project/vllm/blob/main/vllm/model_executor/models/llava_next.py)
-
+- 图像输入（静态特征尺寸）: [LLaVA-1.5 模型](https://github.com/vllm-project/vllm/blob/main/vllm/model_executor/models/llava.py)
+- 图像输入（动态特征尺寸）: [LLaVA-NeXT 模型](https://github.com/vllm-project/vllm/blob/main/vllm/model_executor/models/llava_next.py)
 
 **另见**
 
 `输入处理管道`
-
 
 ## 5.（可选）注册输入处理器
 
@@ -136,13 +127,12 @@ from vllm.multimodal import MULTIMODAL_REGISTRY
 + @INPUT_REGISTRY.register_input_processor(<your_input_processor>)
 class YourModelForImage2Seq(nn.Module, SupportsMultiModal):
 ```
+
 一个常见的输入处理器用例是插入占位符 tokens，以利用 vLLM 框架生成注意力掩码。以下是一些示例：
 
-* 插入静态图像 token 数量：[LLaVA-1.5模型](https://github.com/vllm-project/vllm/blob/main/vllm/model_executor/models/llava.py)
-* 插入动态数量的图像标记：[LLaVA-NeXT 模型](https://github.com/vllm-project/vllm/blob/main/vllm/model_executor/models/llava_next.py)
-
+- 插入静态图像 token 数量：[LLaVA-1.5模型](https://github.com/vllm-project/vllm/blob/main/vllm/model_executor/models/llava.py)
+- 插入动态数量的图像标记：[LLaVA-NeXT 模型](https://github.com/vllm-project/vllm/blob/main/vllm/model_executor/models/llava_next.py)
 
 **另见**
 
 `输入处理管道`
-

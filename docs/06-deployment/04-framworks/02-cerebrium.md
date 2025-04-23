@@ -1,17 +1,12 @@
 ---
-
-title: Cerebrium 
-
+title: Cerebrium
 ---
 
-
-[*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
-
+[\*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
 
 ![图片](/img/docs/v1-deployment/02-cerebrium_1.png)
 
 vLLM 可以通过 [Cerebrium](https://www.cerebrium.ai/) 在基于云的 GPU 计算机上运行，​​这是一个无服务器的 AI 基础设施平台，使公司可以更轻松地构建和部署基于 AI 的应用程序。
-
 
 要安装 Cerebrium 客户端，请运行：
 
@@ -20,15 +15,13 @@ pip install cerebrium
 cerebrium login
 ```
 
-
 接下来，创建您的 Cerebrium 项目，运行：
 
 ```plain
 cerebrium init vllm-project
 ```
 
-
-接下来，安装所需的软件包，请将以下内容添加到 cerebrium.toml 中: 
+接下来，安装所需的软件包，请将以下内容添加到 cerebrium.toml 中:
 
 ```plain
 [cerebrium.deployment]
@@ -39,8 +32,7 @@ docker_base_image_url = "nvidia/cuda:12.1.1-runtime-ubuntu22.04"
 vllm = "latest"
 ```
 
-
-下面让我们添加代码来处理您选择的 LLM 的推理 （本例为 `mistralai/Mistral-7B-Instruct-v0.1`），将以下代码添加到您的 `main.py`: 
+下面让我们添加代码来处理您选择的 LLM 的推理 （本例为 `mistralai/Mistral-7B-Instruct-v0.1`），将以下代码添加到您的 `main.py`:
 
 ```python
 from vllm import LLM, SamplingParams
@@ -72,13 +64,11 @@ def run(prompts: list[str], temperature: float = 0.8, top_p: float = 0.95):
     return {"results": results}
 ```
 
-
 然后，运行以下代码将其部署到云端：
 
 ```plain
 cerebrium deploy
 ```
-
 
 如果成功，您应该得到一个 CURL 命令返回，您可以根据该命令进行推理。只需记住以您正在调用的函数名称结束 url（在我们的例子中为 /run）
 
@@ -95,7 +85,6 @@ curl -X POST https://api.cortex.cerebrium.ai/v4/p-xxxxxx/vllm/run \
    ]
  }'
 ```
-
 
 您应该得到如下响应：
 
@@ -125,4 +114,5 @@ curl -X POST https://api.cortex.cerebrium.ai/v4/p-xxxxxx/vllm/run \
     "run_time_ms": 152.53663063049316
 }
 ```
+
 您现在拥有一个自动扩充端点，而您只需为您使用的计算付费！

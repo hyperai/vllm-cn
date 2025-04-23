@@ -2,7 +2,7 @@
 title: Tensorize Vllm Model
 ---
 
-[*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
+[\*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
 
 源码 [examples/other/tensorize_vllm_model.py](https://github.com/vllm-project/vllm/blob/main/examples/other/tensorize_vllm_model.py)
 
@@ -26,7 +26,7 @@ from vllm.utils import FlexibleArgumentParser
 # yapf: disable
 
 """
-tensorize_vllm_model.py 脚本可用于序列化和反序列化 vLLM 模型。这些模型可以通过 tensorizer 
+tensorize_vllm_model.py 脚本可用于序列化和反序列化 vLLM 模型。这些模型可以通过 tensorizer
 极速加载到 GPU，支持通过 HTTP/HTTPS 端点、S3 端点或本地路径加载。同时支持张量加密解密功能
 （需安装 libsodium）。安装支持 tensorizer 的 vLLM：`pip install vllm[tensorizer]`。
 了解更多 tensorizer 信息请访问：https://github.com/coreweave/tensorizer
@@ -39,7 +39,7 @@ python -m examples.other.tensorize_vllm_model \\
    serialize \\
    --serialized-directory s3://my-bucket \\
    --suffix v1
-   
+
 该命令会从 HuggingFace 下载模型，加载到 vLLM 中序列化后保存到 S3 存储桶（也可使用本地目录）。
 需要设置以下环境变量：
 `S3_ACCESS_KEY_ID`、`S3_SECRET_ACCESS_KEY` 和 `S3_ENDPOINT_URL`。
@@ -53,7 +53,7 @@ python -m examples.other.tensorize_vllm_model \\
    --dtype float16 \\
    deserialize \\
    --path-to-tensors s3://my-bucket/vllm/EleutherAI/gpt-j-6B/v1/model.tensors
-   
+
 该命令会从 S3 存储桶下载模型张量并反序列化。若序列化时使用了加密，可通过 `--keyfile` 参数解密。
 
 分布式张量并行支持：
@@ -78,7 +78,7 @@ vLLM OpenAI 推理服务器也支持加载序列化模型。`model_loader_extra_
 
 查看所有 tensorizer 配置参数：
 运行 `python -m examples.other.tensorize_vllm_model deserialize --help`
-在 `tensorizer options` 部分查看。注意 `--tensorizer-uri` 和 `--path-to-tensors` 
+在 `tensorizer options` 部分查看。注意 `--tensorizer-uri` 和 `--path-to-tensors`
 在本脚本中功能相同。
 """
 

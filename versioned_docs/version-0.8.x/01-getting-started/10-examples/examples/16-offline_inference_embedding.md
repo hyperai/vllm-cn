@@ -2,7 +2,6 @@
 title: 离线推理嵌入
 ---
 
-
 源代码: [vllm-project/vllm](https://raw.githubusercontent.com/vllm-project/vllm/main/examples/offline_inference_embedding.py)
 
 ```python
@@ -31,5 +30,3 @@ outputs = model.encode(prompts)
 for output in outputs:
     print(output.outputs.embedding)  # list of 4096 floats
 ```
-
-

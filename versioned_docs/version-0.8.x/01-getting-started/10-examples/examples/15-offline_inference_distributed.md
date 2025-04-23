@@ -2,7 +2,6 @@
 title: 离线推理分布式
 ---
 
-
 源代码: [vllm-project/vllm](https://raw.githubusercontent.com/vllm-project/vllm/main/examples/offline_inference_distributed.py)
 
 ```python
@@ -152,5 +151,3 @@ for output in outputs:
 # ds.write_parquet("s3://<your-output-bucket>")
 
 ```
-
-

@@ -2,7 +2,7 @@
 title: Vision Language Multi Image
 ---
 
-[*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
+[\*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
 
 源码 [examples/offline_inference/vision_language_multi_image.py](https://github.com/vllm-project/vllm/blob/main/examples/offline_inference/vision_language_multi_image.py)
 
@@ -152,7 +152,7 @@ def load_h2ovl(question: str, image_urls: list[str]) -> ModelRequestData:
 
     # Stop tokens for H2OVL-Mississippi
     # https://huggingface.co/h2oai/h2ovl-mississippi-800m
-    # H2OVL-Mississippi 的停止 token 
+    # H2OVL-Mississippi 的停止 token
     # https://huggingface.co/h2oai/h2ovl-mississippi-800m
     stop_token_ids = [tokenizer.eos_token_id]
 
@@ -222,7 +222,7 @@ def load_internvl(question: str, image_urls: list[str]) -> ModelRequestData:
     # please refer to the model card for the correct "stop words":
     # https://huggingface.co/OpenGVLab/InternVL2-2B/blob/main/conversation.py
     # Internvl 的停止 token
-    # 型号变体可能具有不同的停止 token 
+    # 型号变体可能具有不同的停止 token
     # 请参考正确的"停止单词"的模型卡:
     # https://huggingface.co/opengvlab/internvl2-2b/blob/main/conversation.py
     stop_tokens = ["<|endoftext|>", "<|im_start|>", "<|im_end|>", "<|end|>"]
@@ -324,14 +324,14 @@ def load_phi3v(question: str, image_urls: list[str]) -> ModelRequestData:
     #
     # https://huggingface.co/microsoft/Phi-3.5-vision-instruct#loading-the-model-locally
     # https://huggingface.co/microsoft/Phi-3.5-vision-instruct/blob/main/processing_phi3_v.py#L194
-    
+
     # num_crops 是传递给多模态图像处理器的一个覆盖（override）关键字参数；
     # 对于某些模型，例如 Phi-3.5-vision-instruct，建议在单帧（single frame）场景下使用 16，
     # 而在多帧（multi-frame）场景下使用 4。
     #
     # 一般来说，较大的 num_crops 值会导致每个图像实例生成更多的 token，
     # 因为它可能在图像预处理过程中对图像进行更大范围的缩放。
-    # 
+    #
     # https://huggingface.co/microsoft/Phi-3.5-vision-instruct#loading-the-model-locally
     # https://huggingface.co/microsoft/Phi-3.5-vision-instruct/blob/main/processing_phi3_v.py#L194
     engine_args = EngineArgs(

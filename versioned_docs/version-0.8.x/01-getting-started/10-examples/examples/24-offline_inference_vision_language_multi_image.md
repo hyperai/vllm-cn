@@ -2,7 +2,6 @@
 title: 离线推理视觉语言多图像
 ---
 
-
 源代码: [vllm-project/vllm](https://raw.githubusercontent.com/vllm-project/vllm/main/examples/offline_inference_vision_language_multi_image.py)
 
 ```python
@@ -105,5 +104,3 @@ if __name__ == "__main__":
     args = parser.parse_args()
     main(args)
 ```
-
-

@@ -2,7 +2,7 @@
 title: Disaggregated Prefill Lmcache
 ---
 
-[*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
+[\*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
 
 源码 [examples/offline_inference/disaggregated_prefill_lmcache.py](https://github.com/vllm-project/vllm/blob/main/examples/offline_inference/disaggregated_prefill_lmcache.py)
 
@@ -13,7 +13,7 @@ This file demonstrates the example usage of disaggregated prefilling
 with LMCache.
 We will launch 2 vllm instances (GPU 0 for prefill and GPU 1 for decode),
 and launch an additional LMCache server.
-KV cache is transferred in the following manner: 
+KV cache is transferred in the following manner:
 vLLM prefill node -> LMCache server -> vLLM decode node.
 Note that `pip install lmcache` is needed to run this example.
 Learn more about LMCache in https://github.com/LMCache/LMCache.
@@ -23,7 +23,7 @@ Learn more about LMCache in https://github.com/LMCache/LMCache.
 与 LMCache。
 我们将启动2个 vLLM 实例 (Preill 的 GPU 0和 Decode 的 GPU 1) ，
 并启动额外的 LMCache 服务器。
-KV 缓存以以下方式传输: 
+KV 缓存以以下方式传输:
 vLLM 预填充节点 - > lmcache Server-> vllm 解码节点。
 请注意，运行此示例需要运行 `pip install lmcache`。
 在 https://github.com/LMCache/LMCache 中了解有关 LMCache 的更多信息。
@@ -48,7 +48,7 @@ port = 8100
 # 在 LMCache 中使用实验功能
 os.environ["LMCache_USE_EXPERIMENTAL"] = "True"
 # LMCache is set to use 256 tokens per chunk
-# lmcache 设置为每块使用256个 token 
+# lmcache 设置为每块使用256个 token
 os.environ["LMCache_CHUNK_SIZE"] = "256"
 # Disable local CPU backend in LMCache
 # 禁用 LMCache 中的本地 CPU 后端

@@ -2,7 +2,6 @@
 title: Aqlm 示例
 ---
 
-
 源代码：[vllm-project/vllm](https://raw.githubusercontent.com/vllm-project/vllm/main/examples/aqlm_example.py)
 
 ```python
@@ -52,5 +51,3 @@ def main():
 if __name__ == '__main__':
     main()
 ```
-
-

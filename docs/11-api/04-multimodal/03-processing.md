@@ -1,16 +1,12 @@
 ---
-
 title: 数据处理
-
 ---
 
-
-[*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
-
+[\*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
 
 ## 模块内容
 
-**vllm.multimodal.processing.****PromptSeq**
+**vllm.multimodal.processing.\*\***PromptSeq\*\*
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/#L1588)
 
@@ -18,15 +14,13 @@ title: 数据处理
 
 别名为 `Union`[`str`, `list`[`int`]]
 
-
-***class*****vllm.multimodal.processing.****PromptIndex****(*****get_match_index:***[Callable](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)***[[transformers.PreTrainedTokenizer | transformers.PreTrainedTokenizerFast | TokenizerBase,***[str](https://docs.python.org/3/library/stdtypes.html#str)***|***[list](https://docs.python.org/3/library/stdtypes.html#list)***[***[int](https://docs.python.org/3/library/functions.html#int)***]],***[int](https://docs.python.org/3/library/functions.html#int)***|***[None](https://docs.python.org/3/library/constants.html#None)***]*****)**
+**\*class\*\*\***vllm.multimodal.processing.\***\*PromptIndex\*\***(**\***get*match_index:\*\**[Callable](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)_**[[transformers.PreTrainedTokenizer | transformers.PreTrainedTokenizerFast | TokenizerBase,\***[str](https://docs.python.org/3/library/stdtypes.html#str)***|***[list](https://docs.python.org/3/library/stdtypes.html#list)***[***[int](https://docs.python.org/3/library/functions.html#int)**\*]],**_[int](https://docs.python.org/3/library/functions.html#int)_**|**_[None](https://docs.python.org/3/library/constants.html#None)\_**]**\*\*\*)\*\*
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/multimodal/processing.py#L44)
 
 解析为提示中的索引。
 
-
-**vllm.multimodal.processing.****PromptTarget**
+**vllm.multimodal.processing.\*\***PromptTarget\*\*
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/#L1588)
 
@@ -34,29 +28,25 @@ title: 数据处理
 
 别名为 `Union`[`str`, `list`[`int`], `PromptIndex`]
 
-
-***class*****vllm.multimodal.processing.****PromptUpdateDetails****(*****full: _S*****,*****features: _S*****)**
+**\*class\*\*\***vllm.multimodal.processing.\***\*PromptUpdateDetails\*\***(**\***full: _S**\***,**\***features: _S**\***)\*\*
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/multimodal/processing.py#L105)
 
 关于更新中包含的 token 序列或文本的详细信息。
 
-
-**full*****: _S***
+**full\*\*\***: _S\*\*\*
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/multimodal/processing.py#L105)
 
 完整内容。
 
-
-**features*****: _S***
+**features\*\*\***: _S\*\*\*
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/multimodal/processing.py#L105)
 
 与特征占位符对应的部分内容；在模型推理期间，这部分内容将被视觉编码器的输出替换。
 
-
-**vllm.multimodal.processing.****PromptUpdateInfo**
+**vllm.multimodal.processing.\*\***PromptUpdateInfo\*\*
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/#L1588)
 
@@ -66,8 +56,7 @@ title: 数据处理
 
 别名为 `Union`[`str`, `list`[`int`], `PromptUpdateDetails`]
 
-
-**vllm.multimodal.processing.****PromptUpdateContent**
+**vllm.multimodal.processing.\*\***PromptUpdateContent\*\*
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/#L1588)
 
@@ -77,53 +66,45 @@ title: 数据处理
 
 别名为 `Union`[`Callable`[`int`, `Union`[`str`, `list`[`int`], `PromptUpdateDetails`]], `str`, `list`[`int`], `PromptUpdateDetails`]
 
-
-***class*****vllm.multimodal.processing.****UpdateMode****(*****value*****,*****names******=_not_given*****,************values*****,*****module******=None*****,*****qualname******=None*****,*****type******=None*****,*****start******=1*****,*****boundary******=None*****)**
+**\*class\*\*\***vllm.multimodal.processing.\***\*UpdateMode\*\***(**\***value**\***,**\***names**\*\***=\_not_given**\***,\***\*\*\*\*\*\*\***values**\***,**\***module**\*\***=None**\***,**\***qualname**\*\***=None**\***,**\***type**\*\***=None**\***,**\***start**\*\***=1**\***,**\***boundary**\*\***=None**\***)\*\*
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/multimodal/processing.py#L143)
 
-
-***class*****vllm.multimodal.processing.****PromptUpdate****(*****modality:***[str](https://docs.python.org/3/library/stdtypes.html#str)**,*****target:***[str](https://docs.python.org/3/library/stdtypes.html#str)***|***[list](https://docs.python.org/3/library/stdtypes.html#list)***[***[int](https://docs.python.org/3/library/functions.html#int)***] |***[PromptIndex](https://docs.vllm.ai/en/latest/api/multimodal/processing.html#vllm.multimodal.processing.PromptIndex)**)**
+**\*class\*\*\***vllm.multimodal.processing.\***\*PromptUpdate\*\***(**\***modality:**\*[str](https://docs.python.org/3/library/stdtypes.html#str)**,**\***target:**_[str](https://docs.python.org/3/library/stdtypes.html#str)_**|**_[list](https://docs.python.org/3/library/stdtypes.html#list)_**[**_[int](https://docs.python.org/3/library/functions.html#int)_**] |**\*[PromptIndex](https://docs.vllm.ai/en/latest/api/multimodal/processing.html#vllm.multimodal.processing.PromptIndex)**)\*\*
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/multimodal/processing.py#L148)
 
 定义如何使用占位符 token 更新提示。
 
-
-**modality*****:***[str](https://docs.python.org/3/library/stdtypes.html#str)
+**modality\*\*\***:\*\*\*[str](https://docs.python.org/3/library/stdtypes.html#str)
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/multimodal/processing.py#L148)
 
 为其进行更新的模态。
 
-
-**target*****:***[str](https://docs.python.org/3/library/stdtypes.html#str)***|***[list](https://docs.python.org/3/library/stdtypes.html#list)***[***[int](https://docs.python.org/3/library/functions.html#int)***] |***[PromptIndex](https://docs.vllm.ai/en/latest/api/multimodal/processing.html#vllm.multimodal.processing.PromptIndex)
+**target\*\*\***:**_[str](https://docs.python.org/3/library/stdtypes.html#str)_**|**_[list](https://docs.python.org/3/library/stdtypes.html#list)_**[**_[int](https://docs.python.org/3/library/functions.html#int)_**] |\*\*\*[PromptIndex](https://docs.vllm.ai/en/latest/api/multimodal/processing.html#vllm.multimodal.processing.PromptIndex)
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/multimodal/processing.py#L148)
 
 要更新的 token 序列（或文本）。
 
-
-***abstract property*****content*****:***[Callable](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)***[[***[int](https://docs.python.org/3/library/functions.html#int)***],***[str](https://docs.python.org/3/library/stdtypes.html#str)***|***[list](https://docs.python.org/3/library/stdtypes.html#list)***[***[int](https://docs.python.org/3/library/functions.html#int)***] |***[PromptUpdateDetails](https://docs.vllm.ai/en/latest/api/multimodal/processing.html#vllm.multimodal.processing.PromptUpdateDetails)***] |***[str](https://docs.python.org/3/library/stdtypes.html#str)***|***[list](https://docs.python.org/3/library/stdtypes.html#list)***[***[int](https://docs.python.org/3/library/functions.html#int)***] |***[PromptUpdateDetails](https://docs.vllm.ai/en/latest/api/multimodal/processing.html#vllm.multimodal.processing.PromptUpdateDetails)
+**\*abstract property\*\*\***content**\***:**_[Callable](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)_**[[**_[int](https://docs.python.org/3/library/functions.html#int)_**],**_[str](https://docs.python.org/3/library/stdtypes.html#str)_**|**_[list](https://docs.python.org/3/library/stdtypes.html#list)_**[**_[int](https://docs.python.org/3/library/functions.html#int)_**] |**_[PromptUpdateDetails](https://docs.vllm.ai/en/latest/api/multimodal/processing.html#vllm.multimodal.processing.PromptUpdateDetails)_**] |**_[str](https://docs.python.org/3/library/stdtypes.html#str)_**|**_[list](https://docs.python.org/3/library/stdtypes.html#list)_**[**_[int](https://docs.python.org/3/library/functions.html#int)_**] |\*\*\*[PromptUpdateDetails](https://docs.vllm.ai/en/latest/api/multimodal/processing.html#vllm.multimodal.processing.PromptUpdateDetails)
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/multimodal/processing.py#L148)
 
 更新中包含的占位符 token。
 
-
-***abstract property*****mode*****:***[UpdateMode](https://docs.vllm.ai/en/latest/api/multimodal/processing.html#vllm.multimodal.processing.UpdateMode)
+**\*abstract property\*\*\***mode**\***:\*\*\*[UpdateMode](https://docs.vllm.ai/en/latest/api/multimodal/processing.html#vllm.multimodal.processing.UpdateMode)
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/multimodal/processing.py#L148)
 
 定义如何更新提示。
 
-
-***class*****vllm.multimodal.processing.****PromptInsertion****(*****modality:***[str](https://docs.python.org/3/library/stdtypes.html#str)**,*****target:***[str](https://docs.python.org/3/library/stdtypes.html#str)***|***[list](https://docs.python.org/3/library/stdtypes.html#list)***[***[int](https://docs.python.org/3/library/functions.html#int)***] |***[PromptIndex](https://docs.vllm.ai/en/latest/api/multimodal/processing.html#vllm.multimodal.processing.PromptIndex)**,*****insertion:***[Callable](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)***[[***[int](https://docs.python.org/3/library/functions.html#int)***],***[str](https://docs.python.org/3/library/stdtypes.html#str)***|***[list](https://docs.python.org/3/library/stdtypes.html#list)***[***[int](https://docs.python.org/3/library/functions.html#int)***] |***[PromptUpdateDetails](https://docs.vllm.ai/en/latest/api/multimodal/processing.html#vllm.multimodal.processing.PromptUpdateDetails)***] |***[str](https://docs.python.org/3/library/stdtypes.html#str)***|***[list](https://docs.python.org/3/library/stdtypes.html#list)***[***[int](https://docs.python.org/3/library/functions.html#int)***] |***[PromptUpdateDetails](https://docs.vllm.ai/en/latest/api/multimodal/processing.html#vllm.multimodal.processing.PromptUpdateDetails)**)**
+**\*class\*\*\***vllm.multimodal.processing.\***\*PromptInsertion\*\***(**\***modality:**\*[str](https://docs.python.org/3/library/stdtypes.html#str)**,**\***target:**_[str](https://docs.python.org/3/library/stdtypes.html#str)_**|**_[list](https://docs.python.org/3/library/stdtypes.html#list)_**[**_[int](https://docs.python.org/3/library/functions.html#int)_**] |**\*[PromptIndex](https://docs.vllm.ai/en/latest/api/multimodal/processing.html#vllm.multimodal.processing.PromptIndex)**,**\***insertion:**_[Callable](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)_**[[**_[int](https://docs.python.org/3/library/functions.html#int)_**],**_[str](https://docs.python.org/3/library/stdtypes.html#str)_**|**_[list](https://docs.python.org/3/library/stdtypes.html#list)_**[**_[int](https://docs.python.org/3/library/functions.html#int)_**] |**_[PromptUpdateDetails](https://docs.vllm.ai/en/latest/api/multimodal/processing.html#vllm.multimodal.processing.PromptUpdateDetails)_**] |**_[str](https://docs.python.org/3/library/stdtypes.html#str)_**|**_[list](https://docs.python.org/3/library/stdtypes.html#list)_**[**_[int](https://docs.python.org/3/library/functions.html#int)_**] |**\*[PromptUpdateDetails](https://docs.vllm.ai/en/latest/api/multimodal/processing.html#vllm.multimodal.processing.PromptUpdateDetails)**)\*\*
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/multimodal/processing.py#L179)
 
 定义如何将占位符 token 插入提示中。
-
 
 **示例**
 
@@ -137,7 +118,6 @@ PromptInsertion(
 )
 ```
 
-
 在提示的开头插入这些 token：
 
 ```plain
@@ -147,7 +127,6 @@ PromptInsertion(
     insertion="<image>" * image_feature_size,
 )
 ```
-
 
 在前缀 `Images:` 后插入这些 token：
 
@@ -159,7 +138,6 @@ PromptInsertion(
 )
 ```
 
-
 在提示的末尾插入这些 token：
 
 ```plain
@@ -170,8 +148,7 @@ PromptInsertion(
 )
 ```
 
-
-**insertion*****:***[Callable](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)***[[***[int](https://docs.python.org/3/library/functions.html#int)***],***[str](https://docs.python.org/3/library/stdtypes.html#str)***|***[list](https://docs.python.org/3/library/stdtypes.html#list)***[***[int](https://docs.python.org/3/library/functions.html#int)***] |***[PromptUpdateDetails](https://docs.vllm.ai/en/latest/api/multimodal/processing.html#vllm.multimodal.processing.PromptUpdateDetails)***] |***[str](https://docs.python.org/3/library/stdtypes.html#str)***|***[list](https://docs.python.org/3/library/stdtypes.html#list)***[***[int](https://docs.python.org/3/library/functions.html#int)***] |***[PromptUpdateDetails](https://docs.vllm.ai/en/latest/api/multimodal/processing.html#vllm.multimodal.processing.PromptUpdateDetails)
+**insertion\*\*\***:**_[Callable](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)_**[[**_[int](https://docs.python.org/3/library/functions.html#int)_**],**_[str](https://docs.python.org/3/library/stdtypes.html#str)_**|**_[list](https://docs.python.org/3/library/stdtypes.html#list)_**[**_[int](https://docs.python.org/3/library/functions.html#int)_**] |**_[PromptUpdateDetails](https://docs.vllm.ai/en/latest/api/multimodal/processing.html#vllm.multimodal.processing.PromptUpdateDetails)_**] |**_[str](https://docs.python.org/3/library/stdtypes.html#str)_**|**_[list](https://docs.python.org/3/library/stdtypes.html#list)_**[**_[int](https://docs.python.org/3/library/functions.html#int)_**] |\*\*\*[PromptUpdateDetails](https://docs.vllm.ai/en/latest/api/multimodal/processing.html#vllm.multimodal.processing.PromptUpdateDetails)
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/multimodal/processing.py#L179)
 
@@ -179,27 +156,23 @@ PromptInsertion(
 
 为了方便起见，如果 token 序列（或文本）不依赖于 Importing，则可以直接传入 token 序列（或文本）而不是函数。
 
-
-***property*****content*****:***[Callable](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)***[[***[int](https://docs.python.org/3/library/functions.html#int)***],***[str](https://docs.python.org/3/library/stdtypes.html#str)***|***[list](https://docs.python.org/3/library/stdtypes.html#list)***[***[int](https://docs.python.org/3/library/functions.html#int)***] |***[PromptUpdateDetails](https://docs.vllm.ai/en/latest/api/multimodal/processing.html#vllm.multimodal.processing.PromptUpdateDetails)***] |***[str](https://docs.python.org/3/library/stdtypes.html#str)***|***[list](https://docs.python.org/3/library/stdtypes.html#list)***[***[int](https://docs.python.org/3/library/functions.html#int)***] |***[PromptUpdateDetails](https://docs.vllm.ai/en/latest/api/multimodal/processing.html#vllm.multimodal.processing.PromptUpdateDetails)
+**\*property\*\*\***content**\***:**_[Callable](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)_**[[**_[int](https://docs.python.org/3/library/functions.html#int)_**],**_[str](https://docs.python.org/3/library/stdtypes.html#str)_**|**_[list](https://docs.python.org/3/library/stdtypes.html#list)_**[**_[int](https://docs.python.org/3/library/functions.html#int)_**] |**_[PromptUpdateDetails](https://docs.vllm.ai/en/latest/api/multimodal/processing.html#vllm.multimodal.processing.PromptUpdateDetails)_**] |**_[str](https://docs.python.org/3/library/stdtypes.html#str)_**|**_[list](https://docs.python.org/3/library/stdtypes.html#list)_**[**_[int](https://docs.python.org/3/library/functions.html#int)_**] |\*\*\*[PromptUpdateDetails](https://docs.vllm.ai/en/latest/api/multimodal/processing.html#vllm.multimodal.processing.PromptUpdateDetails)
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/multimodal/processing.py#L179)
 
 更新中包含的占位符 token。
 
-
-***property*****mode*****:***[UpdateMode](https://docs.vllm.ai/en/latest/api/multimodal/processing.html#vllm.multimodal.processing.UpdateMode)
+**\*property\*\*\***mode**\***:\*\*\*[UpdateMode](https://docs.vllm.ai/en/latest/api/multimodal/processing.html#vllm.multimodal.processing.UpdateMode)
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/multimodal/processing.py#L179)
 
 定义如何更新提示。
 
-
-***class*****vllm.multimodal.processing.****PromptReplacement****(*****modality:***[str](https://docs.python.org/3/library/stdtypes.html#str)**,*****target:***[str](https://docs.python.org/3/library/stdtypes.html#str)***|***[list](https://docs.python.org/3/library/stdtypes.html#list)***[***[int](https://docs.python.org/3/library/functions.html#int)***] |***[PromptIndex](https://docs.vllm.ai/en/latest/api/multimodal/processing.html#vllm.multimodal.processing.PromptIndex)**,*****replacement:***[Callable](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)***[[***[int](https://docs.python.org/3/library/functions.html#int)***],***[str](https://docs.python.org/3/library/stdtypes.html#str)***|***[list](https://docs.python.org/3/library/stdtypes.html#list)***[***[int](https://docs.python.org/3/library/functions.html#int)***] |***[PromptUpdateDetails](https://docs.vllm.ai/en/latest/api/multimodal/processing.html#vllm.multimodal.processing.PromptUpdateDetails)***] |***[str](https://docs.python.org/3/library/stdtypes.html#str)***|***[list](https://docs.python.org/3/library/stdtypes.html#list)***[***[int](https://docs.python.org/3/library/functions.html#int)***] |***[PromptUpdateDetails](https://docs.vllm.ai/en/latest/api/multimodal/processing.html#vllm.multimodal.processing.PromptUpdateDetails)**)**
+**\*class\*\*\***vllm.multimodal.processing.\***\*PromptReplacement\*\***(**\***modality:**\*[str](https://docs.python.org/3/library/stdtypes.html#str)**,**\***target:**_[str](https://docs.python.org/3/library/stdtypes.html#str)_**|**_[list](https://docs.python.org/3/library/stdtypes.html#list)_**[**_[int](https://docs.python.org/3/library/functions.html#int)_**] |**\*[PromptIndex](https://docs.vllm.ai/en/latest/api/multimodal/processing.html#vllm.multimodal.processing.PromptIndex)**,**\***replacement:**_[Callable](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)_**[[**_[int](https://docs.python.org/3/library/functions.html#int)_**],**_[str](https://docs.python.org/3/library/stdtypes.html#str)_**|**_[list](https://docs.python.org/3/library/stdtypes.html#list)_**[**_[int](https://docs.python.org/3/library/functions.html#int)_**] |**_[PromptUpdateDetails](https://docs.vllm.ai/en/latest/api/multimodal/processing.html#vllm.multimodal.processing.PromptUpdateDetails)_**] |**_[str](https://docs.python.org/3/library/stdtypes.html#str)_**|**_[list](https://docs.python.org/3/library/stdtypes.html#list)_**[**_[int](https://docs.python.org/3/library/functions.html#int)_**] |**\*[PromptUpdateDetails](https://docs.vllm.ai/en/latest/api/multimodal/processing.html#vllm.multimodal.processing.PromptUpdateDetails)**)\*\*
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/multimodal/processing.py#L246)
 
 定义如何用占位符 token 替换输入提示的部分内容。
-
 
 **示例**
 
@@ -212,7 +185,6 @@ PromptReplacement(
     replacement="<image>" * image_feature_size,
 )
 ```
-
 
 如上所述，但进一步用 `<image_bos>` 和 `<image_eos>` 填充特征占位符，这些 token 不应传递给视觉编码器：
 
@@ -231,7 +203,6 @@ PromptReplacement(
 )
 ```
 
-
 为了避免在提示替换期间不必要的 token 化，建议传递 token 序列而不是文本：
 
 ```plain
@@ -246,8 +217,7 @@ PromptReplacement(
 )
 ```
 
-
-**replacement*****:***[Callable](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)***[[***[int](https://docs.python.org/3/library/functions.html#int)***],***[str](https://docs.python.org/3/library/stdtypes.html#str)***|***[list](https://docs.python.org/3/library/stdtypes.html#list)***[***[int](https://docs.python.org/3/library/functions.html#int)***] |***[PromptUpdateDetails](https://docs.vllm.ai/en/latest/api/multimodal/processing.html#vllm.multimodal.processing.PromptUpdateDetails)***] |***[str](https://docs.python.org/3/library/stdtypes.html#str)***|***[list](https://docs.python.org/3/library/stdtypes.html#list)***[***[int](https://docs.python.org/3/library/functions.html#int)***] |***[PromptUpdateDetails](https://docs.vllm.ai/en/latest/api/multimodal/processing.html#vllm.multimodal.processing.PromptUpdateDetails)
+**replacement\*\*\***:**_[Callable](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)_**[[**_[int](https://docs.python.org/3/library/functions.html#int)_**],**_[str](https://docs.python.org/3/library/stdtypes.html#str)_**|**_[list](https://docs.python.org/3/library/stdtypes.html#list)_**[**_[int](https://docs.python.org/3/library/functions.html#int)_**] |**_[PromptUpdateDetails](https://docs.vllm.ai/en/latest/api/multimodal/processing.html#vllm.multimodal.processing.PromptUpdateDetails)_**] |**_[str](https://docs.python.org/3/library/stdtypes.html#str)_**|**_[list](https://docs.python.org/3/library/stdtypes.html#list)_**[**_[int](https://docs.python.org/3/library/functions.html#int)_**] |\*\*\*[PromptUpdateDetails](https://docs.vllm.ai/en/latest/api/multimodal/processing.html#vllm.multimodal.processing.PromptUpdateDetails)
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/multimodal/processing.py#L246)
 
@@ -255,64 +225,55 @@ PromptReplacement(
 
 为了方便起见，如果 token 序列（或文本）不依赖于 Importing，则可以直接传入 token 序列（或文本）而不是函数。
 
-
-***property*****content*****:***[Callable](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)***[[***[int](https://docs.python.org/3/library/functions.html#int)***],***[str](https://docs.python.org/3/library/stdtypes.html#str)***|***[list](https://docs.python.org/3/library/stdtypes.html#list)***[***[int](https://docs.python.org/3/library/functions.html#int)***] |***[PromptUpdateDetails](https://docs.vllm.ai/en/latest/api/multimodal/processing.html#vllm.multimodal.processing.PromptUpdateDetails)***] |***[str](https://docs.python.org/3/library/stdtypes.html#str)***|***[list](https://docs.python.org/3/library/stdtypes.html#list)***[***[int](https://docs.python.org/3/library/functions.html#int)***] |***[PromptUpdateDetails](https://docs.vllm.ai/en/latest/api/multimodal/processing.html#vllm.multimodal.processing.PromptUpdateDetails)
+**\*property\*\*\***content**\***:**_[Callable](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)_**[[**_[int](https://docs.python.org/3/library/functions.html#int)_**],**_[str](https://docs.python.org/3/library/stdtypes.html#str)_**|**_[list](https://docs.python.org/3/library/stdtypes.html#list)_**[**_[int](https://docs.python.org/3/library/functions.html#int)_**] |**_[PromptUpdateDetails](https://docs.vllm.ai/en/latest/api/multimodal/processing.html#vllm.multimodal.processing.PromptUpdateDetails)_**] |**_[str](https://docs.python.org/3/library/stdtypes.html#str)_**|**_[list](https://docs.python.org/3/library/stdtypes.html#list)_**[**_[int](https://docs.python.org/3/library/functions.html#int)_**] |\*\*\*[PromptUpdateDetails](https://docs.vllm.ai/en/latest/api/multimodal/processing.html#vllm.multimodal.processing.PromptUpdateDetails)
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/multimodal/processing.py#L246)
 
 更新中包含的占位符 token。
 
-
-***property*****mode*****:***[UpdateMode](https://docs.vllm.ai/en/latest/api/multimodal/processing.html#vllm.multimodal.processing.UpdateMode)
+**\*property\*\*\***mode**\***:\*\*\*[UpdateMode](https://docs.vllm.ai/en/latest/api/multimodal/processing.html#vllm.multimodal.processing.UpdateMode)
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/multimodal/processing.py#L246)
 
 定义如何更新提示。
 
-
-**vllm.multimodal.processing.****full_groupby_modality****(*****values:***[Iterable](https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterable)***[_M]*****)****→**[ItemsView](https://docs.python.org/3/library/collections.abc.html#collections.abc.ItemsView)**[**[str](https://docs.python.org/3/library/stdtypes.html#str)**,**[list](https://docs.python.org/3/library/stdtypes.html#list)**[_M]]**
+**vllm.multimodal.processing.\*\***full*groupby_modality\***\*(\*\*\***values:\*\**[Iterable](https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterable)\_**[_M]**\***)\***\*→**[ItemsView](https://docs.python.org/3/library/collections.abc.html#collections.abc.ItemsView)**[**[str](https://docs.python.org/3/library/stdtypes.html#str)**,**[list](https://docs.python.org/3/library/stdtypes.html#list)**[_M]]\*\*
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/multimodal/processing.py#L356)
 
 便利函数，基于模态应用 `full_groupby()`。
 
-
-***class*****vllm.multimodal.processing.****BoundPromptUpdate****(*****_origin:***[PromptUpdate](https://docs.vllm.ai/en/latest/api/multimodal/processing.html#vllm.multimodal.processing.PromptUpdate)**,*****tokenizer: transformers.PreTrainedTokenizer | transformers.PreTrainedTokenizerFast | TokenizerBase*****)**
+**\*class\*\*\***vllm.multimodal.processing.\***\*BoundPromptUpdate\*\***(**\***\_origin:**\*[PromptUpdate](https://docs.vllm.ai/en/latest/api/multimodal/processing.html#vllm.multimodal.processing.PromptUpdate)**,**\***tokenizer: transformers.PreTrainedTokenizer | transformers.PreTrainedTokenizerFast | TokenizerBase**\***)\*\*
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/multimodal/processing.py#L413)
 
 一个绑定到 tokenizer 的 `PromptUpdate`，用于自动在 token 序列和文本表示之间转换 `target` 和 `get_content()` 的结果。
 
-
-***property*****target*****: _BoundPromptSequence |***[PromptIndex](https://docs.vllm.ai/en/latest/api/multimodal/processing.html#vllm.multimodal.processing.PromptIndex)
+**\*property\*\*\***target**\***: _BoundPromptSequence |\*\*\*[PromptIndex](https://docs.vllm.ai/en/latest/api/multimodal/processing.html#vllm.multimodal.processing.PromptIndex)
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/multimodal/processing.py#L413)
 
 要更新的 token 序列（或文本）。
 
-
-***property*****content*****:***[Callable](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)***[[***[int](https://docs.python.org/3/library/functions.html#int)***],***[str](https://docs.python.org/3/library/stdtypes.html#str)***|***[list](https://docs.python.org/3/library/stdtypes.html#list)***[***[int](https://docs.python.org/3/library/functions.html#int)***] |***[PromptUpdateDetails](https://docs.vllm.ai/en/latest/api/multimodal/processing.html#vllm.multimodal.processing.PromptUpdateDetails)***] |***[str](https://docs.python.org/3/library/stdtypes.html#str)***|***[list](https://docs.python.org/3/library/stdtypes.html#list)***[***[int](https://docs.python.org/3/library/functions.html#int)***] |***[PromptUpdateDetails](https://docs.vllm.ai/en/latest/api/multimodal/processing.html#vllm.multimodal.processing.PromptUpdateDetails)
+**\*property\*\*\***content**\***:**_[Callable](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)_**[[**_[int](https://docs.python.org/3/library/functions.html#int)_**],**_[str](https://docs.python.org/3/library/stdtypes.html#str)_**|**_[list](https://docs.python.org/3/library/stdtypes.html#list)_**[**_[int](https://docs.python.org/3/library/functions.html#int)_**] |**_[PromptUpdateDetails](https://docs.vllm.ai/en/latest/api/multimodal/processing.html#vllm.multimodal.processing.PromptUpdateDetails)_**] |**_[str](https://docs.python.org/3/library/stdtypes.html#str)_**|**_[list](https://docs.python.org/3/library/stdtypes.html#list)_**[**_[int](https://docs.python.org/3/library/functions.html#int)_**] |\*\*\*[PromptUpdateDetails](https://docs.vllm.ai/en/latest/api/multimodal/processing.html#vllm.multimodal.processing.PromptUpdateDetails)
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/multimodal/processing.py#L413)
 
 更新中包含的占位符 token。
 
-
-***property*****mode*****:***[UpdateMode](https://docs.vllm.ai/en/latest/api/multimodal/processing.html#vllm.multimodal.processing.UpdateMode)
+**\*property\*\*\***mode**\***:\*\*\*[UpdateMode](https://docs.vllm.ai/en/latest/api/multimodal/processing.html#vllm.multimodal.processing.UpdateMode)
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/multimodal/processing.py#L413)
 
 定义如何更新提示。
 
-
-**get_content****(*****item_idx:***[int](https://docs.python.org/3/library/functions.html#int)**)****→ _BoundPromptContent**
+**get_content\*\***(**\***item_idx:**\*[int](https://docs.python.org/3/library/functions.html#int)**)\***\*→ _BoundPromptContent**
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/multimodal/processing.py#L450)
 
 给定 `modality` 中处理项的索引，输出要更新的 token 序列（或文本）。
 
-
-**vllm.multimodal.processing.****iter_token_matches****(*****token_ids:***[list](https://docs.python.org/3/library/stdtypes.html#list)***[***[int](https://docs.python.org/3/library/functions.html#int)***]*****,*****match_ids:***[list](https://docs.python.org/3/library/stdtypes.html#list)***[***[int](https://docs.python.org/3/library/functions.html#int)***]*****)****→**[Generator](https://docs.python.org/3/library/collections.abc.html#collections.abc.Generator)**[_TokenMatch]**
+**vllm.multimodal.processing.\*\***iter*token_matches\***\*(\*\*\***token_ids:\*\**[list](https://docs.python.org/3/library/stdtypes.html#list)_**[**_[int](https://docs.python.org/3/library/functions.html#int)_**]**\***,**\***match_ids:**_[list](https://docs.python.org/3/library/stdtypes.html#list)_**[**_[int](https://docs.python.org/3/library/functions.html#int)\_**]**\***)\***\*→**[Generator](https://docs.python.org/3/library/collections.abc.html#collections.abc.Generator)**[_TokenMatch]\*\*
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/multimodal/processing.py#L486)
 
@@ -320,8 +281,7 @@ PromptReplacement(
 
 注意，空匹配会被忽略。
 
-
-**vllm.multimodal.processing.****replace_token_matches****(*****token_ids:***[list](https://docs.python.org/3/library/stdtypes.html#list)***[***[int](https://docs.python.org/3/library/functions.html#int)***]*****,*****match_ids:***[list](https://docs.python.org/3/library/stdtypes.html#list)***[***[int](https://docs.python.org/3/library/functions.html#int)***]*****,*****new_ids:***[list](https://docs.python.org/3/library/stdtypes.html#list)***[***[int](https://docs.python.org/3/library/functions.html#int)***]*****)****→**[list](https://docs.python.org/3/library/stdtypes.html#list)**[**[int](https://docs.python.org/3/library/functions.html#int)**]**
+**vllm.multimodal.processing.\*\***replace*token_matches\***\*(\*\*\***token_ids:\*\**[list](https://docs.python.org/3/library/stdtypes.html#list)_**[**_[int](https://docs.python.org/3/library/functions.html#int)_**]**\***,**\***match_ids:**_[list](https://docs.python.org/3/library/stdtypes.html#list)_**[**_[int](https://docs.python.org/3/library/functions.html#int)_**]**\***,**\***new_ids:**_[list](https://docs.python.org/3/library/stdtypes.html#list)_**[**_[int](https://docs.python.org/3/library/functions.html#int)\_**]**\***)\***\*→**[list](https://docs.python.org/3/library/stdtypes.html#list)**[**[int](https://docs.python.org/3/library/functions.html#int)**]\*\*
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/multimodal/processing.py#L514)
 
@@ -329,60 +289,51 @@ PromptReplacement(
 
 注意，空匹配会被忽略。
 
-
-***class*****vllm.multimodal.processing.****PromptTargetMatch****(*****_origin:***[vllm.multimodal.processing.BoundPromptUpdate](https://docs.vllm.ai/en/latest/api/multimodal/processing.html#vllm.multimodal.processing.BoundPromptUpdate)**)**
+**\*class\*\*\***vllm.multimodal.processing.\***\*PromptTargetMatch\*\***(**\***\_origin:**\*[vllm.multimodal.processing.BoundPromptUpdate](https://docs.vllm.ai/en/latest/api/multimodal/processing.html#vllm.multimodal.processing.BoundPromptUpdate)**)\*\*
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/multimodal/processing.py#L541)
 
-
-***class*****vllm.multimodal.processing.****PlaceholderFeaturesInfo****(*****modality:***[str](https://docs.python.org/3/library/stdtypes.html#str)**,*****item_idx:***[int](https://docs.python.org/3/library/functions.html#int)**,*****start_idx:***[int](https://docs.python.org/3/library/functions.html#int)**,*****tokens:***[list](https://docs.python.org/3/library/stdtypes.html#list)***[***[int](https://docs.python.org/3/library/functions.html#int)***]*****)**
+**\*class\*\*\***vllm.multimodal.processing.\***\*PlaceholderFeaturesInfo\*\***(**\***modality:**\*[str](https://docs.python.org/3/library/stdtypes.html#str)**,**\***item*idx:**\*[int](https://docs.python.org/3/library/functions.html#int)**,**\***start_idx:**\*[int](https://docs.python.org/3/library/functions.html#int)**,**\***tokens:\*\**[list](https://docs.python.org/3/library/stdtypes.html#list)_**[**_[int](https://docs.python.org/3/library/functions.html#int)\_**]**\*\*\*)\*\*
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/multimodal/processing.py#L603)
 
-
-**vllm.multimodal.processing.****find_token_matches****(*****prompt:***[list](https://docs.python.org/3/library/stdtypes.html#list)***[***[int](https://docs.python.org/3/library/functions.html#int)***]*****,*****prompt_updates:***[Sequence](https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence)***[***[BoundPromptUpdate](https://docs.vllm.ai/en/latest/api/multimodal/processing.html#vllm.multimodal.processing.BoundPromptUpdate)***]*****)****→**[Sequence](https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence)**[**[PromptTargetMatch](https://docs.vllm.ai/en/latest/api/multimodal/processing.html#vllm.multimodal.processing.PromptTargetMatch)**]**
+**vllm.multimodal.processing.\*\***find*token_matches\***\*(\*\*\***prompt:\*\**[list](https://docs.python.org/3/library/stdtypes.html#list)_**[**_[int](https://docs.python.org/3/library/functions.html#int)_**]**\***,**\***prompt_updates:**_[Sequence](https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence)_**[**_[BoundPromptUpdate](https://docs.vllm.ai/en/latest/api/multimodal/processing.html#vllm.multimodal.processing.BoundPromptUpdate)\_**]**\***)\***\*→**[Sequence](https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence)**[**[PromptTargetMatch](https://docs.vllm.ai/en/latest/api/multimodal/processing.html#vllm.multimodal.processing.PromptTargetMatch)**]\*\*
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/multimodal/processing.py#L621)
 
 返回在 `prompt` 中找到的 `prompt_updates` 的每个目标。
 
-
-**vllm.multimodal.processing.****find_text_matches****(*****prompt:***[str](https://docs.python.org/3/library/stdtypes.html#str)**,*****prompt_updates:***[Sequence](https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence)***[***[BoundPromptUpdate](https://docs.vllm.ai/en/latest/api/multimodal/processing.html#vllm.multimodal.processing.BoundPromptUpdate)***]*****)****→**[Sequence](https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence)**[**[PromptTargetMatch](https://docs.vllm.ai/en/latest/api/multimodal/processing.html#vllm.multimodal.processing.PromptTargetMatch)**]**
+**vllm.multimodal.processing.\*\***find*text_matches\***\*(\*\*\***prompt:**\*[str](https://docs.python.org/3/library/stdtypes.html#str)**,**\***prompt_updates:\*\**[Sequence](https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence)_**[**_[BoundPromptUpdate](https://docs.vllm.ai/en/latest/api/multimodal/processing.html#vllm.multimodal.processing.BoundPromptUpdate)\_**]**\***)\***\*→**[Sequence](https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence)**[**[PromptTargetMatch](https://docs.vllm.ai/en/latest/api/multimodal/processing.html#vllm.multimodal.processing.PromptTargetMatch)**]\*\*
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/multimodal/processing.py#L647)
 
 返回在 `prompt` 中找到的 `prompt_updates` 的每个目标。
 
-
-**vllm.multimodal.processing.****apply_token_matches****(*****prompt:***[list](https://docs.python.org/3/library/stdtypes.html#list)***[***[int](https://docs.python.org/3/library/functions.html#int)***]*****,*****mm_matches:***[Mapping](https://docs.python.org/3/library/collections.abc.html#collections.abc.Mapping)***[***[str](https://docs.python.org/3/library/stdtypes.html#str)***,***[Sequence](https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence)***[***[PromptTargetMatch](https://docs.vllm.ai/en/latest/api/multimodal/processing.html#vllm.multimodal.processing.PromptTargetMatch)***]]*****,*****mm_item_counts:***[Mapping](https://docs.python.org/3/library/collections.abc.html#collections.abc.Mapping)***[***[str](https://docs.python.org/3/library/stdtypes.html#str)***,***[int](https://docs.python.org/3/library/functions.html#int)***]*****)****→**[list](https://docs.python.org/3/library/stdtypes.html#list)**[**[int](https://docs.python.org/3/library/functions.html#int)**]**
+**vllm.multimodal.processing.\*\***apply*token_matches\***\*(\*\*\***prompt:\*\**[list](https://docs.python.org/3/library/stdtypes.html#list)_**[**_[int](https://docs.python.org/3/library/functions.html#int)_**]**\***,**\***mm_matches:**_[Mapping](https://docs.python.org/3/library/collections.abc.html#collections.abc.Mapping)_**[**_[str](https://docs.python.org/3/library/stdtypes.html#str)_**,**_[Sequence](https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence)_**[**_[PromptTargetMatch](https://docs.vllm.ai/en/latest/api/multimodal/processing.html#vllm.multimodal.processing.PromptTargetMatch)_**]]**\***,**\***mm_item_counts:**_[Mapping](https://docs.python.org/3/library/collections.abc.html#collections.abc.Mapping)_**[**_[str](https://docs.python.org/3/library/stdtypes.html#str)_**,**_[int](https://docs.python.org/3/library/functions.html#int)\_**]**\***)\***\*→**[list](https://docs.python.org/3/library/stdtypes.html#list)**[**[int](https://docs.python.org/3/library/functions.html#int)**]\*\*
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/multimodal/processing.py#L746)
 
 将 `mm_matches` 中的更新应用到 `prompt`。
 
-
-**vllm.multimodal.processing.****apply_text_matches****(*****prompt:***[str](https://docs.python.org/3/library/stdtypes.html#str)**,*****mm_matches:***[Mapping](https://docs.python.org/3/library/collections.abc.html#collections.abc.Mapping)***[***[str](https://docs.python.org/3/library/stdtypes.html#str)***,***[Sequence](https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence)***[***[PromptTargetMatch](https://docs.vllm.ai/en/latest/api/multimodal/processing.html#vllm.multimodal.processing.PromptTargetMatch)***]]*****,*****mm_item_counts:***[Mapping](https://docs.python.org/3/library/collections.abc.html#collections.abc.Mapping)***[***[str](https://docs.python.org/3/library/stdtypes.html#str)***,***[int](https://docs.python.org/3/library/functions.html#int)***]*****)****→**[str](https://docs.python.org/3/library/stdtypes.html#str)
+**vllm.multimodal.processing.\*\***apply*text_matches\***\*(\*\*\***prompt:**\*[str](https://docs.python.org/3/library/stdtypes.html#str)**,**\***mm_matches:\*\**[Mapping](https://docs.python.org/3/library/collections.abc.html#collections.abc.Mapping)_**[**_[str](https://docs.python.org/3/library/stdtypes.html#str)_**,**_[Sequence](https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence)_**[**_[PromptTargetMatch](https://docs.vllm.ai/en/latest/api/multimodal/processing.html#vllm.multimodal.processing.PromptTargetMatch)_**]]**\***,**\***mm_item_counts:**_[Mapping](https://docs.python.org/3/library/collections.abc.html#collections.abc.Mapping)_**[**_[str](https://docs.python.org/3/library/stdtypes.html#str)_**,**_[int](https://docs.python.org/3/library/functions.html#int)\_**]**\***)\***\*→\*\*[str](https://docs.python.org/3/library/stdtypes.html#str)
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/multimodal/processing.py#L760)
 
 将 `mm_matches` 中的更新应用到 `prompt`。
 
-
-***class*****vllm.multimodal.processing.****BaseProcessingInfo****(*****ctx: InputProcessingContext*****)**
+**\*class\*\*\***vllm.multimodal.processing.\***\*BaseProcessingInfo\*\***(**\***ctx: InputProcessingContext**\***)\*\*
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/multimodal/processing.py#L974)
 
 提供数据处理所需信息的基类。
 
-
-**get_hf_processor****(*************kwargs:***[object](https://docs.python.org/3/library/functions.html#object)**)****→ transformers.ProcessorMixin**
+**get_hf_processor\*\***(**\*\***\***\*\***kwargs:**\*[object](https://docs.python.org/3/library/functions.html#object)**)\***\*→ transformers.ProcessorMixin**
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/multimodal/processing.py#L992)
 
 子类可以重写此方法以处理来自模型配置或用户输入的特定 kwargs。
 
-
-***abstract*****get_supported_mm_limits****()****→**[Mapping](https://docs.python.org/3/library/collections.abc.html#collections.abc.Mapping)**[**[str](https://docs.python.org/3/library/stdtypes.html#str)**,**[int](https://docs.python.org/3/library/functions.html#int)**|**[None](https://docs.python.org/3/library/constants.html#None)**]**
+**\*abstract\*\*\***get_supported_mm_limits\***\*()\*\***→**[Mapping](https://docs.python.org/3/library/collections.abc.html#collections.abc.Mapping)**[**[str](https://docs.python.org/3/library/stdtypes.html#str)**,**[int](https://docs.python.org/3/library/functions.html#int)**|**[None](https://docs.python.org/3/library/constants.html#None)**]\*\*
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/multimodal/processing.py#L999)
 
@@ -392,8 +343,7 @@ PromptReplacement(
 
 如果返回的字典中省略了某个模态，则表示完全不支持该模态。
 
-
-***abstract*****get_mm_max_tokens_per_item****(*****seq_len:***[int](https://docs.python.org/3/library/functions.html#int)**,*****mm_counts:***[Mapping](https://docs.python.org/3/library/collections.abc.html#collections.abc.Mapping)***[***[str](https://docs.python.org/3/library/stdtypes.html#str)***,***[int](https://docs.python.org/3/library/functions.html#int)***]*****)****→**[Mapping](https://docs.python.org/3/library/collections.abc.html#collections.abc.Mapping)**[**[str](https://docs.python.org/3/library/stdtypes.html#str)**,**[int](https://docs.python.org/3/library/functions.html#int)**]**
+**\*abstract\*\*\***get*mm_max_tokens_per_item\***\*(\*\*\***seq_len:**\*[int](https://docs.python.org/3/library/functions.html#int)**,**\***mm_counts:\*\**[Mapping](https://docs.python.org/3/library/collections.abc.html#collections.abc.Mapping)_**[**_[str](https://docs.python.org/3/library/stdtypes.html#str)_**,**_[int](https://docs.python.org/3/library/functions.html#int)\_**]**\***)\***\*→**[Mapping](https://docs.python.org/3/library/collections.abc.html#collections.abc.Mapping)**[**[str](https://docs.python.org/3/library/stdtypes.html#str)**,**[int](https://docs.python.org/3/library/functions.html#int)**]\*\*
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/multimodal/processing.py#L1011)
 
@@ -401,8 +351,7 @@ PromptReplacement(
 
 此方法返回的字典应与 `get_supported_mm_limits()` 返回的字典具有相同的键。
 
-
-***class*****vllm.multimodal.processing.****BaseMultiModalProcessor****(*****info: _I*****,*****dummy_inputs:***[BaseDummyInputsBuilder](https://docs.vllm.ai/en/latest/api/multimodal/profiling.html#vllm.multimodal.profiling.BaseDummyInputsBuilder)***[_I]*****,***********,*****cache: ProcessingCache |***[None](https://docs.python.org/3/library/constants.html#None) ***=*** ***None*****,*****enable_sanity_checks:***[bool](https://docs.python.org/3/library/functions.html#bool) ***=*** ***True*****)**
+**\*class\*\*\***vllm.multimodal.processing.\***\*BaseMultiModalProcessor\*\***(**\***info: *I**\***,**\***dummy_inputs:\*\**[BaseDummyInputsBuilder](https://docs.vllm.ai/en/latest/api/multimodal/profiling.html#vllm.multimodal.profiling.BaseDummyInputsBuilder)_**[_I]**\***,\*\***\*\*\*\***\*,**\***cache: ProcessingCache |**_[None](https://docs.python.org/3/library/constants.html#None) ***=**\* \***None**\***,**\***enable_sanity_checks:***[bool](https://docs.python.org/3/library/functions.html#bool) \_**=**\* \***True**\*\*\*)\*\*
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/multimodal/processing.py#L1030)
 
@@ -410,8 +359,7 @@ PromptReplacement(
 
 不要与 `transformers.ProcessorMixin` 混淆。
 
-
-**apply****(*****prompt:***[str](https://docs.python.org/3/library/stdtypes.html#str)***|***[list](https://docs.python.org/3/library/stdtypes.html#list)***[***[int](https://docs.python.org/3/library/functions.html#int)***]*****,*****mm_data:***[Mapping](https://docs.python.org/3/library/collections.abc.html#collections.abc.Mapping)***[***[str](https://docs.python.org/3/library/stdtypes.html#str)***,***[Any](https://docs.python.org/3/library/typing.html#typing.Any)***|***[list](https://docs.python.org/3/library/stdtypes.html#list)***[***[Any](https://docs.python.org/3/library/typing.html#typing.Any)***]]*****,*****hf_processor_mm_kwargs:***[Mapping](https://docs.python.org/3/library/collections.abc.html#collections.abc.Mapping)***[***[str](https://docs.python.org/3/library/stdtypes.html#str)***,***[object](https://docs.python.org/3/library/functions.html#object)***]*****,*****return_mm_hashes:***[bool](https://docs.python.org/3/library/functions.html#bool) ***=*** ***False*****)****→**[MultiModalInputs](https://docs.vllm.ai/en/latest/api/multimodal/inputs.html#vllm.multimodal.inputs.MultiModalInputs)
+**apply\*\***(**\***prompt:**_[str](https://docs.python.org/3/library/stdtypes.html#str)_**|**_[list](https://docs.python.org/3/library/stdtypes.html#list)_**[**_[int](https://docs.python.org/3/library/functions.html#int)_**]**\***,**\***mm*data:\*\**[Mapping](https://docs.python.org/3/library/collections.abc.html#collections.abc.Mapping)_**[**_[str](https://docs.python.org/3/library/stdtypes.html#str)_**,**_[Any](https://docs.python.org/3/library/typing.html#typing.Any)_**|**_[list](https://docs.python.org/3/library/stdtypes.html#list)_**[**_[Any](https://docs.python.org/3/library/typing.html#typing.Any)_**]]**\***,**\***hf_processor_mm_kwargs:**_[Mapping](https://docs.python.org/3/library/collections.abc.html#collections.abc.Mapping)_**[**_[str](https://docs.python.org/3/library/stdtypes.html#str)_**,**_[object](https://docs.python.org/3/library/functions.html#object)_**]**\***,**\***return_mm_hashes:**_[bool](https://docs.python.org/3/library/functions.html#bool) \_**=**\* \***False**\***)\***\*→\*\*[MultiModalInputs](https://docs.vllm.ai/en/latest/api/multimodal/inputs.html#vllm.multimodal.inputs.MultiModalInputs)
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/multimodal/processing.py#L1546)
 
@@ -425,29 +373,24 @@ PromptReplacement(
 
 3. 从处理后的 token ID 中提取占位符 token 的信息。
 
-
-***class*****vllm.multimodal.processing.****EncDecMultiModalProcessor****(*****info: _I*****,*****dummy_inputs:***[BaseDummyInputsBuilder](https://docs.vllm.ai/en/latest/api/multimodal/profiling.html#vllm.multimodal.profiling.BaseDummyInputsBuilder)***[_I]*****,***********,*****cache: ProcessingCache |***[None](https://docs.python.org/3/library/constants.html#None) ***=*** ***None*****,*****enable_sanity_checks:***[bool](https://docs.python.org/3/library/functions.html#bool) ***=*** ***True*****)**
+**\*class\*\*\***vllm.multimodal.processing.\***\*EncDecMultiModalProcessor\*\***(**\***info: *I**\***,**\***dummy_inputs:\*\**[BaseDummyInputsBuilder](https://docs.vllm.ai/en/latest/api/multimodal/profiling.html#vllm.multimodal.profiling.BaseDummyInputsBuilder)_**[_I]**\***,\*\***\*\*\*\***\*,**\***cache: ProcessingCache |**_[None](https://docs.python.org/3/library/constants.html#None) ***=**\* \***None**\***,**\***enable_sanity_checks:***[bool](https://docs.python.org/3/library/functions.html#bool) \_**=**\* \***True**\*\*\*)\*\*
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/multimodal/processing.py#L1644)
 
-***abstract*****create_encoder_prompt****(*****prompt:***[str](https://docs.python.org/3/library/stdtypes.html#str)***|***[list](https://docs.python.org/3/library/stdtypes.html#list)***[***[int](https://docs.python.org/3/library/functions.html#int)***]*****,*****mm_data:***[Mapping](https://docs.python.org/3/library/collections.abc.html#collections.abc.Mapping)***[***[str](https://docs.python.org/3/library/stdtypes.html#str)***,***[Any](https://docs.python.org/3/library/typing.html#typing.Any)***|***[list](https://docs.python.org/3/library/stdtypes.html#list)***[***[Any](https://docs.python.org/3/library/typing.html#typing.Any)***]]*****)****→**[str](https://docs.python.org/3/library/stdtypes.html#str)**|**[list](https://docs.python.org/3/library/stdtypes.html#list)**[**[int](https://docs.python.org/3/library/functions.html#int)**]**
+**\*abstract\*\*\***create*encoder_prompt\***\*(\*\*\***prompt:\*\**[str](https://docs.python.org/3/library/stdtypes.html#str)_**|**_[list](https://docs.python.org/3/library/stdtypes.html#list)_**[**_[int](https://docs.python.org/3/library/functions.html#int)_**]**\***,**\***mm_data:**_[Mapping](https://docs.python.org/3/library/collections.abc.html#collections.abc.Mapping)_**[**_[str](https://docs.python.org/3/library/stdtypes.html#str)_**,**_[Any](https://docs.python.org/3/library/typing.html#typing.Any)_**|**_[list](https://docs.python.org/3/library/stdtypes.html#list)_**[**_[Any](https://docs.python.org/3/library/typing.html#typing.Any)\_**]]**\***)\***\*→**[str](https://docs.python.org/3/library/stdtypes.html#str)**|**[list](https://docs.python.org/3/library/stdtypes.html#list)**[**[int](https://docs.python.org/3/library/functions.html#int)**]\*\*
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/multimodal/processing.py#L1646)
 
 为编码器创建输入提示。在分析和生成期间，HF 处理器将应用于此提示。
 
-
-**create_decoder_prompt****(*****prompt:***[str](https://docs.python.org/3/library/stdtypes.html#str)***|***[list](https://docs.python.org/3/library/stdtypes.html#list)***[***[int](https://docs.python.org/3/library/functions.html#int)***]*****,*****mm_data:***[Mapping](https://docs.python.org/3/library/collections.abc.html#collections.abc.Mapping)***[***[str](https://docs.python.org/3/library/stdtypes.html#str)***,***[Any](https://docs.python.org/3/library/typing.html#typing.Any)***|***[list](https://docs.python.org/3/library/stdtypes.html#list)***[***[Any](https://docs.python.org/3/library/typing.html#typing.Any)***]]*****)****→**[str](https://docs.python.org/3/library/stdtypes.html#str)**|**[list](https://docs.python.org/3/library/stdtypes.html#list)**[**[int](https://docs.python.org/3/library/functions.html#int)**]**
+**create_decoder_prompt\*\***(**\***prompt:**_[str](https://docs.python.org/3/library/stdtypes.html#str)_**|**_[list](https://docs.python.org/3/library/stdtypes.html#list)_**[**_[int](https://docs.python.org/3/library/functions.html#int)_**]**\***,**\***mm*data:\*\**[Mapping](https://docs.python.org/3/library/collections.abc.html#collections.abc.Mapping)_**[**_[str](https://docs.python.org/3/library/stdtypes.html#str)_**,**_[Any](https://docs.python.org/3/library/typing.html#typing.Any)_**|**_[list](https://docs.python.org/3/library/stdtypes.html#list)_**[**_[Any](https://docs.python.org/3/library/typing.html#typing.Any)\_**]]**\***)\***\*→**[str](https://docs.python.org/3/library/stdtypes.html#str)**|**[list](https://docs.python.org/3/library/stdtypes.html#list)**[**[int](https://docs.python.org/3/library/functions.html#int)**]\*\*
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/multimodal/processing.py#L1658)
 
 为解码器创建输入提示。
 
-
-**apply****(*****prompt:***[str](https://docs.python.org/3/library/stdtypes.html#str)***|***[list](https://docs.python.org/3/library/stdtypes.html#list)***[***[int](https://docs.python.org/3/library/functions.html#int)***]*****,*****mm_data:***[Mapping](https://docs.python.org/3/library/collections.abc.html#collections.abc.Mapping)***[***[str](https://docs.python.org/3/library/stdtypes.html#str)***,***[Any](https://docs.python.org/3/library/typing.html#typing.Any)***|***[list](https://docs.python.org/3/library/stdtypes.html#list)***[***[Any](https://docs.python.org/3/library/typing.html#typing.Any)***]]*****,*****hf_processor_mm_kwargs:***[Mapping](https://docs.python.org/3/library/collections.abc.html#collections.abc.Mapping)***[***[str](https://docs.python.org/3/library/stdtypes.html#str)***,***[object](https://docs.python.org/3/library/functions.html#object)***]*****,*****return_mm_hashes:***[bool](https://docs.python.org/3/library/functions.html#bool) ***=*** ***False*****)****→ MultiModalEncDecInputs**
+**apply\*\***(**\***prompt:**_[str](https://docs.python.org/3/library/stdtypes.html#str)_**|**_[list](https://docs.python.org/3/library/stdtypes.html#list)_**[**_[int](https://docs.python.org/3/library/functions.html#int)_**]**\***,**\***mm*data:\*\**[Mapping](https://docs.python.org/3/library/collections.abc.html#collections.abc.Mapping)_**[**_[str](https://docs.python.org/3/library/stdtypes.html#str)_**,**_[Any](https://docs.python.org/3/library/typing.html#typing.Any)_**|**_[list](https://docs.python.org/3/library/stdtypes.html#list)_**[**_[Any](https://docs.python.org/3/library/typing.html#typing.Any)_**]]**\***,**\***hf_processor_mm_kwargs:**_[Mapping](https://docs.python.org/3/library/collections.abc.html#collections.abc.Mapping)_**[**_[str](https://docs.python.org/3/library/stdtypes.html#str)_**,**_[object](https://docs.python.org/3/library/functions.html#object)_**]**\***,**\***return_mm_hashes:**_[bool](https://docs.python.org/3/library/functions.html#bool) \_**=**\* \***False**\***)\***\*→ MultiModalEncDecInputs\*\*
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/multimodal/processing.py#L1666)
 
 处理多模态输入以用于 vLLM。主要处理步骤修改为适应编码器-解码器模型：1. 从输入提示文本创建编码器提示。2. 将 HF 处理器应用于编码器提示。3. 将输入提示文本复制为解码器提示输入。
-
-

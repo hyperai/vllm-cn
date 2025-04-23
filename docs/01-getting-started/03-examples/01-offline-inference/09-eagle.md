@@ -2,7 +2,7 @@
 title: Eagle
 ---
 
-[*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
+[\*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
 
 源码 [examples/offline_inference/eagle.py](https://github.com/vllm-project/vllm/blob/main/examples/offline_inference/eagle.py)
 
@@ -94,7 +94,7 @@ outputs = llm.generate(prompt_token_ids=prompt_ids,
 # to account for the token from the target model that's always going to be
 # accepted
 # 计算每个正向通行证的平均接收 token 的平均数量，+1为
-# 要考虑到目标模型将接受的 token 
+# 要考虑到目标模型将接受的 token
 acceptance_counts = [0] * (args.num_spec_tokens + 1)
 for output in outputs:
     for step, count in enumerate(output.metrics.spec_token_acceptance_counts):

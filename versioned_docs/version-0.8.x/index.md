@@ -3,48 +3,42 @@ title: 欢迎来到 vLLM！
 sidebar_position: 0
 ---
 
-
 # 欢迎来到 vLLM！
-
 
 vLLM 是一个快速且易于使用的库，专为大型语言模型 (LLM) 的推理和部署而设计。
 
-
 vLLM 的核心特性包括：
 
-* 最先进的服务吞吐量
-* 使用 **PagedAttention** 高效管理注意力键和值的内存
-* 连续批处理传入请求
-* 使用 CUDA/HIP 图实现快速执行模型
-* 量化： [GPTQ](https://arxiv.org/abs/2210.17323), [AWQ](https://arxiv.org/abs/2306.00978), INT4, INT8, 和 FP8
-* 优化的 CUDA 内核，包括与 FlashAttention 和 FlashInfer 的集成
-* 推测性解码
-* 分块预填充
-
+- 最先进的服务吞吐量
+- 使用 **PagedAttention** 高效管理注意力键和值的内存
+- 连续批处理传入请求
+- 使用 CUDA/HIP 图实现快速执行模型
+- 量化： [GPTQ](https://arxiv.org/abs/2210.17323), [AWQ](https://arxiv.org/abs/2306.00978), INT4, INT8, 和 FP8
+- 优化的 CUDA 内核，包括与 FlashAttention 和 FlashInfer 的集成
+- 推测性解码
+- 分块预填充
 
 vLLM 的灵活性和易用性体现在以下方面：
 
-* 无缝集成流行的 HuggingFace 模型
-* 具有高吞吐量服务以及各种解码算法，包括*并行采样*、*束搜索*等
-* 支持张量并行和流水线并行的分布式推理
-* 流式输出
-* 提供与 OpenAI 兼容的 API 服务器
-* 支持 NVIDIA GPU、AMD CPU 和 GPU、Intel CPU 和 GPU、PowerPC CPU、TPU 以及 AWS Neuron
-* 前缀缓存支持
-* 支持多 LoRA
-
+- 无缝集成流行的 HuggingFace 模型
+- 具有高吞吐量服务以及各种解码算法，包括*并行采样*、*束搜索*等
+- 支持张量并行和流水线并行的分布式推理
+- 流式输出
+- 提供与 OpenAI 兼容的 API 服务器
+- 支持 NVIDIA GPU、AMD CPU 和 GPU、Intel CPU 和 GPU、PowerPC CPU、TPU 以及 AWS Neuron
+- 前缀缓存支持
+- 支持多 LoRA
 
 欲了解更多信息，请参阅以下内容：
 
-* [vLLM announcing blog post](https://vllm.ai) (PagedAttention 教程)
-* [vLLM paper](https://arxiv.org/abs/2309.06180) (SOSP 2023)
-* [How continuous batching enables 23x throughput in LLM inference
-](https://www.anyscale.com/blog/continuous-batching-llm-inference) [while reducing p50
-](https://www.anyscale.com/blog/continuous-batching-llm-inference)[ ](https://www.anyscale.com/blog/continuous-batching-llm-inference)[latency](https://www.anyscale.com/blog/continuous-batching-llm-inference)
- by Cade Daniel et al.
+- [vLLM announcing blog post](https://vllm.ai) (PagedAttention 教程)
+- [vLLM paper](https://arxiv.org/abs/2309.06180) (SOSP 2023)
+- [How continuous batching enables 23x throughput in LLM inference
+  ](https://www.anyscale.com/blog/continuous-batching-llm-inference) [while reducing p50
+  ](https://www.anyscale.com/blog/continuous-batching-llm-inference)[ ](https://www.anyscale.com/blog/continuous-batching-llm-inference)[latency](https://www.anyscale.com/blog/continuous-batching-llm-inference)
+  by Cade Daniel et al.
 
-* [vLLM 聚会](https://vllm.hyper.ai/docs/community/vllm-meetups)
-
+- [vLLM 聚会](https://vllm.hyper.ai/docs/community/vllm-meetups)
 
 ## 文档
 
@@ -70,7 +64,6 @@ vLLM 的灵活性和易用性体现在以下方面：
 
 [示例](https://vllm.hyper.ai/docs/getting-started/examples/)
 
-
 ### 部署
 
 [OpenAI 兼容服务器](https://vllm.hyper.ai/docs/serving/openai-compatible-server)
@@ -93,7 +86,6 @@ vLLM 的灵活性和易用性体现在以下方面：
 
 [常见问题解答](https://vllm.hyper.ai/docs/serving/frequently-asked-questions)
 
-
 ### 模型
 
 [支持的模型](https://vllm.hyper.ai/docs/models/supported-models)
@@ -111,7 +103,6 @@ vLLM 的灵活性和易用性体现在以下方面：
 [在 vLLM 中使用推测性解码](https://vllm.hyper.ai/docs/models/speculative-decoding-in-vllm)
 
 [性能和调优](https://vllm.hyper.ai/docs/models/performance-and-tuning)
-
 
 ### 量化
 
@@ -131,7 +122,6 @@ vLLM 的灵活性和易用性体现在以下方面：
 
 [FP8 E4M3 KV 缓存](https://vllm.hyper.ai/docs/quantization/fp8-e4m3-kv-cache)
 
-
 ### 自动前缀缓存
 
 [简介](https://vllm.hyper.ai/docs/automatic-prefix-caching/introduction-apc)
@@ -143,7 +133,6 @@ vLLM 的灵活性和易用性体现在以下方面：
 ### 性能基准测试
 
 [vLLM 的基准套件](https://vllm.hyper.ai/docs/performance-benchmarks/benchmark-suites-of-vllm)
-
 
 ### 开发者文档
 
@@ -205,15 +194,13 @@ vLLM 的灵活性和易用性体现在以下方面：
 
 - [OpenAI 服务器](https://vllm.hyper.ai/docs/developer-documentation/profiling-vllm#openai-%E6%9C%8D%E5%8A%A1%E5%99%A8)
 
-
 ## 社区
 
 [vLLM 聚会](https://vllm.hyper.ai/docs/community/vllm-meetups)
 
 [赞助商](https://vllm.hyper.ai/docs/community/sponsors)
 
-
 # [索引和表格](https://vllm.hyper.ai/docs/indices-and-tables/index)
 
-* [索引](https://vllm.hyper.ai/docs/indices-and-tables/index)
-* [模块索引](https://vllm.hyper.ai/docs/indices-and-tables/python-module-index)
+- [索引](https://vllm.hyper.ai/docs/indices-and-tables/index)
+- [模块索引](https://vllm.hyper.ai/docs/indices-and-tables/python-module-index)

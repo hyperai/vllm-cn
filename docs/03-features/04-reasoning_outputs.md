@@ -1,28 +1,21 @@
 ---
-
 title: 推理输出
-
 ---
 
-
-[*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
-
+[\*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
 
 vLLM 支持推理模型，例如 [DeepSeek R1](https://huggingface.co/deepseek-ai/DeepSeek-R1)，这些模型旨在生成包含推理步骤和最终结论的输出。
 
-
 推理模型在其输出中返回一个额外的 `reasoning_content` 字段，该字段包含导致最终结论的推理步骤。其他模型的输出中不存在此字段。
-
 
 ## 支持的模型
 
 vLLM 目前支持以下推理模型：
 
-|型号系列|解析器名称|结构化输出支持|工具调用|
-|:----|:----|:----|:----|
-|[DeepSeek R1 series  DeepSeek R1 系列](https://huggingface.co/collections/deepseek-ai/deepseek-r1-678e1e131c0169c0bc89728d)|deepseek_r1|guided_json, guided_regex|guided_json、guided_regex|❌|
-|[QwQ-32B](https://huggingface.co/Qwen/QwQ-32B)|deepseek_r1|guided_json, guided_regex|guided_json、guided_regex|✅|
-
+| 型号系列                                                                                                                    | 解析器名称  | 结构化输出支持            | 工具调用                  |
+| :-------------------------------------------------------------------------------------------------------------------------- | :---------- | :------------------------ | :------------------------ | --- |
+| [DeepSeek R1 series  DeepSeek R1 系列](https://huggingface.co/collections/deepseek-ai/deepseek-r1-678e1e131c0169c0bc89728d) | deepseek_r1 | guided_json, guided_regex | guided_json、guided_regex | ❌  |
+| [QwQ-32B](https://huggingface.co/Qwen/QwQ-32B)                                                                              | deepseek_r1 | guided_json, guided_regex | guided_json、guided_regex | ✅  |
 
 ## 快速入门
 
@@ -32,7 +25,6 @@ vLLM 目前支持以下推理模型：
 vllm serve deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B \
     --enable-reasoning --reasoning-parser deepseek_r1
 ```
-
 
 接下来，向模型发出请求，该请求应在响应中返回推理内容。
 
@@ -70,9 +62,7 @@ print("reasoning_content:", reasoning_content)
 print("content:", content)
 ```
 
-
 `reasoning_content` 字段包含导致最终结论的推理步骤，而 `content` 字段包含最终结论。
-
 
 ## 流式聊天补全
 
@@ -98,7 +88,6 @@ print("content:", content)
     ]
 }
 ```
-
 
 OpenAI 的 Python 客户端库官方不支持流式输出中的 `reasoning_content` 属性。但客户端支持在响应中添加额外的属性。你可以使用 `hasattr` 来检查响应中是否存在 `reasoning_content` 属性。例如：
 
@@ -156,6 +145,7 @@ for chunk in stream:
 
 
 ```
+
 请记住在访问响应之前检查响应中是否存在 `reasoning_content`。您可以查看[示例 ](https://github.com/vllm-project/vllm/blob/main/examples/online_serving/openai_chat_completion_with_reasoning_streaming.py)。
 
 ## 结构化输出
@@ -207,7 +197,6 @@ print("reasoning_content: ", completion.choices[0].message.reasoning_content)
 print("content: ", completion.choices[0].message.content)
 ```
 
-
 ## 工具调用
 
 当工具调用和推理解析器都处于启用状态时，推理内容也可用。此外，工具调用仅分析 `content` 字段中的函数，而不分析 `reasoning_content` 中的函数。
@@ -252,8 +241,6 @@ print(f"reasoning_content: {response.choices[0].message.reasoning_content}")
 print(f"Function called: {tool_call.name}")
 print(f"Arguments: {tool_call.arguments}")
 ```
-
-## 
 
 ## 如何支持新的推理模型
 
@@ -340,7 +327,6 @@ class ExampleParser(ReasoningParser):
         """
 ```
 
-
 此外，要启用结构化输出，您需要创建一个类似于 中的新 `Reasoner` `vllm/model_executor/guided_decoding/reasoner/deepseek_reasoner.py` 。
 
 ```python
@@ -369,20 +355,16 @@ class DeepSeekReasoner(Reasoner):
         return self.end_token_id in input_ids
     ...
 ```
+
 像 `xgrammar` 这样的结构化输出引擎将使用 `end_token_id` 来检查模型输出中是否存在推理内容，如果是，则跳过结构化输出。
 
 最后，您可以使用 `--enable-reasoning` 和 `--reasoning-parser` 标志为模型启用推理。
-
 
 ```plain
 vllm serve <model_tag> \
     --enable-reasoning --reasoning-parser example
 ```
 
-
 ## 局限性
 
-* 推理内容仅适用于在线服务的聊天补全端点（`/v1/chat/completions`）。
-
-
-
+- 推理内容仅适用于在线服务的聊天补全端点（`/v1/chat/completions`）。

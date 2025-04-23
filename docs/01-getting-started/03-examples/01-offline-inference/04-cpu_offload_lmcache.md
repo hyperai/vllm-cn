@@ -2,7 +2,7 @@
 title: Cpu Offload Lmcache
 ---
 
-[*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
+[\*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
 
 源码 [examples/offline_inference/cpu_offload_lmcache.py](https://github.com/vllm-project/vllm/blob/main/examples/offline_inference/cpu_offload_lmcache.py)
 
@@ -35,7 +35,7 @@ from vllm.config import KVTransferConfig
 # 在 LMCache 中使用实验功能
 os.environ["LMCache_USE_EXPERIMENTAL"] = "True"
 # LMCache is set to use 256 tokens per chunk
-# LMCache 设置为每块使用256个 token 
+# LMCache 设置为每块使用256个 token
 os.environ["LMCache_CHUNK_SIZE"] = "256"
 # Enable local CPU backend in LMCache
 # 在 LMCache 中启用本地 CPU 后端

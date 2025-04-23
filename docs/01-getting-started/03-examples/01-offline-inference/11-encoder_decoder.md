@@ -2,7 +2,7 @@
 title: Encoder Decoder
 ---
 
-[*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
+[\*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
 
 源码 [examples/offline_inference/encoder_decoder.py](https://github.com/vllm-project/vllm/blob/main/examples/offline_inference/encoder_decoder.py)
 
@@ -37,10 +37,10 @@ tokenizer = llm.llm_engine.get_tokenizer_group()
 #
 # - Helpers for building prompts
 # 测试提示
-# 
+#
 # 本节显示了提示的所有有效方法
 # 编码器/解码器模型。
-# 
+#
 # - 构建提示的帮助
 text_prompt_raw = "Hello, my name is"
 text_prompt = TextPrompt(prompt="The president of the United States is")
@@ -70,7 +70,7 @@ enc_dec_prompt1 = ExplicitEncoderDecoderPrompt(
     # Pass encoder prompt string directly, &
     # pass decoder prompt tokens
     # 直接传递编码器提示字符串，
-    # 并传递解码器提示 token 
+    # 并传递解码器提示 token
     encoder_prompt=single_text_prompt_raw,
     decoder_prompt=single_tokens_prompt,
 )

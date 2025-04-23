@@ -2,16 +2,13 @@
 title: 使用 Langchain 提供服务
 ---
 
-
 vLLM 也可通过 [Langchain](https://github.com/langchain-ai/langchain) 获得。
-
 
 要安装 langchain，请运行：
 
 ```plain
 pip install langchain langchain_community -q
 ```
-
 
 要在单个或多个 GPU 上运行推理，请使用 `langchain` 中的 `VLLM` 类。
 
@@ -38,6 +35,4 @@ llm = VLLM(model="mosaicml/mpt-7b",
 print(llm("What is the capital of France ?"))
 ```
 
-
 请参阅此 [教程](https://python.langchain.com/docs/integrations/llms/vllm) 了解更多详细信息。
-

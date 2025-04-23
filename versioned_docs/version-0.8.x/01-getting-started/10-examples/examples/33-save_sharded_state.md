@@ -2,7 +2,6 @@
 title: 保存分片状态
 ---
 
-
 源代码: [vllm-project/vllm](https://raw.githubusercontent.com/vllm-project/vllm/main/examples/save_sharded_state.py)
 
 ```python
@@ -96,5 +95,3 @@ if __name__ == "__main__":
     args = parser.parse_args()
     main(args)
 ```
-
-

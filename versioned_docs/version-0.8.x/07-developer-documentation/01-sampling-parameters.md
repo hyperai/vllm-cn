@@ -64,8 +64,7 @@ title: 采样参数
 
 - **allowed_token_ids**- 如果提供，引擎将构建一个仅保留给定标记 ID 的分数的对数概率处理器。默认为 None。
 
-> clone() -> [SamplingParams](#sampling-parameters)
-> [[source]](https://docs.vllm.ai/en/latest/_modules/vllm/sampling_params.html#SamplingParams.clone)
+> clone() -> [SamplingParams](#sampling-parameters) > [[source]](https://docs.vllm.ai/en/latest/_modules/vllm/sampling_params.html#SamplingParams.clone)
 
 深层复制不包括 LogitsProcessor 对象。
 

@@ -1,27 +1,20 @@
 ---
-
 title: 多模态输入
-
 ---
 
-
-[*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
-
+[\*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
 
 本页教你如何在 vLLM 中向[多模态模型](https://docs.vllm.ai/en/latest/models/supported_models.html#supported-mm-models)传递多模态输入。
 
-
->**注意**
->我们正在积极迭代多模态支持功能。有关即将到来的变更，请参阅[此 RFC](https://github.com/vllm-project/vllm/issues/4194#) 。如果您有任何反馈或功能请求，请在 [GitHub 上提交问题](https://github.com/vllm-project/vllm/issues/new/choose) 。
+> **注意**
+> 我们正在积极迭代多模态支持功能。有关即将到来的变更，请参阅[此 RFC](https://github.com/vllm-project/vllm/issues/4194#) 。如果您有任何反馈或功能请求，请在 [GitHub 上提交问题](https://github.com/vllm-project/vllm/issues/new/choose) 。
 
 ## 离线推理
 
 要输入多模态数据，请按照 `vllm.inputs.PromptType` 中的模式操作：
 
-* `prompt`：提示词应遵循 HuggingFace 文档中记录的格式。
-* `multi_modal_data`：这是一个字典，遵循 `vllm.multimodal.inputs.MultiModalDataDict` 中定义的模式。
-
-### 
+- `prompt`：提示词应遵循 HuggingFace 文档中记录的格式。
+- `multi_modal_data`：这是一个字典，遵循 `vllm.multimodal.inputs.MultiModalDataDict` 中定义的模式。
 
 ### 图像输入
 
@@ -77,9 +70,7 @@ for o in outputs:
     print(generated_text)
 ```
 
-
 完整示例：[examples/offline_inference/vision_language.py](https://github.com/vllm-project/vllm/blob/main/examples/offline_inference/vision_language.py)
-
 
 要在同一文本提示中替换多张图像，可以传递一个图像列表：
 
@@ -116,9 +107,7 @@ for o in outputs:
     print(generated_text)
 ```
 
-
 完整示例：[examples/offline_inference/vision_language_multi_image.py](https://github.com/vllm-project/vllm/blob/main/examples/offline_inference/vision_language_multi_image.py)
-
 
 多图像输入可以扩展到视频字幕生成。我们以 [Qwen2-VL](https://huggingface.co/Qwen/Qwen2-VL-2B-Instruct) 为例，因为它支持视频：
 
@@ -154,22 +143,17 @@ for o in outputs:
     print(generated_text)
 ```
 
-
 ### 视频输入
 
 您可以直接将 NumPy 数组列表传递到多模态字典的 `'video'` 字段中，而无需使用多图像输入。
 
 完整示例：[examples/offline_inference/vision_language.py](https://github.com/vllm-project/vllm/blob/main/examples/offline_inference/vision_language.py)
 
-### 
-
 ### 音频输入
 
 您可以将元组 `(array, sampling_rate)` 传递到多模态字典的 `'audio'` 字段中。
 
 完整示例：[examples/offline_inference/audio_language.py](https://github.com/vllm-project/vllm/blob/main/examples/offline_inference/audio_language.py)
-
-### 
 
 ### 嵌入输入
 
@@ -203,7 +187,6 @@ for o in outputs:
     generated_text = o.outputs[0].text
     print(generated_text)
 ```
-
 
 对于 Qwen2-VL 和 MiniCPM-V，我们接受与嵌入一起的额外参数：
 
@@ -253,20 +236,15 @@ for o in outputs:
     print(generated_text)
 ```
 
-
 ## 在线服务
 
 我们的 OpenAI 兼容服务器通过 [Chat Completions API](https://platform.openai.com/docs/api-reference/chat) 接受多模态数据。
-
 
 **重要**
 
 使用 Chat Completions API 需要**聊天模板** 。
 
-
 虽然大多数模型都附带聊天模板，但其他模型需要您自行定义。聊天模板可以根据模型 HuggingFace 仓库中的文档推断。例如，LLaVA-1.5 (`llava-hf/llava-1.5-7b-hf`) 需要一个可以在此处找到的聊天模板：[examples/template_llava.jinja](https://github.com/vllm-project/vllm/blob/main/examples/template_llava.jinja)
-
-### 
 
 ### 图像输入
 
@@ -278,7 +256,6 @@ for o in outputs:
 vllm serve microsoft/Phi-3.5-vision-instruct --task generate \
   --trust-remote-code --max-model-len 4096 --limit-mm-per-prompt image=2
 ```
-
 
 然后，您可以按如下方式使用 OpenAI 客户端：
 
@@ -336,15 +313,13 @@ chat_response = client.chat.completions.create(
 print("Chat completion output:", chat_response.choices[0].message.content)
 ```
 
-
 完整示例：[examples/online_serving/openai_chat_completion_client_for_multimodal.py](https://github.com/vllm-project/vllm/blob/main/examples/online_serving/openai_chat_completion_client_for_multimodal.py)
 
+> **提示**
+> vLLM 也支持从本地文件路径加载：您可以通过 `--allowed-local-media-path` 在启动 API 服务器/引擎时指定允许的本地媒体路径，并在 API 请求中将文件路径作为 `url` 传递。
 
->**提示**
->vLLM 也支持从本地文件路径加载：您可以通过 `--allowed-local-media-path` 在启动 API 服务器/引擎时指定允许的本地媒体路径，并在 API 请求中将文件路径作为 `url` 传递。
-
->**提示**
->不需要在 API 请求的文本内容中放置图像占位符——它们已经由图像内容表示。事实上，您可以通过交错文本和图像内容在文本中间放置图像占位符。
+> **提示**
+> 不需要在 API 请求的文本内容中放置图像占位符——它们已经由图像内容表示。事实上，您可以通过交错文本和图像内容在文本中间放置图像占位符。
 
 **注意**
 
@@ -353,7 +328,6 @@ print("Chat completion output:", chat_response.choices[0].message.content)
 ```go
 export VLLM_IMAGE_FETCH_TIMEOUT=<timeout>
 ```
-
 
 ### 视频输入
 
@@ -364,7 +338,6 @@ export VLLM_IMAGE_FETCH_TIMEOUT=<timeout>
 ```plain
 vllm serve llava-hf/llava-onevision-qwen2-0.5b-ov-hf --task generate --max-model-len 8192
 ```
-
 
 然后，您可以按如下方式使用 OpenAI 客户端：
 
@@ -413,9 +386,7 @@ result = chat_completion_from_url.choices[0].message.content
 print("Chat completion output from image url:", result)
 ```
 
-
 完整示例：[examples/online_serving/openai_chat_completion_client_for_multimodal.py](https://github.com/vllm-project/vllm/blob/main/examples/online_serving/openai_chat_completion_client_for_multimodal.py)
-
 
 **注意**
 
@@ -424,7 +395,6 @@ print("Chat completion output from image url:", result)
 ```go
 export VLLM_VIDEO_FETCH_TIMEOUT=<timeout>
 ```
-
 
 ### 音频输入
 
@@ -435,7 +405,6 @@ export VLLM_VIDEO_FETCH_TIMEOUT=<timeout>
 ```plain
 vllm serve fixie-ai/ultravox-v0_5-llama-3_2-1b
 ```
-
 
 然后，您可以按如下方式使用 OpenAI 客户端：
 
@@ -501,7 +470,6 @@ result = chat_completion_from_base64.choices[0].message.content
 print("Chat completion output from input audio:", result)
 ```
 
-
 或者，您可以传递 `audio_url`，这是图像输入中 `image_url` 的音频对应物：
 
 ```plain
@@ -530,9 +498,7 @@ result = chat_completion_from_url.choices[0].message.content
 print("Chat completion output from audio url:", result)
 ```
 
-
 完整示例：[examples/online_serving/openai_chat_completion_client_for_multimodal.py](https://github.com/vllm-project/vllm/blob/main/examples/online_serving/openai_chat_completion_client_for_multimodal.py)
-
 
 **注意**
 
@@ -542,12 +508,9 @@ print("Chat completion output from audio url:", result)
 export VLLM_AUDIO_FETCH_TIMEOUT=<timeout>
 ```
 
-
 ### 嵌入输入
 
 要将预计算的嵌入（属于某种数据类型，如图像、视频或音频）直接输入到语言模型中，请将张量传递到多模态字典的相应字段中。
-
-#### 
 
 #### 图像嵌入输入
 
@@ -577,7 +540,7 @@ client = OpenAI(
 model = "llava-hf/llava-1.5-7b-hf"
 embeds =  {
     "type": "image_embeds",
-    "image_embeds": f"{base64_image_embedding}" 
+    "image_embeds": f"{base64_image_embedding}"
 }
 
 
@@ -615,9 +578,6 @@ chat_completion = client.chat.completions.create(
 )
 ```
 
-
 **注意**
 
 只有一条消息可以包含 `{"type": "image_embeds"}`。如果与需要额外参数的模型一起使用，您还必须为每个参数提供一个张量，例如 `image_grid_thw`、`image_sizes` 等。
-
-

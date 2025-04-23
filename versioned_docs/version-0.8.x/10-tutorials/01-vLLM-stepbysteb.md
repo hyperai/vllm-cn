@@ -7,6 +7,7 @@ title: vLLM 入门教程：零基础分步指南
 [在线运行此教程](https://openbayes.com/console/public/tutorials/rXxb5fZFr29)
 
 ## 目录
+
 - [一、安装 vLLM](#一、安装vLLM)
 - [二、开始使用](#二、开始使用)
   - [2.1 模型准备](#2.1模型准备)
@@ -220,5 +221,3 @@ curl https://hyperai-tutorials-****.gear-c1.openbayes.net/v1/completions \
 响应结果如下：
 
 ![图片](/img/docs/02-tutorials/curl_res_local.png)
-
-

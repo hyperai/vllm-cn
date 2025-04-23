@@ -1,20 +1,16 @@
 ---
-
 title: AutoAWQ
-
 ---
-
 
 您可以使用 [AutoAWQ](https://github.com/casper-hansen/AutoAWQ) 创建新的 4-bit 量化模型。量化将模型的精度从 FP16 降低到 INT4，从而有效地将文件大小减少约 70%，这样做的主要优势在于较低的延迟和内存使用量。
 
-
-您可以通过安装 AutoAWQ 或选择 [Huggingface 上的 400+ 模型](https://huggingface.co/models?sort=trending&amp;search=awq)之一来量化自己的模型。
+您可以通过安装 AutoAWQ 或选择 [Huggingface 上的 400+ 模型](https://huggingface.co/models?sort=trending&search=awq)之一来量化自己的模型。
 
 ```plain
 pip install autoawq
 ```
 
-安装 AutoAWQ 后，您就可以量化模型了。以下是如何量化 *mistralai/Mistral-7B-Instruct-v0.2* 的示例：
+安装 AutoAWQ 后，您就可以量化模型了。以下是如何量化 _mistralai/Mistral-7B-Instruct-v0.2_ 的示例：
 
 ```python
 from awq import AutoAWQForCausalLM
@@ -53,13 +49,13 @@ tokenizer.save_pretrained(quant_path)
 
 print(f'Model is quantized and saved at "{quant_path}"')
 ```
+
 To run an AWQ model with vLLM, you can use [TheBloke/Llama-2-7b-Chat-AWQ](https://huggingface.co/TheBloke/Llama-2-7b-Chat-AWQ) with the following command:
 如需使用 vLLM 运行 AWQ 模型，您可以通过以下命令使用 [TheBloke/Llama-2-7b-Chat-AWQ](https://huggingface.co/TheBloke/Llama-2-7b-Chat-AWQ)：
 
 ```plain
 python examples/llm_engine_example.py --model TheBloke/Llama-2-7b-Chat-AWQ --quantization awq
 ```
-
 
 AWQ 模型也可以直接由 LLM 入口点支持：
 
@@ -104,5 +100,3 @@ for output in outputs:
     generated_text = output.outputs[0].text
     print(f"Prompt: {prompt!r}, Generated text: {generated_text!r}")
 ```
-
-

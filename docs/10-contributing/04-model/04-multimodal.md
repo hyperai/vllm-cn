@@ -1,20 +1,14 @@
 ---
-
 title: 多模态支持
-
 ---
 
-
-[*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
-
+[\*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
 
 本文档将引导您扩展基础模型，使其能够接受[多模态输入](https://docs.vllm.ai/en/latest/serving/multimodal_inputs.html#multimodal-inputs)。
-
 
 ## 1. 更新基础 vLLM 模型
 
 假设您已经按照[这些步骤](https://docs.vllm.ai/en/latest/contributing/model/basic.html#new-model-basic)在 vLLM 中实现了模型。进一步更新模型如下：
-
 
 在 `forward()` 中为每个对应于多模态输入的输入张量保留一个关键字参数，如下例所示：
 
@@ -27,9 +21,7 @@ title: 多模态支持
   ) -> SamplerOutput:
 ```
 
-
-* 更方便的是，您可以简单地将 `**kwargs` 传递给 `forward()` 方法，并从中检索多模态输入的关键字参数。
-
+- 更方便的是，您可以简单地将 `**kwargs` 传递给 `forward()` 方法，并从中检索多模态输入的关键字参数。
 
 实现 `get_multimodal_embeddings()`，该方法通过模型的多模态分词器运行多模态输入并返回嵌入。下面我们提供了一个典型实现模式的样板，但请根据您的需求进行调整。
 
@@ -63,11 +55,10 @@ class YourModelForImage2Seq(nn.Module):
         return vision_embeddings
 ```
 
+> **重要**
+> 返回的 `multimodal_embeddings` 必须是形状为 `(num_items, feature_size, hidden_size)` 的 **3D** `torch.Tensor`，或者是形状为 `(feature_size, hidden_size)` 的 **2D** `torch.Tensor` 的 **列表/元组**，以便 `multimodal_embeddings[i]` 检索从请求的第 `i` 个多模态数据项（例如图像）生成的嵌入。
 
->**重要**
->返回的 `multimodal_embeddings` 必须是形状为 `(num_items, feature_size, hidden_size)` 的 **3D** `torch.Tensor`，或者是形状为 `(feature_size, hidden_size)` 的 **2D** `torch.Tensor` 的 **列表/元组**，以便 `multimodal_embeddings[i]` 检索从请求的第 `i` 个多模态数据项（例如图像）生成的嵌入。
-
-* 实现 `get_input_embeddings()` 以将 `multimodal_embeddings` 与来自 `input_ids` 的文本嵌入合并。如果模型的输入处理已正确实现（见下文），那么您可以利用我们提供的实用函数轻松合并嵌入。
+- 实现 `get_input_embeddings()` 以将 `multimodal_embeddings` 与来自 `input_ids` 的文本嵌入合并。如果模型的输入处理已正确实现（见下文），那么您可以利用我们提供的实用函数轻松合并嵌入。
 
 ```plain
 from .utils import merge_multimodal_embeddings
@@ -84,7 +75,7 @@ class YourModelForImage2Seq(nn.Module):
     ) -> torch.Tensor:
 
 
-        # `get_input_embeddings` should already be implemented for the language 
+        # `get_input_embeddings` should already be implemented for the language
         # model as one of the requirements of basic vLLM model implementation.
         # `get_input_embeddings` 应该已经作为基础 vLLM 模型实现的要求之一实现。
         inputs_embeds = self.language_model.get_input_embeddings(input_ids)
@@ -92,15 +83,16 @@ class YourModelForImage2Seq(nn.Module):
 
         if multimodal_embeddings is not None:
             inputs_embeds = merge_multimodal_embeddings(
-                input_ids=input_ids, 
-                inputs_embeds=inputs_embeds, 
+                input_ids=input_ids,
+                inputs_embeds=inputs_embeds,
                 multimodal_embeddings=multimodal_embeddings,
                 placeholder_token_id=self.config.image_token_index)
 
 
         return inputs_embeds
 ```
-* 完成上述步骤后，使用 `SupportsMultiModal` 接口更新模型类。
+
+- 完成上述步骤后，使用 `SupportsMultiModal` 接口更新模型类。
 
 ```plain
 + from vllm.model_executor.models.interfaces import SupportsMultiModal
@@ -110,10 +102,8 @@ class YourModelForImage2Seq(nn.Module):
 + class YourModelForImage2Seq(nn.Module, SupportsMultiModal):
 ```
 
-
->**注意**
->模型类不必命名为 `*ForCausalLM`。查看 [HuggingFace Transformers 文档](https://huggingface.co/docs/transformers/model_doc/auto#multimodal) 以获取一些示例。
-## 
+> **注意**
+> 模型类不必命名为 `*ForCausalLM`。查看 [HuggingFace Transformers 文档](https://huggingface.co/docs/transformers/model_doc/auto#multimodal) 以获取一些示例。
 
 ## 2. 指定处理信息
 
@@ -125,7 +115,6 @@ Next, create a subclass of `BaseProcessingInfo` to provide basic information r
 
 您需要重写抽象方法 `get_supported_mm_limits()` 以返回模型支持的每种模态的输入项的最大数量。
 
-
 例如，如果模型支持任意数量的图像但每个提示仅支持一个视频：
 
 ```plain
@@ -133,14 +122,11 @@ def get_supported_mm_limits(self) -> Mapping[str, Optional[int]]:
     return {"image": None, "video": 1}
 ```
 
-
 ### 占位符特征 token 的最大数量
 
 此外，重写抽象方法 `get_mm_max_tokens_per_item()` 以返回每种模态的每个输入项的占位符特征 token 的最大数量。
 
-
 调用模型时，视觉编码器的输出嵌入被分配给包含占位符特征 token 的输入位置。因此，占位符特征 token 的数量应等于输出嵌入的大小。
-
 
 #### 基础示例：LLaVA
 
@@ -166,7 +152,6 @@ image_features = image_features.to(inputs_embeds.device, inputs_embeds.dtype)
 inputs_embeds = inputs_embeds.masked_scatter(special_image_mask, image_features)
 ```
 
-
 每张图像的占位符特征 token 数量为 `image_features.shape[1]`。`image_features` 是在 `get_image_features` 方法中计算的：
 
 ```plain
@@ -185,7 +170,6 @@ image_features = self.multi_modal_projector(selected_image_feature)
 return image_features
 ```
 
-
 我们可以推断 `image_features.shape[1]` 基于视觉塔（`CLIPVisionModel` 对于 `llava-hf/llava-1.5-7b-hf` 模型）的 `image_outputs.hidden_states.shape[1]`。此外，我们只需要序列长度（张量的第二维度）来获取 `image_features.shape[1]`。序列长度由 `CLIPVisionTransformer` 中的初始隐藏状态决定，因为注意力机制不会改变输出隐藏状态的序列长度。
 
 ```plain
@@ -201,7 +185,6 @@ encoder_outputs = self.encoder(
     return_dict=return_dict,
 )
 ```
-
 
 为了找到序列长度，我们查看 `CLIPVisionEmbeddings` 的代码：
 
@@ -221,7 +204,6 @@ else:
 return embeddings
 ```
 
-
 我们可以推断 `embeddings.shape[1] == self.num_positions`，其中
 
 ```plain
@@ -229,7 +211,6 @@ return embeddings
 self.num_patches = (self.image_size // self.patch_size) ** 2
 self.num_positions = self.num_patches + 1
 ```
-
 
 总的来说，图像的占位符特征 token 数量可以计算为：
 
@@ -256,7 +237,6 @@ def get_num_image_tokens(
     return num_image_tokens
 ```
 
-
 注意，图像 token 的数量不依赖于图像的宽度和高度。因此，我们可以使用任何图像大小计算最大图像 token 数量：
 
 ```plain
@@ -276,7 +256,6 @@ def get_max_image_tokens(self) -> int:
     )
 ```
 
-
 因此，我们可以重写该方法为：
 
 ```plain
@@ -288,12 +267,9 @@ def get_mm_max_tokens_per_item(
     return {"image": self.get_max_image_tokens()}
 ```
 
-
 **注意**
 
 我们的[实际代码](https://github.com/vllm-project/vllm/blob/main/vllm/model_executor/models/llava.py)更加抽象，以支持除 CLIP 之外的其他视觉编码器。
-
-#### 
 
 #### 非连续特征 token：Fuyu
 
@@ -315,15 +291,11 @@ if image_patches is not None and past_key_values is None:
     )
 ```
 
-
 批次中第 `i` 项的占位符特征 token 数量为 `patch_embeddings[i].shape[0]`，与 `image_patches[i].shape[0]` 相同，即 `num_total_patches`。
-
 
 与 LLaVA 不同，Fuyu 没有在建模文件中定义 patch 的数量。我们可以在哪里找到更多信息？考虑到模型输入来自 `FuyuProcessor` 的输出，让我们**查看预处理文件**。
 
-
 图像输出是通过调用 `FuyuImageProcessor.preprocess` 然后调用 `FuyuImageProcessor.preprocess_with_tokenizer_info` 在 `FuyuProcessor` 中获得的。
-
 
 在 `FuyuImageProcessor.preprocess` 中，图像被调整大小并填充到目标 `FuyuImageProcessor.size`，返回调整大小后的尺寸（但填充前）作为元数据。
 
@@ -364,7 +336,6 @@ if do_pad:
     ]
 ```
 
-
 在 `FuyuImageProcessor.preprocess_with_tokenizer_info` 中，图像根据此元数据被分割成 patch：
 
 ```plain
@@ -403,7 +374,6 @@ patches = self.patchify_image(image=image.unsqueeze(0)).squeeze(0)
 assert num_patches == patches.shape[0]
 ```
 
-
 patch 的数量由 `FuyuImageProcessor.get_num_patches` 定义：
 
 ```plain
@@ -422,7 +392,6 @@ num_patches_per_dim_h = image_height // patch_height
 num_patches_per_dim_w = image_width // patch_width
 num_patches = num_patches_per_dim_h * num_patches_per_dim_w
 ```
-
 
 我们可以在 vLLM 中使用以下代码计算：
 
@@ -455,7 +424,6 @@ def get_num_image_patches(
     return ncols * nrows
 ```
 
-
 这些图像 patch 对应于占位符 token（`|SPEAKER|`）。然而，处理器还会插入换行 token（`|NEWLINE|`），如下所示：
 
 ```plain
@@ -481,7 +449,6 @@ if variable_sized:
     tensor_of_image_ids = tensor_of_image_ids.reshape(-1)
 ```
 
-
 因此，图像的 token 布局为：
 
 ```plain
@@ -491,9 +458,7 @@ if variable_sized:
 |SPEAKER||SPEAKER|...|SPEAKER||NEWLINE|
 ```
 
-
 这使得占位符 token 在提示中不连续。由于 vLLM 要求特征 token 是连续的，**我们也将换行 token 视为特征 token**。
-
 
 因此，总的特征 token 数量为
 
@@ -526,7 +491,6 @@ def get_num_image_tokens(
     return (ncols + 1) * nrows
 ```
 
-
 要计算最大图像 token 数量，请记住输入图像首先被调整大小以适应 `image_processor.size`。因此，在转换为 patch 之前，图像的最大可能尺寸等于 `image_processor.size`。
 
 ```plain
@@ -546,7 +510,6 @@ def get_max_image_tokens(self) -> int:
     )
 ```
 
-
 因此，我们可以重写该方法为：
 
 ```plain
@@ -558,25 +521,18 @@ def get_mm_max_tokens_per_item(
     return {"image": self.get_max_image_tokens()}
 ```
 
-
->**注意**
->我们的[实际代码](https://github.com/vllm-project/vllm/blob/main/vllm/model_executor/models/fuyu.py)直接返回 `ncols` 和 `nrows` 而不是总 token 数量。这是因为 `ncols` 和 `nrows` 用于指定特征 token 的布局（如本指南的第 4 步所示）。
-## 
+> **注意**
+> 我们的[实际代码](https://github.com/vllm-project/vllm/blob/main/vllm/model_executor/models/fuyu.py)直接返回 `ncols` 和 `nrows` 而不是总 token 数量。这是因为 `ncols` 和 `nrows` 用于指定特征 token 的布局（如本指南的第 4 步所示）。
 
 ## 3. 指定虚拟输入
 
 接下来，继承 `BaseDummyInputsBuilder` 以构建用于 HF 处理和内存分析的虚拟输入。
 
-### 
-
 ### 用于内存分析
 
 重写抽象方法 `get_dummy_processor_inputs()` 以构建用于内存分析的虚拟输入。此虚拟输入应导致模型的最坏情况内存使用，以便 vLLM 可以为其保留正确数量的内存。
 
-
 假设内存使用量随着 token 数量的增加而增加，虚拟输入可以基于 `get_mm_max_tokens_per_item()` 的代码构建。
-
-#### 
 
 #### 基础示例：LLaVA
 
@@ -593,7 +549,7 @@ def get_dummy_processor_inputs(
 
     processor = self.info.get_hf_processor()
     image_token = processor.image_token
-  
+
     hf_config = self.get_hf_config()
     target_width, target_height = self.info.get_image_size_with_most_features()
 
@@ -611,8 +567,6 @@ def get_dummy_processor_inputs(
         mm_data=mm_data,
     )
 ```
-
-#### 
 
 #### 非连续特征 token：Fuyu
 
@@ -643,22 +597,15 @@ def get_dummy_processor_inputs(
     )
 ```
 
-## 
-
 ## 4. 指定处理细节
 
 接下来，创建 `BaseMultiModalProcessor` 的子类以填充有关 HF 处理的缺失细节。
 
-
->**另请参阅**
->[多模态数据处理](https://docs.vllm.ai/en/latest/design/mm_processing.html#mm-processing)
-### 
+> **另请参阅** >[多模态数据处理](https://docs.vllm.ai/en/latest/design/mm_processing.html#mm-processing)
 
 ### 多模态字段
 
 重写 `_get_mm_fields_config()` 以返回由 HF 处理器输出的与输入多模态项相关的张量模式。
-
-#### 
 
 #### 基础示例：LLaVA
 
@@ -676,9 +623,7 @@ data = {"pixel_values": images}
 return BatchFeature(data=data, tensor_type=return_tensors)
 ```
 
-
 因此，我们按如下方式重写 `_get_mm_fields_config()` ：
-
 
 ```plain
 def _get_mm_fields_config(
@@ -691,9 +636,8 @@ def _get_mm_fields_config(
     )
 ```
 
-
->**注意**
->我们的[实际代码](https://github.com/vllm-project/vllm/blob/main/vllm/model_executor/models/llava.py) 还支持预计算的图像嵌入，可以通过 `image_embeds` 参数传递给模型。
+> **注意**
+> 我们的[实际代码](https://github.com/vllm-project/vllm/blob/main/vllm/model_executor/models/llava.py) 还支持预计算的图像嵌入，可以通过 `image_embeds` 参数传递给模型。
 
 #### 非连续特征 token：Fuyu
 
@@ -710,6 +654,7 @@ def _get_mm_fields_config(
 batch_image_input_ids.append(image_input_ids)
 batch_image_patches.append(image_patches)
 ```
+
 因此，`FuyuImageProcessor` 输出的 `image_patches` 的形状为 `(1, num_images, num_patches, patch_width * patch_height * num_channels)`。
 
 为了支持像 LLaVA 中那样使用 `MultiModalFieldConfig.batched()`，我们通过重写 `BaseMultiModalProcessor._call_hf_processor()` 来移除额外的批次维度：
@@ -752,9 +697,8 @@ def _call_hf_processor(
     return processed_outputs
 ```
 
-
->**注意**
->我们的[实际代码](https://github.com/vllm-project/vllm/blob/main/vllm/model_executor/models/fuyu.py)对纯文本输入有特殊处理，以防止 HF 处理器产生不必要的警告。
+> **注意**
+> 我们的[实际代码](https://github.com/vllm-project/vllm/blob/main/vllm/model_executor/models/fuyu.py)对纯文本输入有特殊处理，以防止 HF 处理器产生不必要的警告。
 
 这使我们能够按以下方式重写 `_get_mm_fields_config()` ：
 
@@ -767,15 +711,11 @@ def _get_mm_fields_config(
     return dict(image_patches=MultiModalFieldConfig.batched("image"))
 ```
 
-### 
-
 ### 提示更新
 
 重写 `_get_prompt_updates()` 以返回 `PromptUpdate` 实例的列表。
 
 每个 `PromptUpdate` 实例指定由 HF 处理器执行的更新操作（例如：插入、替换）。
-
-#### 
 
 #### 基础示例：LLaVA
 
@@ -788,7 +728,6 @@ for sample in text:
     sample = sample.replace(self.image_token, self.image_token * num_image_tokens)
     prompt_strings.append(sample)
 ```
-
 
 它只是将每个输入 `image_token` 重复与占位符特征 token 数量（`num_image_tokens`）相等的次数。基于此，我们重写 `_get_prompt_updates()` 如下：
 
@@ -826,8 +765,6 @@ def _get_prompt_updates(
     ]
 ```
 
-#### 
-
 #### Non-consecutive feature tokens: Fuyu
 
 #### 非连续特征 token：Fuyu
@@ -840,7 +777,6 @@ def _get_prompt_updates(
 ...
 |SPEAKER||SPEAKER|...|SPEAKER||NEWLINE|
 ```
-
 
 我们定义了一个辅助函数直接返回 `ncols` 和 `nrows`：
 
@@ -873,7 +809,6 @@ def get_image_feature_grid_size(
     return ncols, nrows
 ```
 
-
 基于此，我们可以初步定义替换 token 为：
 
 ```plain
@@ -894,7 +829,6 @@ def get_replacement(item_idx: int):
     # `_NEWLINE_TOKEN_ID` 对应于 `|NEWLINE|`
     return ([_IMAGE_TOKEN_ID] * ncols + [_NEWLINE_TOKEN_ID]) * nrows
 ```
-
 
 然而，这并不完全正确。在调用 `FuyuImageProcessor.preprocess_with_tokenizer_info` 后，BOS token（`<s>`）也会被添加到提示中：
 
@@ -919,7 +853,6 @@ prompt_tokens, prompts_length = _tokenize_prompts_with_image_and_batch(
     add_beginning_of_answer_token=True,
 )
 ```
-
 
 为了适应这种情况，您可以返回一个 `PromptUpdateDetails` 实例，而不是字符串，其中包含不同的 `full` 和 `feature` 属性：
 
@@ -947,7 +880,6 @@ def get_replacement_fuyu(item_idx: int):
         features=image_tokens,
     )
 ```
-
 
 最后，注意到 HF 处理器从分词后的提示中移除了 `|ENDOFTEXT|` token，我们可以搜索它以在字符串的开头进行替换：
 
@@ -996,8 +928,6 @@ def _get_prompt_updates(
     ]
 ```
 
-## 
-
 ## 5. 注册处理器相关类
 
 在定义了 `BaseProcessingInfo`（第 2 步）、`BaseDummyInputsBuilder`（第 3 步）和 `BaseMultiModalProcessor`（第 4 步）之后，使用 `MULTIMODAL_REGISTRY.register_processor` 装饰模型类，将它们注册到多模态注册表中：
@@ -1013,43 +943,34 @@ def _get_prompt_updates(
   class YourModelForImage2Seq(nn.Module, SupportsMultiModal):
 ```
 
-
 ## 注意
 
 ### 插入特征 token 而不进行替换
 
 一些 HF 处理器直接插入特征 token，而不替换原始提示中的任何内容。在这种情况下，您可以在 `_get_prompt_updates()` 中使用 `PromptInsertion` 而不是 `PromptReplacement`。
 
-
 示例：
 
-* BLIP-2（在提示开头插入）：[vllm/model_executor/models/blip2.py](https://github.com/vllm-project/vllm/blob/main/vllm/model_executor/models/blip2.py)
-* Florence2（在提示开头插入）：[vllm/model_executor/models/florence2.py](https://github.com/vllm-project/vllm/blob/main/vllm/model_executor/models/florence2.py)
-* Molmo（在 `<|endoftext|>` token 后插入）：[vllm/model_executor/models/molmo.py](https://github.com/vllm-project/vllm/blob/main/vllm/model_executor/models/molmo.py)
-
+- BLIP-2（在提示开头插入）：[vllm/model_executor/models/blip2.py](https://github.com/vllm-project/vllm/blob/main/vllm/model_executor/models/blip2.py)
+- Florence2（在提示开头插入）：[vllm/model_executor/models/florence2.py](https://github.com/vllm-project/vllm/blob/main/vllm/model_executor/models/florence2.py)
+- Molmo（在 `<|endoftext|>` token 后插入）：[vllm/model_executor/models/molmo.py](https://github.com/vllm-project/vllm/blob/main/vllm/model_executor/models/molmo.py)
 
 ### 处理与多模态数据无关的提示更新
 
 `_get_prompt_updates()` 假设每次应用提示更新都对应于一个多模态项。如果 HF 处理器执行额外的处理，无论有多少多模态项，您都应该重写 `_apply_hf_processor_tokens_only()`，以便处理后的 token 输入与在文本输入上应用 HF 处理器的结果一致。这是因为根据[我们的设计](https://docs.vllm.ai/en/latest/design/mm_processing.html#mm-processing)，token 输入会绕过 HF 处理器。
 
-
 示例：
 
-* Chameleon（附加 `sep_token`）：[vllm/model_executor/models/chameleon.py](https://github.com/vllm-project/vllm/blob/main/vllm/model_executor/models/chameleon.py)
-* Fuyu（附加 `boa_token`）：[vllm/model_executor/models/fuyu.py](https://github.com/vllm-project/vllm/blob/main/vllm/model_executor/models/fuyu.py)
-* Molmo（应用未在其他地方定义的聊天模板）：[vllm/model_executor/models/molmo.py](https://github.com/vllm-project/vllm/blob/main/vllm/model_executor/models/molmo.py)
-
-### 
+- Chameleon（附加 `sep_token`）：[vllm/model_executor/models/chameleon.py](https://github.com/vllm-project/vllm/blob/main/vllm/model_executor/models/chameleon.py)
+- Fuyu（附加 `boa_token`）：[vllm/model_executor/models/fuyu.py](https://github.com/vllm-project/vllm/blob/main/vllm/model_executor/models/fuyu.py)
+- Molmo（应用未在其他地方定义的聊天模板）：[vllm/model_executor/models/molmo.py](https://github.com/vllm-project/vllm/blob/main/vllm/model_executor/models/molmo.py)
 
 ### 自定义 HF 处理器
 
 一些模型在 HF Hub 上没有定义 HF 处理器类。在这种情况下，您可以定义一个与 HF 处理器具有相同调用签名的自定义 HF 处理器，并将其传递给 `_call_hf_processor()`。
 
-
 示例：
 
-* DeepSeek-VL2: [vllm/model_executor/models/deepseek_vl2.py](https://github.com/vllm-project/vllm/blob/main/vllm/model_executor/models/deepseek_vl2.py)
-* InternVL: [vllm/model_executor/models/internvl.py](https://github.com/vllm-project/vllm/blob/main/vllm/model_executor/models/internvl.py)
-* Qwen-VL: [vllm/model_executor/models/qwen_vl.py](https://github.com/vllm-project/vllm/blob/main/vllm/model_executor/models/qwen_vl.py)
-
-
+- DeepSeek-VL2: [vllm/model_executor/models/deepseek_vl2.py](https://github.com/vllm-project/vllm/blob/main/vllm/model_executor/models/deepseek_vl2.py)
+- InternVL: [vllm/model_executor/models/internvl.py](https://github.com/vllm-project/vllm/blob/main/vllm/model_executor/models/internvl.py)
+- Qwen-VL: [vllm/model_executor/models/qwen_vl.py](https://github.com/vllm-project/vllm/blob/main/vllm/model_executor/models/qwen_vl.py)

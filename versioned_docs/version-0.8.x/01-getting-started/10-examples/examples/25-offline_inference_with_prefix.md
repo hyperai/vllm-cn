@@ -2,7 +2,6 @@
 title: 带前缀的离线推理
 ---
 
-
 源代码: [vllm-project/vllm](https://raw.githubusercontent.com/vllm-project/vllm/main/examples/offline_inference_with_prefix.py)
 
 ```python
@@ -102,5 +101,3 @@ print(f"Generated answers are the same: {generated_same}")
 speedup = round(duration_regular / duration_cached, 2)
 print(f"Speed up of cached generation compared to the regular is: {speedup}")
 ```
-
-

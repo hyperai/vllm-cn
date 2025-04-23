@@ -2,9 +2,7 @@
 title: FP8 E5M2 KV 缓存
 ---
 
-
 int8/int4 量化方案需要更多的 GPU 内存进行存储，这会降低预期的 GPU 内存优势。而 FP8 数据格式保留了 2~3 个尾数位，能够实现 float、fp16、bfloat16 与 fp8 之间的相互转换。
-
 
 以下是如何启用此功能的示例：
 
@@ -45,5 +43,3 @@ for output in outputs:
     generated_text = output.outputs[0].text
     print(f"Prompt: {prompt!r}, Generated text: {generated_text!r}")
 ```
-
-

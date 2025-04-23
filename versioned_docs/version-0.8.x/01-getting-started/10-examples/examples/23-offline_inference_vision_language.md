@@ -2,12 +2,11 @@
 title: 离线推理视觉语言
 ---
 
-
 源代码: [vllm-project/vllm](https://raw.githubusercontent.com/vllm-project/vllm/main/examples/offline_inference_vision_language.py)
 
 ```python
 """
-This example shows how to use vLLM for running offline inference 
+This example shows how to use vLLM for running offline inference
 with the correct prompt format on vision language models.
 
 For most models, the prompt format should follow corresponding examples
@@ -269,5 +268,3 @@ if __name__ == "__main__":
     args = parser.parse_args()
     main(args)
 ```
-
-

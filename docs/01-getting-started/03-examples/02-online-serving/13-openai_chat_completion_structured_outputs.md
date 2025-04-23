@@ -2,7 +2,7 @@
 title: Openai Chat Completion Structured Outputs
 ---
 
-[*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
+[\*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
 
 源码 [examples/online_serving/openai_chat_completion_structured_outputs.py](https://github.com/vllm-project/vllm/blob/main/examples/online_serving/openai_chat_completion_structured_outputs.py)
 
@@ -20,7 +20,7 @@ client = OpenAI(
 )
 
 # Guided decoding by Choice (list of possible options)
-# 使用 Choice 的引导式解码 (可能的选项列表) 
+# 使用 Choice 的引导式解码 (可能的选项列表)
 completion = client.chat.completions.create(
     model="Qwen/Qwen2.5-3B-Instruct",
     messages=[{
@@ -117,8 +117,8 @@ prompt = ("Generate an email address for Alan Turing, who works in Enigma."
 try:
     # The no-fallback option forces vLLM to use xgrammar, so when it fails
     # you get a 400 with the reason why
-    # no-fallback 选项强制 vLLM 使用 xgrammar，因此当解析失败时，  
-    # 你会收到一个 400 错误，并附带失败原因。  
+    # no-fallback 选项强制 vLLM 使用 xgrammar，因此当解析失败时，
+    # 你会收到一个 400 错误，并附带失败原因。
     completion = client.chat.completions.create(
         model="Qwen/Qwen2.5-3B-Instruct",
         messages=[{
