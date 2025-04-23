@@ -16,11 +16,8 @@ title: AsyncLLMEngine
 **参数：**
 
 * **log_requests** – 是否记录请求。
-
 * **start_engine_loop** – 如果为 True，则运行引擎的后台任务将在生成调用中自动启动。
-
 * ***args** – [LLMEngine](https://docs.vllm.ai/en/latest/dev/engine/llm_engine.html#vllm.LLMEngine) 的参数。
-
 * ****kwargs** – [LLMEngine](https://docs.vllm.ai/en/latest/dev/engine/llm_engine.html#vllm.LLMEngine) 的参数。
 
 
@@ -57,15 +54,10 @@ title: AsyncLLMEngine
 **参数：**
 
 * **inputs** – 提供给 LLM 的输入。有关每个输入格式的更多详细信息，请参阅 [PromptInputs](https://docs.vllm.ai/en/latest/dev/offline_inference/llm_inputs.html#vllm.inputs.PromptInputs)。
-
 * **pooling_params** – 请求的池化参数。
-
 * **request_id** – 请求的唯一 ID。
-
 * **lora_request** – 用于生成的 LoRA 请求（如果有）。
-
 * **trace_headers** – OpenTelemetry 跟踪头。
-
 * **priority** – 请求的优先级。仅在优先级调度时适用。
 
 
@@ -77,9 +69,7 @@ LLMEngine 为请求输出的 *EmbeddingRequestOutput* 对象。
 **详细****信息：**
 
 * 如果引擎未运行，则启动后台循环，该循环会迭代调用 `engine_step()` 来处理等待的请求。
-
 * 将请求添加到引擎的 *RequestTracker*。在下一个后台循环中，该请求将被发送到基础引擎。此外，还将创建相应的 *AsyncStream*。
-
 * 等待来自 *AsyncStream* 的请求输出并生成它们。
 
 
@@ -154,17 +144,11 @@ async for request_output in results_generator:
 **参数：**
 
 * **prompt –** 提供给 LLM 的输入。有关每个输入格式的更多详细信息，请参阅 [PromptType](https://docs.vllm.ai/en/latest/dev/offline_inference/llm_inputs.html#vllm.inputs.PromptType)。
-
 * **in****p****u****t****s** – LLM 的输入。有关每个输入格式的更多详细信息，请参阅 PromptInputs。
-
 * **sampling_params** – 请求的采样参数。
-
 * **request_id** – 请求的唯一 ID。
-
 * **lora_request** – 用于生成的 LoRA 请求（如果有）。
-
 * **trace_headers** – OpenTelemetry 跟踪头。
-
 * **priority** – 请求的优先级。仅在优先级调度时适用。
 
 
@@ -176,9 +160,7 @@ LLMEngine 为请求输出的 *RequestOutput* 对象。
 **详细信息：**
 
 * 如果引擎未运行，则启动后台循环，该循环会迭代调用`engine_step()` 来处理等待的请求。
-
 * 将请求添加到引擎的 *RequestTracker*。在下一个后台循环中，该请求将被发送到基础引擎。此外，还将创建相应的 *AsyncStream*。
-
 * 等待来自 *AsyncStream* 的请求输出并生成它们。
 
 

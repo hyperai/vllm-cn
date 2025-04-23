@@ -25,9 +25,7 @@ vLLM 最初支持在 x86 CPU 平台上的基本模型推理和服务，数据类
 ## 依赖环境
 
 * 操作系统：Linux
-
 * 编译器：gcc/g++>=12.3.0（可选，推荐）
-
 * 指令集架构 (ISA) 依赖：AVX512（可选，推荐）
 
 
@@ -92,16 +90,13 @@ VLLM_TARGET_DEVICE=cpu python setup.py install
 
 
 * BF16 是当前 CPU 后端的默认数据类型 （这意味着后端会将 FP16 转换为 BF16），并且与所有支持 AVX512 ISA 的 CPU 兼容。
-
 * AVX512_BF16 是 ISA 的扩展，提供原生的 BF16 数据类型转换和向量积指令，与纯 AVX512 相比会带来一定的性能提升。CPU 后端构建脚本将检查主机 CPU 标志，以确定是否启用 AVX512_BF16。
-
 * 如果要强制启用 AVX512_BF16 进行交叉编译，请在编译前设置环境变量 VLLM_CPU_AVX512BF16=1。
 
 
 ## 相关运行时环境变量
 
 * `VLLM_CPU_KVCACHE_SPACE`：指定 KV 缓存大小（例如，`VLLM_CPU_KVCACHE_SPACE=40` 表示 KV 缓存空间为 40 GB），设置得越大，允许 vLLM 并行处理的请求就越多。该参数应根据用户的硬件配置和内存管理模式来设置。
-
 * `VLLM_CPU_OMP_THREADS_BIND`: 指定专用于 OpenMP 线程的 CPU 内核。例如， `VLLM_CPU_OMP_THREADS_BIND=0-31`表示将有 32 个 OpenMP 线程绑定在 0-31 个 CPU 内核上。`VLLM_CPU_OMP_THREADS_BIND=0-31|32-63` 表示将有 2 个张量并行进程，rank0 的 32 个 OpenMP 线程绑定在 0-31 个 CPU 内核上，rank1 的 OpenMP 线程绑定在 32-63 个 CPU 内核上。
 
 

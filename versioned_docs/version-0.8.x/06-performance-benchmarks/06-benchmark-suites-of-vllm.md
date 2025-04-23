@@ -6,7 +6,6 @@ title: vLLM 基准套件
 vLLM 包含 2 组基准:
 
 * **性能基准测试**: 在 vLLM 的高频工作负载下（当 vLLM 的拉取请求（简称 PR）被合并时）对其进行性能基准测试。参阅 [vLLM 性能仪表板](https://perf.vllm.ai)了解最新性能结果。
-
 * **Nightly 基准测试**: 当 vLLM 发生重大更新时（例如，升级到新版本），比较 vLLM 与替代方案（tgi、trt-llm 和 lmdeploy）的性能。最新结果可在 [vLLM GitHub README](https://github.com/vllm-project/vllm/blob/main/README.md) 中找到。
 
 

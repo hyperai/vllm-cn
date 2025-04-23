@@ -7,27 +7,21 @@ title: 使用 OpenVINO 安装
 
 
 * 前缀缓存 （`--enable-prefix-caching`）
-
 * 分块预填充 （`--enable-chunked-prefill`）
 
 
 **目录****：**
 
 * [依赖环境](#依赖环境)
-
 * [使用 dockerfile 快速开始](#使用-dockerfile-快速开始)
-
 * [从源代码安装](#从源代码安装)
-
 * [性能提示](#性能提示)
-
 * [局限性](#局限性)
 
 
 ## 依赖环境
 
 * 操作系统：Linux
-
 * 指令集架构 (ISA) 依赖：至少 AVX2
 
 
@@ -66,9 +60,7 @@ vLLM OpenVINO 后端使用以下环境变量来控制行为：
 
 
 * `VLLM_OPENVINO_KVCACHE_SPACE` 用于指定 KV 缓存大小 （例如，`VLLM_OPENVINO_KVCACHE_SPACE=40` 表示 KV 缓存空间为 40 GB），设置得越大，允许 vLLM 并行处理的请求就越多。该参数应根据用户的硬件配置和内存管理模式来设置。
-
 * `VLLM_OPENVINO_CPU_KV_CACHE_PRECISION=u8` 用于控制 KV 缓存精度。默认情况下，根据平台使用 FP16 或 BF16。
-
 * 设置 `VLLM_OPENVINO_ENABLE_QUANTIZED_WEIGHTS=ON` 在模型加载阶段启用 U8 权重压缩。默认情况下压缩是关闭的。您还可以使用 *optimum-cli* 以不同的压缩技术导出模型，并将导出的文件夹传递为  `<model_id>` 
 
 
@@ -86,9 +78,7 @@ VLLM_OPENVINO_KVCACHE_SPACE=100 VLLM_OPENVINO_CPU_KV_CACHE_PRECISION=u8 VLLM_OPE
 ## 局限性
 
 * 不支持 LoRA 服务。
-
 * 目前仅支持 LLM 模型。LLaVa 和编码器-解码器模型在 vLLM OpenVINO 集成中尚未启用。
-
 * 张量和管道并行在 vLLM 集成中也未启用。
 
 

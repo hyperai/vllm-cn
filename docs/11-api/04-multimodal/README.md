@@ -32,13 +32,9 @@ vLLM 通过 `vllm.multimodal` 包提供对多模态模型的实验性支持。
 ## 子模块
 
 * [输入定义](https://docs.vllm.ai/en/latest/api/multimodal/inputs.html)
-
 * [数据解析](https://docs.vllm.ai/en/latest/api/multimodal/parse.html)
-
 * [数据处理](https://docs.vllm.ai/en/latest/api/multimodal/processing.html)
-
 * [内存分析](https://docs.vllm.ai/en/latest/api/multimodal/profiling.html)
-
 * [注册表](https://docs.vllm.ai/en/latest/api/multimodal/registry.html)
 
 

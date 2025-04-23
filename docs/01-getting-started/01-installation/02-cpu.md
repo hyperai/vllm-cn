@@ -61,9 +61,7 @@ s390x 架构的 CPU 实现当前仅支持 FP32 数据类型。
 #### Intel/AMD x86
 
 * 操作系统：Linux
-
 * 编译器：`gcc/g++ >= 12.3.0`（可选，推荐）
-
 * 指令集架构 (ISA)：AVX512（可选，推荐）
 
 
@@ -74,18 +72,14 @@ s390x 架构的 CPU 实现当前仅支持 FP32 数据类型。
 #### ARM AArch64
 
 * 操作系统：Linux
-
 * 编译器：`gcc/g++ >= 12.3.0`（可选，推荐）
-
 * 指令集架构 (ISA)：需要 NEON 支持
 
 
 #### Apple silicon
 
 * 操作系统：`macOS Sonoma` 或更高版本
-
 * SDK：`XCode 15.4` 或更高版本（含命令行工具）
-
 * 编译器：`Apple Clang >= 15.0.0`
 
 #### 
@@ -93,11 +87,8 @@ s390x 架构的 CPU 实现当前仅支持 FP32 数据类型。
 #### IBM Z (S390X)
 
 * 操作系统: `Linux`
-
 * SDK：`gcc/g++ >= 12.3.0` 或更高版本（含命令行工具）
-
 * 指令集架构 (ISA)：需要 VXE 支持（适用于 Z14 及以上机型）
-
 * 需手动构建的 Python 包：`pyarrow`、`torch` 和 `torchvision`
 
 ## 
@@ -315,13 +306,9 @@ $ docker run -it \
 vLLM CPU 后端支持以下特性：
 
 * 张量并行（Tensor Parallel）
-
 * 模型量化（`INT8 W8A8`、`AWQ`、`GPTQ`）
-
 * 分块预填充（Chunked-prefill）
-
 * 前缀缓存（Prefix-caching）
-
 * FP8-E5M2 KV 缓存
 
 ## 
@@ -329,7 +316,6 @@ vLLM CPU 后端支持以下特性：
 ## 相关运行时环境变量
 
 * `VLLM_CPU_KVCACHE_SPACE` : 指定 KV 缓存大小（例如 `VLLM_CPU_KVCACHE_SPACE=40` 表示 40 GiB 的 KV 缓存空间），设置更大的值可以让 vLLM 并行处理更多请求。该参数应根据硬件配置和用户的内存管理模式进行调整。
-
 * `VLLM_CPU_OMP_THREADS_BIND` : 指定专用于 OpenMP 线程的 CPU 核心。例如：
 
 `VLLM_CPU_OMP_THREADS_BIND=0-31` 表示将 32 个 OpenMP 线程绑定到 0-31 号 CPU 核心
@@ -402,9 +388,7 @@ $ python examples/offline_inference/basic/basic.py
 ## 其他注意事项
 
 * CPU 后端与 GPU 后端有显著差异，因为 vLLM 架构最初是为 GPU 优化的。需要多项优化来提升其性能。
-
 * 建议将 HTTP 服务组件与推理组件解耦。在 GPU 后端配置中，HTTP 服务和分词任务运行在 CPU 上，而推理运行在 GPU 上，这通常不会造成问题。但在基于 CPU 的环境中，HTTP 服务和分词可能导致显著的上下文切换和缓存效率降低。因此强烈建议分离这两个组件以获得更好的性能。
-
 * 在启用 NUMA 的 CPU 环境中，内存访问性能可能受 [拓扑结构](https://github.com/intel/intel-extension-for-pytorch/blob/main/docs/tutorials/performance_tuning/tuning_guide.inc.md#non-uniform-memory-access-numa) 影响较大。对于 NUMA 架构，推荐两种优化方案：张量并行或数据并行。
 
    * 延迟敏感场景使用张量并行：遵循 GPU 后端设计，基于 NUMA 节点数量（例如双 NUMA 节点系统 TP=2）使用 Megatron-LM 的并行算法切分模型。随着 [CPU 上的 TP 功能](https://github.com/vllm-project/vllm/pull/6125#) 合并，张量并行已支持服务和离线推理。通常每个 NUMA 节点被视为一个 GPU 卡。以下是启用张量并行度为 2 的服务示例：

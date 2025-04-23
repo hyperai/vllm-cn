@@ -9,18 +9,14 @@ title: Dockerfile
 下面是多阶段 Dockerfile 的可视化表示。构建图包含以下节点：
 
 * 所有构建阶段
-
 * 默认构建目标（以灰色突出显示）
-
 * 外部图像（带有虚线边框）
 
 
 构建图中的各个边的表示为：
 
 * FROM ... dependencies（带有实线和完整箭头）
-
 * COPY --from=... dependencies（带有虚线和空箭头）
-
 * RUN --mount=(.*)from=... dependencies（带有虚线和空菱形箭头）
 
 ![图片](/img/docs/07-07/dockerfile-stages-dependency.png)

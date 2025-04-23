@@ -44,7 +44,6 @@ title: 编写单元测试
 对于[生成模型](https://docs.vllm.ai/en/latest/models/generative_models.html#generative-models)，有两个级别的正确性测试，如 [tests/models/utils.py](https://github.com/vllm-project/vllm/blob/main/tests/models/utils.py) 中所定义的：
 
 * 完全正确性 (`check_outputs_equal`)：vLLM 输出的文本应与 HF 输出的文本完全匹配。
-
 * 对数概率相似性 (`check_logprobs_close`)：vLLM 输出的对数概率应在 HF 输出的 top-k 对数概率中，反之亦然。
 
 #### 
@@ -61,11 +60,8 @@ title: 编写单元测试
 将您的模型添加到 [tests/models/multimodal/processing/test_common.py](https://github.com/vllm-project/vllm/blob/main/tests/models/multimodal/processing/test_common.py) 中，验证以下输入组合是否产生相同的输出：
 
 * 文本 + 多模态数据
-
 * Token + 多模态数据
-
 * 文本 + 缓存的多模态数据
-
 * Token + 缓存的多模态数据
 
 

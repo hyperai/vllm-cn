@@ -60,17 +60,14 @@ vLLM支持部分OpenAI未包含的参数（如`top_k`），可通过在请求的
    * 仅适用于[文本生成模型](https://docs.vllm.ai/en/latest/models/generative_models.html) (`--task generate`)。
 
    * *注意：不支持*`suffix`*参数。*
-
 * [Chat Completions API](https://docs.vllm.ai/en/latest/serving/openai_compatible_server.html#chat-api) (`/v1/chat/completions`)
 
    * 仅适用于带有[聊天模板](https://docs.vllm.ai/en/latest/serving/openai_compatible_server.html#chat-template)的[文本生成模型](https://docs.vllm.ai/en/latest/models/generative_models.html) (`--task generate`)。
 
    * *注意：忽略*`parallel_tool_calls`*和*`user`*参数。*
-
 * [Embeddings API](https://docs.vllm.ai/en/latest/serving/openai_compatible_server.html#embeddings-api) (`/v1/embeddings`)
 
    * 仅适用于[嵌入模型](https://docs.vllm.ai/en/latest/models/pooling_models.html) (`--task embed`)。
-
 * [Transcriptions API](https://docs.vllm.ai/en/latest/serving/openai_compatible_server.html#transcriptions-api) (`/v1/audio/transcriptions`)
 
    * 仅适用于自动语音识别 (ASR) 模型 (OpenAI Whisper) (`--task generate`)。
@@ -81,15 +78,12 @@ vLLM支持部分OpenAI未包含的参数（如`top_k`），可通过在请求的
 * [Tokenizer API](https://docs.vllm.ai/en/latest/serving/openai_compatible_server.html#tokenizer-api) (`/tokenize`, `/detokenize`)
 
    * 适用于任何带有分词器的模型。
-
 * [Pooling API](https://docs.vllm.ai/en/latest/serving/openai_compatible_server.html#pooling-api) (`/pooling`)
 
    * 适用于所有[池化模型](https://docs.vllm.ai/en/latest/models/pooling_models.html)。
-
 * [Score API](https://docs.vllm.ai/en/latest/serving/openai_compatible_server.html#score-api) (`/score`)
 
    * 适用于嵌入模型和[交叉编码器模型](https://docs.vllm.ai/en/latest/models/pooling_models.html) (`--task score`)。
-
 * [Re-rank API](https://docs.vllm.ai/en/latest/serving/openai_compatible_server.html#rerank-api) (`/rerank`, `/v1/rerank`, `/v2/rerank`)
 
    * 实现 [Jina AI 的 v1 re-rank API](https://jina.ai/reranker/)
@@ -136,7 +130,6 @@ completion = client.chat.completions.create(
 * `"string"`：字符串。
 
    * 示例：`"Hello world"`
-
 * `"openai"`：字典列表，类似于 OpenAI 模式。
 
    * 示例：`[{"type": "text", "text": "Hello world!"}]`
@@ -1597,7 +1590,6 @@ vllm serve MrLight/dse-qwen2-2b-mrl-v1 --task embed \
 我们的 Tokenizer API 是 [HuggingFace 风格分词器](https://huggingface.co/docs/transformers/en/main_classes/tokenizer) 的简单封装，包含两个端点：
 
 * `/tokenize` 对应调用 `tokenizer.encode()`
-
 * `/detokenize` 对应调用 `tokenizer.decode()`
 
 ### 

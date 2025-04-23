@@ -15,7 +15,6 @@ title: FP8 KV 缓存
 OCP ([Open Compute Project](https://www.opencompute.org/))  指定了两种常见的 8 位浮点数据格式：
 
 * E5M2（5 个指数位和 2 个尾数位）
-
 * E4M3FN（4 个指数位和 3 个尾数位）
 
 与 E5M2 相比，E4M3 格式的优点之一是浮点数以更高的精度表示。然而，FP8 E4M3 的动态范围较小（可以表示 ±240.0），通常需要在每个量化张量旁边使用更高精度的缩放因子（通常是 FP32） 。
@@ -30,7 +29,6 @@ OCP ([Open Compute Project](https://www.opencompute.org/))  指定了两种常�
 当前的 FP8 KV 缓存实现主要通过允许大约两倍的 KV 缓存分配空间来提高吞吐量。这使得：
 
 * 能够处理更长的上下文长度
-
 * 处理更多的并发请求批次
 
 
@@ -67,9 +65,7 @@ print(out)
 `kv_cache_dtype`参数指定 KV 缓存存储的数据类型：
 
 * `"auto"`：使用模型的默认“未量化”数据类型
-
 * `"fp8"` 或 `"fp8_e4m3"`：支持 CUDA 11.8+ 和 ROCm (AMD GPU)
-
 * `"fp8_e5m2"`：支持 CUDA 11.8+
 
 

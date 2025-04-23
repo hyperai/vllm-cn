@@ -12,50 +12,30 @@ vLLM 是一项社区项目。我们的用于开发和测试的计算资源由以
 资金捐助：
 
 * a16z
-
 * Dropbox
-
 * Sequoia Capital
-
 * Skywork AI
-
 * ZhenFund
 
 
 计算资源：
 
 * AMD
-
 * Anyscale
-
 * AWS
-
 * Crusoe Cloud
-
 * Databricks
-
 * DeepInfra
-
 * Google Cloud
-
 * Lambda Lab
-
 * Nebius
-
 * Novita AI
-
 * NVIDIA
-
 * Replicate
-
 * Roblox
-
 * RunPod
-
 * Trainy
-
 * UC Berkeley
-
 * UC San Diego
 
 

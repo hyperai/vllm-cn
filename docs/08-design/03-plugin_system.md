@@ -63,7 +63,6 @@ def register():
 ## 支持的插件类型
 
 * **通用插件**（组名为 `vllm.general_plugins`）：这些插件的主要用例是将自定义的、不在树中的模型注册到 vLLM 中。这是通过在插件函数中调用 `ModelRegistry.register_model` 来注册模型实现的。
-
 * **平台插件**（组名为 `vllm.platform_plugins`）：这些插件的主要用例是将自定义的、不在树中的平台注册到 vLLM 中。当当前环境不支持该平台时，插件函数应返回 `None`，或者当平台受支持时返回平台类的完全限定名称。
 
 

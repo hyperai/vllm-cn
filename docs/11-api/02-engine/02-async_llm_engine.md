@@ -24,11 +24,8 @@ title: AsyncLLMEngine
 **参数:**
 
 * **log_requests** – 是否记录请求。
-
 * **start_engine_loop** – 如果为 True，生成调用时将自动启动运行引擎的后台任务。
-
 * ***args** – `LLMEngine` 的参数。
-
 * ****kwargs** – `LLMEngine` 的参数。
 
 
@@ -71,15 +68,10 @@ title: AsyncLLMEngine
 **参数****：**
 
 * **prompt** – 输入给 LLM 的提示。有关每种输入格式的更多详细信息，请参阅 `PromptType`。
-
 * **pooling_params** – 请求的池化参数。
-
 * **request_id** – 请求的唯一标识符。
-
 * **lora_request** – 用于生成的 LoRA 请求（如果有）。
-
 * **trace_headers** – OpenTelemetry 跟踪头。
-
 * **priority** – 请求的优先级。仅适用于优先级调度。
 
 
@@ -91,9 +83,7 @@ title: AsyncLLMEngine
 **详细信息：**
 
 * 如果引擎未运行，则启动后台循环，该循环会迭代调用 `engine_step()` 来处理等待的请求。
-
 * 将请求添加到引擎的 `RequestTracker` 中。在下一次后台循环中，该请求将被发送到底层引擎。同时，将创建一个相应的 `AsyncStream`。
-
 * 等待来自 `AsyncStream` 的请求输出并生成它们。
 
 
@@ -172,17 +162,11 @@ title: AsyncLLMEngine
 **参数****：**
 
 * **prompt** – 输入给 LLM 的提示。有关每种输入格式的更多详细信息，请参阅 `PromptType`。
-
 * **sampling_params** – 请求的采样参数。
-
 * **request_id** – 请求的唯一标识符。
-
 * **lora_request** – 用于生成的 LoRA 请求（如果有）。
-
 * **trace_headers** – OpenTelemetry 跟踪头。
-
 * **prompt_adapter_request** – 用于生成的提示适配器请求（如果有）。
-
 * **priority** – 请求的优先级。仅适用于优先级调度。
 
 
@@ -194,9 +178,7 @@ title: AsyncLLMEngine
 **详细信息：**
 
 * 如果引擎未运行，则启动后台循环，该循环会迭代调用 `engine_step()` 来处理等待的请求。
-
 * 将请求添加到引擎的 RequestTracker 中。在下一次后台循环中，该请求将被发送到底层引擎。同时，将创建一个相应的 AsyncStream。
-
 * 等待来自 AsyncStream 的请求输出并生成它们。
 
 

@@ -10,11 +10,8 @@ title: 为 vLLM 做贡献
 感谢您有兴趣为 vLLM 做贡献！我们的社区向所有人开放，欢迎各种规模的贡献，无论大小。您可以通过以下方式为项目做出贡献：
 
 * 发现并报告问题或错误
-
 * 请求或添加对新模型的支持
-
 * 建议或实现新功能
-
 * 改进文档或编写操作指南
 
 
@@ -91,21 +88,13 @@ pytest tests/
 只有特定类型的 PR 会被审查。PR 标题需使用适当前缀标明变更类型。请选择以下前缀之一：
 
 * `[Bugfix]` 错误修复
-
 * `[CI/Build]` 构建或持续集成改进
-
 * `[Doc]` 文档修正与改进
-
 * `[Model]` 新增模型或改进现有模型（标题需包含模型名称）
-
 * `[Frontend]` 前端变更（如 OpenAI API 服务器、`LLM` 类等）
-
 * `[Kernel]` 影响 CUDA 内核或其他计算内核的变更
-
 * `[Core]` 核心逻辑变更（如 `LLMEngine`、`AsyncLLMEngine`、`Scheduler` 等）
-
 * `[Hardware][Vendor]` 硬件特定变更（需包含厂商名称，如 `[Hardware][AMD]`）
-
 * `[Misc]` 其他类别（请谨慎使用）
 
 
@@ -118,13 +107,9 @@ pytest tests/
 PR 需满足以下代码质量标准：
 
 * 遵循 [Google Python 风格指南](https://google.github.io/styleguide/pyguide.html) 和 [Google C++ 风格指南](https://google.github.io/styleguide/cppguide.html)
-
 * 通过所有代码检查工具，请使用 `pre-commit` 格式化代码（新用户参考 [pre-commit 使用指南](https://pre-commit.com/#usage)）
-
 * 代码需充分注释以确保后续贡献者易于理解
-
 * 包含充足的单元测试和集成测试
-
 * 如果 PR 修改了用户可见行为，请在 `docs/source/` 中添加文档说明
 
 ### 
@@ -138,13 +123,9 @@ PR 需满足以下代码质量标准：
    * [自定义 C++/CUDA 操作教程](https://pytorch.org/tutorials/advanced/cpp_custom_ops.html#cpp-custom-ops-tutorial)
 
    * [自定义操作手册](https://docs.google.com/document/d/1_W62p8WJOQQUzPsJYa7s701JXt0qf2OfLub2sbkHOaU)
-
 * 返回 `Tensor` 的自定义操作需要元函数（meta-functions），应在 Python 中实现以处理动态维度
-
 * 使用 [torch.library.opcheck()](https://pytorch.org/docs/stable/library.html#torch.library.opcheck) 测试函数注册和元函数（示例见 `tests/kernels`）
-
 * 修改现有操作的 C++ 签名时需同步更新 schema
-
 * 如需新自定义类型，请参考 [PT2 自定义类支持文档](https://docs.google.com/document/d/18fBMPuOJ0fY5ZQ6YyrHUppw9FA332CpNtgB6SOIgyuA)
 
 ### 
@@ -159,13 +140,9 @@ PR 需满足以下代码质量标准：
 vLLM 团队致力于建立透明的审查机制，我们希望让每位贡献者都能清楚地了解评审过程，避免大家感到困惑，但团队规模有限，需要优先处理部分更重要的 PR。以下是审查流程说明：
 
 * PR 提交后，该 PR 会被分配给一位审查员。每位审查员会根据自己的专业领域和时间安排来选择处理 PR。
-
 * PR分配之后，审查员每 2-3 天更新一次评审进度。如果 PR 在 7 天内还没有得到审查，请随时提醒审查者或者 vLLM 团队。
-
 * 审查结束后如需进行修改，审查员将在 PR 上标记 `action-required`的标签，贡献者处理后可请求重新审查。
-
 * 请及时回应所有评论，如果某个评论不清晰，或者你不同意某个建议，随时可以要求澄清或者讨论这个建议。
-
 * 请注意，由于计算资源限制，部分 CI 检查可能不会执行，`ready` 标签表示 PR 可合并或需要完整 CI 运行。
 
 ## 

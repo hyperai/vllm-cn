@@ -108,7 +108,5 @@ print(f"Score: {score}")
  我们的 OpenAI 兼容服务器提供了与离线 API 对应的端点：
 
 * 池化 API 类似于 LLM.encode，适用于所有类型的池化模型。
-
 * 嵌入 API 类似于 LLM.embed，接受嵌入模型的文本和多模态输入。
-
 * 评分 API 类似于 LLM.score，适用于交叉编码器模型。

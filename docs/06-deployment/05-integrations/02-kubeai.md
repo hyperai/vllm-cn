@@ -13,9 +13,7 @@ title: KubeAI
 有关特定于环境的说明，请参阅安装指南：
 
 * [任何 Kubernetes 集群](https://www.kubeai.org/installation/any/)
-
 * [EKS](https://www.kubeai.org/installation/eks/)
-
 * [GKE](https://www.kubeai.org/installation/gke/)
 
 

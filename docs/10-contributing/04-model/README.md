@@ -13,11 +13,8 @@ title: 添加新模型
 #### 目录
 
 * [实现基础模型](https://docs.vllm.ai/en/latest/contributing/model/basic.html)
-
 * [将模型注册到 vLLM](https://docs.vllm.ai/en/latest/contributing/model/registration.html)
-
 * [编写单元测试](https://docs.vllm.ai/en/latest/contributing/model/tests.html)
-
 * [多模态支持](https://docs.vllm.ai/en/latest/contributing/model/multimodal.html)
 
 

@@ -19,7 +19,6 @@ title: 多模态输入
 要输入多模态数据，请按照 `vllm.inputs.PromptType` 中的模式操作：
 
 * `prompt`：提示词应遵循 HuggingFace 文档中记录的格式。
-
 * `multi_modal_data`：这是一个字典，遵循 `vllm.multimodal.inputs.MultiModalDataDict` 中定义的模式。
 
 ### 

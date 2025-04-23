@@ -29,7 +29,6 @@ llm = LLM(model="llava-hf/llava-1.5-7b-hf")
 
 
 * `prompt`: 提示应遵循 HuggingFace 中记录的格式。
-
 * `multi_modal_data`: 这是一个字典，它遵循 `vllm.multimodal.MultiModalDataDict` 中定义的模式。
 
 ```python

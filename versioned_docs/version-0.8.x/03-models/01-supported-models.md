@@ -97,11 +97,8 @@ vLLM 支持 [HuggingFace Transformers](https://huggingface.co/models) 中的各�
 根据模型的不同，支持以下模态：
 
 * 文本
-
 * 图像
-
 * 视频
-
 * 音频
 
 ### 文本生成

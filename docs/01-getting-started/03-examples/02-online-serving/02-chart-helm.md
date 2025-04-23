@@ -11,33 +11,19 @@ title: Helm 图表
 ## Files
 
 * Chart.yaml：定义图表元数据，包括名称、版本和维护者信息
-
 * ct.yaml：图表测试配置文件
-
 * lintconf.yaml：YAML 文件的语法检查规则
-
 * values.schema.json：用于验证 values.yaml 的 JSON 模式
-
 * values.yaml：Helm 图表的默认配置值
-
 * templates/_helpers.tpl：用于定义通用配置的辅助模板
-
 * templates/configmap.yaml：创建 ConfigMap 的模板
-
 * templates/custom-objects.yaml：自定义 Kubernetes 对象的模板
-
 * templates/deployment.yaml：创建 Deployment 的模板
-
 * templates/hpa.yaml：水平 Pod 自动扩缩容模板
-
 * templates/job.yaml：Kubernetes Job 模板
-
 * templates/poddisruptionbudget.yaml：Pod 中断预算模板
-
 * templates/pvc.yaml：持久卷声明模板
-
 * templates/secrets.yaml：Kubernetes Secret 模板
-
 * templates/service.yaml：创建 Service 的模板
 
 # Example materials

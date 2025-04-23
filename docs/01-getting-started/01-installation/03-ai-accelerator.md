@@ -16,11 +16,8 @@ vLLM 是一个 Python 库，支持以下 AI 加速器。根据您的 AI 加速�
 
 
 * [TPU v6e](https://cloud.google.com/tpu/docs/v6e)
-
 * [TPU v5e](https://cloud.google.com/tpu/docs/v5e)
-
 * [TPU v5p](https://cloud.google.com/tpu/docs/v5p)
-
 * [TPU v4](https://cloud.google.com/tpu/docs/v4)
 
 
@@ -28,11 +25,8 @@ vLLM 是一个 Python 库，支持以下 AI 加速器。根据您的 AI 加速�
 
 
 * [TPU v6e 拓扑结构](https://cloud.google.com/tpu/docs/v6e#configurations)
-
 * [TPU v5e 拓扑结构](https://cloud.google.com/tpu/docs/v5e#tpu-v5e-config)
-
 * [TPU v5p 拓扑结构](https://cloud.google.com/tpu/docs/v5p#tpu-v5p-config)
-
 * [TPU v4 拓扑结构](https://cloud.google.com/tpu/docs/v4#tpu-v4-config)
 
 
@@ -71,9 +65,7 @@ vLLM 0.3.3 及以上版本支持通过 Neuron SDK 在 AWS Trainium/Inferentia �
 ### Google TPU
 
 * Google Cloud TPU 虚拟机
-
 * TPU 版本：v6e、v5e、v5p、v4
-
 * Python：3.10 或更高版本
 
 
@@ -91,20 +83,15 @@ vLLM 0.3.3 及以上版本支持通过 Neuron SDK 在 AWS Trainium/Inferentia �
 有关在 GKE 中使用 TPU 的更多信息，请参阅：
 
 * [https://cloud.google.com/kubernetes-engine/docs/how-to/tpus](https://cloud.google.com/kubernetes-engine/docs/how-to/tpus)
-
 * [https://cloud.google.com/kubernetes-engine/docs/concepts/tpus](https://cloud.google.com/kubernetes-engine/docs/concepts/tpus)
-
 * [https://cloud.google.com/kubernetes-engine/docs/concepts/plan-tpus](https://cloud.google.com/kubernetes-engine/docs/concepts/plan-tpus)
 
 
 ### Intel Gaudi
 
 * 操作系统：Ubuntu 22.04 LTS
-
 * Python：3.10
-
 * Intel Gaudi 加速器
-
 * Intel Gaudi 软件版本 1.18.0
 
 
@@ -114,13 +101,9 @@ vLLM 0.3.3 及以上版本支持通过 Neuron SDK 在 AWS Trainium/Inferentia �
 ### AWS Neuron
 
 * 操作系统：Linux
-
 * Python：3.9 – 3.11
-
 * 加速器：NeuronCore_v2（在 trn1/inf2 实例中）
-
 * Pytorch 2.0.1/2.1.1
-
 * AWS Neuron SDK 2.16/2.17（已验证于 Python 3.8）
 
 
@@ -198,13 +181,9 @@ docker run -it --runtime=habana -e HABANA_VISIBLE_DEVICES=all -e OMPI_MCA_btl_va
 以下是启动 trn1/inf2 实例的步骤，以便安装 [Ubuntu 22.04 LTS 上的 PyTorch Neuron (](https://awsdocs-neuron.readthedocs-hosted.com/en/latest/general/setup/neuron-setup/pytorch/neuronx/ubuntu/torch-neuronx-ubuntu22.html)["](https://awsdocs-neuron.readthedocs-hosted.com/en/latest/general/setup/neuron-setup/pytorch/neuronx/ubuntu/torch-neuronx-ubuntu22.html)[torch-neuronx](https://awsdocs-neuron.readthedocs-hosted.com/en/latest/general/setup/neuron-setup/pytorch/neuronx/ubuntu/torch-neuronx-ubuntu22.html)["](https://awsdocs-neuron.readthedocs-hosted.com/en/latest/general/setup/neuron-setup/pytorch/neuronx/ubuntu/torch-neuronx-ubuntu22.html)[) 设置](https://awsdocs-neuron.readthedocs-hosted.com/en/latest/general/setup/neuron-setup/pytorch/neuronx/ubuntu/torch-neuronx-ubuntu22.html)。
 
 * 请按照 [启动 Amazon EC2 实例](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EC2_GetStarted.html#ec2-launch-instance) 中的说明启动实例。在 EC2 控制台选择实例类型时，请确保选择正确的实例类型。
-
 * 有关实例规格和定价的更多信息，请参阅：[Trn1 网页](https://aws.amazon.com/ec2/instance-types/trn1/)、[Inf2 网页](https://aws.amazon.com/ec2/instance-types/inf2/)
-
 * 选择 Ubuntu Server 22.04 TLS AMI
-
 * 启动 Trn1/Inf2 实例时，请将主 EBS 卷大小调整为至少 512GB。
-
 * 启动实例后，按照 [连接到您的实例](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AccessingInstancesLinux.html) 中的说明连接到实例
 
 #### 
@@ -518,30 +497,20 @@ docker run -it --runtime=habana -e HABANA_VISIBLE_DEVICES=all -e OMPI_MCA_btl_va
 ### 支持的功能
 
 * [离线推理](https://docs.vllm.ai/en/latest/serving/offline_inference.html#offline-inference)
-
 * 通过 [OpenAI 兼容服务器](https://docs.vllm.ai/en/latest/serving/openai_compatible_server.html#openai-compatible-server) 进行在线服务
-
 * HPU 自动检测 - 无需在 vLLM 中手动选择设备
-
 * 针对 Intel Gaudi 加速器优化的分页 KV 缓存算法
-
 * 针对 Intel Gaudi 的定制分页注意力、KV 缓存操作、预填充注意力、均方根层归一化、旋转位置编码实现
-
 * 多卡推理的張量并行支持
-
 * 使用 [HPU 图](https://docs.habana.ai/en/latest/PyTorch/Inference_on_PyTorch/Inference_Using_HPU_Graphs.html) 加速低批量延迟和吞吐量的推理
-
 * 带线性偏置的注意力（ALiBi）
 
 
 ### 不支持的功能
 
 * 波束搜索
-
 * LoRA 适配器
-
 * 量化
-
 * 预填充分块（混合批量推理）
 
 
@@ -550,27 +519,16 @@ docker run -it --runtime=habana -e HABANA_VISIBLE_DEVICES=all -e OMPI_MCA_btl_va
 以下配置已验证可在 Gaudi2 设备上运行。未列出的配置可能无法正常工作。
 
 * [meta-llama/Llama-2-7b](https://huggingface.co/meta-llama/Llama-2-7b) 在单 HPU 上，或通过張量并行在 2x 和 8x HPU 上，BF16 数据类型，随机或贪婪采样
-
 * [meta-llama/Llama-2-7b-chat-hf](https://huggingface.co/meta-llama/Llama-2-7b-chat-hf) 在单 HPU 上，或通过張量并行在 2x 和 8x HPU 上，BF16 数据类型，随机或贪婪采样
-
 * [meta-llama/Meta-Llama-3-8B](https://huggingface.co/meta-llama/Meta-Llama-3-8B) 在单 HPU 上，或通过張量并行在 2x 和 8x HPU 上，BF16 数据类型，随机或贪婪采样
-
 * [meta-llama/Meta-Llama-3-8B-Instruct](https://huggingface.co/meta-llama/Meta-Llama-3-8B-Instruct) 在单 HPU 上，或通过張量并行在 2x 和 8x HPU 上，BF16 数据类型，随机或贪婪采样
-
 * [meta-llama/Meta-Llama-3.1-8B](https://huggingface.co/meta-llama/Meta-Llama-3.1-8B) 在单 HPU 上，或通过張量并行在 2x 和 8x HPU 上，BF16 数据类型，随机或贪婪采样
-
 * [meta-llama/Meta-Llama-3.1-8B-Instruct](https://huggingface.co/meta-llama/Meta-Llama-3.1-8B-Instruct) 在单 HPU 上，或通过張量并行在 2x 和 8x HPU 上，BF16 数据类型，随机或贪婪采样
-
 * [meta-llama/Llama-2-70b](https://huggingface.co/meta-llama/Llama-2-70b) 通过張量并行在 8x HPU 上，BF16 数据类型，随机或贪婪采样
-
 * [meta-llama/Llama-2-70b-chat-hf](https://huggingface.co/meta-llama/Llama-2-70b-chat-hf) 通过張量并行在 8x HPU 上，BF16 数据类型，随机或贪婪采样
-
 * [meta-llama/Meta-Llama-3-70B](https://huggingface.co/meta-llama/Meta-Llama-3-70B) 通过張量并行在 8x HPU 上，BF16 数据类型，随机或贪婪采样
-
 * [meta-llama/Meta-Llama-3-70B-Instruct](https://huggingface.co/meta-llama/Meta-Llama-3-70B-Instruct) 通过張量并行在 8x HPU 上，BF16 数据类型，随机或贪婪采样
-
 * [meta-llama/Meta-Llama-3.1-70B](https://huggingface.co/meta-llama/Meta-Llama-3.1-70B) 通过張量并行在 8x HPU 上，BF16 数据类型，随机或贪婪采样
-
 * [meta-llama/Meta-Llama-3.1-70B-Instruct](https://huggingface.co/meta-llama/Meta-Llama-3.1-70B-Instruct) 通过張量并行在 8x HPU 上，BF16 数据类型，随机或贪婪采样
 
 ### 
@@ -732,7 +690,6 @@ INFO 08-02 17:38:43 hpu_executor.py:91] init_cache_engine took 37.92 GiB of devi
 #### 推荐的 vLLM 参数
 
 * 我们建议在 Gaudi 2 上使用 `block_size` 为 128 进行 BF16 数据类型的推理。使用默认值（16、32）可能由于矩阵乘法引擎利用不足而导致性能欠佳（参阅 [Gaudi 架构](https://docs.habana.ai/en/latest/Gaudi_Overview/Gaudi_Architecture.html)）。
-
 * 对于 Llama 7B 的最大吞吐量，我们建议启用 HPU 图，批量大小为 128 或 256，最大上下文长度为 2048。如果遇到内存不足问题，请参阅故障排除部分。
 
 #### 
@@ -742,28 +699,19 @@ INFO 08-02 17:38:43 hpu_executor.py:91] init_cache_engine took 37.92 GiB of devi
 **诊断和分析旋钮：**
 
 * `VLLM_PROFILER_ENABLED`：如果为 `true`，将启用高级分析器。生成的 JSON 跟踪可在 [perfetto.habana.ai](https://perfetto.habana.ai/#!/viewer) 查看。默认禁用。
-
 * `VLLM_HPU_LOG_STEP_GRAPH_COMPILATION`：如果为 `true`，将记录每个 vLLM 引擎步骤的图编译（仅在发生编译时）。强烈建议与 `PT_HPU_METRICS_GC_DETAILS=1` 一起使用。默认禁用。
-
 * `VLLM_HPU_LOG_STEP_GRAPH_COMPILATION_ALL`：如果为 `true`，将始终记录每个 vLLM 引擎步骤的图编译（即使未发生）。默认禁用。
-
 * `VLLM_HPU_LOG_STEP_CPU_FALLBACKS`：如果为 `true`，将记录每个 vLLM 引擎步骤的 CPU 回退（仅在发生回退时）。默认禁用。
-
 * `VLLM_HPU_LOG_STEP_CPU_FALLBACKS_ALL`：如果为 `true`，将始终记录每个 vLLM 引擎步骤的 CPU 回退（即使未发生）。默认禁用。
 
 
 **性能调优旋钮：**
 
 * `VLLM_SKIP_WARMUP`：如果为 `true`，将跳过预热，默认 `false`
-
 * `VLLM_GRAPH_RESERVED_MEM`：保留用于 HPU 图捕获的内存百分比，默认 `0.1`
-
 * `VLLM_GRAPH_PROMPT_RATIO`：保留用于预填充图的图内存百分比，默认 `0.3`
-
 * `VLLM_GRAPH_PROMPT_STRATEGY`：确定预填充图捕获顺序的策略，`min_tokens` 或 `max_bs`，默认 `min_tokens`
-
 * `VLLM_GRAPH_DECODE_STRATEGY`：确定解码图捕获顺序的策略，`min_tokens` 或 `max_bs`，默认 `max_bs`
-
 * `VLLM_{phase}_{dim}_BUCKET_{param}` - 共 12 个环境变量，用于配置分桶机制的范围
 
    * `{phase}` 为 `PROMPT` 或 `DECODE`
@@ -806,7 +754,6 @@ INFO 08-02 17:38:43 hpu_executor.py:91] init_cache_engine took 37.92 GiB of devi
 此外，以下 HPU PyTorch Bridge 环境变量会影响 vLLM 执行：
 
 * `PT_HPU_LAZY_MODE`：如果为 `0`，将使用 Gaudi 的 PyTorch 即时后端；如果为 `1`，将使用 Gaudi 的 PyTorch 延迟后端，默认 `1`
-
 * `PT_HPU_ENABLE_LAZY_COLLECTIVES`：必须为 `true` 以支持使用 HPU 图的张量并行推理
 
 ### 
@@ -816,7 +763,6 @@ INFO 08-02 17:38:43 hpu_executor.py:91] init_cache_engine took 37.92 GiB of devi
 如果您遇到设备内存不足问题或尝试以更高批量大小进行推理，请按照以下步骤调整 HPU 图：
 
 * 调整 `gpu_memory_utilization` 旋钮。这将减少 KV 缓存的分配，为捕获更大批量的图留出空间。默认 `gpu_memory_utilization` 设置为 0.9，尝试分配约 90% 的 HBM 剩余内存用于 KV 缓存。注意，减少此值会减少可用 KV 缓存块的数量，从而减少给定时间内可处理的最大 token 数。
-
 * 如果此方法无效，您可以完全禁用 `HPUGraph`。禁用 HPU 图后，您将以较低批次的延迟和吞吐量为代价，换取较高批次下潜在的更高吞吐量。您可以通过向服务器添加 `--enforce-eager` 标志（用于在线服务）或向 LLM 构造函数传递 `enforce_eager=True` 参数（用于离线推理）来实现此目的。
 
 

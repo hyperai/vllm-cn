@@ -88,9 +88,7 @@ vLLM 可能无法完全优化 Transformers 实现，因此若在 vLLM 中比较�
 Transformers 回退明确支持以下功能：
 
 * [量化](https://docs.vllm.ai/en/latest/features/quantization/index.html#quantization-index)（GGUF 除外）
-
 * [LoRA 适配器](https://docs.vllm.ai/en/latest/features/lora.html#lora-adapter)
-
 * [分布式推理与服务](https://docs.vllm.ai/en/latest/serving/distributed_serving.html#distributed-serving)（需 `transformers>=4.49.0`）
 
 #### 
@@ -360,11 +358,8 @@ print(output)
 根据模型不同，支持以下模态组合：
 
 * **T**ext 文本
-
 * **I**mage 图像
-
 * **V**ideo 视频
-
 * **A**udio 音频
 
 

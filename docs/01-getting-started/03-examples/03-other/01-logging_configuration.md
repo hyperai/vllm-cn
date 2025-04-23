@@ -14,11 +14,9 @@ vLLM 提供两个环境变量，可支持从简单不灵活到复杂灵活的各
 * 禁用 vLLM 日志（简单不灵活）
 
    * 设置 `VLLM_CONFIGURE_LOGGING=0`（保持 `VLLM_LOGGING_CONFIG_PATH` 未设置）
-
 * vLLM 默认日志配置（简单不灵活）
 
    * 保持 `VLLM_CONFIGURE_LOGGING` 未设置或设为 `VLLM_CONFIGURE_LOGGING=1`
-
 * 细粒度自定义日志配置（更复杂，更灵活）
 
    * 保持 `VLLM_CONFIGURE_LOGGING` 未设置或设为 `VLLM_CONFIGURE_LOGGING=1`，同时设置 `VLLM_LOGGING_CONFIG_PATH=<日志配置文件路径.json>`

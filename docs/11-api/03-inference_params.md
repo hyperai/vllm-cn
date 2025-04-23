@@ -26,59 +26,32 @@ vLLM API 的推理参数。
 **参数:**
 
 * **n** – 为给定提示返回的输出序列数量。
-
 * **best_of** – 从提示生成的输出序列数量。从这些 `best_of` 序列中，返回前 `n` 个序列。`best_of` 必须大于或等于 `n`。默认情况下，`best_of` 设置为 `n`。注意：此功能仅在 V0 中支持。
-
 * **presence_penalty** – 基于新生成的文本中是否出现新 token 的惩罚值。值 > 0 鼓励模型使用新 token，而值 < 0 鼓励模型重复 token。
-
 * **frequency_penalty** – 基于新生成的文本中 token 频率的惩罚值。值 > 0 鼓励模型使用新 token，而值 < 0 鼓励模型重复 token。
-
 * **repetition_penalty** – 基于提示和已生成文本中是否出现新 token 的惩罚值。值 > 1 鼓励模型使用新 token，而值 < 1 鼓励模型重复 token。
-
 * **temperature** – 控制采样随机性的浮点数。较低的值使模型更具确定性，而较高的值使模型更具随机性。值为 0 表示贪婪采样。
-
 * **top_p** – 控制要考虑的 top token 的累积概率的浮点数。必须在 (0, 1] 范围内。设置为 1 以考虑所有 token。
-
 * **top_k** – 控制要考虑的 top token 数量的整数。设置为 -1 以考虑所有 token。
-
 * **min_p** – 表示 token 被考虑的最小概率，相对于最可能 token 的概率。必须在 [0, 1] 范围内。设置为 0 以禁用此功能。
-
 * **seed** – 用于生成的随机种子。
-
 * **stop** – 生成时停止生成的字符串列表。返回的输出将不包含这些停止字符串。
-
 * **stop_token_ids** – 生成时停止生成的 token 列表。返回的输出将包含停止 token，除非停止 token 是特殊 token。
-
 * **bad_words** – 不允许生成的单词列表。更准确地说，只有当生成的 token 可以完成相应 token 序列时，才不允许生成该序列的最后一个 token。
-
 * **include_stop_str_in_output** – 是否在输出文本中包含停止字符串。默认为 False。
-
 * **ignore_eos** – 是否忽略 EOS token 并在生成 EOS token 后继续生成 token。
-
 * **max_tokens** – 每个输出序列生成的最大 token 数量。
-
 * **min_tokens** – 在生成 EOS 或 stop_token_ids 之前，每个输出序列生成的最小 token 数量。
-
 * **logprobs** – 每个输出 token 返回的对数概率数量。设置为 None 时，不返回概率。如果设置为非 None 值，结果将包括指定数量的最可能 token 的对数概率，以及所选 token 的对数概率。注意，实现遵循 OpenAI API：API 将始终返回采样 token 的对数概率，因此响应中可能有多达 `logprobs+1` 个元素。
-
 * **prompt_logprobs** – 每个提示 token 返回的对数概率数量。
-
 * **detokenize** – 是否对输出进行反 tokenize。默认为 True。
-
 * **skip_special_tokens** – 是否在输出中跳过特殊 token。
-
 * **spaces_between_special_tokens** – 是否在输出中的特殊 token 之间添加空格。默认为 True。
-
 * **logits_processors** – 基于先前生成的 token 修改 logits 的函数列表，可选地以提示 token 作为第一个参数。
-
 * **truncate_prompt_tokens** – 如果设置为整数 k，则仅使用提示的最后 k 个 token（即左截断）。默认为 None（即不截断）。
-
 * **guided_decoding** – 如果提供，引擎将从这些参数构建一个引导解码的 logits 处理器。默认为 None。
-
 * **logit_bias** – 如果提供，引擎将构建一个应用这些 logit 偏差的 logits 处理器。默认为 None。
-
 * **allowed_token_ids** – 如果提供，引擎将构建一个仅保留给定 token id 分数的 logits 处理器。默认为 None。
-
 * **extra_args** – 任意附加参数，可用于自定义采样实现。不用于任何内置采样实现。
 
 

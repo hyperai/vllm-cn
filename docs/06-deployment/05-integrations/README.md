@@ -9,13 +9,9 @@ title: 外部集成
 
 
 * KServe
-
 * KubeAI
-
 * Llama Stack
-
 * llmaz
-
 * 生产环境技术栈 (Production stack)
 
 

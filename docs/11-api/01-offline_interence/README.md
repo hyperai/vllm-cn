@@ -11,7 +11,6 @@ title: 离线推理
 目录
 
 * [LLM Class](https://docs.vllm.ai/en/latest/api/offline_inference/llm.html)
-
 * [LLM Inputs](https://docs.vllm.ai/en/latest/api/offline_inference/llm_inputs.html)
 
 

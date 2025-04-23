@@ -21,25 +21,15 @@ title: LLMEngine
 **参数：**
 
 * **model_config** – 与 LLM 模型相关的配置。
-
 * **cache_config** – 与 KV 缓存管理相关的配置。
-
 * **parallel_config** – 与分布式执行相关的配置。
-
 * **scheduler_config** – 与请求调度程序相关的配置。
-
 * **device_config** – 与设备相关的配置。
-
 * **lora_config (Optional)** – 与服务多 LoRA 相关的配置。
-
 * **speculative_config (Optional)** – 与推测解码相关的配置。
-
 * **executor_class** – 用于管理分布式执行的模型执行器类。
-
 * **prompt_adapter_config (Optional)** – 与服务提示适配器相关的配置。
-
 * **log_stats** – 是否记录统计信息。
-
 * **usage_context** – 指定的入口点，用于收集使用信息。
 
 >DO_VALIDATE_OUTPUT: [ClassVar](https://docs.python.org/3/library/typing.html#typing.ClassVar)[[bool](https://docs.python.org/3/library/functions.html#bool)] = False
@@ -86,15 +76,10 @@ engine.abort_request(request_id)
 **参数：**
 
 * **request_id** – 请求的唯一 ID。
-
 * **inputs** – 提供给 LLM 的输入。有关每个输入格式的更多详细信息，请参阅 [PromptInputs](https://docs.vllm.ai/en/latest/dev/offline_inference/llm_inputs.html#vllm.inputs.PromptInputs)。
-
 * **params** – 用于采样或池化的参数。[SamplingParams](https://docs.vllm.ai/en/latest/dev/sampling_params.html#vllm.SamplingParams) 用于文本生成。`PoolingParams`用于池化。
-
 * **arrival_time** – 请求的到达时间。如果为 None，我们将使用当前的单调时间。
-
 * **trace_headers** – OpenTelemetry 跟踪头。
-
 * **priority****–**请求的优先级。仅在优先级调度时适用。
 
 ##
@@ -102,13 +87,9 @@ engine.abort_request(request_id)
 **细节：**
 
 * 如果到达时间 (arrival_time) 为 None，则将其设置为当前时间。
-
 * 如果 prompt_token_ids 为 None，则将其设置为编码提示。
-
 * 创建 n 个 `Sequence` 对象。
-
 * 从`Sequence`列表中创建一个 `SequenceGroup` 对象。
-
 * 将 `SequenceGroup` 对象添加到调度程序中。
 
 ## Example
@@ -213,9 +194,7 @@ step 函数总览
    * 根据调度策略，序列可能被抢占/重新排序。
 
    * 一个序列组 (SG) 是指由同一提示生成的一组序列。
-
 * 步骤 2：调用分布式执行器来执行模型。
-
 * 步骤 3：处理模型输出。主要包括：
 
    * 解码相关输出。
@@ -223,7 +202,6 @@ step 函数总览
    * 根据采样参数（是否使用 _beam_search）使用模型输出更新计划的序列组。
 
    * 释放已完成的序列组。
-
 * 最后，创建并返回新的生成结果
 
 

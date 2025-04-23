@@ -53,11 +53,8 @@ title: 故障排除
 如果其他策略无法解决问题，vLLM 实例可能卡在某个地方。可使用以下环境变量帮助调试：
 
 * `export VLLM_LOGGING_LEVEL=DEBUG` 启用更多日志。
-
 * `export CUDA_LAUNCH_BLOCKING=1` 识别导致问题的 CUDA 内核。
-
 * `export NCCL_DEBUG=TRACE` 启用 NCCL 的更多日志。
-
 * `export VLLM_TRACE_FUNCTION=1` 记录所有函数调用以便在日志文件中检查崩溃或卡住的函数。
 
 
@@ -325,7 +322,6 @@ ValueError: Model architectures ['<arch>'] are not supported for now. Supported 
 ## 已知问题
 
 * 在 `v0.5.2`、`v0.5.3` 和 `v0.5.3.post1` 中，存在由 [zmq](https://github.com/zeromq/pyzmq/issues/2000) 引起的错误，可能因机器配置不同偶尔导致 vLLM 卡住。解决方案是升级到最新版 `vllm` 以包含 [修复](https://github.com/vllm-project/vllm/pull/6759#)。
-
 * 为避免 NCCL [bug](https://github.com/NVIDIA/nccl/issues/1234)，所有 vLLM 进程将设置环境变量 `NCCL_CUMEM_ENABLE=0` 以禁用 NCCL 的 `cuMem` 分配器。这不影响性能，仅提供内存优势。当外部进程希望与 vLLM 进程建立 NCCL 连接时，也应设置此环境变量，否则环境不一致将导致 NCCL 卡住或崩溃，如 [RLHF 集成](https://github.com/OpenRLHF/OpenRLHF/pull/604)和[讨论](https://github.com/vllm-project/vllm/issues/5723#issuecomment-2554389656)中所述。
 
 

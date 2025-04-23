@@ -1024,9 +1024,7 @@ def _get_prompt_updates(
 示例：
 
 * BLIP-2（在提示开头插入）：[vllm/model_executor/models/blip2.py](https://github.com/vllm-project/vllm/blob/main/vllm/model_executor/models/blip2.py)
-
 * Florence2（在提示开头插入）：[vllm/model_executor/models/florence2.py](https://github.com/vllm-project/vllm/blob/main/vllm/model_executor/models/florence2.py)
-
 * Molmo（在 `<|endoftext|>` token 后插入）：[vllm/model_executor/models/molmo.py](https://github.com/vllm-project/vllm/blob/main/vllm/model_executor/models/molmo.py)
 
 
@@ -1038,9 +1036,7 @@ def _get_prompt_updates(
 示例：
 
 * Chameleon（附加 `sep_token`）：[vllm/model_executor/models/chameleon.py](https://github.com/vllm-project/vllm/blob/main/vllm/model_executor/models/chameleon.py)
-
 * Fuyu（附加 `boa_token`）：[vllm/model_executor/models/fuyu.py](https://github.com/vllm-project/vllm/blob/main/vllm/model_executor/models/fuyu.py)
-
 * Molmo（应用未在其他地方定义的聊天模板）：[vllm/model_executor/models/molmo.py](https://github.com/vllm-project/vllm/blob/main/vllm/model_executor/models/molmo.py)
 
 ### 
@@ -1053,9 +1049,7 @@ def _get_prompt_updates(
 示例：
 
 * DeepSeek-VL2: [vllm/model_executor/models/deepseek_vl2.py](https://github.com/vllm-project/vllm/blob/main/vllm/model_executor/models/deepseek_vl2.py)
-
 * InternVL: [vllm/model_executor/models/internvl.py](https://github.com/vllm-project/vllm/blob/main/vllm/model_executor/models/internvl.py)
-
 * Qwen-VL: [vllm/model_executor/models/qwen_vl.py](https://github.com/vllm-project/vllm/blob/main/vllm/model_executor/models/qwen_vl.py)
 
 

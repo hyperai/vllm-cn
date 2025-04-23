@@ -9,19 +9,12 @@ title: 使用其他框架
 
 
 * [BentoML](https://docs.vllm.ai/en/latest/deployment/frameworks/bentoml.html)
-
 * [Cerebrium](https://docs.vllm.ai/en/latest/deployment/frameworks/cerebrium.html)
-
 * [dstack](https://docs.vllm.ai/en/latest/deployment/frameworks/dstack.html)
-
 * [Helm](https://docs.vllm.ai/en/latest/deployment/frameworks/helm.html)
-
 * [LWS](https://docs.vllm.ai/en/latest/deployment/frameworks/lws.html)
-
 * [Modal](https://docs.vllm.ai/en/latest/deployment/frameworks/modal.html)
-
 * [SkyPilot](https://docs.vllm.ai/en/latest/deployment/frameworks/skypilot.html)
-
 * [NVIDIA Triton](https://docs.vllm.ai/en/latest/deployment/frameworks/triton.html)
 
 

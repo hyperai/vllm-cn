@@ -13,19 +13,12 @@ title: 量化
 ## 目录
 
 * 支持硬件
-
 * AutoAWQ
-
 * BitsAndBytes
-
 * GGUF
-
 * INT4 W4A16
-
 * INT8 W8A8
-
 * FP8 W8A8
-
 * 量化 KV 缓存
 
 

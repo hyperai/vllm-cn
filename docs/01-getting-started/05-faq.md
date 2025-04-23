@@ -41,7 +41,5 @@ In vLLM, the same requests might be batched differently due to factors such as o
 ## 缓解策略
 
 * 为了提高稳定性和减少方差，请使用 float32。请注意，这将需要更多内存。
-
 * 如果使用 bfloat16，切换到 float16 也可能有所帮助。
-
 * 使用请求种子有助于在温度大于 0 时实现更稳定的生成，但由于精度差异，可能仍会出现不一致的情况。

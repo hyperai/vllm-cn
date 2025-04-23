@@ -29,9 +29,7 @@ vLLM 会考虑所有相关因素，并决定存储编译产物的目录。这意
 考虑的因素包括：
 
 * 所有相关配置（参见 [config.py](https://github.com/vllm-project/vllm/blob/main/vllm/config.py) 中的 `compute_hash` 函数）
-
 * PyTorch 配置（参见 [compiler_interface.py](https://github.com/vllm-project/vllm/blob/main/vllm/compilation/compiler_interface.py) 中的 `compute_hash` 函数）
-
 * 模型的 forward 函数及其调用的相关函数（见下文）
 
 
@@ -89,7 +87,6 @@ Dynamo 编译的结果是一个新函数，存储在 `~/.cache/vllm/torch_compi
 计算图进一步被 `splitting_ops`（通常是注意力操作）分割成多个部分。因此，在 `~/.cache/vllm/torch_compile_cache/1517964802/rank_0_0/computation_graph.py` 文件中，我们可以看到许多子模块，每个子模块是分割后的一块图：
 
 * 注意力操作本身是一个子模块。
-
 * 从一次注意力操作到下一次注意力操作的计算图部分是一个子模块。
 
 
@@ -114,9 +111,7 @@ DEBUG 03-07 03:52:45 [backends.py:134] store the 16-th graph for shape None from
 另一个细节是：您可以看到第 1 个图和第 15 个图具有相同的键，而第 0 个图和第 16 个图不同。这是预期的，因为我们通过注意力操作分割图，得到 3 个独特的子图：
 
 * 注意力操作前的第一层
-
 * 中间层，从一次注意力操作到下一次注意力操作
-
 * 注意力操作后的最后一层
 
 

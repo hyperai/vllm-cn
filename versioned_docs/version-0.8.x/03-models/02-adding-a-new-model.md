@@ -87,13 +87,9 @@ def forward(
 
 
 * `ReplicatedLinear`：跨多个 GPU 复制输入和权重。此方法不节省内存。
-
 * `RowParallelLinear`：将输入张量在隐藏维度上进行划分，而权重矩阵则沿行（输入维度）进行划分。在完成矩阵乘法之后，通过执行 all-reduce 操作来减少结果。通常用于第二个 FFN 层和注意力层的输出线性变换。
-
 * `ColumnParallelLinear`：复制输入张量。权重矩阵则按照列（输出维度）进行分割，而计算结果也沿列维度进行分割。这种技术通常用于原始 Transformer 中的第一个 FFN 层和注意力层的分离 QKV 变换。
-
 * `MergedColumnParallelLinear`：合并多个 *ColumnParallelLinear* 运算符的列并行线性。通常用于具有加权激活函数（例如 SiLU）的第一个 FFN 层。该类处理了多个权重矩阵的分片权重加载逻辑。
-
 * `QKVParallelLinear`: 用于多头和分组查询注意机制的查询、键和值投影的并行线性层。当键/值头的数量小于世界大小时，此类会正确复制键/值头。此类负责处理权重矩阵的权重加载和复制。
 
 

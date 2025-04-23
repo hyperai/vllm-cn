@@ -89,11 +89,9 @@ python -m vllm.entrypoints.openai.run_batch -i https://raw.githubusercontent.com
 ### 额外准备工作
 
 * [创建 S3 存储桶](https://docs.aws.amazon.com/AmazonS3/latest/userguide/creating-bucket.html)。
-
 * 安装 `awscli` 包（运行 `pip install awscli`）以配置凭证并交互式使用 S3。
 
    * [配置凭证](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-quickstart.html)。
-
 * 安装 `boto3` Python 包（运行 `pip install boto3`）以生成预签名 URL。
 
 ### 步骤 1：上传输入脚本

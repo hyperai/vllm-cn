@@ -9,9 +9,7 @@ vLLM 使用 PyTorch XLA 支持 Google Cloud TPU。
 ## 依赖环境
 
 * Google Cloud TPU VM（单主机和多主机）
-
 * TPU 版本: v5e、v5p、v4
-
 * Python: 3.10
 
 

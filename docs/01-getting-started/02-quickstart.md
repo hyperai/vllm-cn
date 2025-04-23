@@ -11,14 +11,12 @@ title: 快速开始
 本指南将帮助您快速开始使用 vLLM 进行以下操作：
 
 * [离线批量推理](#quickstart-offline)
-
 * [使用 OpenAI 兼容服务器进行在线服务](#quickstart-online)
 
 
 ## 依赖条件
 
 * 系统: Linux
-
 * Python: 3.9 -- 3.12
 
 
@@ -66,7 +64,6 @@ pip install vllm
 该示例的第一行导入了 LLM 和 SamplingParams 类：
 
 * LLM 是用于运行 vLLM 引擎离线推理的主类。
-
 * SamplingParams 指定了采样过程的参数。
 
 ```python

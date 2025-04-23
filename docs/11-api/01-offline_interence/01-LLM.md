@@ -24,47 +24,26 @@ title: LLM Class
 **参数：**
 
 * **model** – HuggingFace Transformers 模型的名称或路径。
-
 * **tokenizer** – HuggingFace Transformers 分词器的名称或路径。
-
 * **tokenizer_mode** – 分词器模式。「auto」将使用快速分词器（如果可用），而 "slow" 将始终使用慢速分词器。
-
 * **skip_tokenizer_init** – 如果为 true，则跳过分词器和反分词器的初始化。期望输入中的 `prompt_token_ids` 有效，并且 `prompt` 为 None。
-
 * **trust_remote_code** – 在下载模型和分词器时信任远程代码（例如来自 HuggingFace）。
-
 * **allowed_local_media_path** – 允许 API 请求从服务器文件系统指定的目录中读取本地图像或视频。这是一个安全风险。仅在受信任的环境中启用。
-
 * **tensor_parallel_size** – 用于张量并行分布式执行的 GPU 数量。
-
 * **dtype** – 模型权重和激活的数据类型。目前，我们支持 `float32`、`float16` 和 `bfloat16`。如果为 `auto`，则使用模型配置文件中指定的 `torch_dtype` 属性。但是，如果配置文件中的 `torch_dtype` 为 `float32`，我们将使用 `float16`。
-
 * **quantization** – 用于量化模型权重的方法。目前，我们支持「awq」、「gptq」和 "fp8"（实验性）。如果为 None，我们首先检查模型配置文件中的 `quantization_config` 属性。如果为 None，我们假设模型权重未量化，并使用 `dtype` 确定权重的数据类型。
-
 * **revision** – 要使用的特定模型版本。可以是分支名称、标签名称或提交 ID。
-
 * **tokenizer_revision** – 要使用的特定分词器版本。可以是分支名称、标签名称或提交 ID。
-
 * **seed** – 用于初始化随机数生成器的种子，用于采样。
-
 * **gpu_memory_utilization** – 为模型权重、激活和 KV 缓存保留的 GPU 内存比例（介于 0 和 1 之间）。较高的值将增加 KV 缓存大小，从而提高模型的吞吐量。但是，如果值过高，可能会导致内存不足（OOM）错误。
-
 * **swap_space** – 每个 GPU 用于交换空间的 CPU 内存大小（GiB）。当请求的 `best_of` 采样参数大于 1 时，可以用于临时存储请求的状态。如果所有请求的 `best_of=1`，则可以安全地将其设置为 0。请注意，`best_of` 仅在 V0 中支持。否则，值过小可能会导致内存不足（OOM）错误。
-
 * **cpu_offload_gb** – 用于卸载模型权重的 CPU 内存大小（GiB）。这实际上增加了可用于保存模型权重的 GPU 内存空间，但代价是每次前向传递时 CPU-GPU 数据传输。
-
 * **enforce_eager** – 是否强制启用 eager 执行。如果为 True，我们将禁用 CUDA 图并始终以 eager 模式执行模型。如果为 False，我们将混合使用 CUDA 图和 eager 执行。
-
 * **max_seq_len_to_capture** – CUDA 图覆盖的最大序列长度。当序列的上下文长度超过此值时，我们将回退到 eager 模式。此外，对于编码器-解码器模型，如果编码器输入的序列长度超过此值，我们也将回退到 eager 模式。
-
 * **disable_custom_all_reduce** – 参见 `ParallelConfig`。
-
 * **disable_async_output_proc** – 禁用异步输出处理。这可能会导致性能下降。
-
 * **hf_overrides** – 如果是字典，则包含要转发到 HuggingFace 配置的参数。如果是可调用对象，则调用它来更新 HuggingFace 配置。
-
 * **compilation_config** – 可以是整数或字典。如果是整数，则用作编译优化级别。如果是字典，则可以指定完整的编译配置。
-
 * ****kwargs** – `EngineArgs` 的参数。（参见 [引擎参数](https://docs.vllm.ai/en/latest/serving/engine_args.html#engine-args)）
 
 
@@ -102,7 +81,6 @@ title: LLM Class
 **参数：**
 
 * **prompts** – 提示列表。每个提示可以是字符串或 token ID 列表。
-
 * **params** – 束搜索参数。
 
 
@@ -132,25 +110,17 @@ TODO：束搜索如何与长度惩罚、频率惩罚和停止条件等一起工�
    * 每个对话由消息列表表示。
 
    * 每条消息是一个包含「role」和「content」键的字典。
-
 * **sampling_params** – 文本生成的采样参数。如果为 None，则使用默认采样参数。当它为单个值时，将应用于每个提示。当它为列表时，列表长度必须与提示数量相同，并逐个与提示配对。
-
 * **use_tqdm** – 是否使用 tqdm 显示进度条。
-
 * **lora_request** – 用于生成的 LoRA 请求（如果有）。
-
 * **chat_template** – 用于构建对话的模板。如果未提供，则使用模型的默认对话模板。
-
 * 消息内容的渲染格式。
 
    * 「string」将内容渲染为字符串。例如：`"Who are you?"`
 
    * 「openai」将内容渲染为字典列表，类似于 OpenAI 的模式。例如：`[{"type": "text", "text": "Who are you?"}]`
-
 * **add_generation_prompt** – 如果为 True，则为每条消息添加生成模板。
-
 * **continue_final_message** – 如果为 True，则继续对话中的最后一条消息，而不是开始新消息。如果`add_generation_prompt`也为`True`，则不能为`True`。
-
 * **mm_processor_kwargs** – 此对话请求的多模态处理器参数覆盖。仅用于离线请求。
 
 
@@ -173,11 +143,8 @@ TODO：束搜索如何与长度惩罚、频率惩罚和停止条件等一起工�
 **参数：**
 
 * **prompts** – 传递给LLM的提示。您可以传递一系列提示以进行批量推理。有关每个提示的格式的更多详细信息，请参见`PromptType`。
-
 * **use_tqdm** – 是否使用 tqdm 显示进度条。
-
 * **lora_request** – 用于生成的 LoRA 请求（如果有）。
-
 * **prompt_adapter_request** – 用于生成的提示适配器请求（如果有）。
 
 
@@ -200,11 +167,8 @@ TODO：束搜索如何与长度惩罚、频率惩罚和停止条件等一起工�
 要执行的工作节点方法的名称，或一个可调用对象，该对象将被序列化并发送到所有工作节点执行。
 
 * 如果方法是可调用对象，则除了传递给 args 和 kwargs 的参数外，还应接受一个额外的 self 参数。self 参数将是工作节点对象。
-
 * **timeout** – 等待执行的最大时间（秒）。超时后引发`TimeoutError`。None表示无限期等待。
-
 * **args** – 传递给工作节点方法的位置参数。
-
 * **kwargs** – 传递给工作节点方法的关键字参数。
 
 
@@ -231,11 +195,8 @@ TODO：束搜索如何与长度惩罚、频率惩罚和停止条件等一起工�
 **参数：**
 
 * **prompts** – 传递给 LLM 的提示。您可以传递一系列提示以进行批量推理。有关每个提示的格式的更多详细信息，请参见`PromptType`。
-
 * **use_tqdm** – 是否使用 tqdm 显示进度条。
-
 * **lora_request** – 用于生成的 LoRA 请求（如果有）。
-
 * **prompt_adapter_request** – 用于生成的提示适配器请求（如果有）。
 
 
@@ -267,13 +228,9 @@ TODO：束搜索如何与长度惩罚、频率惩罚和停止条件等一起工�
 **参数：**
 
 * **prompts** – 传递给 LLM 的提示。您可以传递一系列提示以进行批量推理。有关每个提示的格式的更多详细信息，请参见`PromptType`。
-
 * **pooling_params** – 池化参数。如果为 None，则使用默认池化参数。
-
 * **use_tqdm** – 是否使用 tqdm 显示进度条。
-
 * **lora_request** – 用于生成的 LoRA 请求（如果有）。
-
 * **prompt_adapter_request** – 用于生成的提示适配器请求（如果有）。
 
 
@@ -309,15 +266,10 @@ TODO：束搜索如何与长度惩罚、频率惩罚和停止条件等一起工�
 **参数：**
 
 * **prompts** – 传递给 LLM 的提示。您可以传递一系列提示以进行批量推理。有关每个提示的格式的更多详细信息，请参见`PromptType`。
-
 * **sampling_params** – 文本生成的采样参数。如果为 None，则使用默认采样参数。当它为单个值时，将应用于每个提示。当它为列表时，列表长度必须与提示数量相同，并逐个与提示配对。
-
 * **use_tqdm** – 是否使用 tqdm 显示进度条。
-
 * **lora_request** – 用于生成的 LoRA 请求（如果有）。
-
 * **prompt_adapter_request** – 用于生成的提示适配器请求（如果有）。
-
 * **priority** – 请求的优先级（如果有）。仅在启用优先级调度策略时适用。
 
 
@@ -343,13 +295,9 @@ TODO：束搜索如何与长度惩罚、频率惩罚和停止条件等一起工�
 **参数：**
 
 * **text_1** – 可以是单个提示或提示列表，如果是列表，则必须与`text_2`列表长度相同。
-
 * **text_2** – 与查询配对以形成 LLM 输入的文本。有关每个提示的格式的更多详细信息，请参见`PromptType`。
-
 * **use_tqdm** – 是否使用 tqdm 显示进度条。
-
 * **lora_request** – 用于生成的 LoRA 请求（如果有）。
-
 * **prompt_adapter_request** – 用于生成的提示适配器请求（如果有）。
 
 

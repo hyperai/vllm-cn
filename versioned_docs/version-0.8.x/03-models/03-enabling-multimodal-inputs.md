@@ -82,7 +82,6 @@ class YourModelForImage2Seq(nn.Module, SupportsMultiModal):
 ```
 以下是一些示例：
 * 图像输入（静态特征尺寸）: [LLaVA-1.5 模型](https://github.com/vllm-project/vllm/blob/main/vllm/model_executor/models/llava.py)
-
 * 图像输入（动态特征尺寸）: [LLaVA-NeXT 模型](https://github.com/vllm-project/vllm/blob/main/vllm/model_executor/models/llava_next.py)
 
 
@@ -113,7 +112,6 @@ class YourModelForImage2Seq(nn.Module, SupportsMultiModal):
 以下是一些示例：
 
 * 图像输入（静态特征尺寸）: [LLaVA-1.5 模型](https://github.com/vllm-project/vllm/blob/main/vllm/model_executor/models/llava.py)
-
 * 图像输入（动态特征尺寸）: [LLaVA-NeXT 模型](https://github.com/vllm-project/vllm/blob/main/vllm/model_executor/models/llava_next.py)
 
 
@@ -141,7 +139,6 @@ class YourModelForImage2Seq(nn.Module, SupportsMultiModal):
 一个常见的输入处理器用例是插入占位符 tokens，以利用 vLLM 框架生成注意力掩码。以下是一些示例：
 
 * 插入静态图像 token 数量：[LLaVA-1.5模型](https://github.com/vllm-project/vllm/blob/main/vllm/model_executor/models/llava.py)
-
 * 插入动态数量的图像标记：[LLaVA-NeXT 模型](https://github.com/vllm-project/vllm/blob/main/vllm/model_executor/models/llava_next.py)
 
 

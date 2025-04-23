@@ -17,15 +17,10 @@ vLLM 支持使用 [outlines](https://github.com/dottxt-ai/outlines)、[lm-forma
 支持以下参数，这些参数必须作为额外参数添加：
 
 * `guided_choice`：输出将是选项之一。
-
 * `guided_regex`：输出将遵循正则表达式模式。
-
 * `guided_json`：输出将遵循 JSON 模式。
-
 * `guided_grammar`：输出将遵循上下文无关语法。
-
 * `guided_whitespace_pattern`：用于覆盖引导 JSON 解码的默认空白模式。
-
 * `guided_decoding_backend`：用于选择要使用的引导解码后端。
 
 您可以在 [OpenAI 兼容服务器](https://docs.vllm.ai/en/stable/serving/openai_compatible_server.html#openai-compatible-server) 页面上查看支持的完整参数列表。
@@ -70,7 +65,6 @@ print(completion.choices[0].message.content)
 结构化文本生成中最相关的功能之一是生成具有预定义字段和格式的有效 JSON。为此，我们可以以两种不同的方式使用 `guided_json` 参数：
 
 * 直接使用 [JSON Schema](https://json-schema.org/)。
-
 * 定义一个 [Pydantic 模型](https://docs.pydantic.dev/latest/)，然后从中提取 JSON Schema（这通常是一种更简单的选择）。
 
 
@@ -276,15 +270,10 @@ Answer: x = -29/8
 离线推理允许使用相同类型的引导解码。要使用它，我们需要使用 `SamplingParams` 中的 `GuidedDecodingParams` 类配置引导解码。`GuidedDecodingParams` 中的主要可用选项包括：
 
 * `json`
-
 * `regex`
-
 * `choice`
-
 * `grammar`
-
 * `backend`
-
 * `whitespace_pattern`
 
 

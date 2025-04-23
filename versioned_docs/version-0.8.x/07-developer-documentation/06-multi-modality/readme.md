@@ -254,7 +254,6 @@ vLLM 通过 [vllm.multimodal](https://docs.vllm.ai/en/latest/dev/multimodal/mult
 另见
 
 * [Input Processing Pipeline](https://docs.vllm.ai/en/latest/dev/input_processing/input_processing_pipeline.html#input-processing-pipeline)
-
 * [Enabling Multimodal Inputs](https://docs.vllm.ai/en/latest/models/enabling_multimodal_inputs.html#enabling-multimodal-inputs)
 
 
@@ -273,7 +272,6 @@ vLLM 通过 [vllm.multimodal](https://docs.vllm.ai/en/latest/dev/multimodal/mult
 另见 
 
 * [Input Processing Pipeline](https://docs.vllm.ai/en/latest/dev/input_processing/input_processing_pipeline.html#input-processing-pipeline)
-
 * [Enabling Multimodal Inputs](https://docs.vllm.ai/en/latest/models/enabling_multimodal_inputs.html#enabling-multimodal-inputs)
 
 

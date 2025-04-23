@@ -11,9 +11,7 @@ vLLM 可以通过 [SkyPilot](https://github.com/skypilot-org/skypilot) （一个
 ## 依赖
 
 * 前往 [HuggingFace 模型页面](https://huggingface.co/meta-llama/Meta-Llama-3-8B-Instruct) ， 请求获取模型 `meta-llama/Meta-Llama-3-8B-Instruct`。
-
 * 检查您是否已安装 SkyPilot（[文档](https://skypilot.readthedocs.io/en/latest/getting-started/installation.html)）。
-
 * 检查 `sky check`命令的结果以确认云服务或 Kubernetes 是否已启用。
 
 ```plain

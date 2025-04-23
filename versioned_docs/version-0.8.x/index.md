@@ -13,47 +13,31 @@ vLLM 是一个快速且易于使用的库，专为大型语言模型 (LLM) 的�
 vLLM 的核心特性包括：
 
 * 最先进的服务吞吐量
-
 * 使用 **PagedAttention** 高效管理注意力键和值的内存
-
 * 连续批处理传入请求
-
 * 使用 CUDA/HIP 图实现快速执行模型
-
 * 量化： [GPTQ](https://arxiv.org/abs/2210.17323), [AWQ](https://arxiv.org/abs/2306.00978), INT4, INT8, 和 FP8
-
 * 优化的 CUDA 内核，包括与 FlashAttention 和 FlashInfer 的集成
-
 * 推测性解码
-
 * 分块预填充
 
 
 vLLM 的灵活性和易用性体现在以下方面：
 
 * 无缝集成流行的 HuggingFace 模型
-
 * 具有高吞吐量服务以及各种解码算法，包括*并行采样*、*束搜索*等
-
 * 支持张量并行和流水线并行的分布式推理
-
 * 流式输出
-
 * 提供与 OpenAI 兼容的 API 服务器
-
 * 支持 NVIDIA GPU、AMD CPU 和 GPU、Intel CPU 和 GPU、PowerPC CPU、TPU 以及 AWS Neuron
-
 * 前缀缓存支持
-
 * 支持多 LoRA
 
 
 欲了解更多信息，请参阅以下内容：
 
 * [vLLM announcing blog post](https://vllm.ai) (PagedAttention 教程)
-
 * [vLLM paper](https://arxiv.org/abs/2309.06180) (SOSP 2023)
-
 * [How continuous batching enables 23x throughput in LLM inference
 ](https://www.anyscale.com/blog/continuous-batching-llm-inference) [while reducing p50
 ](https://www.anyscale.com/blog/continuous-batching-llm-inference)[ ](https://www.anyscale.com/blog/continuous-batching-llm-inference)[latency](https://www.anyscale.com/blog/continuous-batching-llm-inference)
@@ -232,5 +216,4 @@ vLLM 的灵活性和易用性体现在以下方面：
 # [索引和表格](https://vllm.hyper.ai/docs/indices-and-tables/index)
 
 * [索引](https://vllm.hyper.ai/docs/indices-and-tables/index)
-
 * [模块索引](https://vllm.hyper.ai/docs/indices-and-tables/python-module-index)

@@ -9,11 +9,8 @@ vLLM 支持采用 ROCm 6.1 的 AMD GPU。
 ## 依赖环境
 
 * 操作系统：Linux
-
 * Python：3.8 -- 3.11
-
 * GPU：MI200s (gfx90a)、MI300 (gfx942)、Radeon RX 7900 系列 (gfx1100)
-
 * ROCm 6.1
 
 
@@ -37,13 +34,9 @@ vLLM 支持采用 ROCm 6.1 的 AMD GPU。
 
 
 * *BASE_IMAGE*：指定运行 `docker build` 时使用的基础镜像，特别是 ROCm 基础镜像上的 PyTorch。
-
 * *BUILD_FA*：指定是否构建 CK flash-attention。默认值为 1。对于 [Radeon RX 7900 系列 (gfx1100)](https://rocm.docs.amd.com/projects/radeon/en/latest/index.html)，在 flash-attention 支持该目标前应将其设置为 0。
-
 * *FX_GFX_ARCHS*：指定用于构建 CK flash-attention 的 GFX 架构，例如 MI200 和 MI300 的 *gfx90a;gfx942*。默认为 *gfx90a;gfx942**。*
-
 * *FA_BRANCH*：指定用于在 [ROCm's flash-attention repo](https://github.com/ROCmSoftwarePlatform/flash-attention) 中构建 CK flash-attention 的分支。默认为 *ae7928c**。*
-
 * *BUILD_TRITON*: 指定是否构建 triton flash-attention。默认值为 1。
 
 
@@ -90,9 +83,7 @@ docker run -it \
 
 
 * [ROCm](https://rocm.docs.amd.com/en/latest/deploy/linux/index.html)
-
 * [PyTorch](https://pytorch.org/)
-
 * [hipBLAS](https://rocm.docs.amd.com/projects/hipBLAS/en/latest/install.html)
 
 
@@ -172,11 +163,8 @@ python3 setup.py develop
 **提示**
 
 * 默认情况下使用 Triton flash attention。进行基准测试时，建议在收集性能数据之前运行预热步骤。
-
 * Triton flash attention 目前不支持滑动窗口 attention。如果使用半精度，请使用 CK flash-attention 来支持滑动窗口。
-
 * 若要使用 CK flash-attention 或 PyTorch naive Attention，请使用此标志 `export VLLM_USE_TRITON_FLASH_ATTN=0` 来关闭 triton flash attention。
-
 * 理想情况下，PyTorch 的 ROCm 版本应与 ROCm 驱动程序版本匹配。
 
 

@@ -346,11 +346,8 @@ class Metrics:
 ```
 以下指标已弃用，并将在未来版本中删除：
 * `vllm:num_requests_swapped`, `vllm:cpu_cache_usage_perc`,  和 `vllm:cpu_prefix_cache_hit_rate` 因为 V1 中没有使用 KV 缓存卸载。
-
 * `vllm:gpu_prefix_cache_hit_rate` 在 V1 中替换为 queries+hits 计数器。
-
 * `vllm:time_in_queue_requests` 与 `vllm:request_queue_time_seconds`重复
-
 * `vllm:model_forward_time_milliseconds` 和 `vllm:model_execute_time_milliseconds` ：因为应该改用预填充/解码/推理时间指标。
 
 

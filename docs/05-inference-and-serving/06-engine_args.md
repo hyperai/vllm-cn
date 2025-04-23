@@ -170,11 +170,8 @@ Hugging Face Hub 上模型代码的特定版本。可以是分支名称、标签
 分词器模式。
 
 * "auto"：如果可用，则使用快速分词器。
-
 * "slow"：始终使用慢速分词器。
-
 * "mistral"：始终使用 mistral_common 分词器。
-
 * "custom"：使用 --tokenizer 选择预注册的分词器。
 
 
@@ -204,19 +201,12 @@ Hugging Face Hub 上模型代码的特定版本。可以是分支名称、标签
 加载模型权重的格式。
 
 * "auto"：尝试以 safetensors 格式加载权重，如果不可用，则回退到 pytorch bin 格式。
-
 * "pt"：以 pytorch bin 格式加载权重。
-
 * "safetensors"：以 safetensors 格式加载权重。
-
 * "npcache"：以 pytorch 格式加载权重，并存储 numpy 缓存以加速加载。
-
 * "dummy"：用随机值初始化权重，主要用于性能分析。
-
 * "tensorizer"：使用 CoreWeave 的 tensorizer 加载权重。有关更多信息，请参阅示例部分中的 Tensorize vLLM Model 脚本。
-
 * "runai_streamer"：使用 Run:ai Model Streamer 加载 Safetensors 权重。
-
 * "bitsandbytes"：使用 bitsandbytes 量化加载权重。
 
 
@@ -245,15 +235,10 @@ Hugging Face Hub 上模型代码的特定版本。可以是分支名称、标签
 模型权重和激活的数据类型。
 
 * "auto": 对于 FP32 和 FP16 模型，使用 FP16 精度；对于 BF16 模型，使用 BF16 精度。
-
 * "half": 使用 FP16 精度。推荐用于 AWQ 量化。
-
 * "float16": 与 "half" 相同。
-
 * "bfloat16": 在精度和范围之间取得平衡。
-
 * "float": FP32 精度的简写。
-
 * "float32": 使用 FP32 精度。
 
 
@@ -298,9 +283,7 @@ KV 缓存存储的数据类型。如果为 "auto"，则使用模型的数据类�
 要使用的模型实现。
 
 * "auto"：如果存在 vLLM 实现，则尝试使用 vLLM 实现；否则回退到 Transformers 实现。
-
 * "vllm"：使用 vLLM 模型实现。
-
 * "transformers"：使用 Transformers 模型实现。
 
 

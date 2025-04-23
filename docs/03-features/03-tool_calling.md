@@ -82,11 +82,8 @@ Result: Getting the weather for San Francisco, CA in fahrenheit...
 此示例演示了以下内容：
 
 * 启用工具调用功能并设置服务器
-
 * 定义一个实际函数来处理工具调用
-
 * 使用 `tool_choice="auto"` 发出请求
-
 * 处理结构化响应并执行相应的函数
 
 
@@ -123,11 +120,8 @@ vLLM 将使用引导式解码来确保响应与 `tools` 参数中定义的 JSO
 要启用此功能，您应设置以下标志：
 
 * `--enable-auto-tool-choice` – **必填**。自动工具选择。告诉 vLLM 您希望启用模型在认为合适时生成自己的工具调用。
-
 * `--tool-call-parser` – 选择要使用的工具解析器（如下所列）。未来将继续添加更多工具解析器，并且您还可以在 `--tool-parser-plugin` 中注册自己的工具解析器。
-
 * `--tool-parser-plugin` – **可选**。工具解析器插件，用于将用户定义的工具解析器注册到 vLLM 中，注册的工具解析器名称可以在 `--tool-call-parser` 中指定。
-
 * `--chat-template` – 自动工具选择的**可选项**。处理 `tool`-角色消息和包含先前生成工具调用的 `assistant`-角色消息的聊天模板路径。Hermes、Mistral 和 Llama 模型在其 `tokenizer_config.json` 文件中具有工具兼容的聊天模板，但您可以指定自定义模板。如果您的模型在 `tokenizer_config.json` 中配置了特定于工具使用的聊天模板，则可以将此参数设置为 `tool_use`。在这种情况下，将根据 transformers 规范使用它。更多信息请参阅 HuggingFace 的[说明](https://huggingface.co/docs/transformers/en/chat_templating#why-do-some-models-have-multiple-templates)；您可以在此处的 `tokenizer_config.json` 中找到[示例](https://huggingface.co/NousResearch/Hermes-2-Pro-Llama-3-8B/blob/main/tokenizer_config.json)。
 
 
@@ -140,9 +134,7 @@ vLLM 将使用引导式解码来确保响应与 `tools` 参数中定义的 JSO
 所有 Nous Research Hermes 系列的模型（比 Hermes 2 Pro 更新的版本）都应支持。
 
 * `NousResearch/Hermes-2-Pro-*`
-
 * `NousResearch/Hermes-2-Theta-*`
-
 * `NousResearch/Hermes-3-*`
 
 
@@ -158,7 +150,6 @@ vLLM 将使用引导式解码来确保响应与 `tools` 参数中定义的 JSO
 支持的模型：
 
 * `mistralai/Mistral-7B-Instruct-v0.3`（已确认）
-
 * 其他 Mistral 函数调用模型也兼容。
 
 
@@ -182,11 +173,8 @@ vLLM 将使用引导式解码来确保响应与 `tools` 参数中定义的 JSO
 支持的模型：
 
 * `meta-llama/Meta-Llama-3.1-8B-Instruct`
-
 * `meta-llama/Meta-Llama-3.1-70B-Instruct`
-
 * `meta-llama/Meta-Llama-3.1-405B-Instruct`
-
 * `meta-llama/Meta-Llama-3.1-405B-Instruct-FP8`
 
 
@@ -237,7 +225,6 @@ Recommended flags: 推荐标志: `--tool-call-parser granite-20b-fc --chat-te
 支持的模型：
 
 * `internlm/internlm2_5-7b-chat`（已确认）
-
 * 其他 `internlm2.5` 函数调用模型也兼容。
 
 
@@ -254,7 +241,6 @@ Recommended flags: 推荐标志: `--tool-call-parser granite-20b-fc --chat-te
 支持 AI21 的 Jamba-1.5 模型。
 
 * `ai21labs/AI21-Jamba-1.5-Mini`
-
 * `ai21labs/AI21-Jamba-1.5-Large`
 
 标志：`--tool-call-parser jamba`
@@ -276,18 +262,14 @@ Recommended flags: 推荐标志: `--tool-call-parser granite-20b-fc --chat-te
 局限性：
 
 * 模型不得在同一生成中同时生成文本和工具调用。对于特定模型来说，这可能不难更改，但社区目前对生成工具调用时发出的 token 缺乏共识。（特别是 Llama 3.2 模型不会发出此类 token。）
-
 * Llama 的小型模型难以有效使用工具。
 
 
 支持的示例模型:
 
 * `meta-llama/Llama-3.2-1B-Instruct*`（与 `examples/tool_chat_template_llama3.2_pythonic.jinja` 一起使用）
-
 * `meta-llama/Llama-3.2-3B-Instruct*`（与 `examples/tool_chat_template_llama3.2_pythonic.jinja` 一起使用）
-
 * `Team-ACE/ToolACE-8B`（与 `examples/tool_chat_template_toolace.jinja` 一起使用）
-
 * `fixie-ai/ultravox-v0_4-ToolACE-8B`（与 `examples/tool_chat_template_toolace.jinja` 一起使用）
 
 标志: `--tool-call-parser pythonic --chat-template {see_above}`

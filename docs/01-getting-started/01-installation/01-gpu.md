@@ -32,7 +32,6 @@ vLLM 最初在 Intel GPU 平台上支持基础的模型推理和服务。
 # 需求
 
 * 系统：Linux
-
 * Python: 3.9 – 3.12
 
 ## NVIDIA CUDA
@@ -42,13 +41,11 @@ vLLM 最初在 Intel GPU 平台上支持基础的模型推理和服务。
 ## AMD ROCm
 
 * GPU: MI200s (gfx90a)、MI300 (gfx942)、Radeon RX 7900 系列 (gfx1100)
-
 * ROCm 6.3
 
 ## Inter XPU
 
 * 支持硬件：Intel Data Center GPU、Intel ARC GPU
-
 * OneAPI 要求:  oneAPI 2024.2
 
 
@@ -232,7 +229,6 @@ pip install -e .
 某些情况下，PyTorch 依赖无法通过 pip 安装，例如：
 
 * 使用 PyTorch nightly 版本或自定义 PyTorch 构建版本来编译 vLLM
-
 * 在 aarch64 架构且支持 CUDA（GH200）的环境下编译 vLLM（PyPI 未提供对应 PyTorch 预编译包）。目前仅 PyTorch nightly 版本提供 aarch64 架构的 CUDA 预编译包。可通过运行 `pip3 install --pre torch torchvision torchaudio --index-url [https://download.pytorch.org/whl/nightly/cu124](https://download.pytorch.org/whl/nightly/cu124)` 安装 PyTorch nightly 版本，然后在其基础上编译 vLLM
 
 
@@ -315,7 +311,6 @@ pip install -e .
 1. 安装依赖（如果你已经处于一个已安装以下内容的环境中或 Docker 容器中，则可以跳过此步骤）: 
 
 * [ROCm](https://rocm.docs.amd.com/en/latest/deploy/linux/index.html)
-
 * [PyTorch](https://pytorch.org/)
 
 对于安装 PyTorch，您可以从 1 个新的 docker 镜像开始，例如 `rocm/pytorch:rocm6.3_ubuntu24.04_py3.12_pytorch_release_2.4.0`、`rocm/pytorch-nightly`。如果你正在使用 docker 镜像，跳到步骤 3。
@@ -406,7 +401,6 @@ python3 setup.py develop
 ### Inter XPU
 
 * 首先，安装所需的驱动程序和 intel OneAPI 2024.2 (或更高版本)。
-
 * 其次，安装用于 vLLM XPU 后端构建的 Python 包：
 
 ```plain
@@ -504,11 +498,8 @@ DOCKER_BUILDKIT=1 docker build -f Dockerfile.rocm_base -t rocm/vllm-dev:base .
 [Dockerfile.rocm](https://github.com/vllm-project/vllm/blob/main/Dockerfile.rocm) 默认使用 ROCm 6.3，但也支持 ROCm 5.7、6.0、6.1 和 6.2（在较旧的 vLLM 分支中）。它提供了以下构建参数以灵活构建自定义 Docker 镜像：
 
 * `BASE_IMAGE`：指定构建 Docker 镜像时使用的基础镜像。默认值 `rocm/vllm-dev:base` 是由 AMD 发布和维护的镜像，它是使用 `Dockerfile.rocm_base` 构建的。
-
 * `USE_CYTHON`：在 Docker 构建时对部分 Python 文件子集运行 Cython 编译的选项。
-
 * `BUILD_RPD`：在镜像中包含 RocmProfileData 性能分析工具。
-
 * `ARG_PYTORCH_ROCM_ARCH`：允许覆盖基础镜像中的 gfx 架构值。
 
 这些参数可以通过 `--build-arg` 选项传递给 `docker build` 命令。

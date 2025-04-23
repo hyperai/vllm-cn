@@ -21,7 +21,6 @@ title: Python 多进程
 在 vLLM 中使用 Python 多进程的复杂性在于：
 
 * vLLM 作为库使用，无法控制使用 vLLM 的代码
-
 * 多进程方法与 vLLM 依赖项之间存在不同程度的不兼容性
 
 本文档描述了 vLLM 如何应对这些难题。
@@ -32,9 +31,7 @@ title: Python 多进程
 [Python 多进程方法](https://docs.python.org/3/library/multiprocessing.html#contexts-and-start-methods)包括：
 
 * `spawn` - 生成一个新的 Python 进程。这将是 Python 3.14 的默认方法。
-
 * `fork` - 使用 `os.fork()` 来 fork Python 解释器。这是 Python 3.14 之前版本的默认方法。
-
 * `forkserver` - 生成一个服务器进程，该进程将在请求时 fork 一个新进程。
 
 
@@ -58,9 +55,7 @@ title: Python 多进程
 多个 vLLM 依赖项表明它们更倾向于或要求使用 `spawn`：
 
 * [https://pytorch.org/docs/stable/notes/multiprocessing.html#cuda-in-multiprocessing](https://pytorch.org/docs/stable/notes/multiprocessing.html#cuda-in-multiprocessing)
-
 * [https://pytorch.org/docs/stable/multiprocessing.html#sharing-cuda-tensors](https://pytorch.org/docs/stable/multiprocessing.html#sharing-cuda-tensors)
-
 * [https://docs.habana.ai/en/latest/PyTorch/Getting_Started_with_PyTorch_and_Gaudi/Getting_Started_with_PyTorch.html?highlight=multiprocessing#torch-multiprocessing-for-dataloaders](https://docs.habana.ai/en/latest/PyTorch/Getting_Started_with_PyTorch_and_Gaudi/Getting_Started_with_PyTorch.html?highlight=multiprocessing#torch-multiprocessing-for-dataloaders)
 
 
@@ -86,7 +81,6 @@ title: Python 多进程
 还有其他一些地方硬编码了 `spawn` 的使用：
 
 * [vllm-project/vllm](https://github.com/vllm-project/vllm/blob/d05f88679bedd73939251a17c3d785a354b2946c/vllm/distributed/device_communicators/custom_all_reduce_utils.py#L135)
-
 * [vllm-project/vllm](https://github.com/vllm-project/vllm/blob/d05f88679bedd73939251a17c3d785a354b2946c/vllm/entrypoints/openai/api_server.py#L184)
 
 
@@ -106,9 +100,7 @@ title: Python 多进程
 当启用时，v1 `LLMEngine` 将创建一个新进程来运行引擎核心。
 
 * [vllm-project/vllm](https://github.com/vllm-project/vllm/blob/d05f88679bedd73939251a17c3d785a354b2946c/vllm/v1/engine/llm_engine.py#L93-L95)
-
 * [vllm-project/vllm](https://github.com/vllm-project/vllm/blob/d05f88679bedd73939251a17c3d785a354b2946c/vllm/v1/engine/llm_engine.py#L70-L77)
-
 * [vllm-project/vllm](https://github.com/vllm-project/vllm/blob/d05f88679bedd73939251a17c3d785a354b2946c/vllm/v1/engine/core_client.py#L44-L45)
 
 
@@ -121,9 +113,7 @@ title: Python 多进程
 Python 的 `multiprocessing` 并没有一个简单的解决方案可以在所有地方都适用。作为第一步，我们可以将 v1 调整到一个状态，使其“尽力而为”地选择多进程方法以最大化兼容性。
 
 * 默认使用 `fork`。
-
 * 当我们知道我们控制主进程时（执行了 `vllm`），使用 `spawn`。
-
 * 如果我们检测到 `cuda` 之前已经初始化，则强制使用 `spawn` 并发出警告。我们知道 `fork` 会失败，所以这是我们能做的最好的事情。
 
 
@@ -201,11 +191,8 @@ RuntimeError:
 ## 未来工作
 
 * 我们未来可能会考虑采用不同的工作进程管理方法，以绕过这些挑战。
-
 * 我们可以实现类似于 `forkserver` 的东西，但让进程管理器成为我们最初通过运行自己的子进程和自定义入口点来启动的东西（启动一个 `vllm-manager` 进程）。
-
 * 我们可以探索其他可能更适合我们需求的库。可以考虑的示例：
-
 * [joblib/loky](https://github.com/joblib/loky)
 
 

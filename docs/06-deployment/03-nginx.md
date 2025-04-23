@@ -107,11 +107,8 @@ docker network create vllm_nginx
 注意：
 
 * 如果你的 HuggingFace 模型缓存目录不同，请修改 `hf_cache_dir` 变量。
-
 * 如果你没有 HuggingFace 缓存，建议先启动 `vllm0`，等待模型下载完成并服务器准备就绪后再启动 `vllm1`，以避免重复下载模型。
-
 * 以下示例假设使用 GPU，如使用 CPU，请移除 `--gpus device=ID`，并添加 `VLLM_CPU_KVCACHE_SPACE` 和 `VLLM_CPU_OMP_THREADS_BIND` 环境变量。
-
 * 若需更改 vLLM 服务器使用的模型，请调整 `meta-llama/Llama-2-7b-chat-hf` 为所需模型名称。
 
 

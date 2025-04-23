@@ -178,7 +178,6 @@ curl -X POST http://localhost:8000/v1/unload_lora_adapter \
 
 
 * LoRA 模型 sql-lora 的父字段现在链接到其基础模型 *meta-llama/Llama-2-7b-hf*。这正确地反映了基础模型与 LoRA 适配器之间的层次关系。
-
 * *root* 字段指向 lora 适配器的工件位置。
 
 ```plain

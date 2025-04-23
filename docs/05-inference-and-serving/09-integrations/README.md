@@ -9,7 +9,6 @@ title: 外部集成
 
 
 * [LangChain](https://docs.vllm.ai/en/latest/serving/integrations/langchain.html)
-
 * [LlamaIndex](https://docs.vllm.ai/en/latest/serving/integrations/llamaindex.html)
 
 

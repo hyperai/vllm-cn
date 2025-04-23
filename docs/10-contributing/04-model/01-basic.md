@@ -29,7 +29,6 @@ title: 实现基础模型
 模型中的所有 vLLM 模块必须在构造函数中包含一个 `prefix` 参数。这个 `prefix` 通常是模块在模型状态字典中的全名，对于以下情况至关重要：
 
 * 运行时支持：vLLM 的注意力操作符通过其全名注册在模型的状态中。每个注意力操作符必须有一个唯一的 `prefix` 作为其层名，以避免冲突。
-
 * 非均匀量化支持：量化检查点可以选择性地量化某些层，同时保持其他层的全精度。通过在初始化时提供 `prefix`，vLLM 可以将当前层的 `prefix` 与量化配置匹配，以确定是否应以量化模式初始化该层。
 
 
@@ -107,13 +106,9 @@ def forward(
 如果您的模型太大，无法放入单个 GPU，您可以使用张量并行来管理它。为此，请将模型的线性和嵌入层替换为其张量并行版本。对于嵌入层，您可以直接将 `torch.nn.Embedding` 替换为 `VocabParallelEmbedding`。对于输出 LM 头，您可以使用 `ParallelLMHead`。对于线性层，我们提供以下选项来并行化它们：
 
 * `ReplicatedLinear`：在多个 GPU 上复制输入和权重。不节省内存。
-
 * `RowParallelLinear`：输入张量沿隐藏维度分区。权重矩阵沿行（输入维度）分区。矩阵乘法后执行 *all-reduce* 操作以减少结果。通常用于第二个 FFN 层和注意力层的输出线性变换。
-
 * `ColumnParallelLinear`：输入张量被复制。权重矩阵沿列（输出维度）分区。结果沿列维度分区。通常用于第一个 FFN 层和原始 Transformer 中注意力层的分离 QKV 变换。
-
 * `MergedColumnParallelLinear`：合并多个 `ColumnParallelLinear` 操作符的列并行线性层。通常用于带有加权激活函数（例如 SiLU）的第一个 FFN 层。此类处理多个权重矩阵的分片权重加载逻辑。
-
 * `QKVParallelLinear`：用于多头和分组查询注意力机制的查询、键和值投影的并行线性层。当键/值头的数量少于世界大小时，此类会正确复制键/值头。此类处理权重矩阵的加载和复制。
 
 
@@ -140,7 +135,6 @@ def forward(
 要支持具有交错滑动窗口的模型，我们需要注意以下细节：
 
 * 确保[此行](https://github.com/vllm-project/vllm/blob/996357e4808ca5eab97d4c97c7d25b3073f46aab/vllm/config.py#L308)将 `has_interleaved_attention` 评估为 `True`，并将 `self.hf_text_config.interleaved_sliding_window` 设置为模型可以理解的交错滑动窗口格式。然后，`self.hf_text_config.sliding_window` 将被删除，模型将被视为全注意力模型。
-
 * 在建模代码中，解析每一层的正确滑动窗口值，并将其传递给注意力层的 `per_layer_sliding_window` 参数。作为参考，请查看[此行](https://github.com/vllm-project/vllm/blob/996357e4808ca5eab97d4c97c7d25b3073f46aab/vllm/model_executor/models/llama.py#L171)。
 
 

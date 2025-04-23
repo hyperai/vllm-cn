@@ -17,9 +17,7 @@ title: 可选接口
 输出嵌入必须是以下格式之一：
 
 * **2D 张量的列表或元组，其中每个张量对应于**
-
    * 每个输入多模态数据项（例如，图像）。
-
 * 单个 3D 张量，批次维度将 2D 张量分组。
 
 别名为 `Union`[`list`[`Tensor`], `Tensor`, `tuple`[`Tensor`, …]]
@@ -179,5 +177,3 @@ title: 可选接口
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/model_executor/models/interfaces.py#L505)
 
 具有此接口的模型与 V1 vLLM 不兼容。
-
-

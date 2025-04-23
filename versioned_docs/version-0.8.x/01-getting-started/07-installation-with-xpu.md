@@ -16,9 +16,7 @@ vLLM 最初在 Intel GPU 平台上支持基本模型推理和服务。
 ## 依赖环境
 
 * 操作系统：Linux
-
 * 支持的硬件：英特尔数据中心 GPU（英特尔 ARC GPU WIP）
-
 * OneAPI 要求：oneAPI 2024.1
 
 
@@ -38,7 +36,6 @@ docker run -it \
 ## 从源代码构建
 
 * 首先，安装所需的驱动程序和 intel OneAPI 2024.1 (或更高版本)。
-
 * 其次，安装用于 vLLM XPU 后端构建的 Python 包:
 
 ```plain

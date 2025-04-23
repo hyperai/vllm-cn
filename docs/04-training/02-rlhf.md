@@ -18,9 +18,7 @@ vLLM 可用于生成 RLHF 的补全内容。最佳实践是使用诸如 [TRL](h
 
 
 * [训练和推理过程位于不同的 GPU 上（灵感来自 OpenRLHF）](https://docs.vllm.ai/en/latest/getting_started/examples/rlhf.html)
-
 * [使用 Ray 将训练和推理过程共置于同一 GPU 上](https://docs.vllm.ai/en/latest/getting_started/examples/rlhf_colocate.html)
-
 * [使用 vLLM 执行 RLHF 的实用工具](https://docs.vllm.ai/en/latest/getting_started/examples/rlhf_utils.html)
 
 

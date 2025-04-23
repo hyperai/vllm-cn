@@ -40,7 +40,6 @@ print(completion.choices[0].message)
 有关 API 的更多信息，请参阅 [OpenAI API 参考](https://platform.openai.com/docs/api-reference)。我们支持除以下参数的所有参数：
 
 * Chat：`tools` 和 `tool_choice`。
-
 * Completions：`suffix`。
 
 
@@ -548,9 +547,7 @@ tokenizer 模式。
 
 
 * 「auto」将使用快速 tokenizer (如果可用)。
-
 * 「slow」将始终使用慢 tokenizer。
-
 * 「mistral」将始终使用 mistral_common tokenizer 。
 
 
@@ -579,17 +576,11 @@ tokenizer 模式。
 
 
 * 「auto」将尝试以 safetensors 格式加载权重，如果 safetensors 格式不可用，则会回退到 pytorch bin 格式。
-
 * 「pt」将以 pytorch bin 格式加载权重。
-
 * 「safetensors」将以 safetensors 格式加载权重。
-
 * 「npcache」将以 pytorch 格式加载权重，并存储 numpy 缓存以加快加载速度。
-
 * 「dummy」将使用随机值初始化权重，主要用于性能分析。
-
 * 「tensorizer」将使用 CoreWeave 的张量器加载权重。有关详细信息，请参阅示例部分中的 Tensorize vLLM 模型脚本。
-
 * 「bitsandbytes」将使用 bitsandbytes 量化来加载权重。
 
 
@@ -618,15 +609,10 @@ tokenizer 模式。
 模型权重和激活的数据类型。
 
 * 「auto」将对 FP32 和 FP16 型号使用 FP16 精度，对 BF16 型号使用 BF16 精度。
-
 * 「half」用于 FP16，推荐用于 AWQ 量化。
-
 * 「float16」与「half」相同。
-
 * 「bfloat16」用于在精度和范围之间取得平衡。
-
 * 「float」是 FP32 精度的简写。
-
 * 「float32」表示 FP32 精度。
 
 
@@ -1196,9 +1182,7 @@ vLLM 将使用引导式解码机制，以确保响应内容与 `tools` 参数中
 要启用此功能，你需要设置以下标志：
 
 * `--enable-auto-tool-choice` — **强制**启用自动工具选择。它告诉 vLLM，当模型认为适当时，你希望启用模型自行生成工具调用。
-
 * `--tool-call-parser` — 选择要使用的工具解析器——目前可以选择 `hermes` 或 `mistral`。未来将继续添加其他工具解析器。
-
 * `--chat-template` — 自动工具选择的**可选配置**。指定聊天模板的路径，该模板用于处理 `tool` 角色消息和包含先前生成的工具调用的 `assistant` 角色消息。Hermes 和 Mistral 模型在其 `tokenizer_config.json` 文件中有与工具兼容的聊天模板，但你可以指定自定义模板。如果您的模型在 `tokenizer_config.json` 中配置了特定于工具使用的场景聊天模板，这个参数可以设置为 `tool_use`。这种情况下，它将按照 `transformers` 规范使用。有关更多信息，可以在 HuggingFace 的[相关文档](https://huggingface.co/docs/transformers/en/chat_templating#why-do-some-models-have-multiple-templates)中找到；您可以在 tokenizer_config.json [示例](https://huggingface.co/NousResearch/Hermes-2-Pro-Llama-3-8B/blob/main/tokenizer_config.json)中看到这一点。
 
 
@@ -1210,9 +1194,7 @@ vLLM 将使用引导式解码机制，以确保响应内容与 `tools` 参数中
 支持所有 Nous Research Hermes 系列的模型（Hermes 2 Pro 及更高版本）。
 
 * `NousResearch/Hermes-2-Pro-*`
-
 * `NousResearch/Hermes-2-Theta-*`
-
 * `NousResearch/Hermes-3-*`
 
 
@@ -1227,7 +1209,6 @@ vLLM 将使用引导式解码机制，以确保响应内容与 `tools` 参数中
 支持的模型：
 
 * `mistralai/Mistral-7B-Instruct-v0.3`（已确认）
-
 * 其他 Mistral 函数调用模型也兼容。
 
 
@@ -1238,7 +1219,6 @@ vLLM 将使用引导式解码机制，以确保响应内容与 `tools` 参数中
 2. Mistral 的 `tokenizer_config.json` 聊天模板要求工具调用 ID 恰好为 9 位，这比 vLLM 生成的 ID 短的多。由于不符合该条件时会引发异常，因此提供了以下额外的聊天模板：
 
 * `examples/tool_chat_template_mistral.jinja` - 这是「官方」的 Mistral 聊天模板，但经过了调整，以适应 vLLM 的工具调用 ID（提供的 `tool_call_id` 字段被截断为最后 9 位）
-
 * `examples/tool_chat_template_mistral_parallel.jinja` - 这是一个「更好」的版本，当提供工具时，它会添加一个工具使用系统提示，这在处理并行工具调用时可靠性会更高。
 
 

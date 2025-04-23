@@ -166,32 +166,21 @@ for output in outputs:
 HF hub 上提供了多种此类推测模型：
 
 * [llama-13b-accelerator](https://huggingface.co/ibm-fms/llama-13b-accelerator)
-
 * [llama3-8b-accelerator](https://huggingface.co/ibm-fms/llama3-8b-accelerator)
-
 * [codellama-34b-accelerator](https://huggingface.co/ibm-fms/codellama-34b-accelerator)
-
 * [llama2-70b-accelerator](https://huggingface.co/ibm-fms/llama2-70b-accelerator)
-
 * [llama3-70b-accelerator](https://huggingface.co/ibm-fms/llama3-70b-accelerator)
-
 * [granite-3b-code-instruct-accelerator](https://huggingface.co/ibm-granite/granite-3b-code-instruct-accelerator)
-
 * [granite-8b-code-instruct-accelerator](https://huggingface.co/ibm-granite/granite-8b-code-instruct-accelerator)
-
 * [granite-7b-instruct-accelerator](https://huggingface.co/ibm-granite/granite-7b-instruct-accelerator)
-
 * [granite-20b-code-instruct-accelerator](https://huggingface.co/ibm-granite/granite-20b-code-instruct-accelerator)
 
 
 ## 相关 vLLM 贡献者的资源
 
 * [黑客指南：vLLM 中的推测解码](https://www.youtube.com/watch?v=9wNAgpX6z_4)
-
 * [什么是 vLLM 中的预取调度？](https://docs.google.com/document/d/1Z9TvqzzBPnh5WHcRwjvK2UEeFeq5zMZb5mFE8jR0HCs/edit#heading=h.1fjfb0donq5a)
-
 * [关于批量扩展的信息](https://docs.google.com/document/d/1T-JaS2T1NRfdP51qzqpyakoCXxSXTtORppiwaj5asxA/edit#heading=h.kk7dq05lc6q8)
-
 * [动态推测解码](https://github.com/vllm-project/vllm/issues/4565)
 
 

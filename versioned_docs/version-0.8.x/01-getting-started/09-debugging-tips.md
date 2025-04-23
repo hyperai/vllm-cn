@@ -9,9 +9,7 @@ title: 调试技巧
 
 
 * **下载模型**: 您的磁盘中是否已经下载了模型？如果没有，vLLM 将从互联网上下载模型，这可能需要很长时间。请务必检查互联网连接。最好先使用 [huggingface-cli](https://huggingface.co/docs/huggingface_hub/en/guides/cli) 下载模型，然后使用模型的本地路径。这样可以就没有问题了。
-
 * **从磁盘加载模型**: 如果模型很大，从磁盘加载模型可能需要很长时间。请注意存储模型的位置。一些集群在节点之间共享文件系统的速度可能很慢，例如分布式文件系统或网络文件系统。最好将模型存储在本地磁盘中。另外，还请注意 CPU 内存使用情况。当模型太大时，可能会占用大量 CPU 内存，这可能会降低操作系统的速度，因为它需要频繁地在磁盘和内存之间交换内存。
-
 * **张量并行推理**: 如果模型太大而无法容纳在单个 GPU 中，您可能需要使用张量并行将模型拆分到多个 GPU 上。在这种情况下，每个进程都会读取整个模型并将其拆分成块，这会使磁盘读取时间更长（与张量并行度的大小成正比）。您可以使用[该脚本](https://docs.vllm.ai/en/latest/getting_started/examples/save_sharded_state.html)将模型检查点转换为分片检查点。转换过程可能需要一些时间，但之后您可以更快地加载分片检查点。无论张量并行度的大小如何，模型加载时间都应维持稳定。
 
 
@@ -19,11 +17,8 @@ title: 调试技巧
 
 
 * 设置环境变量 `export VLLM_LOGGING_LEVEL=DEBUG` 以打开更多日志记录。  
-
 * 设置环境变量 `export CUDA_LAUNCH_BLOCKING=1` 以准确定位哪个 CUDA 内核引发了问题。  
-
 * 设置环境变量 `export NCCL_DEBUG=TRACE` 以开启 NCCL 的更多日志记录。  
-
 * 设置环境变量 `export VLLM_TRACE_FUNCTION=1`。vLLM 中的所有函数调用将被记录下来。检查这些日志文件，找出哪个函数崩溃或挂起。
 
 
@@ -37,7 +32,6 @@ title: 调试技巧
 
 
 * 错误的网络设置：如果你的网络配置很复杂，vLLM 实例可能无法获取正确的 IP 地址。您可以找到类似 `DEBUG 06-10 21:32:17 parallel_state.py:88] world_size=8rank=0 local_rank=0Distributed_init_method=tcp://xxx.xxx.xxx.xxx:54641 backend=nccl` 这样的日志。IP 地址应该是正确的。如果不正确，请通过设置环境变量 `export VLLM_HOST_IP=your_ip_address` 来覆盖 IP 地址。您可能还需要设置 `export NCCL_SOCKET_IFNAME=your_network_interface` 和 `export GLOO_SOCKET_IFNAME=your_network_interface` 来指定 IP 地址的网络接口。
-
 * 错误的硬件 / 驱动：无法建立 GPU/CPU 通信。您可以运行以下完整性检查脚本来查看 GPU/CPU 通信是否正常工作。
 
 ```python
@@ -130,9 +124,7 @@ dist.destroy_process_group()
 
 
 * 是主节点的正确 IP 地址
-
 * 所有节点均可访问
-
 * 在运行脚本之前设置
 
 

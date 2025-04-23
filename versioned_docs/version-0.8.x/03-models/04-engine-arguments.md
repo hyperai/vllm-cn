@@ -150,17 +150,11 @@ tokenizer 模式。
 
 
 * 「auto」将尝试以 safetensors 格式加载权重，如果 safetensors 格式不可用，则回退到 pytorch bin 格式。
-
 * 「pt」将以 PyTorch bin 格式加载权重。
-
 * 「safetensors」将以 safetensors 格式加载权重。
-
 * 「npcache」将以 PyTorch 格式加载权重，并存储一个 NumPy 缓存以加快加载速度。
-
 * 「dummy」将使用随机值初始化权重，主要用于性能分析。
-
 * 「tensorizer」将使用 CoreWeave 的张量器加载权重。有关详细信息，请参阅示例部分中的 Tensorize vLLM 模型脚本。
-
 * 「bitsandbytes」将使用 bitsandbytes 量化加载权重。
 
 
@@ -188,15 +182,10 @@ tokenizer 模式。
 模型权重和激活的数据类型。
 
 * 「auto」将对 FP32 和 FP16 模型使用 FP16 精度，对 BF16 模型使用 BF16 精度。
-
 * 「half」表示 FP16。推荐用于 AWQ 量化。
-
 * 「float16」与「half」相同。
-
 * 「bfloat16」用于精度和范围之间的取得平衡。
-
 * 「float」是 FP32 精度的简写。
-
 * 「float32」表示 FP32 精度。
 
 

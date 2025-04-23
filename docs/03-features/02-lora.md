@@ -189,7 +189,6 @@ curl -X POST http://localhost:8000/v1/unload_lora_adapter \
 新版的 –lora-modules 格式主要用于支持在模型卡中显示父模型信息。以下是你的当前响应如何支持此功能的说明：
 
 * LoRA 模型 sql-lora 的父字段现在链接到其基础模型 *meta-llama/Llama-2-7b-hf*。这正确反映了基础模型与 LoRA 适配器之间的层次关系。
-
 * *root* 字段指向 lora 适配器的构建位置。
 
 ```plain

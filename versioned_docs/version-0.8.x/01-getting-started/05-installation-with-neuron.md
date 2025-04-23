@@ -9,13 +9,9 @@ title: 使用 Neuron 安装
 ## 依赖环境
 
 * 操作系统：Linux
-
 * Python：3.8 -- 3.11
-
 * 加速器：NeuronCore_v2（在 trn1/inf2 实例中）
-
 * Pytorch 2.0.1/2.1.1
-
 * AWS Neuron SDK 2.16/2.17（在 python 3.8 上验证）
 
 
@@ -44,13 +40,9 @@ title: 使用 Neuron 安装
 以下是启动 trn1/inf2 实例的步骤，以便在 Ubuntu 22.04 LTS 上安装 [PyTorch Neuron ("torch-neuronx") 设置](https://awsdocs-neuron.readthedocs-hosted.com/en/latest/general/setup/neuron-setup/pytorch/neuronx/ubuntu/torch-neuronx-ubuntu22.html)。
 
 * 请按照[启动 Amazon EC2 实例](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EC2_GetStarted.html#ec2-launch-instance)中的说明启动实例。在 EC2 控制台选择实例类型时，请确保选择正确的实例类型。
-
 * 要获取有关实例大小和定价的更多信息，请参阅：[Trn1 网页](https://aws.amazon.com/ec2/instance-types/trn1/)、[Inf2 网页](https://aws.amazon.com/ec2/instance-types/inf2/)。
-
 * 选择 Ubuntu Server 22.04 TLS AMI
-
 * 启动 Trn1/Inf2 时，请将您的主 EBS 卷大小调整为至少 512GB。
-
 * 启动实例后，按照[连接到您的实例](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AccessingInstancesLinux.html)中的说明连接到实例
 
 

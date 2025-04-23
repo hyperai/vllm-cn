@@ -127,7 +127,6 @@ outputs = llm.chat(conversation, chat_template=custom_template)
 我们的 [OpenAI 兼容服务器](#openai-compatible-server)提供了与离线 API 对应的端点：
 
 * [Completions API](#completions-api) 类似于 LLM.generate，但只接受文本。
-
 * [Chat API](#chat-api) 类似于 LLM.chat，它接受文本和[多模态输入](#multimodal-inputs)，适用于具有聊天模板的模型。
 
 

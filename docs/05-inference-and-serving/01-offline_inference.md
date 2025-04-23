@@ -25,7 +25,6 @@ llm = LLM(model="facebook/opt-125m")
 
 
 * [生成模型](https://docs.vllm.ai/en/latest/models/generative_models.html#generative-models)：输出对数概率，通过采样获得最终输出文本。
-
 * [池化模型](https://docs.vllm.ai/en/latest/models/pooling_models.html#pooling-models)：直接输出其隐藏状态。
 
 
@@ -47,9 +46,7 @@ llm = LLM(model="facebook/opt-125m")
 vLLM 通过检查模型仓库中 `config.json` 的 `architectures` 字段并找到注册到 vLLM 的相应实现来加载与 HuggingFace 兼容的模型。然而，我们的模型解析可能会因以下原因失败：
 
 * 模型仓库的 `config.json` 缺少 `architectures` 字段。
-
 * 非官方仓库使用未在 vLLM 中记录的替代名称引用模型。
-
 * 相同的架构名称用于多个模型，导致加载哪个模型存在歧义。
 
 
@@ -120,7 +117,6 @@ llm = LLM(model="adept/fuyu-8b",
 如果您的 CPU RAM 不足，请尝试以下选项：
 
 * （仅限多模态模型）您可以使用环境变量（默认为 4 GiB）设置多模态输入缓存的大小 `VLLM_MM_INPUT_CACHE_GIB`。
-
 * （仅限 CPU 后端）您可以使用环境变量（默认 4 GiB）`VLLM_CPU_KVCACHE_SPACE` 设置 KV 缓存的大小。
 
 ### 
