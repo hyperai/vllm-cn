@@ -4,7 +4,7 @@ title: 生成模型
 
 [\*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
 
-vLLM能够很好地支持生成模型，它兼容并能够有效运行大多数的大型语言模型。 (LLMs)。
+vLLM能够很好地支持生成模型，它兼容并能够有效运行大多数的大型语言模型 (LLMs)。
 
 在 vLLM 中，生成模型实现了 VllmModelForTextGeneration 接口。这些模型基于输入的最终隐藏状态，输出生成 token 的对数概率，然后通过 Sampler 处理获取最终文本。
 
@@ -100,7 +100,6 @@ for output in outputs:
 ```python
 from vllm.entrypoints.chat_utils import load_chat_template
 
-# You can find a list of existing chat templates under examples/
 # 您可以在 examples/ 下找到现有聊天模板的列表
 custom_template = load_chat_template(chat_template="<path_to_template>")
 print("Loaded chat template:", custom_template)
