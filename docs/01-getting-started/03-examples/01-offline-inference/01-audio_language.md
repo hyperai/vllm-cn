@@ -9,12 +9,6 @@ title: Audio Language
 ```python
 # SPDX-License-Identifier: Apache-2.0
 """
-This example shows how to use vLLM for running offline inference
-with the correct prompt format on audio language models.
-For most models, the prompt format should follow corresponding examples
-on HuggingFace model repository.
-"""
-"""
 此示例显示了如何使用 vLLM 进行离线推理运行
 使用音频语言模型的正确及时格式。
 对于大多数型号，及时格式应遵循相应的示例
@@ -47,9 +41,6 @@ class ModelRequestData(NamedTuple):
     lora_requests: Optional[list[LoRARequest]] = None
 
 
-# NOTE: The default `max_num_seqs` and `max_model_len` may result in OOM on
-# lower-end GPUs.
-# Unless specified, these settings have been tested to work on a single L4.
 # 注意：默认的 `max_num_seqs` 和 `max_model_len` 可能会导致低端 GPU 出现 OOM（内存溢出）。
 # 除非另有说明，这些设置已在单张 L4 GPU 上经过测试可正常运行。
 
@@ -95,8 +86,6 @@ def run_phi4mm(question: str, audio_count: int) -> ModelRequestData:
     show how to process audio inputs.
     """
     model_path = snapshot_download("microsoft/Phi-4-multimodal-instruct")
-    # Since the vision-lora and speech-lora co-exist with the base model,
-    # we have to manually specify the path of the lora weights.
     # 由于 vision-lora 和 speech-lora 与基本模型共存，所以
     # 我们必须手动指定 lora 权重的路径。
     speech_lora_path = os.path.join(model_path, "speech-lora")
@@ -149,7 +138,6 @@ def run_qwen2_audio(question: str, audio_count: int) -> ModelRequestData:
 
 
 # Ultravox 0.5-1B
-# Ultravox 0.5-1b
 def run_ultravox(question: str, audio_count: int) -> ModelRequestData:
     model_name = "fixie-ai/ultravox-v0_5-llama-3_2-1b"
 
@@ -219,9 +207,6 @@ def main(args):
     engine_args = asdict(req_data.engine_args) | {"seed": args.seed}
     llm = LLM(**engine_args)
 
-    # To maintain code compatibility in this script, we add LoRA here.
-    # You can also add LoRA using:
-    # llm.generate(prompts, lora_request=lora_request,...)
     # 要维护此脚本中的代码兼容性，我们在此处添加 Lora。
     # 您还可以使用:
     # llm.generate (提示，lora_request = lora_request，...)
@@ -229,8 +214,6 @@ def main(args):
         for lora_request in req_data.lora_requests:
             llm.llm_engine.add_lora(lora_request=lora_request)
 
-    # We set temperature to 0.2 so that outputs can be different
-    # even when all prompts are identical when running batch inference.
     # 我们将温度设置为0.2，以便输出可能不同
     # 即使在运行批处理推理时所有提示都相同。
     sampling_params = SamplingParams(temperature=0.2,
@@ -249,7 +232,6 @@ def main(args):
     assert args.num_prompts > 0
     inputs = {"prompt": req_data.prompt, "multi_modal_data": mm_data}
     if args.num_prompts > 1:
-        # Batch inference
         # 批次推理
         inputs = [inputs] * args.num_prompts
 
