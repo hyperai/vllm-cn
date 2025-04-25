@@ -65,9 +65,9 @@ vLLM 在以下方面非常灵活且易于使用：
 
 ## 文档
 
-### 入门
+### 快速开始
 
-安装
+[安装](https://vllm.hyper.ai/docs/getting-started/installation/)
 
 快速开始
 
