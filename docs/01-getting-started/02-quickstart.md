@@ -45,8 +45,6 @@ pip install vllm
 
 ## 离线批量推理
 
-离线批量推理
-
 安装 vLLM 后，您可以开始为输入提示列表生成文本（即离线批量推理）。请参阅示例脚本：[examples/offline_inference/basic/basic.py](https://github.com/vllm-project/vllm/blob/main/examples/offline_inference/basic/basic.py)
 
 该示例的第一行导入了 LLM 和 SamplingParams 类：
@@ -70,7 +68,7 @@ prompts = [
 sampling_params = SamplingParams(temperature=0.8, top_p=0.95)
 ```
 
-LLM 类初始化了 vLLM 引擎和 [OPT-125M 模型](https://arxiv.org/abs/2205.01068)以进行离线推理。支持的模型列表可以在[支持的模型](#支持的模型)文档中找到。
+LLM 类初始化了 vLLM 引擎和 [OPT-125M 模型](https://arxiv.org/abs/2205.01068)以进行离线推理。支持的模型列表可以在[支持的模型](https://vllm.hyper.ai/docs/models/supported_models)文档中找到。
 
 ```python
 llm = LLM(model="facebook/opt-125m")
@@ -105,10 +103,6 @@ vllm serve Qwen/Qwen2.5-1.5B-Instruct
 
 默认情况下，服务器使用存储在 tokenizer 中的预定义聊天模板。您可以参阅[聊天补全](#聊天补全)了解如何覆盖它。
 
-:::
-
-This server can be queried in the same format as OpenAI API. For example, to list the models:
-
 此服务器可以采用与 OpenAI API 相同的格式进行查询。例如，列出模型：
 
 ```plain
@@ -138,7 +132,6 @@ curl http://localhost:8000/v1/completions \
 from openai import OpenAI
 
 
-# Modify OpenAI's API key and API base to use vLLM's API server.
 # 修改 OpenAI 的 API 密钥和 API 基础 URL 以使用 vLLM 的 API 服务器。
 openai_api_key = "EMPTY"
 openai_api_base = "http://localhost:8000/v1"
@@ -175,7 +168,6 @@ curl http://localhost:8000/v1/chat/completions \
 
 ```python
 from openai import OpenAI
-# Set OpenAI's API key and API base to use vLLM's API server.
 # 设置 OpenAI 的 API 密钥和 API 基础 URL 以使用 vLLM 的 API 服务器。
 openai_api_key = "EMPTY"
 openai_api_base = "http://localhost:8000/v1"
