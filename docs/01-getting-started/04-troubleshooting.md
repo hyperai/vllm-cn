@@ -25,7 +25,7 @@ title: 故障排除
 
 ## 内存不足
 
-如果模型过大无法放入单个 GPU，将出现内存不足（OOM）错误。考虑 [使用张量并行](https://docs.vllm.ai/en/latest/serving/distributed_serving.html#distributed-serving) 将模型拆分到多个 GPU 上。此时，每个进程将读取整个模型并拆分为块，这会延长磁盘读取时间（与张量并行的规模成正比）。您可以使用 [examples/offline_inference/save_sharded_state.py](https://github.com/vllm-project/vllm/blob/main/examples/offline_inference/save_sharded_state.py) 将模型检查点转换为分片检查点。转换过程可能需要一些时间，但之后可以更快加载分片检查点。模型加载时间应保持恒定，不受张量并行规模影响。
+如果模型过大无法放入单个 GPU，将出现内存不足（OOM）错误。考虑[使用张量并行](https://docs.vllm.ai/en/latest/serving/distributed_serving.html#distributed-serving)将模型拆分到多个 GPU 上。此时，每个进程将读取整个模型并拆分为块，这会延长磁盘读取时间（与张量并行的规模成正比）。您可以使用 [examples/offline_inference/save_sharded_state.py](https://github.com/vllm-project/vllm/blob/main/examples/offline_inference/save_sharded_state.py) 将模型检查点转换为分片检查点。转换过程可能需要一些时间，但之后可以更快加载分片检查点。模型加载时间应保持恒定，不受张量并行规模影响。
 
 ## 生成质量已更改
 
@@ -59,7 +59,6 @@ title: 故障排除
 如果 GPU/CPU 通信无法建立，可使用以下 Python 脚本并按照说明确认 GPU/CPU 通信是否正常工作：
 
 ```plain
-# Test PyTorch NCCL
 # 测试 PyTorch NCCL
 import torch
 import torch.distributed as dist
@@ -77,7 +76,6 @@ assert value == world_size, f"Expected {world_size}, got {value}"
 print("PyTorch NCCL is successful!")
 
 
-# Test PyTorch GLOO
 # 测试 PyTorch GLOO
 gloo_group = dist.new_group(ranks=list(range(world_size)), backend="gloo")
 cpu_data = torch.FloatTensor([1,] * 128)
@@ -93,16 +91,12 @@ if world_size <= 1:
     exit()
 
 
-# Test vLLM NCCL, with cuda graph
 # 测试 vLLM NCCL（使用 CUDA 图）
 from vllm.distributed.device_communicators.pynccl import PyNcclCommunicator
 
 
 pynccl = PyNcclCommunicator(group=gloo_group, device=local_rank)
-# pynccl is enabled by default for 0.6.5+,
-# but for 0.6.4 and below, we need to enable it manually.
-# keep the code for backward compatibility when because people
-# prefer to read the latest documentation.
+
 # v0.6.5+ 默认启用 pynccl，
 # 但 v0.6.4 及以下版本需手动启用。
 # 保留代码以向后兼容。
@@ -156,6 +150,7 @@ NCCL_DEBUG=TRACE torchrun --nnodes 2 --nproc-per-node=2 --rdzv_backend=c10d --rd
 如果测试脚本卡住或崩溃，通常表示硬件/驱动存在某些问题。您应联系系统管理员或硬件供应商寻求进一步帮助。作为常见解决方法，可尝试调整一些 NCCL 环境变量，例如 `export NCCL_P2P_DISABLE=1` 查看是否有效。请参阅 [NCCL 文档](https://docs.nvidia.com/deeplearning/nccl/user-guide/docs/env.html) 获取更多信息。请仅将这些环境变量作为临时解决方法，因为它们可能影响系统性能。最佳解决方案仍是修复硬件/驱动以使测试脚本成功运行。
 
 > **注意**
+> 
 > 多节点环境比单节点更复杂。如果看到类似 `torch.distributed.DistNetworkError` 的错误，可能是网络/DNS 配置错误。此时可手动分配节点排名并通过命令行参数指定 IP：
 > 在第一个节点运行： `NCCL_DEBUG=TRACE torchrun --nnodes 2 --nproc-per-node=2 --node-rank 0 --master_addr $MASTER_ADDR test.py`.
 > 在第二个节点运行： `NCCL_DEBUG=TRACE torchrun --nnodes 2 --nproc-per-node=2 --node-rank 1 --master_addr $MASTER_ADDR test.py`.
