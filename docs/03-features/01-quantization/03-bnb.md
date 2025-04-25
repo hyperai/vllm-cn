@@ -21,7 +21,6 @@ vLLM 读取模型的配置文件并支持动态量化和预量化的 checkpoint�
 ```python
 from vllm import LLM
 import torch
-# unsloth/tinyllama-bnb-4bit is a pre-quantized checkpoint.
 # unsloth/tinyllama-bnb-4bit 是一个预量化的 checkpoint。
 
 
