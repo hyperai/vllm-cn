@@ -39,7 +39,7 @@ quant_config = QuantizeConfig(bits=4, group_size=128)
 
 model = GPTQModel.load(model_id, quant_config)
 
-# increase `batch_size` to match gpu/vram specs to speed up quantization
+# 增加`batch_size` 以匹配 GPU/VRAM 的规格，从而加快量化速度。
 model.quantize(calibration_dataset, batch_size=2)
 
 model.save(quant_path)
@@ -56,22 +56,21 @@ GPTQModel 量化模型也直接通过 LLM 入口点支持：
 ````
 from vllm import LLM, SamplingParams
 
-# Sample prompts.
+# 采样输入提示
 prompts = [
     "Hello, my name is",
     "The president of the United States is",
     "The capital of France is",
     "The future of AI is",
 ]
-# Create a sampling params object.
+# 创建一个采样参数对象
 sampling_params = SamplingParams(temperature=0.6, top_p=0.9)
 
-# Create an LLM.
+# 创建一个 LLM.
 llm = LLM(model="DeepSeek-R1-Distill-Qwen-7B-gptqmodel-4bit-vortex-v2")
-# Generate texts from the prompts. The output is a list of RequestOutput objects
-# that contain the prompt, generated text, and other information.
+# 从提示生成文本。输出是一个包含提示、生成的文本以及其他信息的 RequestOutput 对象列表。
 outputs = llm.generate(prompts, sampling_params)
-# Print the outputs.
+# 打印输出
 for output in outputs:
     prompt = output.prompt
     generated_text = output.outputs[0].text
