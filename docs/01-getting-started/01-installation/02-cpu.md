@@ -13,6 +13,7 @@ vLLM 是一个支持以下 CPU 变体的 Python 库。根据您的 CPU 类型查
 vLLM 初步支持在 x86 CPU 平台进行基础模型推理和服务，支持 FP32、FP16 和 BF16 数据类型。
 
 > **注意**
+> 
 > 此设备没有预编译的 wheel 包或镜像，您必须从源码构建 vLLM。
 
 #### ARM AArch64
@@ -22,6 +23,7 @@ vLLM 已适配支持具备 NEON 指令集的 ARM64 CPU，基于最初为 x86 平
 ARM CPU 后端当前支持 Float32、FP16 和 BFloat16 数据类型。
 
 > **注意**
+> 
 > 此设备没有预编译的 wheel 包或镜像，您必须从源码构建 vLLM。
 
 #### Apple silicon
@@ -31,6 +33,7 @@ vLLM 对 macOS 上的 Apple 芯片提供实验性支持。目前用户需从源�
 macOS 的 CPU 实现当前支持 FP32 和 FP16 数据类型。
 
 > **注意**
+> 
 > 此设备没有预编译的 wheel 包或镜像，您必须从源码构建 vLLM。
 
 #### IBM Z (S390X)
@@ -40,6 +43,7 @@ vLLM 对 IBM Z 平台上的 s390x 架构提供实验性支持。目前用户需�
 s390x 架构的 CPU 实现当前仅支持 FP32 数据类型。
 
 > **注意**
+> 
 > 此设备没有预编译的 wheel 包或镜像，您必须从源码构建 vLLM。
 
 ## 系统要求
@@ -80,7 +84,6 @@ s390x 架构的 CPU 实现当前仅支持 FP32 数据类型。
 您可以使用  `conda`  创建新环境：
 
 ```plain
-# (Recommended) Create a new conda environment.
 # （推荐）创建新的 conda 环境
 conda create -n vllm python=3.12 -y
 conda activate vllm
@@ -90,7 +93,6 @@ conda activate vllm
 > 或者可以使用超快的 Python 环境管理工具  [uv](https://docs.astral.sh/uv/)  创建环境。安装  `uv`  后执行以下命令创建新的 Python 环境：
 
 ```plain
-# (Recommended) Create a new uv environment. Use `--seed` to install `pip` and `setuptools` in the environment.
 # （推荐）创建新的 uv 环境（使用 `--seed` 安装 `pip` 和 `setuptools`）
 uv venv vllm --python 3.12 --seed
 source vllm/bin/activate
@@ -133,7 +135,9 @@ pip install -v -r requirements/cpu.txt --extra-index-url https://download.pytorc
 VLLM_TARGET_DEVICE=cpu python setup.py install
 ```
 
-> **注意** >`AVX512_BF16`  指令集提供原生 BF16 数据类型转换和向量计算指令，性能优于纯 AVX512。构建脚本会自动检测 CPU 是否支持。
+> **注意**
+> 
+> `AVX512_BF16`  指令集提供原生 BF16 数据类型转换和向量计算指令，性能优于纯 AVX512。构建脚本会自动检测 CPU 是否支持。
 > 若需强制启用 AVX512_BF16（如交叉编译），可在构建前设置环境变量  `VLLM_CPU_AVX512BF16=1`。
 
 #### ARM AArch64
@@ -181,6 +185,7 @@ pip install -e .
 ```
 
 > **注意**
+> 
 > macOS 会自动设置  `VLLM_TARGET_DEVICE=cpu`，此为当前唯一支持的设备。
 
 #### 故障排查
@@ -222,6 +227,7 @@ curl https://sh.rustup.rs -sSf | sh -s -- -y && \
 执行以下命令，从源代码构建并安装 vLLM。
 
 > **提示**
+> 
 > 在构建 vLLM 之前，请从源代码构建下列依赖：`torchvision`, `pyarrow`。
 
 ```go
@@ -255,19 +261,21 @@ $ docker run -it \
 ```
 
 > **提示**
+> 
 > ARM 或 Apple 芯片使用  `Dockerfile.arm`
 
 > **提示**
+> 
 > IBM Z（s390x）使用  `Dockerfile.s390x`，并在  `docker run`  中添加参数  `--dtype float`
 
 ## 支持的功能
 
 vLLM CPU 后端支持以下特性：
 
-- 张量并行（Tensor Parallel）
-- 模型量化（`INT8 W8A8`、`AWQ`、`GPTQ`）
-- 分块预填充（Chunked-prefill）
-- 前缀缓存（Prefix-caching）
+- 张量并行 (Tensor Parallel)
+- 模型量化 (`INT8 W8A8`、`AWQ`、`GPTQ`)
+- 分块预填充 (Chunked-prefill
+- 前缀缓存 (Prefix-caching)
 - FP8-E5M2 KV 缓存
 
 ## 相关运行时环境变量
@@ -306,7 +314,6 @@ vllm serve facebook/opt-125m
 $ lscpu -e # check the mapping between logical CPU cores and physical CPU cores
 
 
-# The "CPU" column means the logical CPU core IDs, and the "CORE" column means the physical core IDs. On this platform, two logical cores are sharing one physical core.
 # "CPU" 列表示逻辑核心 ID，"CORE" 列表示物理核心 ID。该平台上两个逻辑核心共享一个物理核心。
 CPU NODE SOCKET CORE L1d:L1i:L2:L3 ONLINE    MAXMHZ   MINMHZ      MHZ
 0    0      0    0 0:0:0:0          yes 2401.0000 800.0000  800.000
@@ -327,7 +334,6 @@ CPU NODE SOCKET CORE L1d:L1i:L2:L3 ONLINE    MAXMHZ   MINMHZ      MHZ
 15   0      0    7 7:7:7:0          yes 2401.0000 800.0000  800.000
 
 
-# On this platform, it is recommend to only bind openMP threads on logical CPU cores 0-7 or 8-15
 # 在此平台上，建议仅将 OpenMP 线程绑定到 0-7 或 8-15 号逻辑核心
 $ export VLLM_CPU_OMP_THREADS_BIND=0-7
 $ python examples/offline_inference/basic/basic.py
