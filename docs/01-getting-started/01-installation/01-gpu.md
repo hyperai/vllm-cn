@@ -21,7 +21,7 @@ vLLM 支持拥有 ROCm 6.3 的 AMD GPU。
 
 vLLM 最初在 Intel GPU 平台上支持基础的模型推理和服务。
 
-> **注意\*\***：\*\*
+> **注意：**
 > 该设备没有预构建的轮子或映像，所以您必须从源代码构建 vLLM。
 
 # 需求
@@ -50,18 +50,17 @@ vLLM 最初在 Intel GPU 平台上支持基础的模型推理和服务。
 您可以使用 conda 创建 1 个新的 Python 环境：
 
 ```bash
-# (Recommended) Create a new conda environment.
 # (推荐) 创建一个新的 conda 环境
 conda create -n vllm python=3.12 -y
 conda activate vllm
 ```
 
-> **注意\*\***：\*\* > [PyTorch 已](https://github.com/pytorch/pytorch/issues/138506)[弃用](https://github.com/pytorch/pytorch/issues/138506)[该 conda ](https://github.com/pytorch/pytorch/issues/138506)[发布](https://github.com/pytorch/pytorch/issues/138506)[频道](https://github.com/pytorch/pytorch/issues/138506)。如果您使用 conda，请仅使用它创建 Python 环境，而不要用它安装包。
+> **注意：**
+> [PyTorch 已](https://github.com/pytorch/pytorch/issues/138506)[弃用](https://github.com/pytorch/pytorch/issues/138506)[该 conda ](https://github.com/pytorch/pytorch/issues/138506)[发布](https://github.com/pytorch/pytorch/issues/138506)[频道](https://github.com/pytorch/pytorch/issues/138506)。如果您使用 conda，请仅使用它创建 Python 环境，而不要用它安装包。
 
-或者你可以使用 [uv](https://docs.astral.sh/uv/) 创建 Python 环境，uv 是一个非常快速的 Python 环境管理器。请依照[该文档](https://docs.astral.sh/uv/#getting-started)安装 uv。安装 uv 以后，你可以使用以下命令创建新的 Python 环境：
+或者您可以使用 [uv](https://docs.astral.sh/uv/) 创建 Python 环境，uv 是一个非常快速的 Python 环境管理器。请依照[该文档](https://docs.astral.sh/uv/#getting-started)安装 uv。安装 uv 以后，你可以使用以下命令创建新的 Python 环境：
 
 ```bash
-# (Recommended) Create a new uv environment. Use `--seed` to install `pip` and `setuptools` in the environment.
 # (推荐) 创建一个新的 uv 环境。使用 `--seed` 在环境中安装 `pip` 和 `setuptools`。
 uv venv vllm --python 3.12 --seed
 source vllm/bin/activate
@@ -69,7 +68,7 @@ source vllm/bin/activate
 
 ### NVIDIA CUDA
 
-> **注意\*\***：\*\*
+> **注意：**
 > 通过 conda 安装的 PyTorch 会静态链接 NCCL 库，这会导致当 vLLM 尝试使用 NCCL 时出错。详情可见 [Issue #8420](https://github.com/vllm-project/vllm/issues/8420#)。
 
 为了实现高性能，vLLM 需要编译多个 cuda 内核。然而，这一编译过程会导致与其他 CUDA 版本和 PyTorch 版本的二进制不兼容问题。即便是在相同版本的 PyTorch 中，不同的构建配置也可能引发此类不兼容性。
@@ -91,16 +90,14 @@ source vllm/bin/activate
 您可以使用 pip 或 uv pip 安装 vLLM。
 
 ```plain
-# Install vLLM with CUDA 12.1.
 # 安装使用 CUDA 12.1 的 vLLM
-pip install vllm # If you are using pip. # 如果你使用 pip
-uv pip install vllm # If you are using uv. # 如果你使用 uv
+pip install vllm  # 如果使用 pip
+uv pip install vllm # 如果使用 uv
 ```
 
 目前，vLLM 的二进制文件默认使用 CUDA 12.1 和公开发布的 PyTorch 版本进行编译。我们还提供使用 CUDA 12.1、11.8 和公开发布的 PyTorch 版本编译的 vLLM 二进制文件：
 
 ```plain
-# Install vLLM with CUDA 11.8.
 # 安装使用 CUDA 11.8 的vLLM
 export VLLM_VERSION=0.6.1.post1
 export PYTHON_VERSION=310
@@ -119,7 +116,7 @@ pip install vllm --pre --extra-index-url https://wheels.vllm.ai/nightly
 
 在使用 pip 安装时，必须加上 --pre 参数，这样 pip 才会考虑安装预发布版本。
 
-如果你想获取先前提交的安装包（例如，用于分析行为变化或性能回退），由于 pip 的限制，你需要通过在 URL 中嵌入提交哈希值来指定轮子文件的完整 URL：
+如果您想获取先前提交的安装包（例如，用于分析行为变化或性能回退），由于 pip 的限制，您需要通过在 URL 中嵌入提交哈希值来指定轮子文件的完整 URL：
 
 ```plain
 export VLLM_COMMIT=33f460b17a54acb3b6cc0b03f4a17876cff5eafd # use full commit hash from the main branch
@@ -136,7 +133,7 @@ pip install https://wheels.vllm.ai/${VLLM_COMMIT}/vllm-1.0.0.dev-cp38-abi3-manyl
 uv pip install vllm --extra-index-url https://wheels.vllm.ai/nightly
 ```
 
-如果你想获取先前提交的 wheels 安装包（例如，用于分析行为变化或性能回退），可以在 URL 中指定提交哈希值：
+如果您想获取先前提交的 wheels 安装包（例如，用于分析行为变化或性能回退），可以在 URL 中指定提交哈希值：
 
 ```plain
 export VLLM_COMMIT=72d9c316d3f6ede485146fe5aabd4e61dbc59069 # use full commit hash from the main branch
@@ -181,6 +178,7 @@ VLLM_USE_PRECOMPILED=1 pip install --editable .
 4. 在安装过程中使用其已编译的库文件。
 
 > **注意**
+> 
 > 如果您修改了 C++ 或内核代码，则无法使用仅限 Python 的构建方式，否则会出现「找不到库 (library not found)」或「未定义符号 (undefined symbol)」的导入错误。
 > 如果您对开发分支进行了 rebase，建议卸载 vLLM 并重新运行上述命令，以确保您的库文件是最新的。
 
@@ -255,15 +253,14 @@ pip install -e .
 
 该设置对低性能机器尤为重要。例如在 WSL 环境下（[默认仅分配 50% 总内存](https://learn.microsoft.com/en-us/windows/wsl/wsl-config#main-wsl-settings)），使用  `export MAX_JOBS=1`  可避免因并行编译导致内存不足。副作用是编译时间显著延长。
 
-此外，如果你在构建 vLLM 时遇到问题，建议使用 NVIDIA PyTorch Docker 镜像解决编译问题：
+此外，如果您在构建 vLLM 时遇到问题，建议使用 NVIDIA PyTorch Docker 镜像解决编译问题：
 
 ```plain
-# Use `--ipc=host` to make sure the shared memory is large enough.
 # 使用 --ipc=host 确保共享内存容量充足
 docker run --gpus all -it --rm --ipc=host nvcr.io/nvidia/pytorch:23.10-py3
 ```
 
-如果你不想使用 Docker，建议完整安装 CUDA Toolkit。你可以从[官方网站](https://developer.nvidia.com/cuda-toolkit-archive)下载并安装。安装后，需设置 `CUDA_HOME` 环境变量为 CUDA Toolkit 的安装路径，并确保 `nvcc` 编译器在 `PATH` 中，例如：
+如果您不想使用 Docker，建议完整安装 CUDA Toolkit。您可以从[官方网站](https://developer.nvidia.com/cuda-toolkit-archive)下载并安装。安装后，需设置 `CUDA_HOME` 环境变量为 CUDA Toolkit 的安装路径，并确保 `nvcc` 编译器在 `PATH` 中，例如：
 
 ```plain
 export CUDA_HOME=/usr/local/cuda
@@ -279,7 +276,7 @@ ${CUDA_HOME}/bin/nvcc --version # verify that nvcc is in your CUDA_HOME
 
 #### 不支持的操作系统构建
 
-vLLM 仅能在 Linux 系统上完整运行，但对于开发目的，你仍然可以在其他操作系统（例如 macOS）上构建 vLLM，使其能够被导入，从而提供更便捷的开发环境。但请注意，vLLM 在非 Linux 系统上不会编译二进制文件，因此无法运行推理任务。
+vLLM 仅能在 Linux 系统上完整运行，但对于开发目的，您仍然可以在其他操作系统（例如 macOS）上构建 vLLM，使其能够被导入，从而提供更便捷的开发环境。但请注意，vLLM 在非 Linux 系统上不会编译二进制文件，因此无法运行推理任务。
 
 在安装前，可以禁用 `VLLM_TARGET_DEVICE` 变量，如下所示：
 
@@ -290,21 +287,21 @@ pip install -e .
 
 ### AMD ROCm
 
-1. 安装依赖（如果你已经处于一个已安装以下内容的环境中或 Docker 容器中，则可以跳过此步骤）:
+1. 安装依赖（如果您已经处于一个已安装以下内容的环境中或 Docker 容器中，则可以跳过此步骤）:
 
 - [ROCm](https://rocm.docs.amd.com/en/latest/deploy/linux/index.html)
 - [PyTorch](https://pytorch.org/)
 
-对于安装 PyTorch，您可以从 1 个新的 docker 镜像开始，例如 `rocm/pytorch:rocm6.3_ubuntu24.04_py3.12_pytorch_release_2.4.0`、`rocm/pytorch-nightly`。如果你正在使用 docker 镜像，跳到步骤 3。
+对于安装 PyTorch，您可以从 1 个新的 docker 镜像开始，例如 `rocm/pytorch:rocm6.3_ubuntu24.04_py3.12_pytorch_release_2.4.0`、`rocm/pytorch-nightly`。如果您正在使用 docker 镜像，跳到步骤 3。
 
-或者，你可以使用 PyTorch wheels 安装 PyTorch，在 PyTorch [入门指南](https://pytorch.org/get-started/locally/) 中的 PyTorch 安装指南可以查看相关信息。
+或者，您可以使用 PyTorch wheels 安装 PyTorch，在 PyTorch [入门指南](https://pytorch.org/get-started/locally/) 中的 PyTorch 安装指南可以查看相关信息。
 
 ```plain
 pip uninstall torch -y
 pip install --no-cache-dir --pre torch --index-url https://download.pytorch.org/whl/rocm6.3
 ```
 
-1. 安装 [Triton flash attention for ROCm](https://github.com/ROCm/triton)
+2. 安装 [Triton flash attention for ROCm](https://github.com/ROCm/triton)
 
 按照 [ROCm/triton](https://github.com/ROCm/triton/blob/triton-mlir/README.md) 的说明安装 ROCm 的 Triton flash attention（默认 triton-mlir 分支）
 
@@ -319,14 +316,14 @@ pip3 install .
 cd ../..
 ```
 
-> **注意**
-> 如果在构建 triton 期间你遇见了有关下载包的 HTTP 问题，请再次尝试，因为 HTTP 问题是间歇性的。
+> **注意：**
+> 如果在构建 triton 期间您遇见了有关下载包的 HTTP 问题，请再次尝试，因为 HTTP 问题是间歇性的。
 
-1. 或者，如果您选择使用 CK flash Attention，您可以安装 [flash Attention for ROCm](https://github.com/ROCm/flash-attention/tree/ck_tile)。
+3. 或者，如果您选择使用 CK flash Attention，您可以安装 [flash Attention for ROCm](https://github.com/ROCm/flash-attention/tree/ck_tile)。
 
 按照 [ROCm/flash-attention](https://github.com/ROCm/flash-attention/tree/ck_tile#amd-gpurocm-support) 的说明安装 ROCm's Flash Attention (v2.7.2)。或者也可以在发布页面中找到专为 vLLM 使用准备的轮子 (wheel)。
 
-例如，对于 ROCm 6.3，假定你的 gfx 架构是 `gfx90a`，想获取您的 gfx 架构，请运行 `rocminfo |grep gfx`。
+例如，对于 ROCm 6.3，假定您的 gfx 架构是 `gfx90a`，想获取您的 gfx 架构，请运行 `rocminfo |grep gfx`。
 
 ```plain
 git clone https://github.com/ROCm/flash-attention.git
@@ -337,28 +334,25 @@ GPU_ARCHS="gfx90a" python3 setup.py install
 cd ..
 ```
 
-> **注意**
+> **注意：**
 > 您可能需要将 "ninja" 版本降级到 1.10，编译 flash-attention-2 时不会使用它（例如 `pip install ninja==1.10.2.4`）
 
-1. 构建 vLLM。例如，基于 ROCm 6.3 的 vLLM 可以通过以下步骤构建：
+4. 构建 vLLM。例如，基于 ROCm 6.3 的 vLLM 可以通过以下步骤构建：
 
 ```plain
 pip install --upgrade pip
 
 
-# Build & install AMD SMI
 # 构建并安装 AMD SMI
 pip install /opt/rocm/share/amd_smi
 
 
-# Install dependencies
 # 安装依赖
 pip install --upgrade numba scipy huggingface-hub[cli,hf_transfer] setuptools_scm
 pip install "numpy<2"
 pip install -r requirements-rocm.txt
 
 
-# Build vLLM for MI210/MI250/MI300.
 # 为 MI210/MI250/MI300 构建 vLLM
 export PYTORCH_ROCM_ARCH="gfx90a;gfx942"
 python3 setup.py develop
@@ -395,7 +389,7 @@ pip install -v -r requirements-xpu.txt
 VLLM_TARGET_DEVICE=xpu python setup.py install
 ```
 
-> **注意\*\***：\*\*
+> **注意：**
 > FP16 是当前 XPU 后端的默认数据类型。BF16 数据类型在英特尔数据中心 GPU 上受支持，但在英特尔 Arc GPU 上尚不支持。
 
 # 使用 Docker 进行设置
@@ -420,7 +414,7 @@ docker pull public.ecr.aws/q9t5s3a7/vllm-ci-postmerge-repo:${VLLM_COMMIT}
 
 [AMD Infinity hub for vLLM](https://hub.docker.com/r/rocm/vllm/tags) 提供了预构建、优化过的 docker 镜像，旨在验证 AMD Instinct™ MI300X 加速器上的推理性能。
 
-> **提示\*\***：\*\*
+> **提示：**
 > 请检查在 [AMD Instinct MI300X 上](https://rocm.docs.amd.com/en/latest/how-to/performance-validation/mi300x/vllm-benchmark.html)[对](https://rocm.docs.amd.com/en/latest/how-to/performance-validation/mi300x/vllm-benchmark.html)[ LLM 推理性能验证](https://rocm.docs.amd.com/en/latest/how-to/performance-validation/mi300x/vllm-benchmark.html)，并查看如何使用该预构建 docker 镜像的说明。
 
 ### Inter XPU
