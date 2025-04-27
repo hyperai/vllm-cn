@@ -7,6 +7,7 @@ title: 多模态输入
 本页教你如何在 vLLM 中向[多模态模型](https://docs.vllm.ai/en/latest/models/supported_models.html#supported-mm-models)传递多模态输入。
 
 > **注意**
+> 
 > 我们正在积极迭代多模态支持功能。有关即将到来的变更，请参阅[此 RFC](https://github.com/vllm-project/vllm/issues/4194#) 。如果您有任何反馈或功能请求，请在 [GitHub 上提交问题](https://github.com/vllm-project/vllm/issues/new/choose) 。
 
 ## 离线推理
@@ -24,17 +25,14 @@ title: 多模态输入
 llm = LLM(model="llava-hf/llava-1.5-7b-hf")
 
 
-# Refer to the HuggingFace repo for the correct format to use
 # 参考 HuggingFace 仓库以使用正确的格式
 prompt = "USER: <image>\nWhat is the content of this image?\nASSISTANT:"
 
 
-# Load the image using PIL.Image
 # 使用 PIL.Image 加载图像
 image = PIL.Image.open(...)
 
 
-# Single prompt inference
 # 单提示词推理
 outputs = llm.generate({
     "prompt": prompt,
@@ -47,7 +45,6 @@ for o in outputs:
     print(generated_text)
 
 
-# Batch inference
 # 批量推理
 image_1 = PIL.Image.open(...)
 image_2 = PIL.Image.open(...)
@@ -83,12 +80,10 @@ llm = LLM(
 )
 
 
-# Refer to the HuggingFace repo for the correct format to use
 # 参考 HuggingFace 仓库以使用正确的格式
 prompt = "<|user|>\n<|image_1|>\n<|image_2|>\nWhat is the content of each image?<|end|>\n<|assistant|>\n"
 
 
-# Load the images using PIL.Image
 # 使用 PIL.Image 加载图像
 image1 = PIL.Image.open(...)
 image2 = PIL.Image.open(...)
@@ -112,12 +107,10 @@ for o in outputs:
 多图像输入可以扩展到视频字幕生成。我们以 [Qwen2-VL](https://huggingface.co/Qwen/Qwen2-VL-2B-Instruct) 为例，因为它支持视频：
 
 ```plain
-# Specify the maximum number of frames per video to be 4. This can be changed.
 # 指定每段视频的最大帧数为 4。可以调整此值。
 llm = LLM("Qwen/Qwen2-VL-2B-Instruct", limit_mm_per_prompt={"image": 4})
 
 
-# Create the request payload.
 # 创建请求负载。
 video_frames = ... # load your video making sure it only has the number of frames specified earlier.
 video_frames = ... # 加载视频，确保帧数不超过之前指定的数量。
@@ -133,7 +126,6 @@ for i in range(len(video_frames)):
     message["content"].append(new_image)
 
 
-# Perform inference and log output.
 # 执行推理并记录输出。
 outputs = llm.chat([message])
 
@@ -160,17 +152,14 @@ for o in outputs:
 要将预计算的嵌入（属于某种数据类型，如图像、视频或音频）直接输入到语言模型中，请将形状为 `(num_items, feature_size, hidden_size of LM)` 的张量传递到多模态字典的相应字段中。
 
 ```plain
-# Inference with image embeddings as input
 # 使用图像嵌入作为输入进行推理
 llm = LLM(model="llava-hf/llava-1.5-7b-hf")
 
 
-# Refer to the HuggingFace repo for the correct format to use
 # 参考 HuggingFace 仓库以使用正确的格式
 prompt = "USER: <image>\nWhat is the content of this image?\nASSISTANT:"
 
 
-# Embeddings for single image
 # 单张图像的嵌入
 # torch.Tensor of shape (1, image_feature_size, hidden_size of LM)
 # torch.Tensor，形状为 (1, image_feature_size, hidden_size of LM)
@@ -191,14 +180,11 @@ for o in outputs:
 对于 Qwen2-VL 和 MiniCPM-V，我们接受与嵌入一起的额外参数：
 
 ```plain
-# Construct the prompt based on your model
 # 根据模型构建提示词
 prompt = ...
 
 
-# Embeddings for multiple images
 # 多张图像的嵌入
-# torch.Tensor of shape (num_images, image_feature_size, hidden_size of LM)
 # torch.Tensor，形状为 (num_images, image_feature_size, hidden_size of LM)
 image_embeds = torch.load(...)
 
@@ -273,7 +259,6 @@ client = OpenAI(
 )
 
 
-# Single-image input inference
 # 单图像输入推理
 image_url = "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Gfp-wisconsin-madison-the-nature-boardwalk.jpg/2560px-Gfp-wisconsin-madison-the-nature-boardwalk.jpg"
 
@@ -293,7 +278,6 @@ chat_response = client.chat.completions.create(
 print("Chat completion output:", chat_response.choices[0].message.content)
 
 
-# Multi-image input inference
 # 多图像输入推理
 image_url_duck = "https://upload.wikimedia.org/wikipedia/commons/d/da/2015_Kaczka_krzy%C5%BCowka_w_wodzie_%28samiec%29.jpg"
 image_url_lion = "https://upload.wikimedia.org/wikipedia/commons/7/77/002_The_lion_king_Snyggve_in_the_Serengeti_National_Park_Photo_by_Giles_Laurent.jpg"
@@ -316,14 +300,16 @@ print("Chat completion output:", chat_response.choices[0].message.content)
 完整示例：[examples/online_serving/openai_chat_completion_client_for_multimodal.py](https://github.com/vllm-project/vllm/blob/main/examples/online_serving/openai_chat_completion_client_for_multimodal.py)
 
 > **提示**
+> 
 > vLLM 也支持从本地文件路径加载：您可以通过 `--allowed-local-media-path` 在启动 API 服务器/引擎时指定允许的本地媒体路径，并在 API 请求中将文件路径作为 `url` 传递。
 
 > **提示**
+> 
 > 不需要在 API 请求的文本内容中放置图像占位符——它们已经由图像内容表示。事实上，您可以通过交错文本和图像内容在文本中间放置图像占位符。
 
-**注意**
-
-默认情况下，通过 HTTP URL 获取图像的超时时间为 `5` 秒。您可以通过设置环境变量覆盖此值：
+> **注意**
+>
+> 默认情况下，通过 HTTP URL 获取图像的超时时间为 `5` 秒。您可以通过设置环境变量覆盖此值：
 
 ```go
 export VLLM_IMAGE_FETCH_TIMEOUT=<timeout>
@@ -358,7 +344,6 @@ client = OpenAI(
 video_url = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4"
 
 
-## Use video url in the payload
 ## 在负载中使用视频 URL
 chat_completion_from_url = client.chat.completions.create(
     messages=[{
@@ -416,7 +401,6 @@ from vllm.assets.audio import AudioAsset
 
 
 def encode_base64_content_from_url(content_url: str) -> str:
-    """Encode a content retrieved from a remote url to base64 format."""
     """将远程 URL 获取的内容编码为 base64 格式。"""
 
 
@@ -438,7 +422,6 @@ client = OpenAI(
 )
 
 
-# Any format supported by librosa is supported
 # 支持 librosa 支持的任何格式
 audio_url = AudioAsset("winning_call").url
 audio_base64 = encode_base64_content_from_url(audio_url)
@@ -535,7 +518,6 @@ client = OpenAI(
 )
 
 
-# Basic usage - this is equivalent to the LLaVA example for offline inference
 # 基本用法 - 这等同于离线推理中的 LLaVA 示例
 model = "llava-hf/llava-1.5-7b-hf"
 embeds =  {
@@ -544,7 +526,6 @@ embeds =  {
 }
 
 
-# Pass additional parameters (available to Qwen2-VL and MiniCPM-V)
 # 传递额外参数（适用于 Qwen2-VL 和 MiniCPM-V）
 model = "Qwen/Qwen2-VL-2B-Instruct"
 embeds =  {
