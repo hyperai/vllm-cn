@@ -37,9 +37,9 @@ print(completion.choices[0].message)
 
 vLLM支持部分OpenAI未包含的参数（如`top_k`），可通过在请求的`extra_body`参数中传递，例如：`extra_body={"top_k": 50}`。
 
-**重要\*\***信息\*\*
+重要信息:
 
-默认情况下，服务器会加载Hugging Face模型仓库中的`generation_config.json`文件（若存在）。这意味着某些采样参数的默认值可能被模型创建者推荐的配置覆盖。如需禁用此行为，请在启动服务时添加`--generation-config vllm`参数。
+默认情况下，服务器会加载 Hugging Face 模型仓库中的`generation_config.json`文件（若存在）。这意味着某些采样参数的默认值可能被模型创建者推荐的配置覆盖。如需禁用此行为，请在启动服务时添加`--generation-config vllm`参数。
 
 ## 支持的 API
 
