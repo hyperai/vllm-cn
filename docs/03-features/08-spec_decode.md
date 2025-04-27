@@ -6,7 +6,7 @@ title: 分离式预填充（实验性功能）
 
 > **警告**
 > 
-> 请注意，vLLM 中的推测解码尚未优化，通常不会减少所有提示数据集或采样参数的 token 间延迟。优化工作正在进行中，可以在 [这个 issue](https://github.com/vllm-project/vllm/issues/4630) 中进行跟进。
+> 请注意，vLLM 中的推测解码尚未优化，通常不会减少所有提示数据集或采样参数的 token 间延迟。优化工作正在进行中，可以在[这个 issue](https://github.com/vllm-project/vllm/issues/4630) 中进行跟进。
 
 > **警告**
 > 
