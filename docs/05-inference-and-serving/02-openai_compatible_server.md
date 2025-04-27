@@ -1704,7 +1704,7 @@ curl -X 'POST' \
 
 #### 额外参数
 
-支持以下 [池化参数](https://docs.vllm.ai/en/latest/api/inference_params.html#pooling-params)。
+支持以下[池化参数](https://docs.vllm.ai/en/latest/api/inference_params.html#pooling-params)。
 
 ```plain
     additional_data: Optional[Any] = None
