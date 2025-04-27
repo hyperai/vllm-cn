@@ -5,9 +5,11 @@ title: 分离式预填充（实验性功能）
 [\*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
 
 > **警告**
+> 
 > 请注意，vLLM 中的推测解码尚未优化，通常不会减少所有提示数据集或采样参数的 token 间延迟。优化工作正在进行中，可以在 [这个 issue](https://github.com/vllm-project/vllm/issues/4630) 中进行跟进。
 
 > **警告**
+> 
 > 目前 vLLM 中的推测编码并不兼容流水线多线程。
 
 本文档介绍如何将[推测解码](https://x.com/karpathy/status/1697318534555336961)与 vLLM 结合使用。推测性解码是一种可改善内存绑定 LLM 推理中 token 间延迟的技术。
@@ -51,6 +53,7 @@ python -m vllm.entrypoints.openai.api_server --host 0.0.0.0 --port 8000 --model 
 ```
 
 > **警告**
+> 
 > 注意：请使用 `--speculative_config` 设置所有与推测解码相关的配置。之前通过 `--speculative_model` 指定模型并单独添加相关参数（例如 `--num_speculative_tokens`）的方法将在下一个版本中弃用。
 
 然后使用客户端：
@@ -59,7 +62,6 @@ python -m vllm.entrypoints.openai.api_server --host 0.0.0.0 --port 8000 --model 
 from openai import OpenAI
 
 
-# Modify OpenAI's API key and API base to use vLLM's API server.
 # 修改 OpenAI 的 API 密钥和 API 库以使用 vLLM 的 API 服务器。
 
 
@@ -68,7 +70,6 @@ openai_api_base = "http://localhost:8000/v1"
 
 
 client = OpenAI(
-    # defaults to os.environ.get("OPENAI_API_KEY")
 # 默认为 os.environ.get("OPENAI_API_KEY")
 
 
@@ -81,7 +82,6 @@ models = client.models.list()
 model = models.data[0].id
 
 
-# Completion API
 # 补全 API
 
 
@@ -239,9 +239,9 @@ Hugging Face Hub 上提供了多种 EAGLE 草稿模型：
 
 在 vLLM 中，推测解码旨在提高推理效率的同时保持准确性。本节讨论推测解码的无损保证，并将其分解为 3 个关键领域：
 
-1. **理论无损性 -**推测解码采样在理论上是无损的，直到硬件数值精度的极限。浮点误差可能会导致输出分布的轻微变化，正如  [Accelerating Large Language Model Decoding with Speculative Sampling](https://arxiv.org/pdf/2302.01318) 中所讨论的那样。
+1. **理论无损性** - 推测解码采样在理论上是无损的，直到硬件数值精度的极限。浮点误差可能会导致输出分布的轻微变化，正如  [Accelerating Large Language Model Decoding with Speculative Sampling](https://arxiv.org/pdf/2302.01318) 中所讨论的那样。
 
-2. **算法无损性**- vLLM 的推测解码实现经过算法验证是无损的。关键的验证测试包括：
+2. **算法无损性** - vLLM 的推测解码实现经过算法验证是无损的。关键的验证测试包括：
 
    1. **拒绝采样器收敛性**：确保 vLLM 的拒绝采样器生成的样本与目标分布一致。[查看测试代码](https://github.com/vllm-project/vllm/blob/main/tests/spec_decode/test_rejection_sampler.py)
 
@@ -251,8 +251,8 @@ Hugging Face Hub 上提供了多种 EAGLE 草稿模型：
 
 尽管 vLLM 努力确保推测解码的无损性，但由于以下因素，使用和不使用推测解码生成的输出可能会有所不同：
 
-- **浮点精度\*\***：\*\*硬件数值精度的差异可能导致输出分布的轻微不一致。
-- **批量大小和数值稳定性:**批量大小的变化可能会导致 logprobs 和输出概率的变化，这可能是由于批量操作中的非确定性行为或数值不稳定性。
+- **浮点精度**：硬件数值精度的差异可能导致输出分布的轻微不一致。
+- **批量大小和数值稳定性**：批量大小的变化可能会导致 logprobs 和输出概率的变化，这可能是由于批量操作中的非确定性行为或数值不稳定性。
 
 有关缓解策略，请参阅 [FAQ](https://docs.vllm.ai/en/latest/getting_started/faq.html#faq) 中的「Can the output of a prompt vary across runs in vLLM?」。
 
