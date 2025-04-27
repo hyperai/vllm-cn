@@ -1142,6 +1142,7 @@ vllm serve SOME_MODEL --config config.yaml
 ```
 
 > **注意**
+> 
 > 如果同时通过命令行和配置文件提供参数，命令行参数值将优先。优先级顺序为：`命令行 > 配置文件值 > 默认值`。
 
 ## API 参考
@@ -1421,7 +1422,8 @@ vllm serve TIGER-Lab/VLM2Vec-Full --task embed \
   --trust-remote-code --max-model-len 4096 --chat-template examples/template_vlm2vec.jinja
 ```
 
-> **重要\*\***信息\*\*
+> **重要信息**
+> 
 > 由于 VLM2Vec 与 Phi-3.5-Vision 具有相同的模型架构，我们必须显式传递 `--task embed` 以在嵌入模式下运行此模型而非文本生成模式。
 >
 > 自定义聊天模板与此模型的原始模板完全不同，可在此处找到：[examples/template_vlm2vec.jinja](https://github.com/vllm-project/vllm/blob/main/examples/template_vlm2vec.jinja)
@@ -1464,11 +1466,14 @@ vllm serve MrLight/dse-qwen2-2b-mrl-v1 --task embed \
 ```
 
 > **重要信息**
+> 
 > 与 VLM2Vec 一样，我们必须显式地传递 `--task embed`。
 >
 > 此外，`MrLight/dse-qwen2-2b-mrl-v1` 需要一个 EOS 令牌进行嵌入，这由自定义聊天模板处理：[examples/template_dse_qwen2_vl.jinja](https://github.com/vllm-project/vllm/blob/main/examples/template_dse_qwen2_vl.jinja)。
 
-> **重要信息** >`MrLight/dse-qwen2-2b-mrl-v1` 需要文本查询嵌入的最小图像大小的占位符图像。有关详细信息，请参阅下面的完整代码示例。
+> **重要信息**
+>
+>`MrLight/dse-qwen2-2b-mrl-v1` 需要文本查询嵌入的最小图像大小的占位符图像。有关详细信息，请参阅下面的完整代码示例。
 
 #### 额外参数
 
@@ -1539,6 +1544,7 @@ vllm serve MrLight/dse-qwen2-2b-mrl-v1 --task embed \
 我们的 Transcriptions API 兼容 [OpenAI 的 Transcriptions API](https://platform.openai.com/docs/api-reference/audio/createTranscription)，您可以使用 [官方 OpenAI Python 客户端](https://github.com/openai/openai-python) 与其交互。
 
 > **注意**
+> 
 > 要使用 Transcriptions API，请通过 `pip install vllm[audio]` 安装额外的音频依赖。
 
 代码示例：[examples/online_serving/openai_transcription_client.py](https://github.com/vllm-project/vllm/blob/main/examples/online_serving/openai_transcription_client.py)
