@@ -16,8 +16,8 @@ llm = LLM(model="facebook/opt-125m")
 
 初始化 `LLM` 实例后，您可以使用各种 API 执行模型推理。可用的 API 取决于运行的模型类型：
 
-- [生成模型](https://docs.vllm.ai/en/latest/models/generative_models.html#generative-models)：输出对数概率，通过采样获得最终输出文本。
-- [池化模型](https://docs.vllm.ai/en/latest/models/pooling_models.html#pooling-models)：直接输出其隐藏状态。
+- [生成模型](https://vllm.hyper.ai/docs/models/generative_models)：输出对数概率，通过采样获得最终输出文本。
+- [池化模型](https://vllm.hyper.ai/docs/models/Pooling%20Models)：直接输出其隐藏状态。
 
 有关每个 API 的更多详细信息，请参阅上述页面。
 
@@ -25,7 +25,7 @@ llm = LLM(model="facebook/opt-125m")
 
 ## 配置选项
 
-本节列出了运行 vLLM 引擎时最常见的选项。完整列表请参阅[引擎参数](https://docs.vllm.ai/en/latest/serving/engine_args.html#engine-args)页面。
+本节列出了运行 vLLM 引擎时最常见的选项。完整列表请参阅[引擎参数](https://vllm.hyper.ai/docs/inference-and-serving/engine_args)页面。
 
 ### 模型解析
 
