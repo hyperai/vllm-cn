@@ -244,14 +244,9 @@ Recommended flags: 推荐标志: `--tool-call-parser granite-20b-fc --chat-te
 ```plain
 
 
-# import the required packages
 # 导入所需的包
 
 
-# define a tool parser and register it to vllm
-# the name list in register_module can be used
-# in --tool-call-parser. you can define as many
-# tool parsers as you want here.
 # 定义一个工具解析器并将其注册到 vLLM
 # register_module 中的名称列表
 # 可以在 --tool-call-parser 中使用。
@@ -264,15 +259,12 @@ class ExampleToolParser(ToolParser):
         super().__init__(tokenizer)
 
 
-    # adjust request. e.g.: set skip special tokens
-    # to False for tool call output.
     # 调整请求。例如：将 skip_special_tokens 设置为 False 以支持工具调用输出。
     def adjust_request(
             self, request: ChatCompletionRequest) -> ChatCompletionRequest:
         return request
 
 
-    # implement the tool call parse for stream call
     # 实现流式调用的工具解析
     def extract_tool_calls_streaming(
         self,
@@ -287,7 +279,6 @@ class ExampleToolParser(ToolParser):
         return delta
 
 
-    # implement the tool parse for non-stream call
     # 实现非流式调用的工具解析
     def extract_tool_calls(
         self,
