@@ -103,4 +103,4 @@ docker run --runtime nvidia --gpus all \
 
 > **注意**
 > 
-> **仅适用于 v0.4.1 和 v0.4.2 - 这些版本下的 vLLM docker 镜像应该在 root 用户下运行，因为库位于 root 用户的主目录下，即 `/ root/.config/vllm/nccl/cu12/libnccl.so.2.18.1` 需要在运行时加载。如果您在不同用户下运行容器，则可能需要首先更改库 （以及所有父目录） 的权限以允许用户访问它，然后运行带有环境变量的 vLLM。`VLLM_NCCL_SO_PATH=/root/.config/vllm/nccl/cu12/libnccl.so.2.18.1`。
+> **仅适用于 v0.4.1 和 v0.4.2** - 这些版本下的 vLLM docker 镜像应该在 root 用户下运行，因为库位于 root 用户的主目录下，即 `/ root/.config/vllm/nccl/cu12/libnccl.so.2.18.1` 需要在运行时加载。如果您在不同用户下运行容器，则可能需要首先更改库 （以及所有父目录） 的权限以允许用户访问它，然后运行带有环境变量的 vLLM。`VLLM_NCCL_SO_PATH=/root/.config/vllm/nccl/cu12/libnccl.so.2.18.1`。
