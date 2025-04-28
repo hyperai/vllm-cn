@@ -18,7 +18,7 @@ docker run --runtime nvidia --gpus all \
     --model mistralai/Mistral-7B-v0.1
 ```
 
-你可以在 image 标签(`vllm/vllm-openai:latest`)后添加其他你需要的[引擎参数](https://docs.vllm.ai/en/latest/serving/engine_args.html#engine-args)。
+你可以在 image 标签 (`vllm/vllm-openai:latest`) 后添加其他你需要的[引擎参数](https://docs.vllm.ai/en/latest/serving/engine_args.html#engine-args)。
 
 > **注意**
 >
