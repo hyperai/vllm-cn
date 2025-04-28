@@ -17,11 +17,6 @@ vllm serve unsloth/Llama-3.2-1B-Instruct
 ```plain
 $ curl http://0.0.0.0:8000/metrics
 
-
-# HELP vllm:iteration_tokens_total Histogram of number of tokens per engine_step.
-# TYPE vllm:iteration_tokens_total histogram
-
-
 # HELP vllm:iteration_tokens_total 每个 engine_step 的 token 数量的直方图。
 # TYPE vllm:iteration_tokens_total histogram
 
@@ -65,7 +60,6 @@ class Metrics:
 
 
     def __init__(self, labelnames: List[str], vllm_config: VllmConfig):
-        # Unregister any existing vLLM collectors (for CI/CD)
         # 注销所有存在的 vLLM 收集器 （对 CI/CD）
         self._unregister_vllm_metrics()
 
@@ -73,10 +67,8 @@ class Metrics:
         max_model_len = vllm_config.model_config.max_model_len
 
 
-        # System stats
         # 系统统计
-        #   Scheduler State
-        #   调度统计
+        # 调度统计
         self.gauge_scheduler_running = self._gauge_cls(
             name="vllm:num_requests_running",
             documentation="Number of requests currently running on GPU.",
@@ -99,8 +91,6 @@ class Metrics:
         )
 
 
-        # Deprecated in 0.8 - KV cache offloading is not used in V1
-        # TODO: in 0.9, only enable if show_hidden_metrics=True
         #　废弃于　0.8　－　v1 中没有使用 KV 缓存卸载　
         # TODO: 在 0.9 里如果 show_hidden_metrics=True 则只能开启
         self.gauge_scheduler_swapped = self._gauge_cls(
@@ -112,7 +102,6 @@ class Metrics:
             multiprocess_mode="sum")
 
 
-        #   KV Cache Usage in %
         #   KV Cache 使用占比（%）
         self.gauge_gpu_cache_usage = self._gauge_cls(
             name="vllm:gpu_cache_usage_perc",
@@ -121,8 +110,6 @@ class Metrics:
             multiprocess_mode="sum")
 
 
-        # Deprecated in 0.8 - KV cache offloading is not used in V1
-        # TODO: in 0.9, only enable if show_hidden_metrics=True
         #　废弃于　0.8　－　v1 中没有使用 KV 缓存卸载　
         # TODO: 在 0.9 里如果 show_hidden_metrics=True 则只能开启
         self.gauge_cpu_cache_usage = self._gauge_cls(
@@ -134,8 +121,6 @@ class Metrics:
             multiprocess_mode="sum")
 
 
-        # Deprecated in 0.8 - KV cache offloading is not used in V1
-        # TODO: in 0.9, only enable if show_hidden_metrics=True
         #　废弃于　0.8　－　v1 中没有使用 KV 缓存卸载　
         # TODO: 在 0.9 里如果 show_hidden_metrics=True 则只能开启
         self.gauge_cpu_prefix_cache_hit_rate = self._gauge_cls(
@@ -147,8 +132,6 @@ class Metrics:
             multiprocess_mode="sum")
 
 
-        # Deprecated in 0.8 - replaced by queries+hits counters in V1
-        # TODO: in 0.9, only enable if show_hidden_metrics=True
         #　废弃于　0.8　－　v1 中没有使用 KV 缓存卸载　
         # TODO: 在 0.9 里如果 show_hidden_metrics=True 则只能开启
         self.gauge_gpu_prefix_cache_hit_rate = self._gauge_cls(
@@ -160,7 +143,6 @@ class Metrics:
             multiprocess_mode="sum")
 
 
-        # Iteration stats
         # 迭代统计
         self.counter_num_preemption = self._counter_cls(
             name="vllm:num_preemptions_total",
@@ -202,9 +184,7 @@ class Metrics:
             ])
 
 
-        # Request stats
         # 请求统计
-        #   Latency
         #   延迟
         request_latency_buckets = [
             0.3, 0.5, 0.8, 1.0, 1.5, 2.0, 2.5, 5.0, 10.0, 15.0, 20.0, 30.0,
@@ -239,8 +219,7 @@ class Metrics:
             "Histogram of time spent in DECODE phase for request.",
             labelnames=labelnames,
             buckets=request_latency_buckets)
-        # Deprecated in 0.8 - duplicates vllm:request_queue_time_seconds:
-        # TODO: in 0.9, only enable if show_hidden_metrics=True
+
         #　废弃于　0.8　－　v1 中没有使用 KV 缓存卸载　
         # TODO: 在 0.9 里如果 show_hidden_metrics=True 则只能开启
         self.histogram_time_in_queue_request = self._histogram_cls(
@@ -252,8 +231,6 @@ class Metrics:
             buckets=request_latency_buckets)
 
 
-        # Deprecated in 0.8 - use prefill/decode/inference time metrics
-        # TODO: in 0.9, only enable if show_hidden_metrics=True
         #　废弃于　0.8　－　v1 中没有使用 KV 缓存卸载　
         # TODO: 在 0.9 里如果 show_hidden_metrics=True 则只能开启
         self.histogram_model_forward_time_request = self._histogram_cls(
@@ -274,7 +251,6 @@ class Metrics:
             buckets=build_1_2_3_5_8_buckets(3000))
 
 
-        #   Metadata
         #   元数据
         self.histogram_num_prompt_tokens_request = self._histogram_cls(
             name="vllm:request_prompt_tokens",
@@ -313,7 +289,6 @@ class Metrics:
             labelnames=labelnames + [Metrics.labelname_finish_reason])
 
 
-        # Speculative decoding stats
         # 推测解码统计
         self.gauge_spec_decode_draft_acceptance_rate = self._gauge_cls(
             name="vllm:spec_decode_draft_acceptance_rate",
