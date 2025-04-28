@@ -6,7 +6,7 @@ title: SkePilot
 
 ![图片](/img/docs/v1-deployment/07-skypilot_1.png)
 
-**vLLM 可以通过**[SkyPilot](https://github.com/skypilot-org/skypilot)**在云和 Kubernetes 上运行并扩充为多个服务副本**，SkyPilot 是一个用于在任何云上运行 LLM 的开源框架。更多各种开放模型的示例，例如 Llama-3、Mixtral 等，可以在 [SkyPilot AI gallery](https://skypilot.readthedocs.io/en/latest/gallery/index.html) 中找到。
+**vLLM 可以通过 [SkyPilot](https://github.com/skypilot-org/skypilot) 在云和 Kubernetes 上运行并扩充为多个服务副本**，SkyPilot 是一个用于在任何云上运行 LLM 的开源框架。更多各种开放模型的示例，例如 Llama-3、Mixtral 等，可以在 [SkyPilot AI gallery](https://skypilot.readthedocs.io/en/latest/gallery/index.html) 中找到。
 
 ## 依赖
 
@@ -34,16 +34,10 @@ resources:
 
 
   use_spot: True
-  disk_size: 512  # Ensure model checkpoints can fit.
-
-
   disk_size: 512 # 确保模型检查点足够容纳。
 
 
   disk_tier: best
-  ports: 8081  # Expose to internet traffic.
-
-
   ports: 8081 # 公开于互联网的端口。
 
 
@@ -51,9 +45,6 @@ resources:
 
 envs:
   MODEL_NAME: meta-llama/Meta-Llama-3-8B-Instruct
-  HF_TOKEN: <your-huggingface-token>  # Change to your own huggingface token, or use --env to pass.
-
-
   HF_TOKEN: <your-huggingface-token> # 更改为你自己的 huggingface token，或者使用 --env 来传递。
 
 
@@ -65,10 +56,7 @@ setup: |
 
 
   pip install vllm==0.4.0.post1
-  # Install Gradio for web UI.
-
-
-  # 安装 Gradio for web UI。
+  # 为 web UI 安装 Gradio。
 
 
   pip install gradio openai
@@ -124,7 +112,6 @@ SkyPilot 可以通过内置的自动扩充、负载平衡和容错功能将服�
 ```yaml
 service:
   replicas: 2
-  # An actual request for readiness probe.
   # 准备就绪探针的实际请求。
 
   readiness_probe:
@@ -142,9 +129,6 @@ service:
 ```yaml
 service:
   replicas: 2
-  # An actual request for readiness probe.
-
-
   # 准备就绪探针的实际请求。
 
 
@@ -166,16 +150,10 @@ resources:
 
 
   use_spot: True
-  disk_size: 512  # Ensure model checkpoints can fit.
-
-
   disk_size: 512 # 确保模型检查点足够容纳。
 
 
   disk_tier: best
-  ports: 8081  # Expose to internet traffic.
-
-
   ports: 8081 # 公开于互联网的端口。
 
 
@@ -183,9 +161,6 @@ resources:
 
 envs:
   MODEL_NAME: meta-llama/Meta-Llama-3-8B-Instruct
-  HF_TOKEN: <your-huggingface-token>  # Change to your own huggingface token, or use --env to pass.
-
-
   HF_TOKEN: <your-huggingface-token> # 更改为你自己的huggingface token，或者使用 --env 来传递。
 
 
@@ -197,9 +172,6 @@ setup: |
 
 
   pip install vllm==0.4.0.post1
-  # Install Gradio for web UI.
-
-
   # 安装 Gradio for Web UI。
 
 
@@ -286,9 +258,6 @@ service:
     min_replicas: 2
     max_replicas: 4
     target_qps_per_replica: 2
-  # An actual request for readiness probe.
-
-
   # 准备就绪探针的实际请求。
 
 
@@ -310,16 +279,10 @@ resources:
 
 
   use_spot: True
-  disk_size: 512  # Ensure model checkpoints can fit.
-
-
   disk_size: 512 # 确保模型检查点足够容纳。
 
 
   disk_tier: best
-  ports: 8081  # Expose to internet traffic.
-
-
   ports: 8081 # 公开于互联网的端口。
 
 
@@ -327,9 +290,6 @@ resources:
 
 envs:
   MODEL_NAME: meta-llama/Meta-Llama-3-8B-Instruct
-  HF_TOKEN: <your-huggingface-token>  # Change to your own huggingface token, or use --env to pass.
-
-
   HF_TOKEN: <your-huggingface-token> # 更改为你自己的 huggingface token，或者使用 --env 来传递。
 
 
@@ -341,10 +301,7 @@ setup: |
 
 
   pip install vllm==0.4.0.post1
-  # Install Gradio for web UI.
-
-
-  # 安装 Gradio for Web UI。
+  # 安装 Gradio Web UI 。
 
 
   pip install gradio openai
@@ -399,11 +356,7 @@ setup: |
   conda create -n vllm python=3.10 -y
   conda activate vllm
 
-
-  # Install Gradio for web UI.
-
-
-  # 安装 Gradio for Web UI。
+  # 安装 Gradio Web UI。
 
 
   pip install gradio openai
@@ -429,7 +382,7 @@ run: |
 sky launch -c gui ./gui.yaml --env ENDPOINT=$(sky serve status --endpoint vllm)
 ```
 
-1. 然后，我们可以通过返回的 gradio 链接访问 GUI:
+2. 然后，我们可以通过返回的 gradio 链接访问 GUI:
 
 ```plain
 | INFO | stdout | Running on public URL: https://6141e84201ce0bb4ed.gradio.live
