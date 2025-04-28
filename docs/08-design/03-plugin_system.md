@@ -15,7 +15,6 @@ title: vLLM 的插件系统
 vLLM 的插件系统使用标准的 Python `entry_points` 机制。该机制允许开发者在他们的 Python 包中注册函数，以供其他包使用。以下是一个插件的示例：
 
 ```plain
-# inside `setup.py` file
 # 在 `setup.py` 文件中
 from setuptools import setup
 
@@ -29,7 +28,6 @@ setup(name='vllm_add_dummy_model',
       })
 
 
-# inside `vllm_add_dummy_model.py` file
 # 在 `vllm_add_dummy_model.py` 文件中
 def register():
     from vllm import ModelRegistry
