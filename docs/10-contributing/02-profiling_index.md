@@ -5,6 +5,7 @@ title: vLLM 性能分析
 [\*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
 
 > **警告**
+> 
 > 性能分析仅适用于 vLLM 开发者和维护者，用于了解代码库中不同部分的时间消耗比例。**vLLM 终端用户不应启用性能分析**，因为它会显著降低推理速度。
 
 ## 使用 PyTorch Profiler 进行分析
@@ -18,9 +19,11 @@ title: vLLM 性能分析
 可以使用 [https://ui.perfetto.dev/](https://ui.perfetto.dev/) 查看跟踪文件。
 
 > **提示**
+> 
 > 分析时只需发送少量请求，因为跟踪文件可能会变得非常大。此外，无需解压跟踪文件，可以直接查看。
 
 > **提示**
+> 
 > 停止分析器时，它会将所有分析跟踪文件刷新到目录中。这需要时间，例如对于 llama 70b 的约 100 个请求数据，在 H100 上大约需要 10 分钟才能刷新完毕。在启动服务器之前，请将环境变量 VLLM_RPC_TIMEOUT 设置为较大的值，例如 30 分钟：`export VLLM_RPC_TIMEOUT=1800000`。
 
 ### 示例命令和用法
@@ -73,12 +76,10 @@ nsys profile -o report.nsys-rep --trace-fork-before-exec=true --cuda-graph-trace
 要分析服务器，您需要像离线推理一样在 `vllm serve` 命令前添加 `nsys profile`，但必须根据您的基准测试需求指定 `--delay XX --duration YY` 参数。持续时间用完后，服务器将被终止。
 
 ```plain
-# server
 # 服务器
 nsys profile -o report.nsys-rep --trace-fork-before-exec=true --cuda-graph-trace=node --delay 30 --duration 60 vllm serve meta-llama/Llama-3.1-8B-Instruct
 
 
-# client
 # 客户端
 python benchmarks/benchmark_serving.py --backend vllm --model meta-llama/Llama-3.1-8B-Instruct --num-prompts 1 --dataset-name random --random-input 1024 --random-output 512
 ```
