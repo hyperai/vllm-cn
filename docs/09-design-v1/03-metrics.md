@@ -4,8 +4,6 @@ title: 指标
 
 [\*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
 
-# Metrics
-
 确保 v1 LLM 引擎公开的指标是 v0 可用指标的超集。
 
 ## 目标
@@ -100,11 +98,11 @@ vLLM 中的指标可分为以下几类：
 
 - `vllm:spec_decode_num_emitted_tokens_total` (Counter)
 
-这些指标的文档可在 [Inferencing and Serving -> Production Metrics](https://docs.vllm.ai/en/latest/serving/metrics.html) 中找到。
+这些指标的文档可在 [Inferencing and Serving -> Production Metrics](https://vllm.hyper.ai/docs/inference-and-serving/metrics) 中找到。
 
 ### Grafana 仪表盘
 
-vLLM 还提供了[参考示例](https://docs.vllm.ai/en/latest/getting_started/examples/prometheus_grafana.html)，展示如何使用 Prometheus 收集和存储这些指标，并在 Grafana 仪表盘中可视化。
+vLLM 还提供了[参考示例](https://vllm.hyper.ai/docs/getting-started/examples/online-serving/prometheus_grafana)，展示如何使用 Prometheus 收集和存储这些指标，并在 Grafana 仪表盘中可视化。
 
 Grafana 仪表盘中公开的指标子集表明了哪些指标特别重要：
 
@@ -116,7 +114,7 @@ Grafana 仪表盘中公开的指标子集表明了哪些指标特别重要：
 
 - `vllm:time_per_output_token_seconds` - `token`间延迟（每个输出`token`时间，TPOT）
 
-- `vllm:time_to_first_token_seconds` - 第一个`token`的时间（TTFT）延迟
+- `vllm:time_to_first_token_seconds` - 第一个`token`的时间 (TTFT) 延迟
 
 - `vllm:num_requests_running`（以及 `_swapped` 和 `_waiting`）- 运行中、等待中和交换中的请求数
 
@@ -373,7 +371,6 @@ vllm:time_to_first_token_seconds_count{model_name="meta-llama/Llama-3.1-8B-Instr
 我们为 `vllm:cache_config_info` 指标使用了这一概念：
 
 ```plain
-# HELP vllm:cache_config_info Information of the LLMEngine CacheConfig
 # HELP vllm:cache_config_info LLMEngine CacheConfig 信息
 # TYPE vllm:cache_config_info gauge
 vllm:cache_config_info{block_size="16",cache_dtype="auto",calculate_kv_scales="False",cpu_offload_gb="0",enable_prefix_caching="False",gpu_memory_utilization="0.9",...} 1.0
@@ -423,7 +420,7 @@ rate(cache_query_hit[5m]) / rate(cache_query_total[5m])
 
 废弃指标不应轻率进行。用户可能没有注意到某个指标已经废弃，当它突然（从他们的角度看）被移除时，即使有等效的指标可用，也会给他们带来不便。
 
-例如，看看如何 [废弃](https://github.com/vllm-project/vllm/pull/2764#)`vllm:avg_prompt_throughput_toks_per_s`（并在代码中有注释），然后被 [移除](https://github.com/vllm-project/vllm/pull/12383#)，之后被 [用户注意到](https://github.com/vllm-project/vllm/issues/13218#)。
+例如，看看如何[废弃](https://github.com/vllm-project/vllm/pull/2764#)`vllm:avg_prompt_throughput_toks_per_s`（并在代码中有注释），然后被[移除](https://github.com/vllm-project/vllm/pull/12383#)，之后被[用户注意到](https://github.com/vllm-project/vllm/issues/13218#)。
 
 通常：
 
@@ -467,7 +464,7 @@ if seq_group.is_finished():
 
 ### 前缀缓存命中率
 
-如上所述——我们现在暴露的是“查询”和“命中”计数器，而不是“命中率” `gauge`。
+如上所述——我们现在暴露的是「查询」和「命中」计数器，而不是「命中率」 `gauge`。
 
 ### KV 缓存卸载
 
@@ -535,7 +532,7 @@ if seq_group.is_finished():
 
 - [问题 #5041](https://github.com/vllm-project/vllm/issues/5041#) 和 [拉取请求 #12726](https://github.com/vllm-project/vllm/pull/12726#)。
 
-这是一个复杂的话题。请考虑 Rob 的评论：
+这是一个复杂的话题。请参考 Rob 的评论：
 
 > 我认为这个指标应该专注于尝试估算什么是最大并发，它将导致平均请求长度 > 每秒查询数……因为这实际上是「饱和」服务器的关键。
 
@@ -554,10 +551,6 @@ if seq_group.is_finished():
 3. 我们的某些指标名称以 `_total` 结尾：
 
 ```plain
-If there is a suffix of `_total` on the metric name, it will be removed. When
-exposing the time series for counter, a `_total` suffix will be added. This is
-for compatibility between OpenMetrics and the Prometheus text format, as OpenMetrics
-requires the `_total` suffix.
 如果指标名称以 `_total` 结尾，它将被移除。当暴露计数器的时间序列时，`_total` 后缀将被添加。 这是为了与 OpenMetrics 和 Prometheus 文本格式的兼容性，因为 OpenMetrics 要求 `_total` 后缀。
 ```
 
@@ -597,7 +590,7 @@ v0 支持 OpenTelemetry 跟踪：
 
 - [IBM 产品文档](https://www.ibm.com/docs/en/instana-observability/current?topic=mgaa-monitoring-large-language-models-llms-vllm-public-preview)
 
-OpenTelemetry 有一个 [生成 AI 工作组](https://github.com/open-telemetry/community/blob/main/projects/gen-ai.md)。
+OpenTelemetry 有一个[生成 AI 工作组](https://github.com/open-telemetry/community/blob/main/projects/gen-ai.md)。
 
 由于指标本身是一个足够大的话题，我们将在 v1 中单独讨论跟踪这一主题。
 
