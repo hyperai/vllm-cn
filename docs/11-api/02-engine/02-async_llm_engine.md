@@ -4,7 +4,7 @@ title: AsyncLLMEngine
 
 [\*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
 
-**\*class\*\*\***vllm.\***\*AsyncLLMEngine\*\***(\***\*\*\*\*\*\*\***args**\***,**\***log*requests:\*\**[bool](https://docs.python.org/3/library/functions.html#bool) ***=**\* \***True**\***,**\***start_engine_loop:***[bool](https://docs.python.org/3/library/functions.html#bool) \_**=**\* \***True**\***,\*\*\*\***\***\*\***kwargs**\***)\*\*
+**class_ vllm.AsyncLLMEngine(_\*args_, _log\_requests: [bool](https://docs.python.org/3/library/functions.html#bool "(in Python v3.13)") \= True_, _start\_engine\_loop: [bool](https://docs.python.org/3/library/functions.html#bool "(in Python v3.13)") \= True_, _\*\*kwargs_)**
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/engine/async_llm_engine.py#L574)
 
@@ -21,7 +21,7 @@ title: AsyncLLMEngine
 - **\*args** – `LLMEngine` 的参数。
 - \***\*kwargs** – `LLMEngine` 的参数。
 
-**\*async\*\*\***abort\***\*(\*\*\***request_id:**\*[str](https://docs.python.org/3/library/stdtypes.html#str)**)\***\*→**[None](https://docs.python.org/3/library/constants.html#None)
+**async_ abort(_request\_id: [str](https://docs.python.org/3/library/stdtypes.html#str "(in Python v3.13)")_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.13)")**
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/engine/async_llm_engine.py#L1110)
 
@@ -33,17 +33,19 @@ title: AsyncLLMEngine
 
 **request_id** – 请求的唯一标识符。
 
-**\*async\*\*\***add_lora\***\*(\*\*\***lora_request: LoRARequest**\***)\***\*→**[None](https://docs.python.org/3/library/constants.html#None)
+**async_ add\_lora(_lora\_request: LoRARequest_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.13)")**
+
+[\[source\]](https://github.com/vllm-project/vllm/blob/main/vllm/engine/async_llm_engine.py#L1234)[#](https://docs.vllm.ai/en/v0.8.4_a/api/engine/async_llm_engine.html#vllm.AsyncLLMEngine.add_lora "Permalink to this definition")
 
 将新的 LoRA 适配器加载到引擎中，以供后续请求使用。
 
-**\*async\*\*\***check_health\***\*()\*\***→\*\*[None](https://docs.python.org/3/library/constants.html#None)
+**async_ check\_health() → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.13)")**
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/engine/async_llm_engine.py#L1167)
 
 如果引擎运行状况不佳，则会引发错误。
 
-**\*async\*\*\***encode\***\*(\*\*\***prompt:**_[str](https://docs.python.org/3/library/stdtypes.html#str)_**|**_[TextPrompt](https://docs.vllm.ai/en/latest/api/offline_inference/llm_inputs.html#vllm.inputs.TextPrompt)_**|**_[TokensPrompt](https://docs.vllm.ai/en/latest/api/offline_inference/llm_inputs.html#vllm.inputs.TokensPrompt)_**| ExplicitEncoderDecoderPrompt**\***,**\***pooling*params:**\*[PoolingParams](https://docs.vllm.ai/en/latest/api/inference_params.html#vllm.PoolingParams)**,**\***request_id:**\*[str](https://docs.python.org/3/library/stdtypes.html#str)**,**\***lora_request: LoRARequest |\*\**[None](https://docs.python.org/3/library/constants.html#None) ***=**\* \***None**\***,**\***trace_headers:***[Mapping](https://docs.python.org/3/library/typing.html#typing.Mapping)_**[**_[str](https://docs.python.org/3/library/stdtypes.html#str)_**,**_[str](https://docs.python.org/3/library/stdtypes.html#str)_**] |**_[None](https://docs.python.org/3/library/constants.html#None) ***=**\* \***None**\***,**\***priority:***[int](https://docs.python.org/3/library/functions.html#int) \_**=**\* \***0**\***)\***\*→**[AsyncGenerator](https://docs.python.org/3/library/typing.html#typing.AsyncGenerator)**[PoolingRequestOutput,**[None](https://docs.python.org/3/library/constants.html#None)**]\*\*
+**async_ encode(_prompt: [str](https://docs.python.org/3/library/stdtypes.html#str "(in Python v3.13)") | [TextPrompt](https://docs.vllm.ai/en/v0.8.4_a/api/offline_inference/llm_inputs.html#vllm.inputs.TextPrompt "vllm.inputs.data.TextPrompt") | [TokensPrompt](https://docs.vllm.ai/en/v0.8.4_a/api/offline_inference/llm_inputs.html#vllm.inputs.TokensPrompt "vllm.inputs.data.TokensPrompt") | ExplicitEncoderDecoderPrompt_, _pooling\_params: [PoolingParams](https://docs.vllm.ai/en/v0.8.4_a/api/inference_params.html#vllm.PoolingParams "vllm.pooling_params.PoolingParams")_, _request\_id: [str](https://docs.python.org/3/library/stdtypes.html#str "(in Python v3.13)")_, _lora\_request: LoRARequest | [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.13)") \= None_, _trace\_headers: [Mapping](https://docs.python.org/3/library/typing.html#typing.Mapping "(in Python v3.13)")\[[str](https://docs.python.org/3/library/stdtypes.html#str "(in Python v3.13)"), [str](https://docs.python.org/3/library/stdtypes.html#str "(in Python v3.13)")\] | [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.13)") \= None_, _priority: [int](https://docs.python.org/3/library/functions.html#int "(in Python v3.13)") \= 0_) → [AsyncGenerator](https://docs.python.org/3/library/typing.html#typing.AsyncGenerator "(in Python v3.13)")\[PoolingRequestOutput, [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.13)")\]**
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/engine/async_llm_engine.py#L1025)
 
@@ -51,7 +53,7 @@ title: AsyncLLMEngine
 
 为请求生成输出。此方法是一个协程。它将请求添加到 `LLMEngine` 的等待队列中，并将 `LLMEngine` 的输出流式传输给调用者。
 
-**参数\*\***：\*\*
+**参数：**
 
 - **prompt** – 输入给 LLM 的提示。有关每种输入格式的更多详细信息，请参阅 `PromptType`。
 - **pooling_params** – 请求的池化参数。
@@ -73,12 +75,8 @@ title: AsyncLLMEngine
 **示例**
 
 ```plain
->>> # Please refer to entrypoints/api_server.py for
->>> # the complete example.
 >>> # 请参考 entrypoints/api_server.py 获取完整示例。
 >>>
->>> # initialize the engine and the example input
->>> # note that engine_args here is AsyncEngineArgs instance
 >>> # 初始化引擎和示例输入
 >>> # 注意这里的 engine_args 是 AsyncEngineArgs 实例
 >>> engine = AsyncLLMEngine.from_engine_args(engine_args)
@@ -87,30 +85,27 @@ title: AsyncLLMEngine
 >>>     "request_id": 0,
 >>> }
 >>>
->>> # start the generation
 >>> # 开始生成
 >>> results_generator = engine.encode(
 >>>    example_input["input"],
 >>>    PoolingParams(),
 >>>    example_input["request_id"])
 >>>
->>> # get the results
 >>> # 获取结果
 >>> final_output = None
 >>> async for request_output in results_generator:
 >>>     if await request.is_disconnected():
->>>         # Abort the request if the client disconnects.
+>>>         # 如果客户端断开连接，则终止请求。
 >>>         await engine.abort(request_id)
->>>         # Return or raise an error
+>>>         # 返回一个错误，或者抛出一个错误。
 >>>         ...
 >>>     final_output = request_output
 >>>
->>> # Process and return the final output
 >>> # 处理并返回最终输出
 >>> ...
 ```
 
-**\*async\*\*\***engine_step\***\*(\*\*\***virtual_engine:**\*[int](https://docs.python.org/3/library/functions.html#int)**)\***\*→**[bool](https://docs.python.org/3/library/functions.html#bool)
+**async_ engine\_step(_virtual\_engine: [int](https://docs.python.org/3/library/functions.html#int "(in Python v3.13)")_) → [bool](https://docs.python.org/3/library/functions.html#bool "(in Python v3.13)")**
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/engine/async_llm_engine.py#L730)
 
@@ -118,17 +113,17 @@ title: AsyncLLMEngine
 
 如果有正在处理的请求，则返回 True。
 
-**\*classmethod\*\*\***from*engine_args\***\*(\*\*\***engine_args: AsyncEngineArgs**\***,**\***engine_config: VllmConfig |\*\**[None](https://docs.python.org/3/library/constants.html#None) ***=**\* \***None**\***,**\***start_engine_loop:***[bool](https://docs.python.org/3/library/functions.html#bool) ***=**\* \***True**\***,**\***usage_context: UsageContext**\*\***=**\* \***UsageContext.ENGINE_CONTEXT**\***,**\***stat_loggers:***[Dict](https://docs.python.org/3/library/typing.html#typing.Dict)_**[**_[str](https://docs.python.org/3/library/stdtypes.html#str)_**, StatLoggerBase] |**_[None](https://docs.python.org/3/library/constants.html#None) \_**=**\* \***None**\***)\***\*→\*\*[AsyncLLMEngine](https://docs.vllm.ai/en/latest/api/engine/async_llm_engine.html#vllm.AsyncLLMEngine)
+**classmethod_ from\_engine\_args(_engine\_args: AsyncEngineArgs_, _start\_engine\_loop: [bool](https://docs.python.org/3/library/functions.html#bool "(in Python v3.13)") \= True_, _usage\_context: UsageContext \= UsageContext.ENGINE\_CONTEXT_, _stat\_loggers: [Dict](https://docs.python.org/3/library/typing.html#typing.Dict "(in Python v3.13)")\[[str](https://docs.python.org/3/library/stdtypes.html#str "(in Python v3.13)"), StatLoggerBase\] | [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.13)") \= None_) → [AsyncLLMEngine](https://docs.vllm.ai/en/v0.8.4_a/api/engine/async_llm_engine.html#vllm.AsyncLLMEngine "vllm.engine.async_llm_engine.AsyncLLMEngine")**
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/engine/async_llm_engine.py#L632)
 
 根据引擎参数创建异步 LLM 引擎。
 
-**\*classmethod\*\*\***from*vllm_config\***\*(\*\*\***vllm_config: VllmConfig**\***,**\***start_engine_loop:\*\**[bool](https://docs.python.org/3/library/functions.html#bool) ***=**\* \***True**\***,**\***usage_context: UsageContext**\*\***=**\* \***UsageContext.ENGINE_CONTEXT**\***,**\***stat_loggers:***[dict](https://docs.python.org/3/library/stdtypes.html#dict)_**[**_[str](https://docs.python.org/3/library/stdtypes.html#str)_**, vllm.engine.metrics_types.StatLoggerBase] |**_[None](https://docs.python.org/3/library/constants.html#None) ***=**\* \***None**\***,**\***disable_log_requests:***[bool](https://docs.python.org/3/library/functions.html#bool) ***=**\* \***False**\***,**\***disable_log_stats:***[bool](https://docs.python.org/3/library/functions.html#bool) \_**=**\* \***False**\***)\***\*→\*\*[AsyncLLMEngine](https://docs.vllm.ai/en/latest/api/engine/async_llm_engine.html#vllm.AsyncLLMEngine)
+**classmethod_ from\_vllm\_config(_vllm\_config: VllmConfig_, _start\_engine\_loop: [bool](https://docs.python.org/3/library/functions.html#bool "(in Python v3.13)") \= True_, _usage\_context: UsageContext \= UsageContext.ENGINE\_CONTEXT_, _stat\_loggers: [dict](https://docs.python.org/3/library/stdtypes.html#dict "(in Python v3.13)")\[[str](https://docs.python.org/3/library/stdtypes.html#str "(in Python v3.13)"), vllm.engine.metrics\_types.StatLoggerBase\] | [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.13)") \= None_, _disable\_log\_requests: [bool](https://docs.python.org/3/library/functions.html#bool "(in Python v3.13)") \= False_, _disable\_log\_stats: [bool](https://docs.python.org/3/library/functions.html#bool "(in Python v3.13)") \= False_) → [AsyncLLMEngine](https://docs.vllm.ai/en/v0.8.4_a/api/engine/async_llm_engine.html#vllm.AsyncLLMEngine "vllm.engine.async_llm_engine.AsyncLLMEngine")**
 
 从 EngineArgs 创建一个 AsyncLLMEngine。
 
-**\*async\*\*\***generate\***\*(\*\*\***prompt:**_[str](https://docs.python.org/3/library/stdtypes.html#str)_**|**_[TextPrompt](https://docs.vllm.ai/en/latest/api/offline_inference/llm_inputs.html#vllm.inputs.TextPrompt)_**|**_[TokensPrompt](https://docs.vllm.ai/en/latest/api/offline_inference/llm_inputs.html#vllm.inputs.TokensPrompt)_**| ExplicitEncoderDecoderPrompt**\***,**\***sampling*params:**\*[SamplingParams](https://docs.vllm.ai/en/latest/api/inference_params.html#vllm.SamplingParams)**,**\***request_id:**\*[str](https://docs.python.org/3/library/stdtypes.html#str)**,**\***lora_request: LoRARequest |\*\**[None](https://docs.python.org/3/library/constants.html#None) ***=**\* \***None**\***,**\***trace_headers:***[Mapping](https://docs.python.org/3/library/typing.html#typing.Mapping)_**[**_[str](https://docs.python.org/3/library/stdtypes.html#str)_**,**_[str](https://docs.python.org/3/library/stdtypes.html#str)_**] |**_[None](https://docs.python.org/3/library/constants.html#None) ***=**\* \***None**\***,**\***prompt_adapter_request: PromptAdapterRequest |***[None](https://docs.python.org/3/library/constants.html#None) ***=**\* \***None**\***,**\***priority:***[int](https://docs.python.org/3/library/functions.html#int) \_**=**\* \***0**\***)\***\*→**[AsyncGenerator](https://docs.python.org/3/library/typing.html#typing.AsyncGenerator)**[RequestOutput,**[None](https://docs.python.org/3/library/constants.html#None)**]\*\*
+**async_ generate(_prompt: [str](https://docs.python.org/3/library/stdtypes.html#str "(in Python v3.13)") | [TextPrompt](https://docs.vllm.ai/en/v0.8.4_a/api/offline_inference/llm_inputs.html#vllm.inputs.TextPrompt "vllm.inputs.data.TextPrompt") | [TokensPrompt](https://docs.vllm.ai/en/v0.8.4_a/api/offline_inference/llm_inputs.html#vllm.inputs.TokensPrompt "vllm.inputs.data.TokensPrompt") | ExplicitEncoderDecoderPrompt_, _sampling\_params: [SamplingParams](https://docs.vllm.ai/en/v0.8.4_a/api/inference_params.html#vllm.SamplingParams "vllm.sampling_params.SamplingParams")_, _request\_id: [str](https://docs.python.org/3/library/stdtypes.html#str "(in Python v3.13)")_, _lora\_request: LoRARequest | [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.13)") \= None_, _trace\_headers: [Mapping](https://docs.python.org/3/library/typing.html#typing.Mapping "(in Python v3.13)")\[[str](https://docs.python.org/3/library/stdtypes.html#str "(in Python v3.13)"), [str](https://docs.python.org/3/library/stdtypes.html#str "(in Python v3.13)")\] | [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.13)") \= None_, _prompt\_adapter\_request: PromptAdapterRequest | [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.13)") \= None_, _priority: [int](https://docs.python.org/3/library/functions.html#int "(in Python v3.13)") \= 0_) → [AsyncGenerator](https://docs.python.org/3/library/typing.html#typing.AsyncGenerator "(in Python v3.13)")\[RequestOutput, [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.13)")\]**
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/engine/async_llm_engine.py#L934)
 
@@ -136,7 +131,7 @@ title: AsyncLLMEngine
 
 为请求生成输出。此方法是一个协程。它将请求添加到 `LLMEngine` 的等待队列中，并将 `LLMEngine` 的输出流式传输给调用者。
 
-**参数\*\***：\*\*
+**参数：**
 
 - **prompt** – 输入给 LLM 的提示。有关每种输入格式的更多详细信息，请参阅 `PromptType`。
 - **sampling_params** – 请求的采样参数。
@@ -146,7 +141,7 @@ title: AsyncLLMEngine
 - **prompt_adapter_request** – 用于生成的提示适配器请求（如果有）。
 - **priority** – 请求的优先级。仅适用于优先级调度。
 
-**生成\*\***：\*\*
+**生成：**
 
 `LLMEngine`为请求生成的 RequestOutput 对象。
 
@@ -159,12 +154,8 @@ title: AsyncLLMEngine
 **示例**
 
 ```plain
->>> # Please refer to entrypoints/api_server.py for
->>> # the complete example.
 >>> # 请参考 entrypoints/api_server.py 获取完整示例。
 >>>
->>> # initialize the engine and the example input
->>> # note that engine_args here is AsyncEngineArgs instance
 >>> # 初始化引擎和示例输入
 >>> # 注意这里的 engine_args 是 AsyncEngineArgs 实例
 >>> engine = AsyncLLMEngine.from_engine_args(engine_args)
@@ -175,14 +166,12 @@ title: AsyncLLMEngine
 >>>     "request_id": 0,
 >>> }
 >>>
->>> # start the generation
 >>> # 开始生成
 >>> results_generator = engine.generate(
 >>>    example_input["prompt"],
 >>>    SamplingParams(temperature=example_input["temperature"]),
 >>>    example_input["request_id"])
 >>>
->>> # get the results
 >>> # 获取结果
 >>> final_output = None
 >>> async for request_output in results_generator:
@@ -193,72 +182,71 @@ title: AsyncLLMEngine
 >>>         ...
 >>>     final_output = request_output
 >>>
->>> # Process and return the final output
 >>> # 处理并返回最终输出
 >>> ...
 ```
 
-**\*async\*\*\***get_decoding_config\***\*()\*\***→ DecodingConfig\*\*
+**async_ get\_decoding\_config() → DecodingConfig**
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/engine/async_llm_engine.py#L1149)
 
 获取 vLLM 引擎的解码配置。
 
-**\*async\*\*\***get_input_preprocessor\***\*()\*\***→ InputPreprocessor\*\*
+**async_ get\_input\_preprocessor() → InputPreprocessor**
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/engine/async_llm_engine.py#L691)
 
 获取 vLLM 引擎的输入预处理器。
 
-**\*async\*\*\***get_lora_config\***\*()\*\***→ LoRAConfig\*\*
+**async_ get\_lora\_config() → LoRAConfig**
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/engine/async_llm_engine.py#L1157)
 
 获取 vLLM 引擎的 LoRA 配置。
 
-**\*async\*\*\***get_model_config\***\*()\*\***→ ModelConfig\*\*
+**async_ get\_model\_config() → ModelConfig**
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/engine/async_llm_engine.py#L1141)
 
 获取 vLLM 引擎的模型配置。
 
-**\*async\*\*\***get_parallel_config\***\*()\*\***→ ParallelConfig\*\*
+**async_ get\_parallel\_config() → ParallelConfig**
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/engine/async_llm_engine.py#L1145)
 
 获取 vLLM 引擎的并行配置。
 
-**\*async\*\*\***get_scheduler_config\***\*()\*\***→ SchedulerConfig\*\*
+**async_ get\_scheduler\_config() → SchedulerConfig**
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/engine/async_llm_engine.py#L1153)
 
 获取 vLLM 引擎的调度配置。
 
-**\*async\*\*\***get*tokenizer\***\*(\*\*\***lora_request: LoRARequest |\*\**[None](https://docs.python.org/3/library/constants.html#None) \_**=**\* \***None**\***)\***\*→ transformers.PreTrainedTokenizer | transformers.PreTrainedTokenizerFast | TokenizerBase\*\*
+**async_ get\_tokenizer(_lora\_request: LoRARequest | [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.13)") \= None_) → transformers.PreTrainedTokenizer | transformers.PreTrainedTokenizerFast | TokenizerBase**
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/engine/async_llm_engine.py#L694)
 
 获取请求的适当分词器。
 
-**_async_** **is_sleeping\*\***（）\***\*→**[bool](https://docs.python.org/3/library/functions.html#bool)
+**async_ is\_sleeping() → [bool](https://docs.python.org/3/library/functions.html#bool "(in Python v3.13)")**
 
 [[source]  ](https://github.com/vllm-project/vllm/blob/main/vllm/engine/async_llm_engine.py#L1228)
 
 检查引擎是否处于休眠状态。
 
-**\*async\*\*\***reset_prefix_cache\***\*()\*\***→\*\*[None](https://docs.python.org/3/library/constants.html#None)
+**async_ reset\_prefix\_cache(_device: Device | [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.13)") \= None_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.13)")**
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/engine/async_llm_engine.py#L1192)
 
 重置前缀缓存。
 
-**\*async static\*\*\***run_engine_loop\***\*(\*\*\***engine_ref: ReferenceType**\***)\*\*
+**async static_ run\_engine\_loop(_engine\_ref: ReferenceType_)**
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/engine/async_llm_engine.py#L781)
 
 我们使用引擎的弱引用，这样正在运行的循环不会阻止引擎被垃圾回收。
 
-**shutdown_background_loop\*\***()\***\*→**[None](https://docs.python.org/3/library/constants.html#None)
+**shutdown\_background\_loop() → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.13)")**
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/engine/async_llm_engine.py#L716)
 
@@ -266,31 +254,31 @@ title: AsyncLLMEngine
 
 在清理过程中需要调用此方法，以移除对 `self` 的引用，并正确释放异步 LLM 引擎持有的资源（例如执行器及其资源）。
 
-**\*async\*\*\***sleep\***\*(\*\*\***level:**_[int](https://docs.python.org/3/library/functions.html#int) _**=**\* \***1**\***)\***\*→**[None](https://docs.python.org/3/library/constants.html#None)
+**async_ sleep(_level: [int](https://docs.python.org/3/library/functions.html#int "(in Python v3.13)") \= 1_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.13)")**
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/engine/async_llm_engine.py#L1195)
 
 让引擎休眠。
 
-**start_background_loop\*\***()\***\*→**[None](https://docs.python.org/3/library/constants.html#None)
+**start\_background\_loop() → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.13)")**
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/engine/async_llm_engine.py#L700)
 
 启动后台循环。
 
-**\*async\*\*\***start_profile\***\*()\*\***→\*\*[None](https://docs.python.org/3/library/constants.html#None)
+**async_ start\_profile() → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.13)")**
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/engine/async_llm_engine.py#L1186)
 
 开始分析引擎。
 
-**\*async\*\*\***stop_profile\***\*()\*\***→\*\*[None](https://docs.python.org/3/library/constants.html#None)
+**async_ stop\_profile() → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.13)")**
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/engine/async_llm_engine.py#L1189)
 
 停止分析引擎。
 
-**\*async\*\*\***wake_up\***\*()\*\***→\*\*[None](https://docs.python.org/3/library/constants.html#None)
+**async_ wake\_up(_tags: [list](https://docs.python.org/3/library/stdtypes.html#list "(in Python v3.13)")\[[str](https://docs.python.org/3/library/stdtypes.html#str "(in Python v3.13)")\] | [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.13)") \= None_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.13)")**
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/engine/async_llm_engine.py#L1198)
 
