@@ -29,22 +29,20 @@ title: 为 vLLM 做贡献
 pip install -r requirements/dev.txt
 
 
-# Linting, formatting and static type checking
 # 代码检查、格式化和静态类型检查
 pre-commit install --hook-type pre-commit --hook-type commit-msg
 
 
-# You can manually run pre-commit with
 # 手动运行 pre-commit
 pre-commit run --all-files
 
 
-# Unit tests
 # 单元测试
 pytest tests/
 ```
 
 > **注意**
+> 
 > 当前仓库尚未完全通过  `mypy`  检查。
 
 ## 问题报告
@@ -61,9 +59,9 @@ pytest tests/
 
 ### DCO 与签署提交
 
-当向本项目贡献变更时，您必须同意  [DCO](https://github.com/vllm-project/vllm/blob/main/DCO)。提交必须包含  `Signed-off-by:`  标头以证明您同意 DCO 条款。
+当向本项目贡献变更时，您必须同意 [DCO](https://github.com/vllm-project/vllm/blob/main/DCO)。提交必须包含 `Signed-off-by:` 标头以证明您同意 DCO 条款。
 
-使用  `git commit -s`  会自动添加此标头。
+使用 `git commit -s` 会自动添加此标头。
 
 ### PR 标题与分类
 
@@ -80,13 +78,14 @@ pytest tests/
 - `[Misc]`  其他类别（请谨慎使用）
 
 > **注意**
+> 
 > 如果 PR 涉及多个类别，请包含所有相关前缀。
 
 ### 代码质量要求
 
 PR 需满足以下代码质量标准：
 
-- 遵循  [Google Python 风格指南](https://google.github.io/styleguide/pyguide.html)  和  [Google C++ 风格指南](https://google.github.io/styleguide/cppguide.html)
+- 遵循  [Google Python 风格指南](https://google.github.io/styleguide/pyguide.html)和  [Google C++ 风格指南](https://google.github.io/styleguide/cppguide.html)
 - 通过所有代码检查工具，请使用  `pre-commit`  格式化代码（新用户参考  [pre-commit 使用指南](https://pre-commit.com/#usage)）
 - 代码需充分注释以确保后续贡献者易于理解
 - 包含充足的单元测试和集成测试
@@ -102,14 +101,14 @@ PR 需满足以下代码质量标准：
 
   - [自定义操作手册](https://docs.google.com/document/d/1_W62p8WJOQQUzPsJYa7s701JXt0qf2OfLub2sbkHOaU)
 
-- 返回  `Tensor`  的自定义操作需要元函数（meta-functions），应在 Python 中实现以处理动态维度
+- 返回 `Tensor` 的自定义操作需要元函数 (meta-functions)，应在 Python 中实现以处理动态维度
 - 使用  [torch.library.opcheck()](https://pytorch.org/docs/stable/library.html#torch.library.opcheck)  测试函数注册和元函数（示例见  `tests/kernels`）
 - 修改现有操作的 C++ 签名时需同步更新 schema
 - 如需新自定义类型，请参考  [PT2 自定义类支持文档](https://docs.google.com/document/d/18fBMPuOJ0fY5ZQ6YyrHUppw9FA332CpNtgB6SOIgyuA)
 
 ### 大型变更的注意事项
 
-请尽量保持变更简洁。对于重大架构变更（>500 行，不含内核/数据/配置/测试），我们期望先有 GitHub issue（RFC）讨论技术设计和合理性。否则将标记为  `rfc-required`  并可能不予审查。
+请尽量保持变更简洁。对于重大架构变更（>500 行，不含内核/数据/配置/测试），我们期望先有 GitHub issue (RFC) 讨论技术设计和合理性。否则将标记为  `rfc-required` 并可能不予审查。
 
 ### 审查流程说明
 
