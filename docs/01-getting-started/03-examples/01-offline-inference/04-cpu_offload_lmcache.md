@@ -8,12 +8,7 @@ title: Cpu Offload Lmcache
 
 ```python
 # SPDX-License-Identifier: Apache-2.0
-"""
-This file demonstrates the example usage of cpu offloading
-with LMCache.
-Note that `pip install lmcache` is needed to run this example.
-Learn more about LMCache in https://github.com/LMCache/LMCache.
-"""
+
 """
 该文件演示了 CPU 卸载的示例用法
 与 LMCache。
@@ -29,22 +24,16 @@ from lmcache.integration.vllm.utils import ENGINE_NAME
 from vllm import LLM, SamplingParams
 from vllm.config import KVTransferConfig
 
-# LMCache-related environment variables
-# Use experimental features in LMCache
 # 与 LMCache 相关的环境变量
 # 在 LMCache 中使用实验功能
 os.environ["LMCache_USE_EXPERIMENTAL"] = "True"
-# LMCache is set to use 256 tokens per chunk
 # LMCache 设置为每块使用256个 token
 os.environ["LMCache_CHUNK_SIZE"] = "256"
-# Enable local CPU backend in LMCache
 # 在 LMCache 中启用本地 CPU 后端
 os.environ["LMCache_LOCAL_CPU"] = "True"
-# Set local CPU memory limit to 5.0 GB
 # 将本地 CPU 内存限制设置为 5.0 GB
 os.environ["LMCache_MAX_LOCAL_CPU_SIZE"] = "5.0"
 
-# This example script runs two requests with a shared prefix.
 # 此示例脚本以共享前缀运行两个请求。
 shared_prompt = "Hello, how are you?" * 1000
 first_prompt = [
@@ -58,9 +47,6 @@ sampling_params = SamplingParams(temperature=0, top_p=0.95, max_tokens=10)
 
 ktc = KVTransferConfig.from_cli(
     '{"kv_connector":"LMCacheConnector", "kv_role":"kv_both"}')
-# Set GPU memory utilization to 0.8 for an A40 GPU with 40GB
-# memory. Reduce the value if your GPU has less memory.
-# Note that LMCache is not compatible with chunked prefill for now.
 # 将 GPU 内存利用设置为 0.8，用于 40GB 显存的 A40 GPU。
 # 如果您的 GPU 的内存较少，则降低值。
 # 请注意，LMCache 目前与块预填充不兼容。
@@ -84,7 +70,6 @@ for output in outputs:
     print(f"Generated text: {generated_text!r}")
 print("Second request done.")
 
-# Clean up lmcache backend
 # 清理 LMCache 后端
 LMCacheEngineBuilder.destroy(ENGINE_NAME)
 
