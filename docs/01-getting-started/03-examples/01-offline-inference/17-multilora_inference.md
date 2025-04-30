@@ -8,11 +8,7 @@ title: Multilora Inference
 
 ```python
 # SPDX-License-Identifier: Apache-2.0
-"""
-This example shows how to use the multi-LoRA functionality
-for offline inference.
-Requires HuggingFace credentials for access to Llama2.
-"""
+
 """
 此示例显示了如何使用多路线功能
 用于离线推理。
@@ -30,14 +26,7 @@ from vllm.lora.request import LoRARequest
 def create_test_prompts(
         lora_path: str
 ) -> list[tuple[str, SamplingParams, Optional[LoRARequest]]]:
-    """Create a list of test prompts with their sampling parameters.
 
-    2 requests for base model, 4 requests for the LoRA. We define 2
-    different LoRA adapters (using the same model for demo purposes).
-    Since we also set `max_loras=1`, the expectation is that the requests
-    with the second LoRA adapter will be ran after all requests with the
-    first adapter have finished.
-    """
     """创建包含采样参数的测试提示列表。
     为基准模型创建 2 个请求，为 LoRA 创建 4 个请求。
     我们定义了两个不同的 LoRA 适配器（出于演示目的使用相同模型）。
@@ -77,7 +66,6 @@ def create_test_prompts(
 def process_requests(engine: LLMEngine,
                      test_prompts: list[tuple[str, SamplingParams,
                                               Optional[LoRARequest]]]):
-    """Continuously process a list of prompts and handle the outputs."""
     "持续处理提示列表并处理输出"
     request_id = 0
 
@@ -99,13 +87,6 @@ def process_requests(engine: LLMEngine,
 
 def initialize_engine() -> LLMEngine:
     """Initialize the LLMEngine."""
-    # max_loras: controls the number of LoRAs that can be used in the same
-    #   batch. Larger numbers will cause higher memory usage, as each LoRA
-    #   slot requires its own preallocated tensor.
-    # max_lora_rank: controls the maximum supported rank of all LoRAs. Larger
-    #   numbers will cause higher memory usage. If you know that all LoRAs will
-    #   use the same rank, it is recommended to set this as low as possible.
-    # max_cpu_loras: controls the size of the CPU LoRA cache.
     # max_loras:控制可以在同一批中使用的 LoRA 的数量。
     # 较大的值将导致更高的内存使用情况
     # 因为每个 LoRA 插槽需要其自己的前置张量。
