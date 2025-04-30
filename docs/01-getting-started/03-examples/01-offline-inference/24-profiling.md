@@ -58,31 +58,7 @@ def get_dtype(dtype: str):
 OutputLen_NumReqs_Map: TypeAlias = dict[int, int]
 def compute_request_output_lengths(batch_size: int, step_requests: list[int]) \
       -> OutputLen_NumReqs_Map:
-    """
-    Given the number of requests, batch_size, and the number of requests
-    that each engine-step should process, step_requests, determine the
-    output lengths of the requests such that step_request is honoured.
 
-    Example:
-    if batch size = 128 and step_request = [128, 128, 96, 64, 32, 1]
-    then return,
-    {2 : 32, 3 : 32, 4 : 32, 5 : 31, 6 : 1}, meaning,
-    32 requests should have output length 2,
-    32 requests should have output length 3,
-    32 requests should have output length 4,
-    31 requests should have output length 5,
-    1 request should have output length 6.
-
-    Args:
-        batch_size (int): Number of requests submitted for profile. This is
-            args.batch_size.
-        step_requests (list[int]): step_requests[i] is the number of requests
-            that the ith engine step should process.
-
-    Returns:
-        OutputLen_NumReqs_Map : A dictionary with output-length as keys and the
-            number of requests required to have that output-length as values.
-    """
     """
     根据请求数量、batch_size 以及每个引擎步骤应处理的请求数 step_requests，
     确定各请求的输出长度，以确保满足 step_requests 的要求。
@@ -106,16 +82,13 @@ def compute_request_output_lengths(batch_size: int, step_requests: list[int]) \
     """
     ol_nr: OutputLen_NumReqs_Map = {}
 
-    # Number of request that are assigned an output-length
     # 分配了输出长度的请求数
     num_reqs_assigned: int = 0
     num_steps: int = len(step_requests)
 
-    # sanity check. The first step (prefill-step), must process all requests.
     # 理智检查。第一步 (预填充步骤) 必须处理所有请求。
     assert step_requests[0] == batch_size
 
-    # Begin assignments from the last step.
     # 从最后一步开始分配。
     output_length: int = num_steps
     for num_requests_at_step in reversed(step_requests):
@@ -124,8 +97,6 @@ def compute_request_output_lengths(batch_size: int, step_requests: list[int]) \
 
         assert num_reqs_assigned < batch_size
 
-        # Remove the number of requests that have been determined
-        # to participate in this step and beyond.
         # 删除已确定的请求数量
         # 参加此步骤及以后。
         num_reqs_unassigned_at_step = num_requests_at_step - num_reqs_assigned
@@ -137,15 +108,12 @@ def compute_request_output_lengths(batch_size: int, step_requests: list[int]) \
 
         output_length -= 1
 
-    # sanity checks.
     # 理智检查。
     assert sum(ol_nr.values()) == batch_size, \
             ("Number of requests in output-length assignment does not match "
              f"batch-size.\n batch size {batch_size} - "
              f"step requests {step_requests} - assignments {ol_nr}")
 
-    # Check that the output-length is in [1, num-steps]. Output length must be
-    # at least 1 as all requests must participate in the prefill-step.
     # 检查输出长度是否在[1，numSteps]中。输出长度必须是
     # 至少1个请求必须参与预填充步骤。
     assert all(ol >= 1 and ol <= num_steps for ol in ol_nr), \
@@ -157,25 +125,7 @@ def compute_request_output_lengths(batch_size: int, step_requests: list[int]) \
 
 
 def determine_requests_per_step(context: ProfileContext) -> list[int]:
-    """
-    Determine number of requests each engine step should process.
-    If context.num_steps is set, then all engine steps process the
-    same number of requests and the output list is of length
-    context.num_steps.
 
-    If context.complete_num_requests_per_step is set, then each decode step
-    processes fewer and fewer requests until there are no requests to process.
-    In this case, the output list is as big as the number of steps
-    required to process all requests.
-
-    Args:
-        context: ProfileContext object.
-
-    Returns:
-        list[int]: Number of requests to process for all engine-steps.
-         output[i], contains the number of requests that the ith step
-         should process.
-    """
     """
     确定每个引擎步骤应处理的请求数量。
     若设置了 context.num_steps，则所有引擎步骤处理相同数量的请求，
@@ -193,8 +143,6 @@ def determine_requests_per_step(context: ProfileContext) -> list[int]:
          output[i] 表示第 i 个步骤应处理的请求数量。
     """
     if context.num_steps:
-        # All requests must run until num_engine_steps. This implies
-        # that their output lengths must be equal to num_engine_steps.
         # 所有请求必须运行，直到 num_engine_steps 为止。这意味着
         # 他们的输出长度必须等于 num_engine_steps。
         return [context.batch_size] * context.num_steps
@@ -204,7 +152,6 @@ def determine_requests_per_step(context: ProfileContext) -> list[int]:
         (f"Expected a positive complete_num_requests_per_step argument."
          f"Instead got {context.complete_num_requests_per_step}")
 
-    # We start dropping after the first decode step.
     # 我们在第一个解码步骤之后开始掉落。
     step_requests = [
         context.batch_size,  # prefill # 预填充
@@ -218,8 +165,7 @@ def determine_requests_per_step(context: ProfileContext) -> list[int]:
         num_running_requests -= context.complete_num_requests_per_step
 
     if step_requests[-1] != 1:
-        # have 1 request running at the last step. This is often
-        # useful
+
         # 在最后一步有1个请求。这通常很有用
         step_requests.append(1)
 
@@ -241,7 +187,6 @@ def run_profile(context: ProfileContext, csv_output: Optional[str],
     max_output_len: int = max(ol_nr.keys())
     assert max_output_len >= 1
 
-    # Create sampling params
     # 创建采样参数
     sampling_params = SamplingParams(
         temperature=0.8,
@@ -251,7 +196,6 @@ def run_profile(context: ProfileContext, csv_output: Optional[str],
         max_tokens=None,
         ignore_eos=True)
 
-    # Create LLM
     # 创建 LLM
     llm = LLM(**asdict(context.engine_args))
     batch_size = context.batch_size
@@ -311,7 +255,6 @@ def run_profile(context: ProfileContext, csv_output: Optional[str],
         for i in range(batch_size):
             llm.llm_engine.abort_request(f"seq{i}")
 
-    # Warm up run
     # 预热跑步
     print("Warm up run ...")
     add_requests()
@@ -407,7 +350,6 @@ def run_profile(context: ProfileContext, csv_output: Optional[str],
             for idx, dr in enumerate(decode_results_list):
                 json_dict[f"decode_{idx + 1}"] = dr.convert_stats_to_dict()
 
-        # Add .json to json_output filename if it doesn't exist already.
         # 如果尚不存在，则将.json 添加到 JSON_OUTPUT 文件名。
         json_output_file = json_output if json_output.endswith(
             '.json') else json_output + '.json'
