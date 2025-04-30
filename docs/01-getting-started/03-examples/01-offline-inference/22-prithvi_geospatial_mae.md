@@ -6,24 +6,7 @@ title: Prithvi Geospatial Mae
 
 ```python
 # SPDX-License-Identifier: Apache-2.0
-"""
-This is a demo script showing how to use the
-PrithviGeospatialMAE model with vLLM
-This script is based on: https://huggingface.co/ibm-nasa-geospatial/Prithvi-EO-2.0-300M-TL-Sen1Floods11/blob/main/inference.py # noqa
 
-Target model weights: https://huggingface.co/ibm-nasa-geospatial/Prithvi-EO-2.0-300M-TL-Sen1Floods11/resolve/main/Prithvi-EO-V2-300M-TL-Sen1Floods11.pt # noqa
-
-The requirements for running this script are:
-- Installing [terratorch, albumentations, rasterio] in your python environment
-- downloading the model weights in a 'model' folder local to the script
-  (temporary measure until the proper config.json file is uploaded to HF)
-- download an input example image (India_900498_S2Hand.tif) and place it in
-  the same folder with the script (or specify with the --data_file argument)
-
-Run the example:
-python prithvi_geospatial_mae.py
-
-""" # noqa: E501
 """
 这是一个演示脚本，显示如何使用
 带有 vLLM 的 PrithviGeospatialMAE 模型
@@ -129,8 +112,6 @@ model_config = """{
 }
 """
 
-# Temporarily creating the "config.json" for the model.
-# This is going to disappear once the correct config.json is available on HF
 # 临时为模型创建「config.json」文件。
 # 当正确的 config.json 在 HF 平台可用后，该文件将自动消失
 with open(os.path.join(os.path.dirname(__file__), "./model/config.json"),
@@ -177,7 +158,6 @@ class PrithviMAE:
 
     def run(self, input_data, location_coords):
         print("################ Running inference on vLLM ##############")
-        # merge the inputs into one data structure
         # 合并数据到一个数据结构中
         mm_data = {
             "pixel_values":
@@ -210,15 +190,7 @@ def generate_datamodule():
 
 
 def process_channel_group(orig_img, channels):
-    """
-    Args:
-        orig_img: torch.Tensor representing original image (reference)
-                  with shape = (bands, H, W).
-        channels: list of indices representing RGB channels.
 
-    Returns:
-        torch.Tensor with shape (num_channels, height, width) for original image
-    """
     """
     参数：
         orig_img：表示原始图像（参考图像）的 torch.Tensor，
@@ -233,7 +205,6 @@ def process_channel_group(orig_img, channels):
     valid_mask = torch.ones_like(orig_img, dtype=torch.bool)
     valid_mask[orig_img == NO_DATA_FLOAT] = False
 
-    # Rescale (enhancing contrast)
     # 重缩放 (增强对比)
     max_value = max(3000, np.percentile(orig_img[valid_mask], PERCENTILE))
     min_value = OFFSET
@@ -241,7 +212,6 @@ def process_channel_group(orig_img, channels):
     orig_img = torch.clamp((orig_img - min_value) / (max_value - min_value), 0,
                            1)
 
-    # No data as zeros
     # 0 作为无数据
     orig_img[~valid_mask] = 0
 
@@ -265,7 +235,6 @@ def read_geotiff(file_path: str):
         try:
             coords = src.lnglat()
         except Exception:
-            # Cannot read coords
             # 无法读取 coords
             coords = None
 
@@ -273,13 +242,6 @@ def read_geotiff(file_path: str):
 
 
 def save_geotiff(image, output_path: str, meta: dict):
-    """Save multi-band image in Geotiff file.
-
-    Args:
-        image: np.ndarray with shape (bands, height, width)
-        output_path: path where to save the image
-        meta: dict with meta info.
-    """
     """将多波段图像保存为 GeoTiff 文件。
 
     参数：
@@ -308,19 +270,6 @@ def load_example(
     std: list[float] = None,
     indices: Union[list[int], None] = None,
 ):
-    """Build an input example by loading images in *file_paths*.
-
-    Args:
-        file_paths: list of file paths .
-        mean: list containing mean values for each band in the images
-              in *file_paths*.
-        std: list containing std values for each band in the images
-             in *file_paths*.
-
-    Returns:
-        np.array containing created example
-        list of meta info for each image in *file_paths*
-    """
     """通过加载 *file_paths* 中的图像构建输入样本。
 
     参数：
@@ -341,7 +290,6 @@ def load_example(
     for file in file_paths:
         img, meta, coords = read_geotiff(file)
 
-        # Rescaling (don't normalize on nodata)
         # 重缩放(不要在空数据上归一化)
         img = np.moveaxis(img, 0, -1)  # channels last for rescaling # 最后一个通道用于重缩放
         if indices is not None:
@@ -382,7 +330,6 @@ def run_model(input_data,
               datamodule,
               img_size,
               lightning_model=None):
-    # Reflect pad if not divisible by img_size
     # 当图像尺寸不能被 img_size 整除时进行反射填充
     original_h, original_w = input_data.shape[-2:]
     pad_h = (img_size - (original_h % img_size)) % img_size
@@ -391,7 +338,6 @@ def run_model(input_data,
                         ((0, 0), (0, 0), (0, 0), (0, pad_h), (0, pad_w)),
                         mode="reflect")
 
-    # Build sliding window
     # 构建滑动窗口
     batch_size = 1
     batch = torch.tensor(input_data, device="cpu")
@@ -403,7 +349,6 @@ def run_model(input_data,
                         h=img_size,
                         w=img_size)
 
-    # Split into batches if number of windows > batch_size
     # 如果窗口数量大于批大小则分割批
     num_batches = windows.shape[0] // batch_size if windows.shape[
         0] > batch_size else 1
@@ -425,7 +370,6 @@ def run_model(input_data,
     else:
         location_coords = None
 
-    # Run model
     # 运行模型
     pred_imgs = []
     for x in windows:
@@ -456,7 +400,6 @@ def run_model(input_data,
 
     pred_imgs = torch.concat(pred_imgs, dim=0)
 
-    # Build images from patches
     # 从块中读取图像
     pred_imgs = rearrange(
         pred_imgs,
@@ -469,11 +412,9 @@ def run_model(input_data,
         w1=w1,
     )
 
-    # Cut padded area back to original size
     # 剪切填充区域，还原原始大小
     pred_imgs = pred_imgs[..., :original_h, :original_w]
 
-    # Squeeze (batch size 1)
     # 挤压（批大小 1）
     pred_imgs = pred_imgs[0]
 
@@ -488,25 +429,22 @@ def main(
 ):
     os.makedirs(output_dir, exist_ok=True)
 
-    # Load model ---------------------------------------------------------------
     # 读取模型    ---------------------------------------------------------------
     model_obj = PrithviMAE()
     datamodule = generate_datamodule()
     img_size = 256  # Size of Sen1Floods11
 
-    # Loading data -------------------------------------------------------------
     # 读取数据    ---------------------------------------------------------------
     input_data, temporal_coords, location_coords, meta_data = load_example(
         file_paths=[data_file],
         indices=input_indices,
     )
 
-    meta_data = meta_data[0]  # only one image #  仅一张图像
+    meta_data = meta_data[0]   #  仅一张图像
 
     if input_data.mean() > 1:
-        input_data = input_data / 10000  # Convert to range 0-1 # 转换到 0-1 之间
+        input_data = input_data / 10000  # 转换到 0-1 之间
 
-    # Running model ------------------------------------------------------------
     # 运行模型    ---------------------------------------------------------------
 
     channels = [
@@ -516,7 +454,6 @@ def main(
     pred = run_model(input_data, temporal_coords, location_coords, model_obj,
                      datamodule, img_size)
 
-    # Save pred
     # 保存 pred
     meta_data.update(count=1, dtype="uint8", compress="lzw", nodata=0)
     pred_file = os.path.join(
@@ -524,7 +461,6 @@ def main(
         f"pred_{os.path.splitext(os.path.basename(data_file))[0]}.tiff")
     save_geotiff(_convert_np_uint8(pred), pred_file, meta_data)
 
-    # Save image + pred
     # 保存 图像 和 pred
     meta_data.update(count=3, dtype="uint8", compress="lzw", nodata=0)
 
@@ -549,7 +485,6 @@ def main(
         meta=meta_data,
     )
 
-    # Save image rgb
     # 保存图片 rgb
     if rgb_outputs:
         rgb_file = os.path.join(
