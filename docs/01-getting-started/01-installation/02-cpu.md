@@ -4,8 +4,6 @@ title: CPU
 
 [\*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
 
-# CPU
-
 vLLM 是一个支持以下 CPU 变体的 Python 库。根据您的 CPU 类型查看厂商特定的说明：
 
 #### Intel/AMD x86
