@@ -8,11 +8,7 @@ title: Lora With Quantization Inference
 
 ```python
 # SPDX-License-Identifier: Apache-2.0
-"""
-This example shows how to use LoRA with different quantization techniques
-for offline inference.
-Requires HuggingFace credentials for access.
-"""
+
 """
 此示例显示了如何使用不同的量化技术使用 LoRA
 用于离线推理。
@@ -33,14 +29,12 @@ def create_test_prompts(
         lora_path: str
 ) -> list[tuple[str, SamplingParams, Optional[LoRARequest]]]:
     return [
-        # this is an example of using quantization without LoRA
         # 这是不使用 LoRA 的量化的示例
         ("My name is",
          SamplingParams(temperature=0.0,
                         logprobs=1,
                         prompt_logprobs=1,
                         max_tokens=128), None),
-        # the next three examples use quantization with LoRA
         # 接下来的三个示例使用 LoRA 的量化示例
         ("my name is",
          SamplingParams(temperature=0.0,
@@ -66,7 +60,6 @@ def create_test_prompts(
 def process_requests(engine: LLMEngine,
                      test_prompts: list[tuple[str, SamplingParams,
                                               Optional[LoRARequest]]]):
-    """Continuously process a list of prompts and handle the outputs."""
     "持续处理提示列表并处理输出"
     request_id = 0
 
@@ -92,10 +85,6 @@ def initialize_engine(model: str, quantization: str,
     """Initialize the LLMEngine."""
 
     if quantization == "bitsandbytes":
-        # QLoRA (https://arxiv.org/abs/2305.14314) is a quantization technique.
-        # It quantizes the model when loading, with some config info from the
-        # LoRA adapter repo. So need to set the parameter of load_format and
-        # qlora_adapter_name_or_path as below.
         # Qlora (https://arxiv.org/abs/2305.14314) 是一种量化技术。
         # 它在加载时量化模型，并带有一些配置信息
         # LoRA 适配器存储库。因此，需要设置 load_format 的参数和
@@ -144,7 +133,6 @@ def main():
         test_prompts = create_test_prompts(lora_path)
         process_requests(engine, test_prompts)
 
-        # Clean up the GPU memory for the next test
         # 清理下一个测试的 GPU 内存
         del engine
         gc.collect()
