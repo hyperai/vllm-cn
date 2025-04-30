@@ -18,7 +18,6 @@ from vllm.sampling_params import GuidedDecodingParams
 
 llm = LLM(model="Qwen/Qwen2.5-3B-Instruct", max_model_len=100)
 
-# Guided decoding by Choice (list of possible options)
 # 使用候选选项列表的引导式解码
 guided_decoding_params = GuidedDecodingParams(choice=["Positive", "Negative"])
 sampling_params = SamplingParams(guided_decoding=guided_decoding_params)
@@ -28,7 +27,6 @@ outputs = llm.generate(
 )
 print(outputs[0].outputs[0].text)
 
-# Guided decoding by Regex
 # 使用 Regex 的引导式解码
 guided_decoding_params = GuidedDecodingParams(regex="\w+@\w+\.com\n")
 sampling_params = SamplingParams(guided_decoding=guided_decoding_params,
@@ -40,7 +38,6 @@ outputs = llm.generate(prompts=prompt, sampling_params=sampling_params)
 print(outputs[0].outputs[0].text)
 
 
-# Guided decoding by JSON using Pydantic schema
 # 使用 Pydantic 模式的 JSON 引导式解码
 class CarType(str, Enum):
     sedan = "sedan"
@@ -67,7 +64,6 @@ outputs = llm.generate(
 )
 print(outputs[0].outputs[0].text)
 
-# Guided decoding by Grammar
 # 使用 Grammar 的引导式解码
 simplified_sql_grammar = """
     ?start: select_statement
