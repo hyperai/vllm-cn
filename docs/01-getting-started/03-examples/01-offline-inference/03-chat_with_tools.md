@@ -17,20 +17,16 @@ import string
 from vllm import LLM
 from vllm.sampling_params import SamplingParams
 
-# This script is an offline demo for function calling
 # 此脚本是用于函数调用的离线演示
 #
-# If you want to run a server/client setup, please follow this code:
 # 如果要运行服务器/客户端设置，请按以下代码:
 #
-# - Server:
 # - 服务器:
 #
 # ```bash
 # vllm serve mistralai/Mistral-7B-Instruct-v0.3 --tokenizer-mode mistral --load-format mistral --config-format mistral
 # ```
 #
-# - Client:
 # - 客户端:
 #
 # ```bash
@@ -53,15 +49,11 @@ from vllm.sampling_params import SamplingParams
 #   }'
 # ```
 #
-# Usage:
 # 用法:
 #     python demo.py simple
 #     python demo.py advanced
 
 model_name = "mistralai/Mistral-7B-Instruct-v0.3"
-# or switch to "mistralai/Mistral-Nemo-Instruct-2407"
-# or "mistralai/Mistral-Large-Instruct-2407"
-# or any other mistral model with function calling ability
 # 或切换到 "Mistralai/Mistral-Nemo-Instruct-2407"
 # 或 "Mistralai/Mistral-Large-Instruct-2407"
 # 或具有功能通话能力的任何其他 Mistral 模型
@@ -79,7 +71,6 @@ def generate_random_id(length=9):
     return random_id
 
 
-# simulate an API that can be called
 # 模拟可以调用的 API
 def get_current_weather(city: str, state: str, unit: 'str'):
     return (f"The weather in {city}, {state} is 85 degrees {unit}. It is "
@@ -130,15 +121,12 @@ messages = [{
 outputs = llm.chat(messages, sampling_params=sampling_params, tools=tools)
 output = outputs[0].outputs[0].text.strip()
 
-# append the assistant message
 # 附加助手消息
 messages.append({
     "role": "assistant",
     "content": output,
 })
 
-# let's now actually parse and execute the model's output simulating an API call by using the
-# above defined function
 # 现在让我们实际上解析并执行模型的输出，以模拟 API 调用
 # 上面定义的功能
 tool_calls = json.loads(output)
@@ -146,7 +134,6 @@ tool_answers = [
     tool_funtions[call['name']](**call['arguments']) for call in tool_calls
 ]
 
-# append the answer as a tool message and let the LLM give you an answer
 # 附加答案到工具消息中，让 LLM 给您答案
 messages.append({
     "role": "tool",
