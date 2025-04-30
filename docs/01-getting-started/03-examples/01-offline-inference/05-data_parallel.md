@@ -9,15 +9,12 @@ title: Data Parallel
 ```python
 # SPDX-License-Identifier: Apache-2.0
 """
-Usage:
 用法:
-Single node:
 单节点:
 python examples/offline_inference/data_parallel.py \
 --model="ibm-research/PowerMoE-3b" \
 --dp-size=2 \
 --tp-size=2
-Multi-node:
 多节点:
 Node 0 (assume the node has ip of 10.99.48.128):
 python examples/offline_inference/data_parallel.py \
@@ -53,12 +50,10 @@ def main(model, dp_size, local_dp_rank, global_dp_rank, dp_master_ip,
     os.environ["VLLM_DP_MASTER_IP"] = dp_master_ip
     os.environ["VLLM_DP_MASTER_PORT"] = str(dp_master_port)
 
-    # CUDA_VISIBLE_DEVICES for each DP rank is set automatically inside the
-    # engine processes.
+
     # cuda_visible_devices 的每个 DP rank 都会自动设置
     # 引擎过程。
 
-    # Sample prompts.
     # 样本提示。
     prompts = [
         "Hello, my name is",
@@ -67,9 +62,7 @@ def main(model, dp_size, local_dp_rank, global_dp_rank, dp_master_ip,
         "The future of AI is",
     ] * 100
 
-    # with DP, each rank should process different prompts.
-    # usually all the DP ranks process a full dataset,
-    # and each rank processes a different part of the dataset.
+
     # 使用 DP，每个 rank 都应处理不同的提示。
     # 通常所有 DP  rank 完整的数据集，
     # 并且每个 rank 都处理数据集的不同部分。
@@ -78,17 +71,13 @@ def main(model, dp_size, local_dp_rank, global_dp_rank, dp_master_ip,
     end = start + promts_per_rank
     prompts = prompts[start:end]
     if len(prompts) == 0:
-        # if any rank has no prompts to process,
-        # we need to set a placeholder prompt
+
         # 如果任何 rank 都没有提示进行处理，
         # 我们需要设置占位符提示
         prompts = ["Placeholder"]
     print(f"DP rank {global_dp_rank} needs to process {len(prompts)} prompts")
 
-    # Create a sampling params object.
-    # since we are doing data parallel, every rank can have different
-    # sampling params. here we set different max_tokens for different
-    # ranks for demonstration.
+
     # 创建一个采样参数对象。
     # 由于我们正在平行数据，因此每个 rank 都可以具有不同的
     # 采样参数。在这里，我们为不同的 max_tokens 设置了不同的 max_tokens
@@ -97,14 +86,12 @@ def main(model, dp_size, local_dp_rank, global_dp_rank, dp_master_ip,
                                      top_p=0.95,
                                      max_tokens=[16, 20][global_dp_rank % 2])
 
-    # Create an LLM.
     # 创建一个 LLM。
     llm = LLM(model=model,
               tensor_parallel_size=GPUs_per_dp_rank,
               enforce_eager=True,
               enable_expert_parallel=True)
     outputs = llm.generate(prompts, sampling_params)
-    # Print the outputs.
     # 打印输出。
     for i, output in enumerate(outputs):
         if i >= 5:
@@ -116,7 +103,6 @@ def main(model, dp_size, local_dp_rank, global_dp_rank, dp_master_ip,
         print(f"DP rank {global_dp_rank}, Prompt: {prompt!r}, "
               f"Generated text: {generated_text!r}")
 
-    # Give engines time to pause their processing loops before exiting.
     # 让引擎有时间在退出之前暂停处理循环。
     sleep(1)
 
