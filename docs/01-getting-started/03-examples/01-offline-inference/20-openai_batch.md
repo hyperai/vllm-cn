@@ -6,7 +6,7 @@ title: 使用 OpenAI 批处理文件格式进行离线推理
 
 源码 [examples/offline_inference/openai](https://github.com/vllm-project/vllm/blob/main/examples/offline_inference/openai)
 
-> 重要信息
+> **重要信息**
 >
 > 本指南介绍如何使用 OpenAI 批处理文件格式执行批量推理，**而非**完整的 Batch (REST) API。  
 
@@ -129,16 +129,7 @@ from botocore.exceptions import ClientError
 
 
 def generate_presigned_url(s3_client, client_method, method_parameters, expires_in):
-    """
-    Generate a presigned Amazon S3 URL that can be used to perform an action.
 
-
-    :param s3_client: A Boto3 Amazon S3 client.
-    :param client_method: The name of the client method that the URL performs.
-    :param method_parameters: The parameters of the specified client method.
-    :param expires_in: The number of seconds the presigned URL is valid for.
-    :return: The presigned URL.
-    """
     """
     生成可用于执行操作的预签名 Amazon S3 URL。
 
