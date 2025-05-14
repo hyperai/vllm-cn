@@ -227,8 +227,9 @@ vLLM 在以下方面非常灵活且易于使用：
 - [LLMEngine](https://vllm.hyper.ai/docs/api/engine/llm_engine)  
 - [AsyncLLMEngine](https://vllm.hyper.ai/docs/api/engine/async_llm_engine)
 
-[推理参数](https://vllm.hyper.ai/docs/api/inference_params)  
+-[推理参数](https://vllm.hyper.ai/docs/api/inference_params)  
 - [采样参数](https://vllm.hyper.ai/docs/api/inference_params#%E9%87%87%E6%A0%B7%E5%8F%82%E6%95%B0)  
+
 - [池化参数](https://vllm.hyper.ai/docs/api/inference_params#%E6%B1%A0%E5%8C%96%E5%8F%82%E6%95%B0)
 
 - [多模态支持](https://vllm.hyper.ai/docs/api/multimodal/)  
