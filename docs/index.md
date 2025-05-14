@@ -231,8 +231,9 @@ vLLM 在以下方面非常灵活且易于使用：
 - [采样参数](https://vllm.hyper.ai/docs/api/inference_params#%E9%87%87%E6%A0%B7%E5%8F%82%E6%95%B0)  
 - [池化参数](https://vllm.hyper.ai/docs/api/inference_params#%E6%B1%A0%E5%8C%96%E5%8F%82%E6%95%B0)
 
-[多模态支持](https://vllm.hyper.ai/docs/api/multimodal/)  
+- [多模态支持](https://vllm.hyper.ai/docs/api/multimodal/)  
 - [模块内容](https://vllm.hyper.ai/docs/api/multimodal/#%E6%A8%A1%E5%9D%97%E5%86%85%E5%AE%B9)  
+
 - [子模块](https://vllm.hyper.ai/docs/api/multimodal/#%E5%AD%90%E6%A8%A1%E5%9D%97)
 
 [模型开发](https://vllm.hyper.ai/docs/api/model/interfaces)  
