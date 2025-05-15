@@ -28,22 +28,24 @@ vLLM 是一个 Python 库，支持以下 AI 加速器。根据您的 AI 加速�
 
 您可能需要为 TPU 虚拟机提供额外的持久存储。更多信息请参阅 [Cloud TPU 数据存储选项](https://cloud.devsite.corp.google.com/tpu/docs/storage-options)。
 
-**注意**
-
-此设备没有预构建的 wheels，因此您必须使用预构建的 Docker 镜像或从源代码构建 vLLM。
+> **注意**
+> 
+> 此设备没有预构建的 wheels，因此您必须使用预构建的 Docker 镜像或从源代码构建 vLLM。
 
 #### Intel Gaudi
 
 此节提供了在 Intel Gaudi 设备上运行 vLLM 的说明。
 
 > **注意**
+> 
 > 此设备没有预构建的 wheels 或镜像，因此您必须从源代码构建 vLLM。
 
 #### AWS Neuron
 
-vLLM 0.3.3 及以上版本支持通过 Neuron SDK 在 AWS Trainium/Inferentia 上进行模型推理和服务，并支持连续批处理。分页注意力（Paged Attention）和分块预填充（Chunked Prefill）功能目前正在开发中，即将推出。Neuron SDK 当前支持的数据类型为 FP16 和 BF16。
+vLLM 0.3.3 及以上版本支持通过 Neuron SDK 在 AWS Trainium/Inferentia 上进行模型推理和服务，并支持连续批处理。分页注意力 (Paged Attention) 和分块预填充 (Chunked Prefill) 功能目前正在开发中，即将推出。Neuron SDK 当前支持的数据类型为 FP16 和 BF16。
 
 > **注意**
+> 
 > 此设备没有预构建的 wheels 或镜像，因此您必须从源代码构建 vLLM。
 
 ## 环境要求
@@ -59,6 +61,7 @@ vLLM 0.3.3 及以上版本支持通过 Neuron SDK 在 AWS Trainium/Inferentia �
 您可以使用 [Cloud TPU API](https://cloud.google.com/tpu/docs/reference/rest) 或 [队列资源](https://cloud.google.com/tpu/docs/queued-resources) API 配置 Cloud TPU。本节展示如何使用队列资源 API 创建 TPU。有关使用 Cloud TPU API 的更多信息，请参阅 [使用 Create Node API 创建 Cloud TPU](https://cloud.google.com/tpu/docs/managing-tpus-tpu-vm#create-node-api)。队列资源允许您以队列方式请求 Cloud TPU 资源。当您请求队列资源时，请求会被添加到 Cloud TPU 服务维护的队列中。当请求的资源可用时，它将分配给您的 Google Cloud 项目供您独占使用。
 
 > **注意**
+> 
 > 在以下所有命令中，请将全大写的参数名称替换为适当的值。有关参数描述，请参阅参数描述表。
 
 #### 使用 GKE 配置 Cloud TPU
@@ -163,7 +166,6 @@ docker run -it --runtime=habana -e HABANA_VISIBLE_DEVICES=all -e OMPI_MCA_btl_va
 如果已安装 [Deep Learning AMI Neuron](https://docs.aws.amazon.com/dlami/latest/devguide/appendix-ami-release-notes.html)，则无需安装驱动程序和工具。如果操作系统未安装驱动程序和工具，请按照以下步骤操作：
 
 ```plain
-# Configure Linux for Neuron repository updates
 # 为 Neuron 仓库配置 Linux
 . /etc/os-release
 sudo tee /etc/apt/sources.list.d/neuron.list > /dev/null <<EOF
@@ -172,38 +174,31 @@ EOF
 wget -qO - https://apt.repos.neuron.amazonaws.com/GPG-PUB-KEY-AMAZON-AWS-NEURON.PUB | sudo apt-key add -
 
 
-# Update OS packages
 # 更新操作系统包
 sudo apt-get update -y
 
 
-# Install OS headers
 # 安装操作系统头文件
 sudo apt-get install linux-headers-$(uname -r) -y
 
 
-# Install git
 # 安装 git
 sudo apt-get install git -y
 
 
-# install Neuron Driver
 # 安装 Neuron 驱动
 sudo apt-get install aws-neuronx-dkms=2.* -y
 
 
-# Install Neuron Runtime
 # 安装 Neuron 运行时
 sudo apt-get install aws-neuronx-collectives=2.* -y
 sudo apt-get install aws-neuronx-runtime-lib=2.* -y
 
 
-# Install Neuron Tools
 # 安装 Neuron 工具
 sudo apt-get install aws-neuronx-tools=2.* -y
 
 
-# Add PATH
 # 添加 PATH
 export PATH=/opt/aws/neuron/bin:$PATH
 ```
@@ -291,9 +286,8 @@ python setup.py develop
 
 ### AWS Neuron
 
-**注意**
-
-当前支持的 Neuron Pytorch 版本安装了 `triton` 版本 `2.1.0`。这与 `vllm >= 0.5.3` 不兼容。您可能会看到错误 `cannot import name 'default_dump_dir...`。要解决此问题，请在安装 vLLM wheel 后运行 `pip install --upgrade triton==3.0.0`。
+> **注意**
+> 当前支持的 Neuron Pytorch 版本安装了 `triton` 版本 `2.1.0`。这与 `vllm >= 0.5.3` 不兼容。您可能会看到错误 `cannot import name 'default_dump_dir...`。要解决此问题，请在安装 vLLM wheel 后运行 `pip install --upgrade triton==3.0.0`。
 
 以下说明适用于 Neuron SDK 2.16 及更高版本。
 
@@ -302,22 +296,18 @@ python setup.py develop
 [transformers-neuronx](https://github.com/aws-neuron/transformers-neuronx) 将作为在 trn1/inf2 实例上支持推理的后端。按照以下步骤安装 transformer-neuronx 包及其依赖项。
 
 ```plain
-# Install Python venv
 # 安装 Python venv
 sudo apt-get install -y python3.10-venv g++
 
 
-# Create Python venv
 # 创建 Python venv
 python3.10 -m venv aws_neuron_venv_pytorch
 
 
-# Activate Python venv
 # 激活 Python venv
 source aws_neuron_venv_pytorch/bin/activate
 
 
-# Install Jupyter notebook kernel
 # 安装 Jupyter notebook 内核
 pip install ipykernel
 python3.10 -m ipykernel install --user --name aws_neuron_venv_pytorch --display-name "Python (torch-neuronx)"
@@ -325,18 +315,15 @@ pip install jupyter notebook
 pip install environment_kernels
 
 
-# Set pip repository pointing to the Neuron repository
 # 将 pip 仓库指向 Neuron 仓库
 python -m pip config set global.extra-index-url https://pip.repos.neuron.amazonaws.com
 
 
-# Install wget, awscli
 # 安装 wget、awscli
 python -m pip install wget
 python -m pip install awscli
 
 
-# Update Neuron Compiler and Framework
 # 更新 Neuron 编译器和框架
 python -m pip install --upgrade neuronx-cc==2.* --pre torch-neuronx==2.1.* torchvision transformers-neuronx
 ```
@@ -385,7 +372,6 @@ docker build -f Dockerfile.tpu -t vllm-tpu .
 使用以下命令运行 Docker 镜像：
 
 ```plain
-# Make sure to add `--privileged --net host --shm-size=16G`.
 # 确保添加 `--privileged --net host --shm-size=16G`
 docker run --privileged --net host --shm-size=16G -it vllm-tpu
 ```
@@ -437,8 +423,8 @@ docker run -it --runtime=habana -e HABANA_VISIBLE_DEVICES=all -e OMPI_MCA_btl_va
 
 ### 支持的功能
 
-- [离线推理](https://docs.vllm.ai/en/latest/serving/offline_inference.html#offline-inference)
-- 通过 [OpenAI 兼容服务器](https://docs.vllm.ai/en/latest/serving/openai_compatible_server.html#openai-compatible-server) 进行在线服务
+- [离线推理](https://vllm.hyper.ai/docs/inference-and-serving/offline_inference))
+- 通过 [OpenAI 兼容服务器](https://vllm.hyper.ai/docs/inference-and-serving/openai_compatible_server)进行在线服务
 - HPU 自动检测 - 无需在 vLLM 中手动选择设备
 - 针对 Intel Gaudi 加速器优化的分页 KV 缓存算法
 - 针对 Intel Gaudi 的定制分页注意力、KV 缓存操作、预填充注意力、均方根层归一化、旋转位置编码实现
@@ -526,11 +512,13 @@ min = 128, step = 128, max = 512
 在记录的示例中，为提示（预填充）阶段生成了 24 个桶，为解码阶段生成了 48 个桶。每个桶对应具有指定张量形状的模型的单独优化设备二进制文件。每当处理一批请求时，它会在批量和序列长度维度上填充到最小的可能桶。
 
 > **警告**
+> 
 > 如果请求在任何维度上超过最大桶大小，则将在不填充的情况下处理，并且其处理可能需要图编译，从而显著增加端到端延迟。桶的边界可通过环境变量由用户配置，可以增加桶的上限以避免此类情况。
 
 例如，如果空闲的 vLLM 服务器收到一个包含 3 个序列、最大序列长度为 412 的请求，则其将被填充为 `(4, 512)` 预填充桶，因为批量大小（序列数）将被填充到 4（最接近且大于 3 的批量大小维度），最大序列长度将被填充到 512（最接近且大于 412 的序列长度维度）。预填充阶段后，它将作为 `(4, 512)` 解码桶执行，并持续作为该桶，直到批量维度发生变化（由于请求完成）——此时它将变为 `(2, 512)` 桶，或上下文长度超过 512 个 token——此时它将变为 `(4, 640)` 桶。
 
 > **注意**
+> 
 > 分桶对客户端透明——序列长度维度的填充永远不会返回给客户端，批量维度的填充不会创建新请求。
 
 #### 预热 (Warmup)
@@ -554,21 +542,26 @@ INFO 08-01 22:27:16 hpu_model_runner.py:1066] [Warmup][Decode][48/48] batch_size
 此示例使用与 [分桶机制](https://docs.vllm.ai/en/latest/getting_started/installation/ai_accelerator.html?device=hpu-gaudi#gaudi-bucketing-mechanism) 部分相同的桶。每行输出对应单个桶的执行。当桶首次执行时，其图将被编译并可在后续重复使用，跳过进一步的图编译。
 
 > **提示**
+> 
 > 编译所有桶可能需要一些时间，可以通过 `VLLM_SKIP_WARMUP=true` 环境变量关闭。请注意，如果这样做，您可能在首次执行给定桶时面临图编译。在开发过程中关闭预热是可以的，但在部署中强烈建议启用。
 
 #### HPU 图捕获
 
 [HPU 图](https://docs.habana.ai/en/latest/PyTorch/Inference_on_PyTorch/Inference_Using_HPU_Graphs.html) 当前是 Intel Gaudi 上 vLLM 最高性能的执行方法。启用 HPU 图后，执行图将提前追踪（记录），以便在推理期间重放，显著减少主机开销。记录可能会占用大量内存，这在分配 KV 缓存时需要考虑。启用 HPU 图将影响可用 KV 缓存块的数量，但 vLLM 提供用户可配置的变量来控制内存管理。
 
-当使用 HPU 图时，它们与 KV 缓存共享公共内存池（“可用内存”），由 `gpu_memory_utilization` 标志（默认为 `0.9`）确定。在分配 KV 缓存之前，模型权重将加载到设备上，并在虚拟数据上执行模型的向前传递以估计内存使用情况。之后，`gpu_memory_utilization` 标志将被使用——其默认值将标记此时设备空闲内存的 90% 为可用。接下来分配 KV 缓存，模型被预热，并捕获 HPU 图。环境变量 `VLLM_GRAPH_RESERVED_MEM` 定义保留用于 HPU 图捕获的内存比例。其默认值（`VLLM_GRAPH_RESERVED_MEM=0.1`）表示 10% 的可用内存将保留给图捕获（后称为“可用图内存”），剩余的 90% 用于 KV 缓存。环境变量 `VLLM_GRAPH_PROMPT_RATIO` 确定保留给预填充和解码图的可用图内存比例。默认情况下（`VLLM_GRAPH_PROMPT_RATIO=0.3`），两个阶段具有相同的内存约束。较低的值对应预填充阶段保留的可用图内存较少，例如 `VLLM_GRAPH_PROMPT_RATIO=0.2` 将为预填充图保留 20% 的可用图内存，为解码图保留 80%。
+当使用 HPU 图时，它们与 KV 缓存共享公共内存池（“可用内存”），由 `gpu_memory_utilization` 标志（默认为 `0.9`）确定。在分配 KV 缓存之前，模型权重将加载到设备上，并在虚拟数据上执行模型的向前传递以估计内存使用情况。之后，`gpu_memory_utilization` 标志将被使用——其默认值将标记此时设备空闲内存的 90% 为可用。接下来分配 KV 缓存，模型被预热，并捕获 HPU 图。环境变量 `VLLM_GRAPH_RESERVED_MEM` 定义保留用于 HPU 图捕获的内存比例。其默认值（`VLLM_GRAPH_RESERVED_MEM=0.1`）表示 10% 的可用内存将保留给图捕获（后称为“可用图内存”），剩余的 90% 用于 KV 缓存。环境变量 `VLLM_GRAPH_PROMPT_RATIO` 确定保留给预填充和解码图的可用图内存比例。默认情况下 (`VLLM_GRAPH_PROMPT_RATIO=0.3`)，两个阶段具有相同的内存约束。较低的值对应预填充阶段保留的可用图内存较少，例如 `VLLM_GRAPH_PROMPT_RATIO=0.2` 将为预填充图保留 20% 的可用图内存，为解码图保留 80%。
 
-> **注意** >`gpu_memory_utilization` 并不对应 HPU 的绝对内存使用量。它指定在加载模型并执行性能分析运行后的内存余量。如果设备总内存为 100 GiB，加载模型权重并执行性能分析运行后空闲内存为 50 GiB，默认 `gpu_memory_utilization` 将标记 50 GiB 的 90% 为可用，留出 5 GiB 余量，无论设备总内存如何。
+> **注意**
+> 
+>`gpu_memory_utilization` 并不对应 HPU 的绝对内存使用量。它指定在加载模型并执行性能分析运行后的内存余量。如果设备总内存为 100 GiB，加载模型权重并执行性能分析运行后空闲内存为 50 GiB，默认 `gpu_memory_utilization` 将标记 50 GiB 的 90% 为可用，留出 5 GiB 余量，无论设备总内存如何。
 
-用户还可以分别为预填充和解码阶段配置 HPU 图的捕获策略。策略影响图的捕获顺序。已实现两种策略：- `max_bs` - 图捕获队列按批量大小降序排序。批量大小相同的桶按序列长度升序排序（例如 `(64, 128)`、`(64, 256)`、`(32, 128)`、`(32, 256)`、`(1, 128)`、`(1, 256)`），解码的默认策略 - `min_tokens` - 图捕获队列按每个图处理的 token 数量（`batch_size*sequence_length`）升序排序，预填充的默认策略。
+用户还可以分别为预填充和解码阶段配置 HPU 图的捕获策略。策略影响图的捕获顺序。已实现两种策略：- `max_bs` - 图捕获队列按批量大小降序排序。批量大小相同的桶按序列长度升序排序（例如 `(64, 128)`、`(64, 256)`、`(32, 128)`、`(32, 256)`、`(1, 128)`、`(1, 256)`），解码的默认策略 - `min_tokens` - 图捕获队列按每个图处理的 token 数量 (`batch_size*sequence_length`) 升序排序，预填充的默认策略。
 
 当有大量请求挂起时，vLLM 调度器将尝试尽快填充解码的最大批量大小。当请求完成时，解码批量大小减少。此时，vLLM 将尝试为等待队列中的请求安排预填充迭代，以将解码批量大小恢复到之前的状态。这意味着在满载场景中，解码批量大小通常处于最大值，这使得捕获大批量 HPU 图至关重要，这反映在 `max_bs` 策略中。另一方面，预填充最常以极低的批量大小（1-4）执行，这反映在 `min_tokens` 策略中。
 
-> **注意** >`VLLM_GRAPH_PROMPT_RATIO` 并未为每个阶段（预填充和解码）设置严格的内存限制。vLLM 将首先尝试为预填充 HPU 图使用全部可用预填充图内存（可用图内存 \* `VLLM_GRAPH_PROMPT_RATIO`），接着对解码图执行相同操作。如果一个阶段已完全捕获，并且可用图内存池中有剩余内存，vLLM 将尝试为另一个阶段捕获更多图，直到无法在不超出保留内存池的情况下捕获更多 HPU 图。此机制的行为可在以下示例中观察到。
+> **注意**
+>
+> `VLLM_GRAPH_PROMPT_RATIO` 并未为每个阶段（预填充和解码）设置严格的内存限制。vLLM 将首先尝试为预填充 HPU 图使用全部可用预填充图内存（可用图内存 \* `VLLM_GRAPH_PROMPT_RATIO`），接着对解码图执行相同操作。如果一个阶段已完全捕获，并且可用图内存池中有剩余内存，vLLM 将尝试为另一个阶段捕获更多图，直到无法在不超出保留内存池的情况下捕获更多 HPU 图。此机制的行为可在以下示例中观察到。
 
 每个描述的步骤均由 vLLM 服务器记录，如下所示（负值表示内存被释放）：
 

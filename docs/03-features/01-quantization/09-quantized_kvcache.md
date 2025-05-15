@@ -35,8 +35,6 @@ OCP ([Open Compute Project](https://www.opencompute.org/)) 指定了两种常见
 以下是如何启用 FP8 量化的示例：
 
 ```plain
-# To calculate kv cache scales on the fly enable the calculate_kv_scales
-# parameter
 # 启用 calculate_kv_scales 参数以动态计算 kv 缓存缩放因子
 
 
@@ -82,26 +80,22 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 from llmcompressor.transformers import oneshot
 
 
-# Select model and load it
 # 选择模型并加载
 MODEL_ID = "meta-llama/Llama-3.1-8B-Instruct"
 model = AutoModelForCausalLM.from_pretrained(MODEL_ID, device_map="auto", torch_dtype="auto")
 tokenizer = AutoTokenizer.from_pretrained(MODEL_ID)
 
 
-# Select calibration dataset
 # 选择校准数据集
 DATASET_ID = "HuggingFaceH4/ultrachat_200k"
 DATASET_SPLIT = "train_sft"
 
 
-# Configure calibration parameters
 # 配置校准参数
 NUM_CALIBRATION_SAMPLES = 512  # 512 samples is a good starting point
 MAX_SEQUENCE_LENGTH = 2048
 
 
-# Load and preprocess dataset
 # 加载并预处理数据集
 ds = load_dataset(DATASET_ID, split=DATASET_SPLIT)
 ds = ds.shuffle(seed=42).select(range(NUM_CALIBRATION_SAMPLES))
@@ -121,7 +115,6 @@ def process_and_tokenize(example):
 ds = ds.map(process_and_tokenize, remove_columns=ds.column_names)
 
 
-# Configure quantization settings
 # 配置量化设置
 recipe = """
 quant_stage:
@@ -136,7 +129,6 @@ quant_stage:
 """
 
 
-# Apply quantization
 # 应用量化
 oneshot(
     model=model,
@@ -147,7 +139,6 @@ oneshot(
 )
 
 
-# Save quantized model
 # 保存量化模型
 SAVE_DIR = MODEL_ID.split("/")[1] + "-FP8-KV"
 model.save_pretrained(SAVE_DIR, save_compressed=True)

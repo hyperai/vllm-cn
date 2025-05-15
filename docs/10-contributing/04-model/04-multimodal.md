@@ -42,20 +42,19 @@ class YourModelForImage2Seq(nn.Module):
             self, **kwargs: object) -> Optional[MultiModalEmbeddings]:
 
 
-        # Validate the multimodal input keyword arguments
         # 验证多模态输入关键字参数
         image_input = self._parse_and_validate_image_input(**kwargs)
         if image_input is None:
             return None
 
 
-        # Run multimodal inputs through encoder and projector
         # 通过编码器和投影器运行多模态输入
         vision_embeddings = self._process_image_input(image_input)
         return vision_embeddings
 ```
 
 > **重要**
+> 
 > 返回的 `multimodal_embeddings` 必须是形状为 `(num_items, feature_size, hidden_size)` 的 **3D** `torch.Tensor`，或者是形状为 `(feature_size, hidden_size)` 的 **2D** `torch.Tensor` 的 **列表/元组**，以便 `multimodal_embeddings[i]` 检索从请求的第 `i` 个多模态数据项（例如图像）生成的嵌入。
 
 - 实现 `get_input_embeddings()` 以将 `multimodal_embeddings` 与来自 `input_ids` 的文本嵌入合并。如果模型的输入处理已正确实现（见下文），那么您可以利用我们提供的实用函数轻松合并嵌入。
@@ -74,9 +73,6 @@ class YourModelForImage2Seq(nn.Module):
         multimodal_embeddings: Optional[MultiModalEmbeddings] = None,
     ) -> torch.Tensor:
 
-
-        # `get_input_embeddings` should already be implemented for the language
-        # model as one of the requirements of basic vLLM model implementation.
         # `get_input_embeddings` 应该已经作为基础 vLLM 模型实现的要求之一实现。
         inputs_embeds = self.language_model.get_input_embeddings(input_ids)
 
@@ -103,11 +99,10 @@ class YourModelForImage2Seq(nn.Module):
 ```
 
 > **注意**
+> 
 > 模型类不必命名为 `*ForCausalLM`。查看 [HuggingFace Transformers 文档](https://huggingface.co/docs/transformers/model_doc/auto#multimodal) 以获取一些示例。
 
 ## 2. 指定处理信息
-
-Next, create a subclass of `BaseProcessingInfo` to provide basic information related to HF processing.
 
 接下来，创建 `BaseProcessingInfo` 的子类以提供与 HF 处理相关的基本信息。
 
@@ -436,7 +431,6 @@ assert num_patches == patches.shape[0]
 
 
 if variable_sized:
-    # Now terminate each line with |NEWLINE|.
     # 现在使用 |NEWLINE| 终止每行
     tensor_of_image_ids = tensor_of_image_ids.reshape(-1, image_width // patch_width)
     newline_ids = torch.full(
@@ -522,6 +516,7 @@ def get_mm_max_tokens_per_item(
 ```
 
 > **注意**
+> 
 > 我们的[实际代码](https://github.com/vllm-project/vllm/blob/main/vllm/model_executor/models/fuyu.py)直接返回 `ncols` 和 `nrows` 而不是总 token 数量。这是因为 `ncols` 和 `nrows` 用于指定特征 token 的布局（如本指南的第 4 步所示）。
 
 ## 3. 指定虚拟输入
@@ -637,6 +632,7 @@ def _get_mm_fields_config(
 ```
 
 > **注意**
+> 
 > 我们的[实际代码](https://github.com/vllm-project/vllm/blob/main/vllm/model_executor/models/llava.py) 还支持预计算的图像嵌入，可以通过 `image_embeds` 参数传递给模型。
 
 #### 非连续特征 token：Fuyu
@@ -679,8 +675,6 @@ def _call_hf_processor(
         assert isinstance(images, list)
 
 
-        # Original output: (1, num_images, Pn, Px * Py * C)
-        # New output: (num_images, Pn, Px * Py * C)
         # 原始输出：(1, num_images, Pn, Px * Py * C)
         # 新输出：(num_images, Pn, Px * Py * C)
 
@@ -698,6 +692,7 @@ def _call_hf_processor(
 ```
 
 > **注意**
+> 
 > 我们的[实际代码](https://github.com/vllm-project/vllm/blob/main/vllm/model_executor/models/fuyu.py)对纯文本输入有特殊处理，以防止 HF 处理器产生不必要的警告。
 
 这使我们能够按以下方式重写 `_get_mm_fields_config()` ：
@@ -823,8 +818,6 @@ def get_replacement(item_idx: int):
     )
 
 
-    # `_IMAGE_TOKEN_ID` corresponds to `|SPEAKER|`
-    # `_NEWLINE_TOKEN_ID` corresponds to `|NEWLINE|`
     # `_IMAGE_TOKEN_ID` 对应于 `|SPEAKER|`
     # `_NEWLINE_TOKEN_ID` 对应于 `|NEWLINE|`
     return ([_IMAGE_TOKEN_ID] * ncols + [_NEWLINE_TOKEN_ID]) * nrows

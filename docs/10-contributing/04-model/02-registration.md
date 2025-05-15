@@ -14,14 +14,17 @@ vLLM 依赖模型注册表来确定如何运行每个模型。预注册的架构
 
 在您实现模型后（参见[教程](https://docs.vllm.ai/en/latest/contributing/model/basic.html#new-model-basic)），将其放入 [vllm/model_executor/models](https://github.com/vllm-project/vllm/tree/main/vllm/model_executor/models) 目录中。然后，将您的模型类添加到 [vllm/model_executor/models/registry.py](https://github.com/vllm-project/vllm/blob/main/vllm/model_executor/models/registry.py) 中的 `_VLLM_MODELS` 中，以便在导入 vLLM 时自动注册。最后，更新我们的[支持模型列表](https://docs.vllm.ai/en/latest/models/supported_models.html#supported-models)以推广您的模型！
 
-> **重要\*\***信息\*\*
+> **重要信息**
+> 
 > 每个部分中的模型列表应按字母顺序维护。
 
 ## 外部模型
 
 您可以使用插件加载外部模型，而无需修改 vLLM 代码库。
 
-> **另请参阅** >[vLLM 的插件系统](https://docs.vllm.ai/en/latest/design/plugin_system.html#plugin-system)
+> **另请参阅**
+>
+>[vLLM 的插件系统](https://docs.vllm.ai/en/latest/design/plugin_system.html#plugin-system)
 
 要注册模型，请使用以下代码：
 
@@ -40,8 +43,10 @@ from vllm import ModelRegistry
 ModelRegistry.register_model("YourModelForCausalLM", "your_code:YourModelForCausalLM")
 ```
 
-> **重要\*\***信息\*\*
+> **重要信息**
+> 
 > 如果您的模型是多模态模型，请确保模型类实现了 `SupportsMultiModal` 接口。有关更多信息，请阅读[此处](https://docs.vllm.ai/en/latest/contributing/model/multimodal.html#supports-multimodal)。
 
 > **注意**
+> 
 > 虽然您可以直接将这些代码片段放入使用 `vllm.LLM` 的脚本中，但推荐的方式是将这些片段放入 vLLM 插件中。这确保了与各种 vLLM 功能（如分布式推理和 API 服务器）的兼容性。

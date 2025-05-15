@@ -4,7 +4,7 @@ title: 生产环境技术栈
 
 [\*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
 
-在 Kubernetes 上部署 vLLM 是一种可扩展且高效的服务机器学习模型的方式。本指南将引导您使用 [vLLM 生产环境技术栈](https://github.com/vllm-project/production-stack) 部署 vLLM。该技术栈源于伯克利-芝加哥大学的合作，是 [vLLM 项目](https://github.com/vllm-project) 下正式发布的生产优化代码库，专为 LLM 部署设计，具有以下特点：
+在 Kubernetes 上部署 vLLM 是一种可扩展且高效的服务机器学习模型的方式。本指南将引导您使用 [vLLM 生产环境技术栈](https://github.com/vllm-project/production-stack) 部署 vLLM。该技术栈源于伯克利-芝加哥大学的合作，是 [vLLM 项目](https://github.com/vllm-project)下正式发布的生产优化代码库，专为 LLM 部署设计，具有以下特点：
 
 - **与上游 vLLM 兼容** – 它封装了上游 vLLM，无需修改其代码。
 - **易于使用** – 通过 Helm 图表简化部署，并通过 Grafana 仪表板实现可观测性。

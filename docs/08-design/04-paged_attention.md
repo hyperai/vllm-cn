@@ -4,7 +4,7 @@ title: vLLM  分页注意力
 
 [\*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
 
-- 目前，vLLM 使用自己的多头查询注意力内核实现（`csrc/attention/attention_kernels.cu`）。该内核旨在兼容 vLLM 的分页键值缓存，其中键和值缓存存储在不同的块中（注意，这里的块概念与 GPU 线程块不同。因此，在后续文档中，我将把 vLLM 分页注意力块称为“块”，而把 GPU 线程块称为“线程块”）。
+- 目前，vLLM 使用自己的多头查询注意力内核实现（`csrc/attention/attention_kernels.cu`）。该内核旨在兼容 vLLM 的分页键值缓存，其中键和值缓存存储在不同的块中（注意，这里的块概念与 GPU 线程块不同。因此，在后续文档中，将把 vLLM 分页注意力块称为「块」，而把 GPU 线程块称为「线程块」）。
 
 - 为了实现高性能，该内核依赖于专门设计的内存布局和访问方法，特别是在线程从全局内存读取数据到共享内存时。本文档的目的是逐步提供内核实现的高层次解释，以帮助那些希望了解 vLLM 多头查询注意力内核的人。在阅读完本文档后，用户能够更好地理解，并更容易跟随实际的实现。
 
@@ -41,17 +41,17 @@ title: vLLM  分页注意力
 
 - **序列**：序列代表客户端请求。例如， `q` 指向的数据具有 `[num_seqs，num_heads，head_size]` 的形状。这表示 `q` 指向总共 `num_seqs` 个查询序列数据。由于该内核是单个查询注意力内核，因此每个序列只有一个查询 token 。因此， `num_seqs` 等于批次中处理的 token 总数。
 
-- **上下文**：上下文由序列中生成的 token 组成。例如，`["What" ,  "is" ,  "your"]` 是上下文 token ，输入查询 token 是 `"name"`。该模型可能会生成 token `?` 。
+- **上下文**：上下文由序列中生成的 token 组成。例如，`["What" ,  "is" ,  "your"]` 是上下文 token ，输入查询 token 是 `"name"`。该模型可能会生成 token `?`。
 
 - **Vec**：vec 是同时被获取和计算的元素的列表。对于查询和键数据，确定 vec 大小 （`VEC_SIZE`），以便每个线程组一次可以获取和计算 16 字节的数据。对于值数据，确定 vec 大小 (`V_VEC_SIZE`)，以便每个线程一次可以获取和计算 16 字节的数据。例如，如果 `scalar_t` 为 FP16（2 字节） 且 `THREAD_GROUP_SIZE` 为 2，则 `VEC_SIZE` 将为 4，而 `V_VEC_SIZE` 将为 8。
 
-- **线程组**：线程组是一小组线程 （`THREAD_GROUP_SIZE`），一次获取并计算一个查询 token 和一个键 token。每个线程仅处理 token 数据的一部分。一个线程组处理的元素总数称为 `x` 。例如，如果线程组包含2个线程，头大小为8，则线程0处理索引0、2、4、6处的查询和键元素，而线程1处理索引1、3、5、7.
+- **线程组**：线程组是一小组线程 （`THREAD_GROUP_SIZE`），一次获取并计算一个查询 token 和一个键 token。每个线程仅处理 token 数据的一部分。一个线程组处理的元素总数称为 `x` 。例如，如果线程组包含 2 个线程，头大小为 8，则线程 0 处理索引 0、2、4、6 处的查询和键元素，而线程 1 处理索引 1、3、5、7。
 
-- **块**：vLLM 中的键和值缓存数据被分成块。每个块在一个头中存储固定数量 （`BLOCK_SIZE`）token 的数据。每个块可能仅包含整个上下文 token 的一部分。例如，如果块大小为16，头大小为128，那么对于1个头，1个块可以存储16 \* 128 = 2048个元素。
+- **块**：vLLM 中的键和值缓存数据被分成块。每个块在一个头中存储固定数量 （`BLOCK_SIZE`）token 的数据。每个块可能仅包含整个上下文 token 的一部分。例如，如果块大小为 16，头大小为 128，那么对于 1 个头，1 个块可以存储 16 \* 128 = 2048 个元素。
 
-- **Warp**：Warp 是一组 32 个线程（`WARP_SIZE`），它们在流多处理器（SM）上同时执行。在这个内核中，每个 warp 同时处理一个查询 token 与一个完整块的键 token 之间的计算（它可以在多次迭代中处理多个块）。例如，如果有 4 个 warp 和 6 个块用于一个上下文，那么分配方式将是：warp 0 处理第 0 和第 4 块，warp 1 处理第 1 和第 5 块，warp 2 处理第 2 块，warp 3 处理第 3 块。
+- **Warp**：Warp 是一组 32 个线程（`WARP_SIZE`），它们在流多处理器 (SM) 上同时执行。在这个内核中，每个 warp 同时处理一个查询 token 与一个完整块的键 token 之间的计算（它可以在多次迭代中处理多个块）。例如，如果有 4 个 warp 和 6 个块用于一个上下文，那么分配方式将是：warp 0 处理第 0 和第 4 块，warp 1 处理第 1 和第 5 块，warp 2 处理第 2 块，warp 3 处理第 3 块。
 
-- **线程块**：线程块是一组可以访问同一共享内存的线程 （`NUM_THREADS`）。每个线程块包含多个 warp（NUM_WARPS），在这个内核中，每个线程块处理一个查询 token 和整个上下文的键 token 之间的计算。
+- **线程块**：线程块是一组可以访问同一共享内存的线程 (`NUM_THREADS`)。每个线程块包含多个 warp (NUM_WARPS)，在这个内核中，每个线程块处理一个查询 token 和整个上下文的键 token 之间的计算。
 
 - **网格**: 网格是线程块的集合，并定义集合的形状。在此内核中，形状为 `(num_heads, num_seqs, max_num_partitions)`。因此，每个线程块只处理一个头、一个序列、一个分区的计算。
 
@@ -123,7 +123,7 @@ title: vLLM  分页注意力
 
 - 如前所述，对于每个线程，它一次仅获取部分查询和键 token 数据。然而，在`Qk_dot<>::dot` 中将会发生跨线程组减少。因此，这里返回的 `qk` 不仅仅是部分查询和键 token 之间点乘的结果，实际上是整个查询和键 token 数据之间的完整结果。
 
-- 例如，如果 `HEAD_SIZE` 的值为 128， `THREAD_GROUP_SIZE` 为 2，则每个线程的 `k_vecs` 总共将包含 64 个元素。然而，返回的 qk 实际上是 128 个查询元素和 128 个键元素点乘的结果。如果你想了解更多关于点乘和减少的细节，可以参考 `Qk_dot<>::dot` 的实现。不过，为了简单起见，我不会在本文档中介绍它。
+- 例如，如果 `HEAD_SIZE` 的值为 128， `THREAD_GROUP_SIZE` 为 2，则每个线程的 `k_vecs` 总共将包含 64 个元素。然而，返回的 qk 实际上是 128 个查询元素和 128 个键元素点乘的结果。如果你想了解更多关于点乘和减少的细节，可以参考 `Qk_dot<>::dot` 的实现。不过，为了简单起见，不会在本文档中介绍它。
 
 ## Softmax
 
@@ -260,7 +260,6 @@ $$
 ```plain
     float* out_smem = reinterpret_cast<float*>(shared_mem);
     for (int i = NUM_WARPS; i > 1; i /= 2) {
-        // Upper warps write to shared memory.
         // 上面的 warp 写入共享内存
         ...
             float* dst = &out_smem[(warp_idx - mid) * HEAD_SIZE];
@@ -270,7 +269,6 @@ $$
         }
 
 
-        // Lower warps update the output.
         // 底下的 warp 更新输出
             const float* src = &out_smem[warp_idx * HEAD_SIZE];
         for (int i = 0; i < NUM_ROWS_PER_THREAD; i++) {
@@ -279,7 +277,6 @@ $$
         }
 
 
-            // Write out the accs.
             // 写出 accs
     }
 ```

@@ -15,9 +15,11 @@ title: 编写单元测试
 在 [tests/models/registry.py](https://github.com/vllm-project/vllm/blob/main/tests/models/registry.py) 中包含您的模型的示例 HuggingFace 仓库。这启用了一个加载虚拟权重的单元测试，以确保可以在 vLLM 中初始化模型。
 
 > **重要**
+> 
 > 每个部分中的模型列表应按字母顺序维护。
 
 > **提示**
+> 
 > 如果您的模型需要 HF Transformers 的开发版本，您可以设置 `min_transformers_version` 以跳过 CI 中的测试，直到模型发布。
 
 ## 可选测试

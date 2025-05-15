@@ -15,13 +15,10 @@ import argparse
 from vllm import LLM
 from vllm.sampling_params import SamplingParams
 
-# This script is an offline demo for running Mistral-Small-3.1
 # 此脚本是用于运行 Mistral-Small-3.1的脱机演示。
 #
-# If you want to run a server/client setup, please follow this code:
 # 如果要运行服务器/客户端设置，请按以下代码:
 #
-# - Server:
 #  - 服务器:
 #
 # ```bash
@@ -30,7 +27,6 @@ from vllm.sampling_params import SamplingParams
 #   --limit-mm-per-prompt 'image=4' --max-model-len 16384
 # ```
 #
-# - Client:
 #  - 服务器:
 #
 # ```bash
@@ -53,7 +49,6 @@ from vllm.sampling_params import SamplingParams
 #   }'
 # ```
 #
-# Usage:
 # 用法:
 #     python demo.py simple
 #     python demo.py advanced

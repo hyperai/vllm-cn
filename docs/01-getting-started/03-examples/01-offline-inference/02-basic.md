@@ -32,7 +32,7 @@ python examples/offline_inference/basic/embed.py
 python examples/offline_inference/basic/score.py
 ```
 
-聊天（chat）和文本生成（generate）脚本还支持采样参数： `max_tokens`, `temperature`, `top_p` 和 `top_k`。
+聊天 (chat) 和文本生成 (generate) 脚本还支持采样参数： `max_tokens`, `temperature`, `top_p` 和 `top_k`。
 
 ```bash
 python examples/offline_inference/basic/chat.py
@@ -110,7 +110,6 @@ print(hf_hub_download(repo_id, filename=filename))
 
 from vllm import LLM, SamplingParams
 
-# Sample prompts.
 # 样本提示。
 prompts = [
     "Hello, my name is",
@@ -118,18 +117,16 @@ prompts = [
     "The capital of France is",
     "The future of AI is",
 ]
-# Create a sampling params object.
 # 创建一个采样参数对象。
 sampling_params = SamplingParams(temperature=0.8, top_p=0.95)
 
-# Create an LLM.
+
 # 创建一个 LLM。
 llm = LLM(model="facebook/opt-125m")
-# Generate texts from the prompts. The output is a list of RequestOutput objects
-# that contain the prompt, generated text, and other information.
+
 # 从提示中生成文本。输出是 RequestOutput 的包含提示，生成的文本和其他信息对象列表。
 outputs = llm.generate(prompts, sampling_params)
-# Print the outputs.
+
 # 打印输出。
 print("\nGenerated Outputs:\n" + "-" * 60)
 for output in outputs:
@@ -150,7 +147,7 @@ from vllm.utils import FlexibleArgumentParser
 
 
 def main(args: dict):
-    # Pop arguments not used by LLM
+
     # 弹出 LLM 未使用的参数
     max_tokens = args.pop("max_tokens")
     temperature = args.pop("temperature")
@@ -158,11 +155,9 @@ def main(args: dict):
     top_k = args.pop("top_k")
     chat_template_path = args.pop("chat_template_path")
 
-    # Create an LLM
     # 创建一个 LLM
     llm = LLM(**args)
 
-    # Create sampling params object
     # 创建采样参数对象
     sampling_params = llm.get_default_sampling_params()
     if max_tokens is not None:
@@ -185,7 +180,6 @@ def main(args: dict):
 
     print("=" * 80)
 
-    # In this script, we demonstrate how to pass input to the chat method:
     # 在此脚本中，我们演示了如何将输入传递到 chat 方法:
     conversation = [
         {
@@ -209,17 +203,14 @@ def main(args: dict):
     outputs = llm.chat(conversation, sampling_params, use_tqdm=False)
     print_outputs(outputs)
 
-    # You can run batch inference with llm.chat API
     # 您可以使用 llm.chat API 进行批处理推断
     conversations = [conversation for _ in range(10)]
 
-    # We turn on tqdm progress bar to verify it's indeed running batch inference
     # 我们打开 tqdm 进度栏以验证其确实正在运行批处理推断
     outputs = llm.chat(conversations, sampling_params, use_tqdm=True)
     print_outputs(outputs)
 
-    # A chat template can be optionally supplied.
-    # If not, the model will use its default chat template.
+
     # 可以选择提供聊天模板。
     # 如果没有，该模型将使用其默认聊天模板。
     if chat_template_path is not None:
@@ -236,19 +227,16 @@ def main(args: dict):
 
 if __name__ == "__main__":
     parser = FlexibleArgumentParser()
-    # Add engine args
     # 添加引擎 Args
     engine_group = parser.add_argument_group("Engine arguments")
     EngineArgs.add_cli_args(engine_group)
     engine_group.set_defaults(model="meta-llama/Llama-3.2-1B-Instruct")
-    # Add sampling params
     # 添加采样参数
     sampling_group = parser.add_argument_group("Sampling parameters")
     sampling_group.add_argument("--max-tokens", type=int)
     sampling_group.add_argument("--temperature", type=float)
     sampling_group.add_argument("--top-p", type=float)
     sampling_group.add_argument("--top-k", type=int)
-    # Add example params
     # 添加示例参数
     parser.add_argument("--chat-template-path", type=str)
     args: dict = vars(parser.parse_args())
@@ -268,7 +256,6 @@ from vllm.utils import FlexibleArgumentParser
 
 
 def main(args: Namespace):
-    # Sample prompts.
     # 样本提示。
     prompts = [
         "Hello, my name is",
@@ -277,17 +264,13 @@ def main(args: Namespace):
         "The future of AI is",
     ]
 
-    # Create an LLM.
-    # You should pass task="classify" for classification models
     # 创建一个 LLM。
     # 您应该传递 task="classify" 给分类模型
     model = LLM(**vars(args))
 
-    # Generate logits. The output is a list of ClassificationRequestOutputs.
     # 生成 logits。输出是 ClassificationRequestOutputs 的列表。
     outputs = model.classify(prompts)
 
-    # Print the outputs.
     # 打印输出。
     print("\nGenerated Outputs:\n" + "-" * 60)
     for prompt, output in zip(prompts, outputs):
@@ -302,7 +285,6 @@ def main(args: Namespace):
 if __name__ == "__main__":
     parser = FlexibleArgumentParser()
     parser = EngineArgs.add_cli_args(parser)
-    # Set example specific arguments
     # 设置示例特定参数
     parser.set_defaults(model="jason9693/Qwen2.5-1.5B-apeach",
                         task="classify",
@@ -324,7 +306,6 @@ from vllm.utils import FlexibleArgumentParser
 
 
 def main(args: Namespace):
-    # Sample prompts.
     # 样本提示。
     prompts = [
         "Hello, my name is",
@@ -333,17 +314,13 @@ def main(args: Namespace):
         "The future of AI is",
     ]
 
-    # Create an LLM.
-    # You should pass task="embed" for embedding models
     # 创建一个 LLM。
     # 您应该传递 task="embed 给嵌入模型"
     model = LLM(**vars(args))
 
-    # Generate embedding. The output is a list of EmbeddingRequestOutputs.
     # 生成嵌入。输出是 EmbeddingRequestOutputs 的列表。
     outputs = model.embed(prompts)
 
-    # Print the outputs.
     # 打印输出。
     print("\nGenerated Outputs:\n" + "-" * 60)
     for prompt, output in zip(prompts, outputs):
@@ -358,7 +335,6 @@ def main(args: Namespace):
 if __name__ == "__main__":
     parser = FlexibleArgumentParser()
     parser = EngineArgs.add_cli_args(parser)
-    # Set example specific arguments
     # 设置示例特定参数
     parser.set_defaults(model="intfloat/e5-mistral-7b-instruct",
                         task="embed",
@@ -378,18 +354,15 @@ from vllm.utils import FlexibleArgumentParser
 
 
 def main(args: dict):
-    # Pop arguments not used by LLM
     # 弹出 LLM 未使用的参数
     max_tokens = args.pop("max_tokens")
     temperature = args.pop("temperature")
     top_p = args.pop("top_p")
     top_k = args.pop("top_k")
 
-    # Create an LLM
     # 创建一个 LLM
     llm = LLM(**args)
 
-    # Create a sampling params object
     # 创建一个采样参数对象
     sampling_params = llm.get_default_sampling_params()
     if max_tokens is not None:
@@ -401,8 +374,7 @@ def main(args: dict):
     if top_k is not None:
         sampling_params.top_k = top_k
 
-    # Generate texts from the prompts. The output is a list of RequestOutput
-    # objects that contain the prompt, generated text, and other information.
+
     # 从提示中生成文本。输出是 RequestOutput 的包含提示，生成文本和其他信息的对象列表。
     prompts = [
         "Hello, my name is",
@@ -411,7 +383,7 @@ def main(args: dict):
         "The future of AI is",
     ]
     outputs = llm.generate(prompts, sampling_params)
-    # Print the outputs.
+
     # 打印输出。
     for output in outputs:
         prompt = output.prompt
@@ -421,12 +393,11 @@ def main(args: dict):
 
 if __name__ == "__main__":
     parser = FlexibleArgumentParser()
-    # Add engine args
+
     # 添加引擎 Args
     engine_group = parser.add_argument_group("Engine arguments")
     EngineArgs.add_cli_args(engine_group)
     engine_group.set_defaults(model="meta-llama/Llama-3.2-1B-Instruct")
-    # Add sampling params
     # 添加采样参数
     sampling_group = parser.add_argument_group("Sampling parameters")
     sampling_group.add_argument("--max-tokens", type=int)
@@ -450,7 +421,7 @@ from vllm.utils import FlexibleArgumentParser
 
 
 def main(args: Namespace):
-    # Sample prompts.
+
     # 样本提示。
     text_1 = "What is the capital of France?"
     texts_2 = [
@@ -458,17 +429,16 @@ def main(args: Namespace):
         "The capital of France is Paris.",
     ]
 
-    # Create an LLM.
-    # You should pass task="score" for cross-encoder models
+
     # 创建一个 LLM。
     # 您应该传递 task="score" 给跨编码模型
     model = LLM(**vars(args))
 
-    # Generate scores. The output is a list of ScoringRequestOutputs.
+
     # 生成分数。输出是 ScoringRequestOutputs 的列表。
     outputs = model.score(text_1, texts_2)
 
-    # Print the outputs.
+
     # 打印输出。
     print("\nGenerated Outputs:\n" + "-" * 60)
     for text_2, output in zip(texts_2, outputs):
@@ -480,7 +450,7 @@ def main(args: Namespace):
 if __name__ == "__main__":
     parser = FlexibleArgumentParser()
     parser = EngineArgs.add_cli_args(parser)
-    # Set example specific arguments
+
     # 设置示例特定参数
     parser.set_defaults(model="BAAI/bge-reranker-v2-m3",
                         task="score",

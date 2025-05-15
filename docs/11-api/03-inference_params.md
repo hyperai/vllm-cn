@@ -8,7 +8,7 @@ vLLM API 的推理参数。
 
 ## 采样参数
 
-**\*class\*\*\***vllm.\***\*SamplingParams\*\***(**\***n: int = 1**\***,**\***best_of: int | None = None**\***,**\***\_real_n: int | None = None**\***,**\***presence_penalty: float = 0.0**\***,**\***frequency_penalty: float = 0.0**\***,**\***repetition_penalty: float = 1.0**\***,**\***temperature: float = 1.0**\***,**\***top_p: float = 1.0**\***,**\***top_k: int = -1**\***,**\***min_p: float = 0.0**\***,**\***seed: int | None = None**\***,**\***stop: str | list[str] | None = None**\***,**\***stop_token_ids: list[int] | None = None**\***,**\***ignore_eos: bool = False**\***,**\***max_tokens: int | None = 16**\***,**\***min_tokens: int = 0**\***,**\***logprobs: int | None = None**\***,**\***prompt_logprobs: int | None = None**\***,**\***detokenize: bool = True**\***,**\***skip_special_tokens: bool = True**\***,**\***spaces_between_special_tokens: bool = True**\***,**\***logits_processors: ~typing.Any | None = None**\***,**\***include_stop_str_in_output: bool = False**\***,**\***truncate_prompt_tokens: int | None = None**\***,**\***output_kind: ~vllm.sampling_params.RequestOutputKind = RequestOutputKind.CUMULATIVE**\***,**\***output_text_buffer_length: int = 0**\***,**\***\_all_stop_token_ids: set[int] = <factory>**\***,**\***guided_decoding: ~vllm.sampling_params.GuidedDecodingParams | None = None**\***,**\***logit_bias: dict[int*****,*****float] | None = None**\***,**\***allowed_token_ids: list[int] | None = None**\***,**\***extra_args: dict[str*****,*****typing.Any] | None = None**\***,**\***bad_words: list[str] | None = None**\***,**\***\_bad_words_token_ids: list[list[int]] = <factory>**\***)\*\*
+**class_ vllm.SamplingParams(_n: int \= 1_, _best\_of: int | None \= None_, _\_real\_n: int | None \= None_, _presence\_penalty: float \= 0.0_, _frequency\_penalty: float \= 0.0_, _repetition\_penalty: float \= 1.0_, _temperature: float \= 1.0_, _top\_p: float \= 1.0_, _top\_k: int \= \-1_, _min\_p: float \= 0.0_, _seed: int | None \= None_, _stop: str | list\[str\] | None \= None_, _stop\_token\_ids: list\[int\] | None \= None_, _ignore\_eos: bool \= False_, _max\_tokens: int | None \= 16_, _min\_tokens: int \= 0_, _logprobs: int | None \= None_, _prompt\_logprobs: int | None \= None_, _detokenize: bool \= True_, _skip\_special\_tokens: bool \= True_, _spaces\_between\_special\_tokens: bool \= True_, _logits\_processors: ~typing.Any | None \= None_, _include\_stop\_str\_in\_output: bool \= False_, _truncate\_prompt\_tokens: int | None \= None_, _output\_kind: ~vllm.sampling\_params.RequestOutputKind \= RequestOutputKind.CUMULATIVE_, _output\_text\_buffer\_length: int \= 0_, _\_all\_stop\_token\_ids: set\[int\] \= <factory\>_, _guided\_decoding: ~vllm.sampling\_params.GuidedDecodingParams | None \= None_, _logit\_bias: dict\[int_, _float\] | None \= None_, _allowed\_token\_ids: list\[int\] | None \= None_, _extra\_args: dict\[str_, _typing.Any\] | None \= None_, _bad\_words: list\[str\] | None \= None_, _\_bad\_words\_token\_ids: list\[list\[int\]\] | None \= None_)**
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/sampling_params.py#L108)
 
@@ -47,7 +47,7 @@ vLLM API 的推理参数。
 - **allowed_token_ids** – 如果提供，引擎将构建一个仅保留给定 token id 分数的 logits 处理器。默认为 None。
 - **extra_args** – 任意附加参数，可用于自定义采样实现。不用于任何内置采样实现。
 
-**clone\*\***()\***\*→**[SamplingParams](https://docs.vllm.ai/en/latest/api/inference_params.html#vllm.SamplingParams)
+**clone() → [SamplingParams](https://docs.vllm.ai/en/v0.8.4_a/api/inference_params.html#vllm.SamplingParams "vllm.sampling_params.SamplingParams")**
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/sampling_params.py#L529)
 
@@ -55,7 +55,7 @@ vLLM API 的推理参数。
 
 LogitsProcessor 对象可能包含大量数据，复制成本较高。然而，如果不复制，处理器需要支持多序列的并行解码。参见 [vllm-project/vllm#3087](https://github.com/vllm-project/vllm/issues/3087)。
 
-**update_from_generation_config\*\***(**\***generation*config:\*\**[dict](https://docs.python.org/3/library/stdtypes.html#dict)_**[**_[str](https://docs.python.org/3/library/stdtypes.html#str)_**,**_[Any](https://docs.python.org/3/library/typing.html#typing.Any)_**]**\***,**\***model_eos_token_id:**_[int](https://docs.python.org/3/library/functions.html#int)_**|**_[None](https://docs.python.org/3/library/constants.html#None) \_**=**\* \***None**\***)\***\*→\*\*[None](https://docs.python.org/3/library/constants.html#None)
+**update\_from\_generation\_config(_generation\_config: [dict](https://docs.python.org/3/library/stdtypes.html#dict "(in Python v3.13)")\[[str](https://docs.python.org/3/library/stdtypes.html#str "(in Python v3.13)"), [Any](https://docs.python.org/3/library/typing.html#typing.Any "(in Python v3.13)")\]_, _model\_eos\_token\_id: [int](https://docs.python.org/3/library/functions.html#int "(in Python v3.13)") | [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.13)") \= None_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.13)")**
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/sampling_params.py#L446)
 
@@ -63,7 +63,7 @@ LogitsProcessor 对象可能包含大量数据，复制成本较高。然而，�
 
 ## 池化参数
 
-**\*class\*\*\***vllm.\***\*PoolingParams\*\***(**\***additional*data:\*\**[Any](https://docs.python.org/3/library/typing.html#typing.Any)_**|**_[None](https://docs.python.org/3/library/constants.html#None) \_**=**\* \***None**\*\*\*)\*\*
+**class_ vllm.PoolingParams(_dimensions: [int](https://docs.python.org/3/library/functions.html#int "(in Python v3.13)") | [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.13)") \= None_, _additional\_data: [Any](https://docs.python.org/3/library/typing.html#typing.Any "(in Python v3.13)") | [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.13)") \= None_)**
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/pooling_params.py#L8)
 
@@ -75,10 +75,11 @@ LogitsProcessor 对象可能包含大量数据，复制成本较高。然而，�
 
 池化所需的任何额外数据。
 
-> **类型\*\***：\*\*
+> **类型：**
+> 
 > Any | None
 
-**clone\*\***()\***\*→**[PoolingParams](https://docs.vllm.ai/en/latest/api/inference_params.html#vllm.PoolingParams)
+**clone() → [PoolingParams](https://docs.vllm.ai/en/v0.8.4_a/api/inference_params.html#vllm.PoolingParams "vllm.pooling_params.PoolingParams")**
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/pooling_params.py#L19)
 

@@ -26,14 +26,12 @@ vLLM 支持跨多种任务的生成式和池化模型。若模型支持多个任
 from vllm import LLM
 
 
-# For generative models (task=generate) only
 # 仅适用于生成式模型（task=generate）
 llm = LLM(model=..., task="generate")  # Name or path of your model
 output = llm.generate("Hello, my name is")
 print(output)
 
 
-# For pooling models (task={embed,classify,reward,score}) only
 # 仅适用于池化模型（task={embed,classify,reward,score}）
 llm = LLM(model=..., task="embed")  # Name or path of your model
 output = llm.encode("Hello, my name is")
@@ -42,7 +40,7 @@ print(output)
 
 若 vLLM 成功返回文本（生成式模型）或隐藏状态（池化模型），则表明您的模型受支持。
 
-否则，请参考 [添加新模型](https://docs.vllm.ai/en/latest/contributing/model/index.html#new-model) 了解如何在 vLLM 中实现您的模型。您也可 [在 GitHub 提交 Issue](https://github.com/vllm-project/vllm/issues/new/choose) 请求 vLLM 支持。
+否则，请参考[添加新模型](https://docs.vllm.ai/en/latest/contributing/model/index.html#new-model) 了解如何在 vLLM 中实现您的模型。您也可 [在 GitHub 提交 Issue](https://github.com/vllm-project/vllm/issues/new/choose) 请求 vLLM 支持。
 
 ### Transformers 回退
 
@@ -159,13 +157,11 @@ from vllm import LLM
 llm = LLM(model=..., revision=..., task=..., trust_remote_code=True)
 
 
-# For generative models (task=generate) only
 # 仅适用于生成式模型（task=generate）
 output = llm.generate("Hello, my name is")
 print(output)
 
 
-# For pooling models (task={embed,classify,reward,score}) only
 # 仅适用于池化模型（task={embed,classify,reward,score}）
 output = llm.encode("Hello, my name is")
 print(output)
@@ -243,15 +239,16 @@ print(output)
 | XverseForCausalLM                     | XVERSE                                              | xverse/XVERSE-7B-Chat, xverse/XVERSE-13B-Chat, xverse/XVERSE-65B-Chat, etc.                                                                                        | ✅︎                                                                    | ✅︎                                                                                       |
 | Zamba2ForCausalLM                     | Zamba2                                              | Zyphra/Zamba2-7B-instruct, Zyphra/Zamba2-2.7B-instruct, Zyphra/Zamba2-1.2B-instruct, etc.                                                                          |                                                                        |                                                                                           |
 
-**注意**
-
-当前 ROCm 版本的 vLLM 仅支持 Mistral 和 Mixtral 模型，且上下文长度上限为 4096。
+> **注意**
+>
+> 当前 ROCm 版本的 vLLM 仅支持 Mistral 和 Mixtral 模型，且上下文长度上限为 4096。
 
 ### 池化模型
 
 关于池化模型的使用详情，请参阅[此页面](https://docs.vllm.ai/en/latest/models/pooling_models.html#pooling-models)。
 
 > **重要**
+> 
 > 由于部分模型架构同时支持生成式和池化任务，您应显式指定任务类型以确保模型以池化模式而非生成模式运行。
 
 #### 文本嵌入 (`--task embed`)
@@ -266,9 +263,13 @@ print(output)
 | RobertaModel, RobertaForMaskedLM                 | RoBERTa-based     | sentence-transformers/all-roberta-large-v1, sentence-transformers/all-roberta-large-v1, etc.       |                                                                        |                                                                                           |
 | XLMRobertaModel                                  | XLM-RoBERTa-based | intfloat/multilingual-e5-large, etc.                                                               |                                                                        |                                                                                           |
 
-> **注意** >`ssmits/Qwen2-7B-Instruct-embed-base` 的 Sentence Transformers 配置定义有误。您需手动设置均值池化：传递 `--override-pooler-config '{"pooling_type": "MEAN"}'`。
+> **注意**
+>
+>`ssmits/Qwen2-7B-Instruct-embed-base` 的 Sentence Transformers 配置定义有误。您需手动设置均值池化：传递 `--override-pooler-config '{"pooling_type": "MEAN"}'`。
 
-> **注意** >`Alibaba-NLP/gte-Qwen2-1.5B-instruct` 的 HF 实现强制使用因果注意力（与 `config.json` 所示不符）。为比较 vLLM 与 HF 结果，应在 vLLM 中设置 `--hf-overrides '{"is_causal": true}'` 以确保两者实现一致。
+> **注意**
+>
+>`Alibaba-NLP/gte-Qwen2-1.5B-instruct` 的 HF 实现强制使用因果注意力（与 `config.json` 所示不符）。为比较 vLLM 与 HF 结果，应在 vLLM 中设置 `--hf-overrides '{"is_causal": true}'` 以确保两者实现一致。
 >
 > 对于 1.5B 和 7B 版本，还需启用 `--trust-remote-code` 以加载正确的分词器。详见 [HF Transformers 相关 Issue](https://github.com/huggingface/transformers/issues/34882)。
 
@@ -285,7 +286,8 @@ print(output)
 
 若您的模型不在上述列表中，我们将尝试通过 `as_reward_model()` 自动转换模型。默认直接返回每个 token 的隐藏状态。
 
-> **重要\*\***信息\*\*
+> **重要信息**
+> 
 > 对于过程监督奖励模型（如 `peiyi9979/math-shepherd-mistral-7b-prm`），需显式设置池化配置，例如：
 > `--override-pooler-config '{"pooling_type": "STEP", "step_tag_id": 123, "returned_token_ids": [456, 789]}'`
 
@@ -325,7 +327,7 @@ print(output)
 
 关于如何传递多模态输入，请参阅[此页面](https://docs.vllm.ai/en/latest/serving/multimodal_inputs.html#multimodal-inputs)。
 
-**重要\*\***信息\*\*
+**重要信息**
 
 要为每个文本提示启用多个多模态项，需设置 `limit_mm_per_prompt`（离线推理）或 `--limit-mm-per-prompt`（在线服务）。例如允许每个文本提示传递最多 4 张图像：
 
@@ -345,6 +347,7 @@ vllm serve Qwen/Qwen2-VL-7B-Instruct --limit-mm-per-prompt image=4
 ```
 
 > **注意**
+> 
 > 当前 vLLM 仅支持对多模态模型的语言主干添加 LoRA。
 
 ### 生成式模型
@@ -395,12 +398,14 @@ E 可为此模态输入预计算嵌入。
 
 - 可为此模态的每个文本提示输入多项内容。
 
-> **重要\*\***信息\*\*
+> **重要信息**
+> 
 > 使用 Gemma3 系列模型需通过 `pip install git+https://github.com/huggingface/transformers` 从源码安装 Hugging Face Transformers 库。
 >
 > 平移扫描图像预处理当前仅 V0 支持（V1 不支持）。可通过传递 `--mm-processor-kwargs '{"do_pan_and_scan": True}'` 启用。
 
 > **警告**
+> 
 > V0 和 V1 均支持 `Gemma3ForConditionalGeneration` 的纯文本输入，但对图文混合输入的处理存在差异：
 >
 > V0 正确实现模型的注意力模式：
@@ -416,22 +421,28 @@ E 可为此模态输入预计算嵌入。
 >
 > 此限制源于模型的混合注意力模式（图像双向/其他因果）尚未被 vLLM 注意力后端支持。
 
-> **注意** >`h2oai/h2ovl-mississippi-2b` 将在 V1 支持非 FlashAttention 后端后可用。
+> **注意**
+> 
+>`h2oai/h2ovl-mississippi-2b` 将在 V1 支持非 FlashAttention 后端后可用。
 
 > **注意**
+> 
 > 使用 `TIGER-Lab/Mantis-8B-siglip-llama3` 需在运行 vLLM 时传递 `--hf_overrides '{"architectures": ["MantisForConditionalGeneration"]}'`。
 
 > **注意**
+> 
 > 官方 `openbmb/MiniCPM-V-2` 暂不可用，需使用分支版本（`HwwwH/MiniCPM-V-2`）。详情见 [PR #4087](https://github.com/vllm-project/vllm/pull/4087#issuecomment-2250397630)。
 
 > **警告**
+> 
 > 我们的 PaliGemma 实现在 V0 和 V1 中均存在与 Gemma3 相同的问题（见上文）。
 
 ### 池化模型
 
-关于池化模型的使用详情，请参阅 [此页面](https://docs.vllm.ai/en/latest/models/pooling_models.html#pooling-models)。
+关于池化模型的使用详情，请参阅[此页面](https://docs.vllm.ai/en/latest/models/pooling_models.html#pooling-models)。
 
-> **重要\*\***信息\*\*
+> **重要信息**
+> 
 > 由于部分模型架构同时支持生成式和池化任务，您应显式指定任务类型以确保模型以池化模式而非生成模式运行。
 
 #### 文本嵌入 (`--task embed`)
@@ -439,6 +450,7 @@ E 可为此模态输入预计算嵌入。
 任何文本生成模型均可通过传递 `--task embed` 转换为嵌入模型。
 
 > **注意**
+> 
 > 为获得最佳效果，应使用专门训练的池化模型。下表列出 vLLM 中已验证的模型。
 > |架构|模型|输入|HF 模型示例|[LoRA](https://docs.vllm.ai/en/latest/features/lora.html#lora-adapter)|[PP](https://docs.vllm.ai/en/latest/serving/distributed_serving.html#distributed-serving)|
 > |:----|:----|:----|:----|:----|:----|
@@ -465,6 +477,7 @@ vLLM 致力于促进第三方模型在生态中的集成与支持。我们的方
 2. **尽力保证一致性**：虽然我们力求保持 vLLM 实现的模型与其他框架（如 transformers）的一致性，但完全对齐并非总能实现。加速技术和低精度计算等因素可能引入差异。我们的承诺是确保实现的模型功能正常且输出合理。
 
 > **提示**
+> 
 > 比较 HuggingFace Transformers 的 `model.generate` 与 vLLM 的 `llm.generate` 输出时，请注意前者读取模型的生成配置文件（即 [generation_config.json](https://github.com/huggingface/transformers/blob/19dabe96362803fb0a9ae7073d03533966598b17/src/transformers/generation/utils.py#L1945)）并应用默认生成参数，而后者仅使用函数传递的参数。比较输出时需确保所有采样参数一致。
 
 1. **问题解决与模型更新**：鼓励用户报告第三方模型的任何缺陷。修复建议应通过 PR 提交，并清晰说明问题及解决方案依据。若某模型的修复影响其他模型，我们依赖社区指出并解决这些跨模型依赖。注意：提交修复 PR 时，通知原作者征求意见是良好实践。
@@ -479,10 +492,10 @@ vLLM 致力于促进第三方模型在生态中的集成与支持。我们的方
 
 我们对模型的测试分为以下级别：
 
-1. **严格一致性**：在贪婪解码下比较模型输出与 HuggingFace Transformers 库的输出。这是最严格的测试。通过此测试的模型见 [模型测试](https://github.com/vllm-project/vllm/blob/main/tests/models)。
+1. **严格一致性**：在贪婪解码下比较模型输出与 HuggingFace Transformers 库的输出。这是最严格的测试。通过此测试的模型见[模型测试](https://github.com/vllm-project/vllm/blob/main/tests/models)。
 
 2. **输出合理性**：通过测量输出的困惑度及检查明显错误，验证模型输出是否合理连贯。此为较宽松的测试。
 
-3. **运行时功能性**：检查模型能否无错误加载运行。此为最宽松的测试。通过此测试的模型见 [功能测试](https://github.com/vllm-project/vllm/tree/main/tests) 和 [示例](https://github.com/vllm-project/vllm/tree/main/main/examples)。
+3. **运行时功能性**：检查模型能否无错误加载运行。此为最宽松的测试。通过此测试的模型见[功能测试](https://github.com/vllm-project/vllm/tree/main/tests)和[示例](https://github.com/vllm-project/vllm/tree/main/main/examples)。
 
 4. **社区反馈**：依赖社区提供模型反馈。若模型存在故障或未达预期，鼓励用户提交 Issue 报告或提交 PR 修复。其余模型归入此类。

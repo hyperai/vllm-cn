@@ -12,8 +12,8 @@ vLLM 支持推理模型，例如 [DeepSeek R1](https://huggingface.co/deepseek-
 
 vLLM 目前支持以下推理模型：
 
-| 型号系列                                                                                                                    | 解析器名称  | 结构化输出支持            | 工具调用                  |
-| :-------------------------------------------------------------------------------------------------------------------------- | :---------- | :------------------------ | :------------------------ | --- |
+| 型号系列  | 解析器名称   | 结构化输出支持             | 工具调用                   |
+| -------- | ---------- | ------------------------ | ------------------------ | 
 | [DeepSeek R1 series  DeepSeek R1 系列](https://huggingface.co/collections/deepseek-ai/deepseek-r1-678e1e131c0169c0bc89728d) | deepseek_r1 | guided_json, guided_regex | guided_json、guided_regex | ❌  |
 | [QwQ-32B](https://huggingface.co/Qwen/QwQ-32B)                                                                              | deepseek_r1 | guided_json, guided_regex | guided_json、guided_regex | ✅  |
 
@@ -32,7 +32,6 @@ vllm serve deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B \
 from openai import OpenAI
 
 
-# Modify OpenAI's API key and API base to use vLLM's API server.
 # 修改 OpenAI 的 API 密钥和 API 基础 URL 以使用 vLLM 的 API 服务器。
 openai_api_key = "EMPTY"
 openai_api_base = "http://localhost:8000/v1"
@@ -48,7 +47,6 @@ models = client.models.list()
 model = models.data[0].id
 
 
-# Round 1
 # 第一轮
 messages = [{"role": "user", "content": "9.11 and 9.8, which is greater?"}]
 response = client.chat.completions.create(model=model, messages=messages)
@@ -95,7 +93,7 @@ OpenAI 的 Python 客户端库官方不支持流式输出中的 `reasoning_conte
 from openai import OpenAI
 
 
-# Modify OpenAI's API key and API base to use vLLM's API server.
+# 修改 OpenAI 的 API 密钥和 API 基地址，以便使用 vLLM 的 API 服务器。
 openai_api_key = "EMPTY"
 openai_api_base = "http://localhost:8000/v1"
 
@@ -124,7 +122,7 @@ printed_content = False
 for chunk in stream:
     reasoning_content = None
     content = None
-    # Check the content is reasoning_content or content
+    # 检查内容是 reasoning_content 还是 content。
     if hasattr(chunk.choices[0].delta, "reasoning_content"):
         reasoning_content = chunk.choices[0].delta.reasoning_content
     elif hasattr(chunk.choices[0].delta, "content"):
@@ -140,7 +138,7 @@ for chunk in stream:
         if not printed_content:
             printed_content = True
             print("\ncontent:", end="", flush=True)
-        # Extract and print the content
+        # 提取并打印内容
         print(content, end="", flush=True)
 
 
@@ -157,7 +155,7 @@ from openai import OpenAI
 from pydantic import BaseModel
 
 
-# Modify OpenAI's API key and API base to use vLLM's API server.
+# 修改 OpenAI 的 API 密钥和 API 基地址，以便使用 vLLM 的 API 服务器。
 openai_api_key = "EMPTY"
 openai_api_base = "http://localhost:8000/v1"
 
@@ -247,7 +245,6 @@ print(f"Arguments: {tool_call.arguments}")
 您可以添加一个新的 `ReasoningParser`，类似于 `vllm/entrypoints/openai/reasoning_parsers/deepseek_r1_reasoning_parser.py`。
 
 ```plain
-# import the required packages
 # 导入所需的包
 
 
@@ -257,9 +254,6 @@ from vllm.entrypoints.openai.protocol import (ChatCompletionRequest,
                                               DeltaMessage)
 
 
-# define a reasoning parser and register it to vllm
-# the name list in register_module can be used
-# in --reasoning-parser.
 # 定义一个推理解析器并将其注册到 vLLM
 # register_module 中的名称列表可以在
 # --reasoning-parser 中使用。
@@ -295,32 +289,21 @@ class ExampleParser(ReasoningParser):
             self, model_output: str, request: ChatCompletionRequest
     ) -> Tuple[Optional[str], Optional[str]]:
         """
-        Extract reasoning content from a complete model-generated string.
         从完整的模型生成字符串中提取推理内容。
 
 
-        Used for non-streaming responses where we have the entire model response
-        available before sending to the client.
         用于非流式响应，其中我们在发送给客户端之前拥有完整的模型响应。
 
 
-        Parameters:
         参数：
-        model_output: str
-            The model-generated string to extract reasoning content from.
         model_output: str
             要从中提取推理内容的模型生成字符串。
 
 
         request: ChatCompletionRequest
-            The request object that was used to generate the model_output.
-        request: ChatCompletionRequest
             用于生成 model_output 的请求对象。
 
 
-        Returns:
-        Tuple[Optional[str], Optional[str]]
-            A tuple containing the reasoning content and the content.
         返回：
         Tuple[Optional[str], Optional[str]]
             包含推理内容和内容的元组。
@@ -333,7 +316,7 @@ class ExampleParser(ReasoningParser):
 @dataclass
 class DeepSeekReasoner(Reasoner):
     """
-    Reasoner for DeepSeek R series models.
+    DeepSeek R 系列模型的推理器。
     """
     start_token_id: int
     end_token_id: int

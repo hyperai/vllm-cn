@@ -15,7 +15,6 @@ title: GGUF
 
 ```plain
 wget https://huggingface.co/TheBloke/TinyLlama-1.1B-Chat-v1.0-GGUF/resolve/main/tinyllama-1.1b-chat-v1.0.Q4_K_M.gguf
-# We recommend using the tokenizer from base model to avoid long-time and buggy tokenizer conversion.
 # 我们建议使用基础模型的 tokenizer，以避免耗时且存在问题的 tokenizer 转换。
 vllm serve ./tinyllama-1.1b-chat-v1.0.Q4_K_M.gguf --tokenizer TinyLlama/TinyLlama-1.1B-Chat-v1.0
 ```
@@ -29,7 +28,6 @@ vllm serve ./tinyllama-1.1b-chat-v1.0.Q4_K_M.gguf --tokenizer TinyLlama/TinyLlam
 from vllm import LLM, SamplingParams
 
 
-# In this script, we demonstrate how to pass input to the chat method:
 # 在此脚本中，我们演示了如何将输入传递给 chat 方法：
 
 
@@ -53,7 +51,6 @@ conversation = [
 ]
 
 
-# Create a sampling params object.
 # 创建 SamplingParams 对象。
 sampling_params = SamplingParams(temperature=0.8, top_p=0.95)
 
@@ -61,13 +58,12 @@ sampling_params = SamplingParams(temperature=0.8, top_p=0.95)
 # 创建一个 LLM。
 llm = LLM(model="./tinyllama-1.1b-chat-v1.0.Q4_K_M.gguf",
          tokenizer="TinyLlama/TinyLlama-1.1B-Chat-v1.0")
-# Generate texts from the prompts. The output is a list of RequestOutput objects
-# that contain the prompt, generated text, and other information.
+
 # 从提示中生成文本。输出是一个 RequestOutput 列表，包含提示、生成文本和其他信息
 outputs = llm.chat(conversation, sampling_params)
 
 
-# Print the outputs.
+
 # 打印输出
 for output in outputs:
    prompt = output.prompt

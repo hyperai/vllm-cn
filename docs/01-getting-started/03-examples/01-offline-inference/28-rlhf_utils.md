@@ -13,13 +13,7 @@ import torch
 
 def stateless_init_process_group(master_address, master_port, rank, world_size,
                                  device):
-    """
-    vLLM provides `StatelessProcessGroup` to create a process group
-    without considering the global process group in torch.distributed.
-    It is recommended to create `StatelessProcessGroup`, and then initialize
-    the data-plane communication (NCCL) between external (train processes)
-    and vLLM workers.
-    """
+
     """
     vLLM 提供 `StatelessProcessGroup` 来创建进程组，
     无需考虑 torch.distributed 中的全局进程组。
@@ -37,14 +31,7 @@ def stateless_init_process_group(master_address, master_port, rank, world_size,
 
 
 class WorkerExtension:
-    """
-    The class for vLLM's worker to inherit from.
-    By defining an extension class, the code can work no matter what is
-    the underlying worker class. This way, the code can be compatible
-    with both vLLM V0 and V1.
-    NOTE: we define this class in a separate module, and the main module
-    should pass the full qualified name as `worker_extension_cls` argument.
-    """
+
     """
     vLLM 工作进程的基类。
     通过定义扩展类，无论底层工作进程类是什么，代码都能正常工作。
@@ -90,14 +77,7 @@ class WorkerExtension:
 
 
 class ColocateWorkerExtension:
-    """
-    The class for vLLM's worker to inherit from, in the colocate setting.
-    By defining an extension class, the code can work no matter what is
-    the underlying worker class. This way, the code can be compatible
-    with both vLLM V0 and V1.
-    NOTE: we define this class in a separate module, and the main module
-    should pass the full qualified name as `worker_extension_cls` argument.
-    """
+
     """
     vLLM 工作进程在协同部署场景下的基类。
     通过定义扩展类，无论底层工作进程类是什么，代码都能正常工作。
@@ -129,9 +109,7 @@ class ColocateWorkerExtension:
         torch.cuda.synchronize()
 
     def check_weights_changed(self):
-        """
-        Check if the weights are updated to 0.
-        """
+
         """
         检查权重是否已更新为0。
         """

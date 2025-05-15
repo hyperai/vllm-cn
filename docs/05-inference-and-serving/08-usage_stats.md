@@ -54,7 +54,6 @@ tail ~/.config/vllm/usage_stats.json
 你可以通过设置 `VLLM_NO_USAGE_STATS`  或 `DO_NOT_TRACK`  环境变量，或创建 `~/.config/vllm/do_not_track`文件来选择退出使用统计数据收集：
 
 ```plain
-# Any of the following methods can disable usage stats collection
 # 以下任何一种方法都可以禁用使用统计数据收集
 export VLLM_NO_USAGE_STATS=1
 export DO_NOT_TRACK=1

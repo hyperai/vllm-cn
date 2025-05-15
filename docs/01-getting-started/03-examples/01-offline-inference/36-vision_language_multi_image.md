@@ -150,8 +150,7 @@ def load_h2ovl(question: str, image_urls: list[str]) -> ModelRequestData:
                                            tokenize=False,
                                            add_generation_prompt=True)
 
-    # Stop tokens for H2OVL-Mississippi
-    # https://huggingface.co/h2oai/h2ovl-mississippi-800m
+
     # H2OVL-Mississippi 的停止 token
     # https://huggingface.co/h2oai/h2ovl-mississippi-800m
     stop_token_ids = [tokenizer.eos_token_id]
@@ -167,7 +166,6 @@ def load_h2ovl(question: str, image_urls: list[str]) -> ModelRequestData:
 def load_idefics3(question: str, image_urls: list[str]) -> ModelRequestData:
     model_name = "HuggingFaceM4/Idefics3-8B-Llama3"
 
-    # The configuration below has been confirmed to launch on a single L40 GPU.
     # 以下配置已确认可以在单个 L40 GPU 上启动。
     engine_args = EngineArgs(
         model=model_name,
@@ -175,8 +173,6 @@ def load_idefics3(question: str, image_urls: list[str]) -> ModelRequestData:
         max_num_seqs=16,
         enforce_eager=True,
         limit_mm_per_prompt={"image": len(image_urls)},
-        # if you are running out of memory, you can reduce the "longest_edge".
-        # see: https://huggingface.co/HuggingFaceM4/Idefics3-8B-Llama3#model-optimizations
         # 如果您的内存不足，则可以减少 "LINGEST_EDDE"。
         # 请参阅:https://huggingface.co/huggingfacem4/idefics3-8b-llama3#model-optimization
         mm_processor_kwargs={
@@ -217,10 +213,6 @@ def load_internvl(question: str, image_urls: list[str]) -> ModelRequestData:
                                            tokenize=False,
                                            add_generation_prompt=True)
 
-    # Stop tokens for InternVL
-    # models variants may have different stop tokens
-    # please refer to the model card for the correct "stop words":
-    # https://huggingface.co/OpenGVLab/InternVL2-2B/blob/main/conversation.py
     # Internvl 的停止 token
     # 型号变体可能具有不同的停止 token
     # 请参考正确的"停止单词"的模型卡:
@@ -239,7 +231,6 @@ def load_internvl(question: str, image_urls: list[str]) -> ModelRequestData:
 def load_mllama(question: str, image_urls: list[str]) -> ModelRequestData:
     model_name = "meta-llama/Llama-3.2-11B-Vision-Instruct"
 
-    # The configuration below has been confirmed to launch on a single L40 GPU.
     # 以下配置已确认可以在单个 L40 GPU 上启动。
     engine_args = EngineArgs(
         model=model_name,
@@ -260,7 +251,7 @@ def load_mllama(question: str, image_urls: list[str]) -> ModelRequestData:
 def load_nvlm_d(question: str, image_urls: list[str]) -> ModelRequestData:
     model_name = "nvidia/NVLM-D-72B"
 
-    # Adjust this as necessary to fit in GPU
+
     # 根据需要进行调整以适合 GPU
     engine_args = EngineArgs(
         model=model_name,
@@ -291,7 +282,6 @@ def load_nvlm_d(question: str, image_urls: list[str]) -> ModelRequestData:
 def load_pixtral_hf(question: str, image_urls: list[str]) -> ModelRequestData:
     model_name = "mistral-community/pixtral-12b"
 
-    # Adjust this as necessary to fit in GPU
     # 根据需要进行调整以适合 GPU
     engine_args = EngineArgs(
         model=model_name,
@@ -312,18 +302,6 @@ def load_pixtral_hf(question: str, image_urls: list[str]) -> ModelRequestData:
 
 
 def load_phi3v(question: str, image_urls: list[str]) -> ModelRequestData:
-    # num_crops is an override kwarg to the multimodal image processor;
-    # For some models, e.g., Phi-3.5-vision-instruct, it is recommended
-    # to use 16 for single frame scenarios, and 4 for multi-frame.
-    #
-    # Generally speaking, a larger value for num_crops results in more
-    # tokens per image instance, because it may scale the image more in
-    # the image preprocessing. Some references in the model docs and the
-    # formula for image tokens after the preprocessing
-    # transform can be found below.
-    #
-    # https://huggingface.co/microsoft/Phi-3.5-vision-instruct#loading-the-model-locally
-    # https://huggingface.co/microsoft/Phi-3.5-vision-instruct/blob/main/processing_phi3_v.py#L194
 
     # num_crops 是传递给多模态图像处理器的一个覆盖（override）关键字参数；
     # 对于某些模型，例如 Phi-3.5-vision-instruct，建议在单帧（single frame）场景下使用 16，
@@ -355,17 +333,12 @@ def load_phi3v(question: str, image_urls: list[str]) -> ModelRequestData:
 
 def load_phi4mm(question: str, image_urls: list[str]) -> ModelRequestData:
     """
-    Phi-4-multimodal-instruct supports both image and audio inputs. Here, we
-    show how to process multi images inputs.
-    """
-    """
     Phi-4-multimodal-instruct 支持图像和音频输入。
     此示例展示了如何处理多图像输入。
     """
 
     model_path = snapshot_download("microsoft/Phi-4-multimodal-instruct")
-    # Since the vision-lora and speech-lora co-exist with the base model,
-    # we have to manually specify the path of the lora weights.
+
     # 由于 vision-lora 和 speech-lora 与基本模型共存，所以
     # 我们必须手动指定 Lora 权重的路径。
     vision_lora_path = os.path.join(model_path, "vision-lora")
@@ -405,17 +378,12 @@ def load_qwen_vl_chat(question: str,
     placeholders = "".join(f"Picture {i}: <img></img>\n"
                            for i, _ in enumerate(image_urls, start=1))
 
-    # This model does not have a chat_template attribute on its tokenizer,
-    # so we need to explicitly pass it. We use ChatML since it's used in the
-    # generation utils of the model:
-    # https://huggingface.co/Qwen/Qwen-VL-Chat/blob/main/qwen_generation_utils.py#L265
     # 此模型在其 tokenizer 上没有 chat_template 属性，
     # 因此，我们需要显式传递它。我们使用 ChatML，因为它已在模型的生成工具中使用。
     # https://huggingface.co/qwen/qwen-vl-chat/blob/main/qwen_generation_utils.py#l265
     tokenizer = AutoTokenizer.from_pretrained(model_name,
                                               trust_remote_code=True)
 
-    # Copied from: https://huggingface.co/docs/transformers/main/en/chat_templating
     # 从:https://huggingface.co/docs/transformers/main/en/chat_templating 复制
     chat_template = "{% if not add_generation_prompt is defined %}{% set add_generation_prompt = false %}{% endif %}{% for message in messages %}{{'<|im_start|>' + message['role'] + '\n' + message['content'] + '<|im_end|>' + '\n'}}{% endfor %}{% if add_generation_prompt %}{{ '<|im_start|>assistant\n' }}{% endif %}"  # noqa: E501
 
@@ -448,7 +416,6 @@ def load_qwen2_vl(question: str, image_urls: list[str]) -> ModelRequestData:
 
     model_name = "Qwen/Qwen2-VL-7B-Instruct"
 
-    # Tested on L40
     # 在 L40上测试
     engine_args = EngineArgs(
         model=model_name,
@@ -569,8 +536,6 @@ def run_generate(model, question: str, image_urls: list[str],
     engine_args = asdict(req_data.engine_args) | {"seed": args.seed}
     llm = LLM(**engine_args)
 
-    # To maintain code compatibility in this script, we add LoRA here.
-    # You can also add LoRA using:
     # 要维护此脚本中的代码兼容性，我们在此处添加 Lora。
     # 您还可以使用:
     # llm.generate(prompts, lora_request=lora_request,...)
@@ -603,8 +568,6 @@ def run_chat(model: str, question: str, image_urls: list[str],
     engine_args = asdict(req_data.engine_args) | {"seed": seed}
     llm = LLM(**engine_args)
 
-    # To maintain code compatibility in this script, we add LoRA here.
-    # You can also add LoRA using:
     # 要维护此脚本中的代码兼容性，我们在此处添加 Lora。
     # 您还可以使用:
     # llm.generate(prompts, lora_request=lora_request,...)

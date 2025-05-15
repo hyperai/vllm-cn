@@ -8,10 +8,7 @@ title: Encoder Decoder Multimodal
 
 ```python
 # SPDX-License-Identifier: Apache-2.0
-"""
-This example shows how to use vLLM for running offline inference with
-the explicit/implicit prompt format on enc-dec LMMs for text generation.
-"""
+
 """
 此示例显示了如何使用 vLLM 进行离线推理
 文本生成的 enc-dec LMMS 上的显式/隐式提示格式。
@@ -151,7 +148,7 @@ def main(args):
 
     prompts = req_data.prompts
 
-    # Create a sampling params object.
+
     # 创建一个采样参数对象。
     sampling_params = SamplingParams(
         temperature=0,
@@ -161,14 +158,10 @@ def main(args):
 
     start = time.time()
 
-    # Generate output tokens from the prompts. The output is a list of
-    # RequestOutput objects that contain the prompt, generated
-    # text, and other information.
     # 从提示中生成输出 token 。
     # 输出是包含提示的对象，生成了文本和其他信息。
     outputs = llm.generate(prompts, sampling_params)
 
-    # Print the outputs.
     # 打印输出。
     for output in outputs:
         prompt = output.prompt

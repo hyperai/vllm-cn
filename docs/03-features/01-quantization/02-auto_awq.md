@@ -22,7 +22,6 @@ quant_path = 'mistral-instruct-v0.2-awq'
 quant_config = { "zero_point": True, "q_group_size": 128, "w_bit": 4, "version": "GEMM" }
 
 
-# Load model
 # 加载模型
 
 
@@ -32,14 +31,12 @@ model = AutoAWQForCausalLM.from_pretrained(
 tokenizer = AutoTokenizer.from_pretrained(model_path, trust_remote_code=True)
 
 
-# Quantize
 # 量化
 
 
 model.quantize(tokenizer, quant_config=quant_config)
 
 
-# Save quantized model
 # 保存量化模型
 
 
@@ -50,7 +47,6 @@ tokenizer.save_pretrained(quant_path)
 print(f'Model is quantized and saved at "{quant_path}"')
 ```
 
-To run an AWQ model with vLLM, you can use [TheBloke/Llama-2-7b-Chat-AWQ](https://huggingface.co/TheBloke/Llama-2-7b-Chat-AWQ) with the following command:
 如需使用 vLLM 运行 AWQ 模型，您可以通过以下命令使用 [TheBloke/Llama-2-7b-Chat-AWQ](https://huggingface.co/TheBloke/Llama-2-7b-Chat-AWQ)：
 
 ```plain
@@ -63,7 +59,6 @@ AWQ 模型也可以直接由 LLM 入口点支持：
 from vllm import LLM, SamplingParams
 
 
-# Sample prompts.
 # 提示示例。
 
 
@@ -73,25 +68,20 @@ prompts = [
     "The capital of France is",
     "The future of AI is",
 ]
-# Create a sampling params object.
 # 创建一个 SamplingParams 对象。
 
 
 sampling_params = SamplingParams(temperature=0.8, top_p=0.95)
 
 
-# Create an LLM.
 # 创建一个 LLM。
 
 
 llm = LLM(model="TheBloke/Llama-2-7b-Chat-AWQ", quantization="AWQ")
-# Generate texts from the prompts. The output is a list of RequestOutput objects
-# that contain the prompt, generated text, and other information.
 # 从提示中生成文本。输出是一个 RequestOutput 列表，包含提示、生成文本和其他信息
 
 
 outputs = llm.generate(prompts, sampling_params)
-# Print the outputs.
 # 打印输出。
 
 

@@ -27,9 +27,7 @@ vLLM 支持实验性功能——分块预填充。分块预填充允许将大预
 
 ```python
 llm = LLM(model="meta-llama/Llama-2-7b-hf", enable_chunked_prefill=True)
-# Set max_num_batched_tokens to tune performance.
 # 设置 max_num_batched_tokens 来调整性能。
-# NOTE: 2048 is the default max_num_batched_tokens for chunked prefill.
 # 注意：2048 是分块预填充的 max_num_batched_tokens 默认值。
 # llm = LLM(model="meta-llama/Llama-2-7b-hf", enable_chunked_prefill=True, max_num_batched_tokens=2048)
 ```

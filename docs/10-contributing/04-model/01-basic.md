@@ -8,9 +8,10 @@ title: 实现基础模型
 
 ## 1. 引入您的模型代码
 
-首先，从源仓库中克隆 PyTorch 模型代码。例如，vLLM 的 [OPT 模型](https://github.com/vllm-project/vllm/blob/main/vllm/model_executor/models/opt.py) 是从 HuggingFace 的 [modeling_opt.py](https://github.com/huggingface/transformers/blob/main/src/transformers/models/opt/modeling_opt.py) 文件改编而来的。
+首先，从源仓库中克隆 PyTorch 模型代码。例如，vLLM 的 [OPT 模型](https://github.com/vllm-project/vllm/blob/main/vllm/model_executor/models/opt.py)是从 HuggingFace 的 [modeling_opt.py](https://github.com/huggingface/transformers/blob/main/src/transformers/models/opt/modeling_opt.py) 文件改编而来的。
 
 > **警告**
+> 
 > 请确保审查并遵守原始代码的版权和许可条款！
 
 ## 2. 使您的代码与 vLLM 兼容
@@ -82,7 +83,8 @@ def forward(
     ...
 ```
 
-> **注意**
+> **提示**
+> 
 > 目前，vLLM 支持基础的多头注意力机制及其带有旋转位置嵌入的变体。如果您的模型采用不同的注意力机制，您需要在 vLLM 中实现一个新的注意力层。
 
 作为参考，请查看我们的 [Llama 实现](https://github.com/vllm-project/vllm/blob/main/vllm/model_executor/models/llama.py)。vLLM 已经支持大量模型。建议找到一个与您的模型相似的模型，并根据您的模型架构进行调整。更多示例请查看 [vllm/model_executor/models](https://github.com/vllm-project/vllm/tree/main/vllm/model_executor/models)。

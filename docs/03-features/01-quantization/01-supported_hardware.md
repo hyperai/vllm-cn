@@ -20,7 +20,8 @@ title: 支持硬件
 - ✅︎ 表示指定硬件支持该量化方法。
 - ❌ 表示指定硬件不支持该量化方法。
 
-> **注意\*\***：\*\*
+> **注意：**
+> 
 > 随着 vLLM 不断发展并扩展了对不同硬件平台和量化方法的支持，此兼容性图表可能会发生变化。
 >
 > 有关硬件支持和量化方法的最新信息，请查看[量化目录](https://github.com/vllm-project/vllm/tree/main/vllm/model_executor/layers/quantization)或咨询 vLLM 开发团队。

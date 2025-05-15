@@ -104,6 +104,7 @@ docker run -itd --ipc host --network vllm_nginx --gpus device=1 --shm-size=10.24
 ```
 
 > **注意**
+> 
 > 如果您处于代理环境中，可以通过 `-e http_proxy=$http_proxy -e https_proxy=$https_proxy` 参数将代理设置传递给 `docker run` 命令。
 
 ## 启动 Nginx

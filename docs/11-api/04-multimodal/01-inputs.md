@@ -6,7 +6,7 @@ title: 输入定义
 
 ## 面向用户的输入
 
-**vllm.multimodal.inputs.\*\***MultiModalDataDict\*\*
+**vllm.multimodal.inputs.MultiModalDataDict**
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/#L0)
 
@@ -18,7 +18,7 @@ title: 输入定义
 
 ## 内部数据结构
 
-**\*class\*\*\***vllm.multimodal.inputs.\***\*PlaceholderRange**
+**class vllm.multimodal.inputs.PlaceholderRange(_offset: [int](https://docs.python.org/3/library/functions.html#int "(in Python v3.13)")_, _length: [int](https://docs.python.org/3/library/functions.html#int "(in Python v3.13)")_, _is\_embed: [torch.Tensor](https://pytorch.org/docs/stable/tensors.html#torch.Tensor "(in PyTorch v2.6)") | [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.13)") \= None_)**
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/multimodal/inputs.py#L112)
 
@@ -37,19 +37,25 @@ A: { "offset": 0, "length": 4 }
 B: { "offset": 5, "length": 4 }
 ```
 
-**length\*\*\***:\*\*\*[int](https://docs.python.org/3/library/functions.html#int)
+is\_embed_: [torch.Tensor](https://pytorch.org/docs/stable/tensors.html#torch.Tensor "(in PyTorch v2.7)") | [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.13)")_ _\= None
+
+[\[source\]](https://github.com/vllm-project/vllm/blob/main/vllm/multimodal/inputs.py#L112)[#](https://docs.vllm.ai/en/stable/api/multimodal/inputs.html#vllm.multimodal.inputs.PlaceholderRange.is_embed "Permalink to this definition")
+
+一个形状为 (length,) 的布尔掩码，用于指示在偏移量 offset 和 offset + length 之间的哪些位置需要分配嵌入向量。
+
+**length: [int](https://docs.python.org/3/library/functions.html#int "(in Python v3.13)")**
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/multimodal/inputs.py#L112)
 
 占位符的长度。
 
-**offset\*\*\***:\*\*\*[int](https://docs.python.org/3/library/functions.html#int)
+**offset: [int](https://docs.python.org/3/library/functions.html#int "(in Python v3.13)")**
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/multimodal/inputs.py#L112)
 
 占位符在提示中的起始索引。
 
-**vllm.multimodal.inputs.\*\***NestedTensors\*\*
+**vllm.multimodal.inputs.NestedTensors**
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/#L1588)
 
@@ -57,41 +63,41 @@ B: { "offset": 5, "length": 4 }
 
 别名为 `Union`[`list`[NestedTensors], `list`[`Tensor`], `Tensor`, `tuple`[`Tensor`, …]]
 
-**\*class\*\*\***vllm.multimodal.inputs.\***\*MultiModalFieldElem\*\***(**\***modality:**\*[str](https://docs.python.org/3/library/stdtypes.html#str)**,**\***key:**\*[str](https://docs.python.org/3/library/stdtypes.html#str)**,**\***data: list[typing.Union[list[ForwardRef('NestedTensors')], list[torch.Tensor], torch.Tensor, tuple[torch.Tensor, ...]]] | list[torch.Tensor] | torch.Tensor | tuple[torch.Tensor, ...]**\***,**\***field: BaseMultiModalField**\***)\*\*
+**class vllm.multimodal.inputs.MultiModalFieldElem(_modality: [str](https://docs.python.org/3/library/stdtypes.html#str "(in Python v3.13)")_, _key: [str](https://docs.python.org/3/library/stdtypes.html#str "(in Python v3.13)")_, _data: list\[typing.Union\[list\[ForwardRef('NestedTensors')\], list\[torch.Tensor\], torch.Tensor, tuple\[torch.Tensor, ...\]\]\] | list\[torch.Tensor\] | torch.Tensor | tuple\[torch.Tensor, ...\]_, _field: BaseMultiModalField_)**
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/multimodal/inputs.py#L167)
 
 表示 `MultiModalKwargs` 中多模态项的对应关键字参数。
 
-**data\*\*\***: list[typing.Union[list[ForwardRef('NestedTensors')], list[torch.Tensor], torch.Tensor, tuple[torch.Tensor, ...]]] | list[torch.Tensor] | torch.Tensor | tuple[torch.Tensor, ...]\*\*\*
+**data: list\[typing.Union\[list\[ForwardRef('NestedTensors')\], list\[torch.Tensor\], torch.Tensor, tuple\[torch.Tensor, ...\]\]\] | list\[torch.Tensor\] | torch.Tensor | tuple\[torch.Tensor, ...\]**
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/multimodal/inputs.py#L167)
 
 该字段在 `MultiModalKwargs` 中的张量数据，即传递给模型的关键字参数的值。
 
-**field\*\*\***: BaseMultiModalField\*\*\*
+**field: BaseMultiModalField**
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/multimodal/inputs.py#L167)
 
 定义如何将该字段的张量数据与其他字段组合，以便为模型推理批量处理多模态项。
 
-**key\*\*\***:\*\*\*[str](https://docs.python.org/3/library/stdtypes.html#str)
+**key: [str](https://docs.python.org/3/library/stdtypes.html#str "(in Python v3.13)")**
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/multimodal/inputs.py#L167)
 
 该字段在 `MultiModalKwargs` 中的键，即传递给模型的关键字参数的名称。
 
-**modality\*\*\***:\*\*\*[str](https://docs.python.org/3/library/stdtypes.html#str)
+**modality: [str](https://docs.python.org/3/library/stdtypes.html#str "(in Python v3.13)")**
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/multimodal/inputs.py#L167)
 
 对应多模态项的模态类型。每个多模态项可以由多个关键字参数组成。
 
-**\*class\*\*\***vllm.multimodal.inputs.\***\*MultiModalFieldConfig\*\***(**\***field: BaseMultiModalField**\***,**\***modality:**\*[str](https://docs.python.org/3/library/stdtypes.html#str)**)\*\*
+**class vllm.multimodal.inputs.MultiModalFieldConfig(_field: BaseMultiModalField_, _modality: [str](https://docs.python.org/3/library/stdtypes.html#str "(in Python v3.13)")_)**
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/multimodal/inputs.py#L343)
 
-**\*static\*\*\***batched\***\*(\*\*\***modality:**\*[str](https://docs.python.org/3/library/stdtypes.html#str)**)\*\*
+**static batched(_modality: [str](https://docs.python.org/3/library/stdtypes.html#str "(in Python v3.13)")_)**
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/multimodal/inputs.py#L345)
 
@@ -116,7 +122,7 @@ Output:
     Element 3: [CCCC]
 ```
 
-**\*static\*\*\***flat\***\*(\*\*\***modality:**\*[str](https://docs.python.org/3/library/stdtypes.html#str)**,**\***slices:**_[Sequence](https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence)_**[**_[slice](https://docs.python.org/3/library/functions.html#slice)_**]**\***)\*\*
+**static flat(_modality: [str](https://docs.python.org/3/library/stdtypes.html#str "(in Python v3.13)")_, _slices: [Sequence](https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence "(in Python v3.13)")\[[slice](https://docs.python.org/3/library/functions.html#slice "(in Python v3.13)")\] | [Sequence](https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence "(in Python v3.13)")\[[Sequence](https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence "(in Python v3.13)")\[[slice](https://docs.python.org/3/library/functions.html#slice "(in Python v3.13)")\]\]_, _dim: [int](https://docs.python.org/3/library/functions.html#int "(in Python v3.13)") \= 0_)**
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/multimodal/inputs.py#L374)
 
@@ -144,7 +150,7 @@ Output:
     Element 3: [CC]
 ```
 
-**\*static\*\*\***flat_from_sizes\***\*(\*\*\***modality:**\*[str](https://docs.python.org/3/library/stdtypes.html#str)**,**\***size_per_item:**\*[torch.Tensor](https://pytorch.org/docs/stable/tensors.html#torch.Tensor)**)\*\*
+**static flat\_from\_sizes(_modality: [str](https://docs.python.org/3/library/stdtypes.html#str "(in Python v3.13)")_, _size\_per\_item: [torch.Tensor](https://pytorch.org/docs/stable/tensors.html#torch.Tensor "(in PyTorch v2.7)")_, _dim: [int](https://docs.python.org/3/library/functions.html#int "(in Python v3.13)") \= 0_)**
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/multimodal/inputs.py#L406)
 
@@ -172,9 +178,11 @@ Output:
     Element 3: [CC]
 ```
 
-> **另请参阅** >`MultiModalFieldConfig.flat()`
+> **另请参阅**
+>
+>`MultiModalFieldConfig.flat()`
 
-**\*static\*\*\***shared\***\*(\*\*\***modality:**\*[str](https://docs.python.org/3/library/stdtypes.html#str)**,**\***batch_size:**\*[int](https://docs.python.org/3/library/functions.html#int)**)\*\*
+**static shared(_modality: [str](https://docs.python.org/3/library/stdtypes.html#str "(in Python v3.13)")_, _batch\_size: [int](https://docs.python.org/3/library/functions.html#int "(in Python v3.13)")_)**
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/multimodal/inputs.py#L449)
 
@@ -205,7 +213,7 @@ Output:
     Element 4: [XYZ]
 ```
 
-**\*class\*\*\***vllm.multimodal.inputs.\***\*MultiModalKwargsItem\*\***(**\***dict**\*\***=None**\***,**\***/**\***,**\*\***\***\*\***kwargs**\***)\*\*
+**class vllm.multimodal.inputs.MultiModalKwargsItem(_dict\=None_, _/_, _\*\*kwargs_)**
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/multimodal/inputs.py#L497)
 
@@ -213,7 +221,7 @@ Output:
 
 与 `MultiModalDataItems` 中的数据项对应的 `MultiModalFieldElem` 集合。
 
-**\*class\*\*\***vllm.multimodal.inputs.\***\*MultiModalKwargs\*\***(**\***data: ]]**\***,\***\*\*\*\*\*\***,**\***items:**_[Sequence](https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence)_**[**_[MultiModalKwargsItem](https://docs.vllm.ai/en/latest/api/multimodal/inputs.html#vllm.multimodal.inputs.MultiModalKwargsItem)_**] |**_[None](https://docs.python.org/3/library/constants.html#None) _**=**\* \***None**\***)\*\*
+**class_ vllm.multimodal.inputs.MultiModalKwargs(_data: \]\]_, _\*_, _items: [Sequence](https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence "(in Python v3.13)")\[[MultiModalKwargsItem](https://docs.vllm.ai/en/stable/api/multimodal/inputs.html#vllm.multimodal.inputs.MultiModalKwargsItem "vllm.multimodal.inputs.MultiModalKwargsItem")\] | [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.13)") \= None_)**
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/multimodal/inputs.py#L516)
 
@@ -223,7 +231,7 @@ Output:
 
 元数据 `items` 使我们能够通过 `get_item()` 和 `get_items()` 获取与 `MultiModalDataItems` 中每个数据项对应的关键字参数。
 
-**\*static\*\*\***batch\***\*(\*\*\***inputs*list:\*\**[list](https://docs.python.org/3/library/stdtypes.html#list)_**[**_[vllm.multimodal.inputs.MultiModalKwargs](https://docs.vllm.ai/en/latest/api/multimodal/inputs.html#vllm.multimodal.inputs.MultiModalKwargs)\_**]**\***)\***\*→ ]]\*\*
+**static batch(_inputs\_list: [list](https://docs.python.org/3/library/stdtypes.html#list "(in Python v3.13)")\[[vllm.multimodal.inputs.MultiModalKwargs](https://docs.vllm.ai/en/stable/api/multimodal/inputs.html#vllm.multimodal.inputs.MultiModalKwargs "vllm.multimodal.inputs.MultiModalKwargs")\]_) → \]\]**
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/multimodal/inputs.py#L626)
 
@@ -231,31 +239,31 @@ Output:
 
 生成的字典具有与输入相同的键。如果每个输入的对应值是一个张量且它们共享相同的形状，则输出值是一个批处理后的张量；否则，输出值是一个包含每个输入原始值的列表。
 
-**\*static\*\*\***from*items\***\*(\*\*\***items:\*\**[Sequence](https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence)_**[**_[MultiModalKwargsItem](https://docs.vllm.ai/en/latest/api/multimodal/inputs.html#vllm.multimodal.inputs.MultiModalKwargsItem)\_**]**\*\*\*)\*\*
+**static from\_items(_items: [Sequence](https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence "(in Python v3.13)")\[[MultiModalKwargsItem](https://docs.vllm.ai/en/stable/api/multimodal/inputs.html#vllm.multimodal.inputs.MultiModalKwargsItem "vllm.multimodal.inputs.MultiModalKwargsItem")\]_)**
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/multimodal/inputs.py#L560)
 
 从多个项构造一个新的 `MultiModalKwargs`。
 
-**get_item\*\***(**\***modality:**\*[str](https://docs.python.org/3/library/stdtypes.html#str)**,**\***item_index:**\*[int](https://docs.python.org/3/library/functions.html#int)**)\***\*→**[MultiModalKwargsItem](https://docs.vllm.ai/en/latest/api/multimodal/inputs.html#vllm.multimodal.inputs.MultiModalKwargsItem)
+**get\_item(_modality: [str](https://docs.python.org/3/library/stdtypes.html#str "(in Python v3.13)")_, _item\_index: [int](https://docs.python.org/3/library/functions.html#int "(in Python v3.13)")_) → [MultiModalKwargsItem](https://docs.vllm.ai/en/stable/api/multimodal/inputs.html#vllm.multimodal.inputs.MultiModalKwargsItem "vllm.multimodal.inputs.MultiModalKwargsItem")**
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/multimodal/inputs.py#L694)
 
 获取由其模态类型和索引标识的项对应的关键字参数。
 
-**get_item_count\*\***(**\***modality:**\*[str](https://docs.python.org/3/library/stdtypes.html#str)**)\***\*→**[int](https://docs.python.org/3/library/functions.html#int)
+**get\_item\_count(_modality: [str](https://docs.python.org/3/library/stdtypes.html#str "(in Python v3.13)")_) → [int](https://docs.python.org/3/library/functions.html#int "(in Python v3.13)")**
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/multimodal/inputs.py#L689)
 
 获取属于某个模态类型的项的数量。
 
-**get_items\*\***(**\***modality:**\*[str](https://docs.python.org/3/library/stdtypes.html#str)**)\***\*→**[Sequence](https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence)**[**[MultiModalKwargsItem](https://docs.vllm.ai/en/latest/api/multimodal/inputs.html#vllm.multimodal.inputs.MultiModalKwargsItem)**]**
+**get\_items(_modality: [str](https://docs.python.org/3/library/stdtypes.html#str "(in Python v3.13)")_) → [Sequence](https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence "(in Python v3.13)")\[[MultiModalKwargsItem](https://docs.vllm.ai/en/stable/api/multimodal/inputs.html#vllm.multimodal.inputs.MultiModalKwargsItem "vllm.multimodal.inputs.MultiModalKwargsItem")\]**
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/multimodal/inputs.py#L702)
 
 获取属于某个模态类型的每个项对应的关键字参数。
 
-**\*class\*\*\***vllm.multimodal.inputs.\***\*MultiModalInputs**
+**class vllm.multimodal.inputs.MultiModalInputs**
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/multimodal/inputs.py#L717)
 
@@ -263,43 +271,43 @@ Output:
 
 表示 `vllm.multimodal.processing.BaseMultiModalProcessor` 的输出，准备传递给 vLLM 内部。
 
-**mm_hashes\*\*\***:**_[NotRequired](https://docs.python.org/3/library/typing.html#typing.NotRequired)_**[MultiModalHashDict |**_[None](https://docs.python.org/3/library/constants.html#None)_**]\*\*\*
+**mm\_hashes_: MultiModalHashDict | [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.13)")**
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/multimodal/inputs.py#L717)
 
 多模态数据的哈希值。
 
-**mm_kwargs\*\*\***:\*\*\*[MultiModalKwargs](https://docs.vllm.ai/en/latest/api/multimodal/inputs.html#vllm.multimodal.inputs.MultiModalKwargs)
+**mm\_kwargs_: [MultiModalKwargs](https://docs.vllm.ai/en/stable/api/multimodal/inputs.html#vllm.multimodal.inputs.MultiModalKwargs "vllm.multimodal.inputs.MultiModalKwargs")**
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/multimodal/inputs.py#L717)
 
 批处理后直接传递给模型的关键字参数。
 
-**mm_placeholders\*\*\***:**_[Mapping](https://docs.python.org/3/library/collections.abc.html#collections.abc.Mapping)_**[**_[str](https://docs.python.org/3/library/stdtypes.html#str)_**,**_[Sequence](https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence)_**[**_[PlaceholderRange](https://docs.vllm.ai/en/latest/api/multimodal/inputs.html#vllm.multimodal.inputs.PlaceholderRange)_**]]\*\*\*
+**mm\_placeholders_: [Mapping](https://docs.python.org/3/library/collections.abc.html#collections.abc.Mapping "(in Python v3.13)")\[[str](https://docs.python.org/3/library/stdtypes.html#str "(in Python v3.13)"), [Sequence](https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence "(in Python v3.13)")\[[PlaceholderRange](https://docs.vllm.ai/en/stable/api/multimodal/inputs.html#vllm.multimodal.inputs.PlaceholderRange "vllm.multimodal.inputs.PlaceholderRange")\]\]**
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/multimodal/inputs.py#L717)
 
 对于每种模态类型，`prompt_token_ids` 中占位符 token 的信息。
 
-**prompt\*\*\***:\*\*\*[str](https://docs.python.org/3/library/stdtypes.html#str)
+**prompt: [str](https://docs.python.org/3/library/stdtypes.html#str "(in Python v3.13)")**
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/multimodal/inputs.py#L717)
 
 处理后的提示文本。
 
-**prompt_token_ids\*\*\***:**_[list](https://docs.python.org/3/library/stdtypes.html#list)_**[**_[int](https://docs.python.org/3/library/functions.html#int)_**]\*\*\*
+**prompt\_token\_ids_: [list](https://docs.python.org/3/library/stdtypes.html#list "(in Python v3.13)")\[[int](https://docs.python.org/3/library/functions.html#int "(in Python v3.13)")\]**
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/multimodal/inputs.py#L717)
 
 包含占位符 token 的处理后的 token ID。
 
-**token_type_ids\*\*\***:**_[NotRequired](https://docs.python.org/3/library/typing.html#typing.NotRequired)_**[**_[list](https://docs.python.org/3/library/stdtypes.html#list)_**[**_[int](https://docs.python.org/3/library/functions.html#int)_**]]\*\*\*
+**token\_type\_ids_: [NotRequired](https://docs.python.org/3/library/typing.html#typing.NotRequired "(in Python v3.13)")\[[list](https://docs.python.org/3/library/stdtypes.html#list "(in Python v3.13)")\[[int](https://docs.python.org/3/library/functions.html#int "(in Python v3.13)")\]\]**
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/multimodal/inputs.py#L717)
 
 提示的 token 类型 ID。
 
-**type\*\*\***:**_[Literal](https://docs.python.org/3/library/typing.html#typing.Literal)_**['multimodal']\*\*\*
+**type_: [Literal](https://docs.python.org/3/library/typing.html#typing.Literal "(in Python v3.13)")\['multimodal'\]**
 
 [[source]](https://github.com/vllm-project/vllm/blob/main/vllm/multimodal/inputs.py#L717)
 
