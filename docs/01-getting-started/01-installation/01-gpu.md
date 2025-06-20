@@ -8,7 +8,7 @@ vLLM 是一个支持如下 GPU 类型的 Python 库，根据您的 GPU 型号查
 
 ## NVIDIA CUDA
 
-vLLM 包含预编译的 C++ 和 CUDA (12.1) 二进制库。
+vLLM 包含预编译的 C++ 和 CUDA (12.8/12.6/11.8) 二进制库。
 
 ## AMD ROCm
 
