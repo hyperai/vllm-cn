@@ -65,15 +65,16 @@ pip install langchain langchain_community -q
 
 本教程已经安装 vllm==0.6.4，只需将 langchain 相关包安装完毕。
 
-````
-!pip install -U langchain langchain_community -q```
+```
+!pip install -U langchain langchain_community -q
+```
 
 
 ## 2. 配置 vLLM 以与 LangChain 配合使用
 现在依赖项已安装完毕，我们可以设置 vLLM 并将其连接到 LangChain。为此，我们将从 LangChain 社区集成中导入 VLLM。下面的示例演示了如何使用 vLLM 库初始化模型并将其与 LangChain 集成。
 
 
-````
+```
 
 import gc
 import ctypes
@@ -222,4 +223,4 @@ print(llm_q.invoke("What are the most popular Halloween Costumes?"))
 例如，vLLM 的 CUDA 优化内核和连续批处理策略可以显著减少响应时间。
 
 然而，在生产系统中，特别是面向用户的系统（如聊天机器人）中，监控实时推理延迟至关重要。
-```
+
