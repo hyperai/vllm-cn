@@ -2,7 +2,7 @@
 title: 其他 AI 加速器
 ---
 
-[\*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
+[\*在线运行 vLLM 入门教程：零基础分步指南](https://app.hyper.ai/console/public/tutorials/rUwYsyhAIt3?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
 
 vLLM 是一个 Python 库，支持以下 AI 加速器。根据您的 AI 加速器类型查看供应商特定说明：
 
@@ -29,7 +29,6 @@ vLLM 是一个 Python 库，支持以下 AI 加速器。根据您的 AI 加速�
 您可能需要为 TPU 虚拟机提供额外的持久存储。更多信息请参阅 [Cloud TPU 数据存储选项](https://cloud.devsite.corp.google.com/tpu/docs/storage-options)。
 
 > **注意**
-> 
 > 此设备没有预构建的 wheels，因此您必须使用预构建的 Docker 镜像或从源代码构建 vLLM。
 
 #### Intel Gaudi
@@ -37,7 +36,6 @@ vLLM 是一个 Python 库，支持以下 AI 加速器。根据您的 AI 加速�
 此节提供了在 Intel Gaudi 设备上运行 vLLM 的说明。
 
 > **注意**
-> 
 > 此设备没有预构建的 wheels 或镜像，因此您必须从源代码构建 vLLM。
 
 #### AWS Neuron
@@ -45,7 +43,6 @@ vLLM 是一个 Python 库，支持以下 AI 加速器。根据您的 AI 加速�
 vLLM 0.3.3 及以上版本支持通过 Neuron SDK 在 AWS Trainium/Inferentia 上进行模型推理和服务，并支持连续批处理。分页注意力 (Paged Attention) 和分块预填充 (Chunked Prefill) 功能目前正在开发中，即将推出。Neuron SDK 当前支持的数据类型为 FP16 和 BF16。
 
 > **注意**
-> 
 > 此设备没有预构建的 wheels 或镜像，因此您必须从源代码构建 vLLM。
 
 ## 环境要求
@@ -61,7 +58,6 @@ vLLM 0.3.3 及以上版本支持通过 Neuron SDK 在 AWS Trainium/Inferentia �
 您可以使用 [Cloud TPU API](https://cloud.google.com/tpu/docs/reference/rest) 或 [队列资源](https://cloud.google.com/tpu/docs/queued-resources) API 配置 Cloud TPU。本节展示如何使用队列资源 API 创建 TPU。有关使用 Cloud TPU API 的更多信息，请参阅 [使用 Create Node API 创建 Cloud TPU](https://cloud.google.com/tpu/docs/managing-tpus-tpu-vm#create-node-api)。队列资源允许您以队列方式请求 Cloud TPU 资源。当您请求队列资源时，请求会被添加到 Cloud TPU 服务维护的队列中。当请求的资源可用时，它将分配给您的 Google Cloud 项目供您独占使用。
 
 > **注意**
-> 
 > 在以下所有命令中，请将全大写的参数名称替换为适当的值。有关参数描述，请参阅参数描述表。
 
 #### 使用 GKE 配置 Cloud TPU
