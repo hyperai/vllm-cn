@@ -2,7 +2,7 @@
 title: 离线推理
 ---
 
-[\*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
+[\*在线运行 vLLM 入门教程：零基础分步指南](https://app.hyper.ai/console/public/tutorials/rUwYsyhAIt3?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
 
 离线推理示例展示了如何在离线环境中使用 vLLM，以批量方式查询模型进行预测。我们建议从 [Basic](https://docs.vllm.ai/en/latest/getting_started/examples/basic.html) 开始。
 
