@@ -2,7 +2,7 @@
 title: 使用统计数据收集
 ---
 
-[\*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
+[\*在线运行 vLLM 入门教程：零基础分步指南](https://app.hyper.ai/console/public/tutorials/rUwYsyhAIt3?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
 
 默认情况下，vLLM 会收集匿名使用数据，以帮助工程团队更好地了解哪些硬件和模型配置被广泛使用。这些数据使他们能够优先考虑对最常见的工作负载的努力。收集的数据是透明的，不包含任何敏感信息，并将公开发布，以便社区受益。
 
