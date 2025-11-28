@@ -17,7 +17,7 @@ vLLM 支持拥有 ROCm 6.3 的 AMD GPU。
 > **注意：**
 > 该设备没有预构建的轮子，所以您必须使用预构建的 Docker 镜像或者从源代码构建 vLLM。
 
-## Inter XPU
+## Intel XPU
 
 vLLM 最初在 Intel GPU 平台上支持基础的模型推理和服务。
 
