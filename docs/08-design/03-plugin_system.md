@@ -2,7 +2,7 @@
 title: vLLM 的插件系统
 ---
 
-[\*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
+[\*在线运行 vLLM 入门教程：零基础分步指南](https://app.hyper.ai/console/public/tutorials/rUwYsyhAIt3?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
 
 社区经常请求能够通过自定义功能扩展 vLLM。为了便于实现这一点，vLLM 包含了一个插件系统，允许用户在不修改 vLLM 代码库的情况下添加自定义功能。本文档解释了 vLLM 中插件的工作原理以及如何为 vLLM 创建插件。
 
