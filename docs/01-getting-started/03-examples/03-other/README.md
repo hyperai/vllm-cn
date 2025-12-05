@@ -8,5 +8,5 @@ title: 其他
 
 ## 示例
 
-- [Logging Configuration](https://docs.vllm.ai/en/latest/getting_started/examples/logging_configuration.html)
-- [Tensorize vLLM Model](https://docs.vllm.ai/en/latest/getting_started/examples/tensorize_vllm_model.html)
+- [Logging Configuration](/docs/getting-started/examples/other/logging_configuration)
+- [Tensorize vLLM Model](/docs/getting-started/examples/other/tensorize_vllm_model)
