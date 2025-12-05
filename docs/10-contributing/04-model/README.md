@@ -8,10 +8,10 @@ title: 添加新模型
 
 #### 目录
 
-- [实现基础模型](https://docs.vllm.ai/en/latest/contributing/model/basic.html)
-- [将模型注册到 vLLM](https://docs.vllm.ai/en/latest/contributing/model/registration.html)
-- [编写单元测试](https://docs.vllm.ai/en/latest/contributing/model/tests.html)
-- [多模态支持](https://docs.vllm.ai/en/latest/contributing/model/multimodal.html)
+- [实现基础模型](/docs/contributing/model/basic)
+- [将模型注册到 vLLM](/docs/contributing/model/registration)
+- [编写单元测试](/docs/contributing/model/tests)
+- [多模态支持](/docs/contributing/model/multimodal)
 
 > **注意**
 > 
