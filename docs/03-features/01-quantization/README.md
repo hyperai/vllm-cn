@@ -8,11 +8,11 @@ title: 量化
 
 ## 目录
 
-- 支持硬件
-- AutoAWQ
-- BitsAndBytes
-- GGUF
-- INT4 W4A16
-- INT8 W8A8
-- FP8 W8A8
-- 量化 KV 缓存
+- [支持硬件](/docs/features/quantization/supported_hardware)
+- [AutoAWQ](/docs/features/quantization/auto_awq)
+- [BitsAndBytes](/docs/features/quantization/bnb)
+- [GGUF](/docs/features/quantization/gguf)
+- [INT4 W4A16](/docs/features/quantization/int4)
+- [INT8 W8A8](/docs/features/quantization/int8)
+- [FP8 W8A8](/docs/features/quantization/fp8)
+- [量化 KV 缓存](/docs/features/quantization/quantized_kvcache)
