@@ -2,7 +2,7 @@
 title: 自动前缀缓存
 ---
 
-[\*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
+[\*在线运行 vLLM 入门教程：零基础分步指南](https://app.hyper.ai/console/public/tutorials/rUwYsyhAIt3?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
 
 前缀缓存 KV 缓存块是 LLM 推理中一种流行的优化技术，用于避免冗余的提示计算。核心思想很简单——我们缓存已处理请求的 KV 缓存块，当新请求到来时如果前缀与之前请求相同就重用这些块。由于前缀缓存几乎是无成本的且不会改变模型输出，它已被许多公共端点（如 OpenAI、Anthropic 等）和大多数开源 LLM 推理框架（如 SGLang）广泛采用。
 

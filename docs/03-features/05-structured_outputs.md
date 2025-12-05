@@ -2,7 +2,7 @@
 title: 结构化输出
 ---
 
-[\*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
+[\*在线运行 vLLM 入门教程：零基础分步指南](https://app.hyper.ai/console/public/tutorials/rUwYsyhAIt3?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
 
 vLLM 支持使用 [outlines](https://github.com/dottxt-ai/outlines)、[lm-format-enforcer](https://github.com/noamgat/lm-format-enforcer) 或 [xgrammar](https://github.com/mlc-ai/xgrammar) 作为引导解码的后端生成结构化输出。本文档展示了一些可用于生成结构化输出的不同选项的示例。
 
