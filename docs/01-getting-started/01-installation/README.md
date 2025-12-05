@@ -23,4 +23,4 @@ vLLM 支持以下硬件平台：
 - [Google TPU](/docs/getting-started/installation/ai-accelerator#google-tpu-1)
 - [Intel Gaudi](/docs/getting-started/installation/ai-accelerator#intel-gaudi-1)
 - [AWS Neuron](/docs/getting-started/installation/ai-accelerator#aws-neuron-1)
-- [OpenVINO]
+- OpenVINO
