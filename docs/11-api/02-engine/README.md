@@ -6,10 +6,10 @@ title: vLLM 引擎
 
 引擎
 
-- [LLMEngine](https://docs.vllm.ai/en/latest/api/engine/llm_engine.html)
+- [LLMEngine](/docs/api/engine/llm_engine)
 
   - `LLMEngine`
 
-- [AsyncLLMEngine](https://docs.vllm.ai/en/latest/api/engine/async_llm_engine.html)
+- [AsyncLLMEngine](/docs/api/engine/async_llm_engine)
 
   - `AsyncLLMEngine`
