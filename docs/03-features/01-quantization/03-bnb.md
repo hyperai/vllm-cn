@@ -2,7 +2,7 @@
 title: BitsAndBytes
 ---
 
-[\*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
+[\*在线运行 vLLM 入门教程：零基础分步指南](https://app.hyper.ai/console/public/tutorials/rUwYsyhAIt3?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
 
 vLLM 现在支持 [BitsAndBytes](https://github.com/TimDettmers/bitsandbytes) 以实现更高效的模型推理。 BitsAndBytes 量化模型可以减少内存使用并增强性能，同时不会显著牺牲准确性。与其他量化方法相比，BitsAndBytes 无需使用输入数据来校准量化模型。
 

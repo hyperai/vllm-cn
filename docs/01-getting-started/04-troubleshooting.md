@@ -2,9 +2,7 @@
 title: 故障排除
 ---
 
-[\*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
-
-#
+[\*在线运行 vLLM 入门教程：零基础分步指南](https://app.hyper.ai/console/public/tutorials/rUwYsyhAIt3?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
 
 本文档概述了一些可考虑的故障排除策略。如果您认为发现了一个错误，请先[搜索现有问题](https://github.com/vllm-project/vllm/issues?q=is%253Aissue)查看是否已报告。如果没有，请[提交新问题](https://github.com/vllm-project/vllm/issues/new/choose)，提供尽可能多的相关信息。
 

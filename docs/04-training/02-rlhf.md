@@ -2,7 +2,7 @@
 title: RLHF 基于人类反馈的强化学习
 ---
 
-[\*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
+[\*在线运行 vLLM 入门教程：零基础分步指南](https://app.hyper.ai/console/public/tutorials/rUwYsyhAIt3?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
 
 基于人类反馈的强化学习 (Reinforcement Learning from Human Feedback, RLHF) 是一种利用人类生成的偏好数据微调语言模型的技术，以使模型输出与期望行为保持一致。
 

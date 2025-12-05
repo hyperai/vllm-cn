@@ -2,7 +2,7 @@
 title: Dockerfile
 ---
 
-[\*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
+[\*在线运行 vLLM 入门教程：零基础分步指南](https://app.hyper.ai/console/public/tutorials/rUwYsyhAIt3?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
 
 请参阅[此处](https://github.com/vllm-project/vllm/blob/main/Dockerfile)了解主要 Dockerfile，构建用于使用 vLLM 运行 OpenAI 兼容服务器的镜像。有关使用 Docker 进行部署的更多信息可以在[此处](https://docs.vllm.ai/en/stable/serving/deploying_with_docker.html)找到。
 

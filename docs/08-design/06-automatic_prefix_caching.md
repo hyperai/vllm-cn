@@ -2,7 +2,7 @@
 title: 自动前缀缓存
 ---
 
-[\*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
+[\*在线运行 vLLM 入门教程：零基础分步指南](https://app.hyper.ai/console/public/tutorials/rUwYsyhAIt3?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
 
 [PagedAttention](https://blog.vllm.ai/2023/06/20/vllm.html) 的核心思想是将每个请求的 KV 缓存划分为多个 KV 块。每个块包含固定数量的注意力键和值。PagedAttention 算法允许这些块存储在不连续的物理内存中，从而通过按需分配内存来消除内存碎片。
 

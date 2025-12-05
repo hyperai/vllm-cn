@@ -2,7 +2,7 @@
 title: CPU
 ---
 
-[\*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
+[\*在线运行 vLLM 入门教程：零基础分步指南](https://app.hyper.ai/console/public/tutorials/rUwYsyhAIt3?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
 
 vLLM 是一个支持以下 CPU 变体的 Python 库。根据您的 CPU 类型查看厂商特定的说明：
 
@@ -11,7 +11,6 @@ vLLM 是一个支持以下 CPU 变体的 Python 库。根据您的 CPU 类型查
 vLLM 初步支持在 x86 CPU 平台进行基础模型推理和服务，支持 FP32、FP16 和 BF16 数据类型。
 
 > **注意**
-> 
 > 此设备没有预编译的 wheel 包或镜像，您必须从源码构建 vLLM。
 
 #### ARM AArch64
@@ -21,7 +20,6 @@ vLLM 已适配支持具备 NEON 指令集的 ARM64 CPU，基于最初为 x86 平
 ARM CPU 后端当前支持 Float32、FP16 和 BFloat16 数据类型。
 
 > **注意**
-> 
 > 此设备没有预编译的 wheel 包或镜像，您必须从源码构建 vLLM。
 
 #### Apple silicon
@@ -31,7 +29,6 @@ vLLM 对 macOS 上的 Apple 芯片提供实验性支持。目前用户需从源�
 macOS 的 CPU 实现当前支持 FP32 和 FP16 数据类型。
 
 > **注意**
-> 
 > 此设备没有预编译的 wheel 包或镜像，您必须从源码构建 vLLM。
 
 #### IBM Z (S390X)
@@ -41,7 +38,6 @@ vLLM 对 IBM Z 平台上的 s390x 架构提供实验性支持。目前用户需�
 s390x 架构的 CPU 实现当前仅支持 FP32 数据类型。
 
 > **注意**
-> 
 > 此设备没有预编译的 wheel 包或镜像，您必须从源码构建 vLLM。
 
 ## 系统要求
@@ -54,7 +50,8 @@ s390x 架构的 CPU 实现当前仅支持 FP32 数据类型。
 - 编译器：`gcc/g++ >= 12.3.0`（可选，推荐）
 - 指令集架构 (ISA)：AVX512（可选，推荐）
 
-> **提示** >[Intel Extension for PyTorch (IPEX)](https://github.com/intel/intel-extension-for-pytorch)  通过最新特性优化扩展 PyTorch，可在 Intel 硬件上获得额外性能提升。
+> **提示**
+>[Intel Extension for PyTorch (IPEX)](https://github.com/intel/intel-extension-for-pytorch)  通过最新特性优化扩展 PyTorch，可在 Intel 硬件上获得额外性能提升。
 
 #### ARM AArch64
 
@@ -270,10 +267,10 @@ $ docker run -it \
 
 vLLM CPU 后端支持以下特性：
 
-- 张量并行 (Tensor Parallel)
-- 模型量化 (`INT8 W8A8`、`AWQ`、`GPTQ`)
-- 分块预填充 (Chunked-prefill
-- 前缀缓存 (Prefix-caching)
+- 张量并行（Tensor Parallel）
+- 模型量化（`INT8 W8A8`、`AWQ`、`GPTQ`）
+- 分块预填充（Chunked-prefill）
+- 前缀缓存（Prefix-caching）
 - FP8-E5M2 KV 缓存
 
 ## 相关运行时环境变量
@@ -285,7 +282,7 @@ vLLM CPU 后端支持以下特性：
 
 `VLLM_CPU_OMP_THREADS_BIND=0-31|32-63`  表示启用 2 个张量并行进程，rank0 的 32 个 OpenMP 线程绑定到 0-31 号核心，rank1 的线程绑定到 32-63 号核心
 
-- `VLLM_CPU_MOE_PREPACK` : 是否为 MoE 层使用预打包功能。该参数会传递给  `ipex.llm.modules.GatedMLPMOE` 。默认值为  `1` （启用）。在不支持的 CPU 上可能需要设置为  `0` （禁用）。
+- `VLLM_CPU_MOE_PREPACK` : 是否为 MoE 层使用预打包功能。该参数会传递给 `ipex.llm.modules.GatedMLPMOE`。默认值为 `1`（启用）。在不支持的 CPU 上可能需要设置为 `0`（禁用）。
 
 ## 性能优化建议
 
@@ -306,7 +303,7 @@ export VLLM_CPU_OMP_THREADS_BIND=0-29
 vllm serve facebook/opt-125m
 ```
 
-- 在支持超线程的机器上使用 vLLM CPU 后端时，建议通过  `VLLM_CPU_OMP_THREADS_BIND`  将每个物理 CPU 核心只绑定一个 OpenMP 线程。在 16 逻辑核心 / 8 物理核心的超线程平台上：
+- 在支持超线程的机器上使用 vLLM CPU 后端时，建议通过 `VLLM_CPU_OMP_THREADS_BIND` 将每个物理 CPU 核心只绑定一个 OpenMP 线程。在 16 逻辑核心/8 物理核心的超线程平台上：
 
 ```plain
 $ lscpu -e # check the mapping between logical CPU cores and physical CPU cores
@@ -337,13 +334,13 @@ $ export VLLM_CPU_OMP_THREADS_BIND=0-7
 $ python examples/offline_inference/basic/basic.py
 ```
 
-- 在多插槽 NUMA 机器上使用 vLLM CPU 后端时，应注意通过  `VLLM_CPU_OMP_THREADS_BIND`  设置 CPU 核心，避免跨 NUMA 节点的内存访问。
+- 在多插槽 NUMA 机器上使用 vLLM CPU 后端时，应注意通过 `VLLM_CPU_OMP_THREADS_BIND` 设置 CPU 核心，避免跨 NUMA 节点的内存访问。
 
 ## 其他注意事项
 
 - CPU 后端与 GPU 后端有显著差异，因为 vLLM 架构最初是为 GPU 优化的。需要多项优化来提升其性能。
 - 建议将 HTTP 服务组件与推理组件解耦。在 GPU 后端配置中，HTTP 服务和分词任务运行在 CPU 上，而推理运行在 GPU 上，这通常不会造成问题。但在基于 CPU 的环境中，HTTP 服务和分词可能导致显著的上下文切换和缓存效率降低。因此强烈建议分离这两个组件以获得更好的性能。
-- 在启用 NUMA 的 CPU 环境中，内存访问性能可能受  [拓扑结构](https://github.com/intel/intel-extension-for-pytorch/blob/main/docs/tutorials/performance_tuning/tuning_guide.inc.md#non-uniform-memory-access-numa)  影响较大。对于 NUMA 架构，推荐两种优化方案：张量并行或数据并行。
+- 在启用 NUMA 的 CPU 环境中，内存访问性能可能受[拓扑结构](https://github.com/intel/intel-extension-for-pytorch/blob/main/docs/tutorials/performance_tuning/tuning_guide.inc.md#non-uniform-memory-access-numa)影响较大。对于 NUMA 架构，推荐两种优化方案：张量并行或数据并行。
 
   - 延迟敏感场景使用张量并行：遵循 GPU 后端设计，基于 NUMA 节点数量（例如双 NUMA 节点系统 TP=2）使用 Megatron-LM 的并行算法切分模型。随着  [CPU 上的 TP 功能](https://github.com/vllm-project/vllm/pull/6125#)  合并，张量并行已支持服务和离线推理。通常每个 NUMA 节点被视为一个 GPU 卡。以下是启用张量并行度为 2 的服务示例：
 
