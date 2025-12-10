@@ -2,7 +2,7 @@
 title: LLMEngine
 ---
 
-[\*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
+[\*在线运行 vLLM 入门教程：零基础分步指南](https://app.hyper.ai/console/public/tutorials/rUwYsyhAIt3?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
 
 **class_ vllm.LLMEngine(_vllm\_config: VllmConfig_, _executor\_class: [Type](https://docs.python.org/3/library/typing.html#typing.Type "(in Python v3.13)")\[ExecutorBase\]_, _log\_stats: [bool](https://docs.python.org/3/library/functions.html#bool "(in Python v3.13)")_, _usage\_context: UsageContext \= UsageContext.ENGINE\_CONTEXT_, _stat\_loggers: [Dict](https://docs.python.org/3/library/typing.html#typing.Dict "(in Python v3.13)")\[[str](https://docs.python.org/3/library/stdtypes.html#str "(in Python v3.13)"), StatLoggerBase\] | [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.13)") \= None_, _input\_registry: InputRegistry \= INPUT\_REGISTRY_, _mm\_registry: [MultiModalRegistry](https://docs.vllm.ai/en/v0.8.4_a/api/multimodal/registry.html#vllm.multimodal.registry.MultiModalRegistry "vllm.multimodal.registry.MultiModalRegistry") \= MULTIMODAL\_REGISTRY_, _use\_cached\_outputs: [bool](https://docs.python.org/3/library/functions.html#bool "(in Python v3.13)") \= False_)**
 

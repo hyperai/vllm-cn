@@ -2,7 +2,7 @@
 title: vLLM  分页注意力
 ---
 
-[\*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
+[\*在线运行 vLLM 入门教程：零基础分步指南](https://app.hyper.ai/console/public/tutorials/rUwYsyhAIt3?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
 
 - 目前，vLLM 使用自己的多头查询注意力内核实现（`csrc/attention/attention_kernels.cu`）。该内核旨在兼容 vLLM 的分页键值缓存，其中键和值缓存存储在不同的块中（注意，这里的块概念与 GPU 线程块不同。因此，在后续文档中，将把 vLLM 分页注意力块称为「块」，而把 GPU 线程块称为「线程块」）。
 

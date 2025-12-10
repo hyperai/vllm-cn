@@ -2,16 +2,16 @@
 title: 添加新模型
 ---
 
-[\*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
+[\*在线运行 vLLM 入门教程：零基础分步指南](https://app.hyper.ai/console/public/tutorials/rUwYsyhAIt3?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
 
 本节提供了更多关于如何将 [PyTorch](https://pytorch.org/) 模型集成到 vLLM 中的信息。
 
 #### 目录
 
-- [实现基础模型](https://docs.vllm.ai/en/latest/contributing/model/basic.html)
-- [将模型注册到 vLLM](https://docs.vllm.ai/en/latest/contributing/model/registration.html)
-- [编写单元测试](https://docs.vllm.ai/en/latest/contributing/model/tests.html)
-- [多模态支持](https://docs.vllm.ai/en/latest/contributing/model/multimodal.html)
+- [实现基础模型](/docs/contributing/model/basic)
+- [将模型注册到 vLLM](/docs/contributing/model/registration)
+- [编写单元测试](/docs/contributing/model/tests)
+- [多模态支持](/docs/contributing/model/multimodal)
 
 > **注意**
 > 

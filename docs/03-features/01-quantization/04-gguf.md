@@ -2,7 +2,7 @@
 title: GGUF
 ---
 
-[\*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
+[\*在线运行 vLLM 入门教程：零基础分步指南](https://app.hyper.ai/console/public/tutorials/rUwYsyhAIt3?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
 
 > **警告**
 > 请注意，vLLM 中的 GGUF 支持目前处于高度实验性阶段，且未进行充分优化，可能与其他功能不兼容。目前，您可以使用 GGUF 来减少内存占用。如果您遇到任何问题，请向 vLLM 团队报告。

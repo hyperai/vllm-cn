@@ -2,7 +2,7 @@
 title: 使用 Run:ai Model Streamer 加载模型
 ---
 
-[\*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
+[\*在线运行 vLLM 入门教程：零基础分步指南](https://app.hyper.ai/console/public/tutorials/rUwYsyhAIt3?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
 
 Run:ai Model Streamer 是一个用于并发读取张量并将其流式传输到 GPU 内存的库。更多信息可以在 [Run:ai Model Streamer 文档](https://github.com/run-ai/runai-model-streamer/blob/master/docs/README.md)中找到。
 
