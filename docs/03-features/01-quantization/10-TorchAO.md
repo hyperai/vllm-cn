@@ -2,7 +2,7 @@
 title: TorchAO
 ---
 
-[\*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
+[\*在线运行 vLLM 入门教程：零基础分步指南](https://app.hyper.ai/console/public/tutorials/rUwYsyhAIt3?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
 
 TorchAO 是 PyTorch 的架构优化库，它为推理和训练提供高性能的 dtype、优化技术和内核，具有与原生 PyTorch 功能（如 torch.compile、FSDP 等）的可组合性。可以[在此处](https://github.com/pytorch/ao/tree/main/torchao/quantization#benchmarks)找到一些基准数字。
 

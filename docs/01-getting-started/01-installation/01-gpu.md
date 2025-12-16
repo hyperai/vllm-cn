@@ -2,7 +2,7 @@
 title: GPU
 ---
 
-[\*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
+[\*在线运行 vLLM 入门教程：零基础分步指南](https://app.hyper.ai/console/public/tutorials/rUwYsyhAIt3?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
 
 vLLM 是一个支持如下 GPU 类型的 Python 库，根据您的 GPU 型号查看相应的说明。
 
@@ -17,7 +17,7 @@ vLLM 支持拥有 ROCm 6.3 的 AMD GPU。
 > **注意：**
 > 该设备没有预构建的轮子，所以您必须使用预构建的 Docker 镜像或者从源代码构建 vLLM。
 
-## Inter XPU
+## Intel XPU
 
 vLLM 最初在 Intel GPU 平台上支持基础的模型推理和服务。
 

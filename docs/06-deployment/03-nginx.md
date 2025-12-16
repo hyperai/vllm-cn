@@ -2,25 +2,25 @@
 title: 使用 Nginx
 ---
 
-[\*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
+[\*在线运行 vLLM 入门教程：零基础分步指南](https://app.hyper.ai/console/public/tutorials/rUwYsyhAIt3?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
 
 本文档介绍如何启动多个 vLLM 服务器容器，并使用 Nginx 作为负载均衡器在这些服务器之间进行流量分配。
 
 目录
 
-1. [构建 Nginx 容器](https://docs.vllm.ai/en/latest/deployment/nginx.html#nginxloadbalancer-nginx-build)
+1. [构建 Nginx 容器](/docs/deployment/nginx#构建-nginx-容器)
 
-2. [创建简单的 Nginx 配置文件](https://docs.vllm.ai/en/latest/deployment/nginx.html#nginxloadbalancer-nginx-conf)
+2. [创建简单的 Nginx 配置文件](/docs/deployment/nginx#创建简单的-nginx-配置文件)
 
-3. [构建 vLLM 容器](https://docs.vllm.ai/en/latest/deployment/nginx.html#nginxloadbalancer-nginx-vllm-container)
+3. [构建 vLLM 容器](/docs/deployment/nginx#构建-vllm-容器)
 
-4. [创建 Docker 网络](https://docs.vllm.ai/en/latest/deployment/nginx.html#nginxloadbalancer-nginx-docker-network)
+4. [创建 Docker 网络](/docs/deployment/nginx#创建-docker-网络)
 
-5. [启动 vLLM 容器](https://docs.vllm.ai/en/latest/deployment/nginx.html#nginxloadbalancer-nginx-launch-container)
+5. [启动 vLLM 容器](/docs/deployment/nginx#启动-vllm-容器)
 
-6. [启动 Nginx](https://docs.vllm.ai/en/latest/deployment/nginx.html#nginxloadbalancer-nginx-launch-nginx)
+6. [启动 Nginx](/docs/deployment/nginx#启动-nginx)
 
-7. [验证 vLLM 服务器是否准备就绪](https://docs.vllm.ai/en/latest/deployment/nginx.html#nginxloadbalancer-nginx-verify-nginx)
+7. [验证 vLLM 服务器是否准备就绪](/docs/deployment/nginx#验证-vllm-服务器是否准备就绪)
 
 ## 构建 Nginx 容器
 

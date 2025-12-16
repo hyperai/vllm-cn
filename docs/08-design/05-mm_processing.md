@@ -2,7 +2,7 @@
 title: 多模态数据处理
 ---
 
-[\*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
+[\*在线运行 vLLM 入门教程：零基础分步指南](https://app.hyper.ai/console/public/tutorials/rUwYsyhAIt3?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
 
 
 为了实现 vLLM 中的各种优化，例如[分块预填充](https://docs.vllm.ai/en/latest/performance/optimization.html#chunked-prefill)和[前缀缓存](https://docs.vllm.ai/en/latest/features/automatic_prefix_caching.html#automatic-prefix-caching)，我们使用 `BaseMultiModalProcessor` 来提供占位符特征 token（例如 `<image>`）与多模态输入（例如原始输入图像）之间的对应关系，基于 HF 处理器的输出。

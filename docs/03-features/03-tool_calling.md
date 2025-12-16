@@ -2,7 +2,7 @@
 title: 工具调用
 ---
 
-[\*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
+[\*在线运行 vLLM 入门教程：零基础分步指南](https://app.hyper.ai/console/public/tutorials/rUwYsyhAIt3?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
 
 vLLM 目前支持命名函数调用，并在聊天补全 API 的 `tool_choice` 字段中支持 `auto` 和 `none` 选项。`required` 选项**尚未支持**，但已在[开发计划](https://github.com/vllm-project/vllm/issues/13002#)中。
 

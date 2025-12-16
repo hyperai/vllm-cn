@@ -2,7 +2,7 @@
 title: 将 LangChain 与 vLLM 结合使用：完整教程
 ---
 
-[<font face="黑体" color=DodgerBlue size=5>在线运行此教程</font>](https://openbayes.com/console/hyperai-tutorials/containers/ODfeIHjjXbW)
+[<font face="黑体" color=DodgerBlue size=5>在线运行此教程</font>](https://app.hyper.ai/console/public/tutorials/msGnL0wPdFe?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
 
 LangChain 是提供构建复杂操作链的工具，而 vLLM 专注于高效的模型推理。两者结合应用可以简化并加速智能 LLM 应用程序的开发。
 
@@ -23,13 +23,13 @@ vLLM 配置要求：
 
 操作系统： Linux
 
-Python 版本： Python >= 3.8
+Python 版本： Python >= 3.10
 
 GPU 要求：计算能力 >= 7.0 的 GPU（例如 V100、T4、RTX20xx、A100、L4、H100）。
 
-CUDA 版本： vLLM 使用 CUDA 12.1 编译。请确保您的系统正在运行此版本。
+CUDA 版本：vLLM 的二进制文件默认使用 CUDA 12.9 和公开发布的 PyTorch 版本编译。
 
-如果您没有运行 CUDA 12.1，您可以安装为您的 CUDA 版本编译的 vLLM 版本或将您的 CUDA 升级到版本 12.1。
+如果您没有运行 CUDA 12.9，您可以安装为您的 CUDA 版本编译的 vLLM 版本或将您的 CUDA 升级到版本 12.9。
 
 在继续之前，建议执行一些基本检查以确保一切都安装正确。您可以通过运行以下命令来验证 PyTorch 是否与 CUDA 一起使用：
 
@@ -38,13 +38,13 @@ CUDA 版本： vLLM 使用 CUDA 12.1 编译。请确保您的系统正在运行�
 python -c 'import torch; print(torch.cuda.is_available())'
 ```
 
-vLLM 是一个 Python 库，还包含预编译的 C++ 和 CUDA (12.1) 二进制文件。但是，如果您需要 CUDA 11.8，则可以使用以下命令安装兼容版本：
+vLLM 是一个 Python 库，还包含预编译的 C++ 和 CUDA (12.9) 二进制文件。但是，如果您需要 CUDA 12.8，则可以使用以下命令安装兼容版本：
 
 ```python
-# Install vLLM with CUDA 11.8
-export VLLM_VERSION=0.6.1.post1
+# Install vLLM with CUDA 12.8
+export VLLM_VERSION=0.11.0
 export PYTHON_VERSION=310
-pip install https://github.com/vllm-project/vllm/releases/download/v${VLLM_VERSION}/vllm-${VLLM_VERSION}+cu118-cp${PYTHON_VERSION}-cp${PYTHON_VERSION}-manylinux1_x86_64.whl --extra-index-url https://download.pytorch.org/whl/cu118
+pip install https://github.com/vllm-project/vllm/releases/download/v<span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi>V</mi><mi>L</mi><mi>L</mi><msub><mi>M</mi><mi>V</mi></msub><mi>E</mi><mi>R</mi><mi>S</mi><mi>I</mi><mi>O</mi><mi>N</mi></mrow><mi mathvariant="normal">/</mi><mi>v</mi><mi>l</mi><mi>l</mi><mi>m</mi><mo>−</mo></mrow><annotation encoding="application/x-tex">{VLLM_VERSION}/vllm-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.2222em;">V</span><span class="mord mathnormal">LL</span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.109em;">M</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.3283em;"><span class="" style="top: -2.55em; margin-left: -0.109em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right: 0.2222em;">V</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span><span class="mord mathnormal" style="margin-right: 0.0576em;">ERS</span><span class="mord mathnormal" style="margin-right: 0.0785em;">I</span><span class="mord mathnormal" style="margin-right: 0.109em;">ON</span></span><span class="mord">/</span><span class="mord mathnormal" style="margin-right: 0.0359em;">v</span><span class="mord mathnormal" style="margin-right: 0.0197em;">ll</span><span class="mord mathnormal">m</span><span class="mord">−</span></span></span></span></span>{VLLM_VERSION}+cu128-cp<span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi>P</mi><mi>Y</mi><mi>T</mi><mi>H</mi><mi>O</mi><msub><mi>N</mi><mi>V</mi></msub><mi>E</mi><mi>R</mi><mi>S</mi><mi>I</mi><mi>O</mi><mi>N</mi></mrow><mo>−</mo><mi>c</mi><mi>p</mi></mrow><annotation encoding="application/x-tex">{PYTHON_VERSION}-cp</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.8333em; vertical-align: -0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.1389em;">P</span><span class="mord mathnormal" style="margin-right: 0.2222em;">Y</span><span class="mord mathnormal" style="margin-right: 0.1389em;">T</span><span class="mord mathnormal" style="margin-right: 0.0813em;">H</span><span class="mord mathnormal" style="margin-right: 0.0278em;">O</span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.109em;">N</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.3283em;"><span class="" style="top: -2.55em; margin-left: -0.109em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right: 0.2222em;">V</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span><span class="mord mathnormal" style="margin-right: 0.0576em;">ERS</span><span class="mord mathnormal" style="margin-right: 0.0785em;">I</span><span class="mord mathnormal" style="margin-right: 0.109em;">ON</span></span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.625em; vertical-align: -0.1944em;"></span><span class="mord mathnormal">c</span><span class="mord mathnormal">p</span></span></span></span></span>{PYTHON_VERSION}-manylinux1_x86_64.whl --extra-index-url https://download.pytorch.org/whl/cu128
 ```
 
 ### Docker 安装
@@ -63,7 +63,7 @@ pip install --upgrade --quiet vllm -q
 pip install langchain langchain_community -q
 ```
 
-本教程已经安装 vllm==0.6.4，只需将 langchain 相关包安装完毕。
+本教程已经安装 vllm==0.11.0，只需将 langchain 相关包安装完毕。
 
 ```
 !pip install -U langchain langchain_community -q
@@ -71,39 +71,34 @@ pip install langchain langchain_community -q
 
 
 ## 2. 配置 vLLM 以与 LangChain 配合使用
+
 现在依赖项已安装完毕，我们可以设置 vLLM 并将其连接到 LangChain。为此，我们将从 LangChain 社区集成中导入 VLLM。下面的示例演示了如何使用 vLLM 库初始化模型并将其与 LangChain 集成。
 
-
 ```
-
 import gc
 import ctypes
 import torch
 def clean_memory(deep=False):
-gc.collect()
-if deep:
-ctypes.CDLL("libc.so.6").malloc_trim(0)
-torch.cuda.empty_cache()
-
+    gc.collect()
+    if deep:
+        ctypes.CDLL("libc.so.6").malloc_trim(0)
+    torch.cuda.empty_cache()
 ```
 
 ```
-
 from langchain_community.llms import VLLM
 
 # Initializing the vLLM model
-
 llm = VLLM(
-model="/input0/Qwen2.5-1.5B-Instruct",
-trust_remote_code=True, # mandatory for Hugging Face models
-max_new_tokens=128,
-top_k=10,
-top_p=0.95,
-temperature=0.8,
+    model="/input0/Qwen2.5-1.5B-Instruct",
+    trust_remote_code=True,  # mandatory for Hugging Face models
+    max_new_tokens=128,
+    top_k=10,
+    top_p=0.95,
+    temperature=0.8,
 )
 
 # Running a simple query
-
 print(llm.invoke("What are the most popular Halloween Costumes?"))
 
 ```
@@ -124,34 +119,27 @@ print(llm.invoke("What are the most popular Halloween Costumes?"))
 | 使用光束搜索            | 是否使用集束搜索而不是采样来生成更优化的序列。默认值为 False。                                        |
 | 复制代码               | 保存对 vLLM LLM 调用有效的未明确指定的附加参数。                                                     |
 
-在此示例中，我们加载 `Qwen2.5-1.5B-Instruct` 模型并配置`max_new_tokens`、`top_k`和 等参数`temperature`。这些设置会影响模型生成文本的方式。
+在此示例中，我们加载 `Qwen2.5-1.5B-Instruct` 模型并配置 `max_new_tokens`、`top_k` 和等参数 `temperature`。这些设置会影响模型生成文本的方式。
 
 ## 3. 使用 LangChain 和 vLLM 创建链
 
 LangChain 的核心功能之一是能够创建操作链，从而实现更复杂的交互。我们可以轻松地将 vLLM 模型集成到 LLMChain 中，从而提供更大的灵活性。
 
-
 ```
-
-from langchain.chains import LLMChain
 from langchain_core.prompts import PromptTemplate
 
 # Defining a prompt template for our LLMChain
-
 template = """Question: {question}
 
 Answer: Let's think step by step."""
 prompt = PromptTemplate.from_template(template)
 
 # Creating an LLMChain with vLLM
-
-llm_chain = LLMChain(prompt=prompt, llm=llm)
+llm_chain =prompt|llm
 
 # Testing the LLMChain
-
 question = "Who was the US president in the year the first Pokemon game was released?"
 print(llm_chain.invoke(question))
-
 ```
 
 ## 4. 利用多 GPU 推理进行扩展
@@ -160,57 +148,52 @@ print(llm_chain.invoke(question))
 要运行多 GPU 推理，请 tensor_parallel_size 在初始化 VLLM 类时使用该参数。
 
 ```
-
-del llm
+del llm,llm_chain
 
 clean_memory(deep=True)
-
 ```
 
 ```
-
 from langchain_community.llms import VLLM
 
 # Running inference on multiple GPUs
-
 llm = VLLM(
-model="/input0/Qwen2.5-1.5B-Instruct",
-tensor_parallel_size=1, # using 1 GPUs
-trust_remote_code=True,
+    model="/input0/Qwen2.5-1.5B-Instruct",
+    tensor_parallel_size=1,  # using 1 GPUs
+    trust_remote_code=True,
+    max_new_tokens=128,
+    top_k=10,
+    top_p=0.95,
+    temperature=0.8,
+    gpu_memory_utilization=0.7,
 )
 
 print(llm.invoke("What is the future of AI?"))
-
 ```
 
 对于较大的模型，强烈建议使用此方法，因为它的计算量很大，而且在单个 GPU 上运行速度太慢。
 
 ## 5. 利用量化提高效率
+
 量化是一种通过减少内存使用和加快计算来提高语言模型性能的有效技术。
 
 vLLM 支持 AWQ 量化格式。要启用它，请通过参数传递量化选项 vllm_kwargs。量化允许在资源受限的环境（例如边缘设备或较旧的 GPU）中部署 LLM，而不会牺牲太多准确性。
 
 ```
-
 del llm
 
 clean_memory(deep=True)
-
 ```
 
 ```
-
 llm_q = VLLM(
-model="/input0/Qwen2.5-3B-Instruct-AWQ",
-trust_remote_code=True,
-max_new_tokens=512,
-vllm_kwargs={"quantization": "awq"},
+    model="/input0/Qwen2.5-3B-Instruct-AWQ",
+    trust_remote_code=True,
+    max_new_tokens=512,
+    vllm_kwargs={"quantization": "awq"},
 )
-
 # Running a simple query
-
 print(llm_q.invoke("What are the most popular Halloween Costumes?"))
-
 ```
 
 在此示例中，Qwen2.5-3B-Instruct-AWQ模型已量化以实现最佳性能。在将应用程序部署到生产环境（成本和资源效率至关重要）时，此功能尤其有用。

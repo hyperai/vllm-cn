@@ -2,7 +2,7 @@
 title: 使用 CoreWeave 的 Tensorizer 加载模型
 ---
 
-[\*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
+[\*在线运行 vLLM 入门教程：零基础分步指南](https://app.hyper.ai/console/public/tutorials/rUwYsyhAIt3?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
 
 vLLM 支持使用 [CoreWeave 的 Tensorizer](https://docs.coreweave.com/coreweave-machine-learning-and-ai/inference/tensorizer) 加载模型。vLLM 模型张量可以被序列化到磁盘、HTTP/HTTPS 端点或 S3 端点，并在运行时极快地直接反序列化到 GPU，从而显著缩短 Pod 启动时间并减少 CPU 内存使用。同时，Tensorizer 还支持张量加密。
 
