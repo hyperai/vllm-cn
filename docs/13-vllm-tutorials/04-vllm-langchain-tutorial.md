@@ -206,4 +206,4 @@ print(llm_q.invoke("What are the most popular Halloween Costumes?"))
 例如，vLLM 的 CUDA 优化内核和连续批处理策略可以显著减少响应时间。
 
 然而，在生产系统中，特别是面向用户的系统（如聊天机器人）中，监控实时推理延迟至关重要。
-```
+
