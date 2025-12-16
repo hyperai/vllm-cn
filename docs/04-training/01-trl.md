@@ -2,7 +2,7 @@
 title: Transformers 强化学习
 ---
 
-[\*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
+[\*在线运行 vLLM 入门教程：零基础分步指南](https://app.hyper.ai/console/public/tutorials/rUwYsyhAIt3?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
 
 Transformers 强化学习 (TRL) 是一个全栈库，提供了一套工具，用于通过监督微调 (SFT)、组相对策略优化 (GRPO)、直接偏好优化 (DPO)、奖励建模等方法训练 Transformer 语言模型。该库与 🤗 Transformers 集成。
 

@@ -2,7 +2,7 @@
 title: AsyncLLMEngine
 ---
 
-[\*在线运行 vLLM 入门教程：零基础分步指南](https://openbayes.com/console/public/tutorials/rXxb5fZFr29?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
+[\*在线运行 vLLM 入门教程：零基础分步指南](https://app.hyper.ai/console/public/tutorials/rUwYsyhAIt3?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
 
 **class_ vllm.AsyncLLMEngine(_\*args_, _log\_requests: [bool](https://docs.python.org/3/library/functions.html#bool "(in Python v3.13)") \= True_, _start\_engine\_loop: [bool](https://docs.python.org/3/library/functions.html#bool "(in Python v3.13)") \= True_, _\*\*kwargs_)**
 
