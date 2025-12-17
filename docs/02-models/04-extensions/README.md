@@ -8,4 +8,4 @@ title: 内置扩展
 
 [使用 CoreWeave 的 Tensorizer 加载模型](/docs/models/extensions/tensorizer)
 
-[使用 fastsafetensors 加载模型权重](docs/models/extensions/fastsafetensor)
+[使用 fastsafetensors 加载模型权重](/docs/models/extensions/fastsafetensor)
