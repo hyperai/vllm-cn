@@ -4,7 +4,7 @@ title: 基础指南
 
 [\*在线运行 vLLM 入门教程：零基础分步指南](https://app.hyper.ai/console/public/tutorials/rUwYsyhAIt3?utm_source=vLLM-CNdoc&utm_medium=vLLM-CNdoc-V1&utm_campaign=vLLM-CNdoc-V1-25ap)
 
-源码 [examples/offline_inference/basic](https://github.com/vllm-project/vllm/blob/main/examples/offline_inference/basic)
+源码 [examples/basic/offline_inference](https://github.com/vllm-project/vllm/blob/main/examples/basic/offline_inference)
 
 # Basic
 
@@ -15,31 +15,31 @@ title: 基础指南
 示例中的第一个脚本展示了 vLLM 最基本的用法。如果你是 Python 和 vLLM 的新手，建议从这里开始。
 
 ```bash
-python examples/offline_inference/basic/basic.py
+python examples/basic/offline_inference/basic.py
 ```
 
 其余的脚本包含一个[参数解析器](https://docs.python.org/3/library/argparse.html)，你可以使用它来传递任何与 [`LLM`](https://docs.vllm.ai/en/latest/api/offline_inference/llm.html) 兼容的参数。尝试使用 `--help` 运行脚本，查看所有可用参数列表。
 
 ```bash
-python examples/offline_inference/basic/classify.py
+python examples/basic/offline_inference/classify.py
 ```
 
 ```bash
-python examples/offline_inference/basic/embed.py
+python examples/basic/offline_inference/embed.py
 ```
 
 ```bash
-python examples/offline_inference/basic/score.py
+python examples/basic/offline_inference/score.py
 ```
 
 聊天 (chat) 和文本生成 (generate) 脚本还支持采样参数： `max_tokens`, `temperature`, `top_p` 和 `top_k`。
 
 ```bash
-python examples/offline_inference/basic/chat.py
+python examples/basic/offline_inference/chat.py
 ```
 
 ```bash
-python examples/offline_inference/basic/generate.py
+python examples/basic/offline_inference/generate.py
 ```
 
 ## 功能
